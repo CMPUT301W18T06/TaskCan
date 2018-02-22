@@ -16,9 +16,63 @@
 
 package com.example.n8tech.taskcan;
 
+
 /**
- * Created by cbinns on 2/22/2018.
+ * A User is a Task Requester and or Task provider.
+ * This class stores profile information and
+ * the user's task's information.
  */
 
 public class User {
+    private String username;
+    private String password;
+    private String email;
+    private String contactInformation;
+    private MyTaskBidList myTaskBids;
+    private MyTaskList myTasks;
+
+    public User(){
+        // test user
+    }
+
+    public User(String username, String password, String email, String contactInformation) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.contactInformation = contactInformation;
+        this.myTaskBids = new MyTaskBidList();
+        this.myTasks = new MyTaskList();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContactInformation() {
+        return contactInformation;
+    }
+
+    public void setContactInformation(String contactInformation) {
+        this.contactInformation = contactInformation;
+    }
 }

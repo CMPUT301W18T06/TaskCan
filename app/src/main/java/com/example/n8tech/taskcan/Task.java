@@ -17,8 +17,122 @@
 package com.example.n8tech.taskcan;
 
 /**
- * Created by cbinns on 2/22/2018.
+ * Task represents a task from a requester
+ * and stores task details
  */
 
 public class Task {
+    private String name;
+    private String description;
+    private User owner;
+    private User provider;
+    private double maximumBid;
+    private double currentBid;
+    private String category;
+    private String status;
+    private BidderList bidderList;
+    private String location;            // TODO change to geolocation variable
+
+
+    public Task(){
+        // test task
+    }
+
+
+    // minimum information needed to create a new task
+    public Task(String name, String description, User owner) {
+        // TODO: length checking for name & description
+        this.name = name;
+        this.description = description;
+        this.owner = owner;
+
+        // set default values for a new task
+        this.provider = null;
+        this.maximumBid = Double.POSITIVE_INFINITY;
+        // this.currentBid = ?? set here to a default value or leave alone
+        this.category = "Other";
+        this.status = "Requested";
+        this.bidderList = new BidderList();
+        this.location = null;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public User getProvider() {
+        return provider;
+    }
+
+    public void setProvider(User provider) {
+        this.provider = provider;
+    }
+
+    public double getMaximumBid() {
+        return maximumBid;
+    }
+
+    public void setMaximumBid(double maximumBid) {
+        this.maximumBid = maximumBid;
+    }
+
+    public double getCurrentBid() {
+        return currentBid;
+    }
+
+    public void setCurrentBid(double currentBid) {
+        this.currentBid = currentBid;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public BidderList getBidderList() {
+        return bidderList;
+    }
+
+    public void setBidderList(BidderList bidderList) {
+        this.bidderList = bidderList;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }
