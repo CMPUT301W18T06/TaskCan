@@ -32,6 +32,7 @@ public class UserTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testAddUser() {
+        //Tests that a user retains set information.
         User user1 = new User();
         user1.setUsername("Joe");
         user1.setPassword("7355608");
@@ -45,6 +46,7 @@ public class UserTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testUserAddBidTask() {
+        //Tests that it correctly updates its bid tasks
         User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
         Task task1 = new Task();
         Task task2 = new Task();
@@ -54,10 +56,15 @@ public class UserTest extends ActivityInstrumentationTestCase2 {
         ArrayList<Task> bidTaskList = new ArrayList<Task>();
         bidTaskList.add(task1);
         bidTaskList.add(task2);
-        assert(user1.getBidTaskList() == bidTaskList);
+        assert(user1.getBidTaskList().equals(bidTaskList));
+
+        user1.removeBidTask(task2);
+        bidTaskList.remove(1);
+        assert(user1.getBidTaskList().equals(bidTaskList));
     }
 
     public void testUserAddTask() {
+        //Tests that it correctly updates its tasks
         User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
         Task task1 = new Task();
         Task task2 = new Task();
@@ -68,6 +75,10 @@ public class UserTest extends ActivityInstrumentationTestCase2 {
         taskList.add(task1);
         taskList.add(task2);
         assert(user1.getTaskList() == taskList);
+
+        user1.removeBidTask(task2);
+        taskList.remove(1);
+        assert(user1.getBidTaskList().equals(taskList));
     }
 
 }

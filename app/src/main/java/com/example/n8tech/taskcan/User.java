@@ -80,9 +80,13 @@ public class User {
 
     public void addBidTask(Task task) {}
 
+    public void removeBidTask(Task task) {}
+
     public ArrayList<Task> getBidTaskList() { return this.myTaskBids; }
 
     public void addTask(Task task) {}
+
+    public void removeTask(Task task) {}
 
     public ArrayList<Task> getTaskList() { return this.myTasks; }
 }

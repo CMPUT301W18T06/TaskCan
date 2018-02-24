@@ -7,17 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83a658d9-6600-429f-885d-c5773401023d" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/BidderList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/MyTaskBidList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/MyTaskList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/BidderListTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/MyTaskBidListTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/MyTaskListTest.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/Task.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/Task.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/User.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/User.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/TaskTest.java" afterPath="$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/TaskTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/UserTest.java" afterPath="$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/UserTest.java" />
@@ -67,10 +56,10 @@
       <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="665">
-              <caret line="86" column="65" lean-forward="false" selection-start-line="86" selection-start-column="65" selection-end-line="86" selection-end-column="65" />
+            <state relative-caret-position="713">
+              <caret line="88" column="40" lean-forward="false" selection-start-line="88" selection-start-column="40" selection-end-line="88" selection-end-column="40" />
               <folding>
-                <element signature="e#0#2400#0" expanded="true" />
+                <element signature="e#0#2487#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -79,8 +68,8 @@
       <file leaf-file-name="UserTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/UserTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1134">
-              <caret line="70" column="5" lean-forward="false" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
+            <state relative-caret-position="1050">
+              <caret line="66" column="51" lean-forward="false" selection-start-line="66" selection-start-column="51" selection-end-line="66" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -88,16 +77,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TaskTest.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TaskTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/TaskTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="33" column="16" lean-forward="false" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
+            <state relative-caret-position="5838">
+              <caret line="294" column="44" lean-forward="false" selection-start-line="294" selection-start-column="44" selection-end-line="294" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3553#3559#0" expanded="true" />
-                <element signature="e#3790#3798#0" expanded="true" />
-                <element signature="e#3855#3863#0" expanded="true" />
+                <element signature="e#4007#4013#0" expanded="true" />
+                <element signature="e#4244#4252#0" expanded="true" />
+                <element signature="e#6753#6759#0" expanded="true" />
+                <element signature="e#6903#6911#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -115,11 +105,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Task.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Task.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/Task.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
-              <caret line="138" column="5" lean-forward="true" selection-start-line="138" selection-start-column="5" selection-end-line="138" selection-end-column="5" />
+            <state relative-caret-position="2373">
+              <caret line="153" column="0" lean-forward="true" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
               <folding>
                 <element signature="e#0#3884#0" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -1887,10 +1877,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/MyTaskBidList.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/MyTaskList.java" />
         <option value="$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/BidderTest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/Task.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/User.java" />
         <option value="$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/UserTest.java" />
         <option value="$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/TaskTest.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/User.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/Task.java" />
       </list>
     </option>
   </component>
@@ -2063,7 +2053,7 @@
       <option name="ACTIVITY_CLASS" value="com.example.n8tech.taskcan.SignInActivity" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519501323378" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519504236162" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
@@ -2136,7 +2126,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519501323378" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519504236163" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2184,7 +2174,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519501323378" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519504236163" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2367,7 +2357,7 @@
       <option name="ACTIVITY_CLASS" value="com.example.n8tech.taskcan.SignInActivity" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519501323379" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519504236165" />
       </method>
     </configuration>
     <list size="2">
@@ -2432,7 +2422,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32922733" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2828,6 +2818,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/Task.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2373">
+          <caret line="153" column="0" lean-forward="true" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#3884#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#3458#3464#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="713">
+          <caret line="88" column="40" lean-forward="false" selection-start-line="88" selection-start-column="40" selection-end-line="88" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#2487#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/BidderTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
@@ -2846,8 +2858,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/UserTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1134">
-          <caret line="70" column="5" lean-forward="false" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
+        <state relative-caret-position="1050">
+          <caret line="66" column="51" lean-forward="false" selection-start-line="66" selection-start-column="51" selection-end-line="66" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -2856,35 +2868,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/TaskTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="33" column="16" lean-forward="false" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
+        <state relative-caret-position="5838">
+          <caret line="294" column="44" lean-forward="false" selection-start-line="294" selection-start-column="44" selection-end-line="294" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3553#3559#0" expanded="true" />
-            <element signature="e#3790#3798#0" expanded="true" />
-            <element signature="e#3855#3863#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="86" column="65" lean-forward="false" selection-start-line="86" selection-start-column="65" selection-end-line="86" selection-end-column="65" />
-          <folding>
-            <element signature="e#0#2400#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/Task.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="138" column="5" lean-forward="true" selection-start-line="138" selection-start-column="5" selection-end-line="138" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#3884#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#3458#3464#0" expanded="true" />
+            <element signature="e#4007#4013#0" expanded="true" />
+            <element signature="e#4244#4252#0" expanded="true" />
+            <element signature="e#6753#6759#0" expanded="true" />
+            <element signature="e#6903#6911#0" expanded="true" />
           </folding>
         </state>
       </provider>
