@@ -17,6 +17,8 @@
 package com.example.n8tech.taskcan;
 
 
+import java.util.ArrayList;
+
 /**
  * A User is a Task Requester and or Task provider.
  * This class stores profile information and
@@ -28,8 +30,8 @@ public class User {
     private String password;
     private String email;
     private String contactInformation;
-    private MyTaskBidList myTaskBids;
-    private MyTaskList myTasks;
+    private ArrayList<Task> myTaskBids;
+    private ArrayList<Task> myTasks;
 
     public User(){
         // test user
@@ -40,8 +42,8 @@ public class User {
         this.password = password;
         this.email = email;
         this.contactInformation = contactInformation;
-        this.myTaskBids = new MyTaskBidList();
-        this.myTasks = new MyTaskList();
+        this.myTaskBids = new ArrayList<Task>();
+        this.myTasks = new ArrayList<Task>();
     }
 
     public String getUsername() {
@@ -75,4 +77,12 @@ public class User {
     public void setContactInformation(String contactInformation) {
         this.contactInformation = contactInformation;
     }
+
+    public void addBidTask(Task task) {}
+
+    public ArrayList<Task> getBidTaskList() { return this.myTaskBids; }
+
+    public void addTask(Task task) {}
+
+    public ArrayList<Task> getTaskList() { return this.myTasks; }
 }

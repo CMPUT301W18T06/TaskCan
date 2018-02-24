@@ -31,7 +31,7 @@ public class TaskTest extends ActivityInstrumentationTestCase2 {
         super(SignInActivity.class);
     }
 
-    public testAddTask() {
+    public void testAddTask() {
         User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
         User user2 = new User("Bill", "1111", "bill@n8tech.com", "098-765-4321");
         User user3 = new User("Mary", "1234", "mary@n8tech.com", "312-893-8293");
@@ -54,7 +54,7 @@ public class TaskTest extends ActivityInstrumentationTestCase2 {
         assert(task1.getProvider().equals(user2));
         assert(task1.getMaximumBid() == 20.00);
         assert(task1.getCategory() == "Pets");
-        assert(task1.getBidderList()[1].equals(bidder1));
+        assert(task1.getBidderList().get(1).equals(bidder1));
         assert(task1.getLocation() == "Edmonton");
     }
 

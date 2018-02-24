@@ -70,5 +70,4 @@ public class UserTest extends ActivityInstrumentationTestCase2 {
         assert(user1.getTaskList() == taskList);
     }
 
-
 }

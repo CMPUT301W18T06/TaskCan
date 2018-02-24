@@ -16,6 +16,10 @@
 
 package com.example.n8tech.taskcan;
 
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
+
 /**
  * Task represents a task from a requester
  * and stores task details
@@ -30,7 +34,7 @@ public class Task {
     private double currentBid;
     private String category;
     private String status;
-    private BidderList bidderList;
+    private ArrayList<Bidder> bidderList;
     private String location;            // TODO change to geolocation variable
 
 
@@ -52,7 +56,7 @@ public class Task {
         // this.currentBid = ?? set here to a default value or leave alone
         this.category = "Other";
         this.status = "Requested";
-        this.bidderList = new BidderList();
+        this.bidderList = new ArrayList<Bidder>();
         this.location = null;
     }
 
@@ -120,12 +124,18 @@ public class Task {
         this.status = status;
     }
 
-    public BidderList getBidderList() {
+    public ArrayList<Bidder> getBidderList() {
         return bidderList;
     }
 
-    public void setBidderList(BidderList bidderList) {
+    public void setBidderList(ArrayList<Bidder> bidderList) {
         this.bidderList = bidderList;
+    }
+
+    public ArrayList<User> getUserBidList() {
+        //Needs to seperate out users
+        ArrayList<User> userList = new ArrayList<User>();
+        return userList;
     }
 
     public String getLocation() {
@@ -135,4 +145,14 @@ public class Task {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    public void addBidder(Bidder bidder) {this.bidderList.add(bidder); }
+
+    public void addBidder(User user, double bid) {}
+
+    public void updateBidder(User user, double bid) {}
+
+    public void cancelBidder(User user) {}
+
+
 }
