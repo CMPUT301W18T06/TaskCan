@@ -1,4 +1,5 @@
 2018-02-27 - Added based android studio file (MQ)
 2018-02-23 - Added basic tests the the Task, User, and Bidder classes, preliminary tests
 	     still need to determine how to do task lists best
+2018-02-25 - Updated Storyboard and Mockup based on TA feedback - cbinns
 
