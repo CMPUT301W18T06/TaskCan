@@ -1,6 +1,6 @@
 *.iml
 
-# ignore local properties
+# local properties
 local.properties
 
 .DS_Store
@@ -11,3 +11,5 @@ local.properties
 
 # Log Files
 *.log
+
+.idea/
