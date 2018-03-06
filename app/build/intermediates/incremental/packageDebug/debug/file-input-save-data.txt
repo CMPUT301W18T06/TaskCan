@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Tue Mar 06 00:41:11 MST 2018
+#Tue Mar 06 01:45:44 MST 2018
 2.base=C\:\\Users\\m_qui\\Documents\\Android Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\15
 5.set=DEX
 0.path=classes.dex
