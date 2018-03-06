@@ -2,4 +2,5 @@
 2018-02-23 - Added basic tests the the Task, User, and Bidder classes, preliminary tests
 	     still need to determine how to do task lists best
 2018-02-25 - Updated Storyboard and Mockup based on TA feedback - cbinns
+2018-03-06 - Added backend functionality to sign in and sign up, few issues of note although, in layout view it shows the correct strings, once I load the app it just shows TextView. Also things aren't constraining as it shows. Need to still add ElasticSearch functionality. (MQ)
 

@@ -20,20 +20,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".ResultActivity" />
-        <activity android:name=".ViewProfileActivity" />
-        <activity android:name=".MyBidActivity" />
-        <activity android:name=".ViewTaskOnMapsActivity" />
-        <activity android:name=".ViewCategoryActivity" />
-        <activity android:name=".MyTaskActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".ImageSlideShowActivity" />
-        <activity android:name=".EditTaskMapActivity" />
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".TaskDetailActivity" />
-        <activity android:name=".EditTaskActivity" />
-        <activity android:name=".SignInActivity">
+        <activity android:name=".SearchActivity" android:exported="true"/>
+        <activity android:name=".ResultActivity" android:exported="true"/>
+        <activity android:name=".ViewProfileActivity" android:exported="true"/>
+        <activity android:name=".MyBidActivity" android:exported="true"/>
+        <activity android:name=".ViewTaskOnMapsActivity" android:exported="true"/>
+        <activity android:name=".ViewCategoryActivity" android:exported="true"/>
+        <activity android:name=".MyTaskActivity" android:exported="true"/>
+        <activity android:name=".SignUpActivity" android:exported="true"/>
+        <activity android:name=".ImageSlideShowActivity" android:exported="true"/>
+        <activity android:name=".EditTaskMapActivity" android:exported="true"/>
+        <activity android:name=".EditProfileActivity" android:exported="true"/>
+        <activity android:name=".TaskDetailActivity" android:exported="true"/>
+        <activity android:name=".EditTaskActivity" android:exported="true"/>
+        <activity android:name=".SignInActivity" android:exported="true">
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

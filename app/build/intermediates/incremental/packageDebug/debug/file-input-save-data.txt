@@ -1,17 +1,17 @@
 #Internal package file, do not edit.
-#Thu Feb 22 12:53:19 MST 2018
-2.base=C\:\\Data\\UofA\\Lectures\\CMPUT301\\Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\13
+#Tue Mar 06 00:41:11 MST 2018
+2.base=C\:\\Users\\m_qui\\Documents\\Android Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\15
 5.set=DEX
 0.path=classes.dex
 2.baseType=DIRECTORY
-3.base=C\:\\Data\\UofA\\Lectures\\CMPUT301\\Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\15
+3.base=C\:\\Users\\m_qui\\Documents\\Android Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\12
 2.set=DEX
 1.path=classes.dex
-4.base=C\:\\Data\\UofA\\Lectures\\CMPUT301\\Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\12
+4.base=C\:\\Users\\m_qui\\Documents\\Android Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\11
 count=6
 5.baseType=DIRECTORY
 2.path=classes.dex
-5.base=C\:\\Data\\UofA\\Lectures\\CMPUT301\\Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\14
+5.base=C\:\\Users\\m_qui\\Documents\\Android Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\14
 4.set=DEX
 3.path=classes.dex
 3.baseType=DIRECTORY
@@ -19,9 +19,9 @@ count=6
 4.path=classes.dex
 1.baseType=DIRECTORY
 5.path=classes.dex
-0.base=C\:\\Data\\UofA\\Lectures\\CMPUT301\\Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\16
+0.base=C\:\\Users\\m_qui\\Documents\\Android Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\13
 0.baseType=DIRECTORY
 3.set=DEX
-1.base=C\:\\Data\\UofA\\Lectures\\CMPUT301\\Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\11
+1.base=C\:\\Users\\m_qui\\Documents\\Android Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\16
 4.baseType=DIRECTORY
 0.set=DEX

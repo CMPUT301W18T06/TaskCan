@@ -37,7 +37,7 @@ public class User {
         // test user
     }
 
-    public User(String username, String password, String email, String contactInformation) {
+    public User(String username, String email, String password, String contactInformation) {
         this.username = username;
         this.password = password;
         this.email = email;

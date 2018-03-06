@@ -90,59 +90,87 @@ MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\m_qui\.gradle\caches
 	android:theme
 		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:21:9-40
 activity#com.example.n8tech.taskcan.SearchActivity
-ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:23:9-52
+ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:23:9-75
+	android:exported
+		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:23:50-73
 	android:name
 		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:23:19-49
 activity#com.example.n8tech.taskcan.ResultActivity
-ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:24:9-52
+ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:24:9-75
+	android:exported
+		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:24:50-73
 	android:name
 		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:24:19-49
 activity#com.example.n8tech.taskcan.ViewProfileActivity
-ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:25:9-57
+ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:25:9-80
+	android:exported
+		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:25:55-78
 	android:name
 		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:25:19-54
 activity#com.example.n8tech.taskcan.MyBidActivity
-ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:26:9-51
+ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:26:9-74
+	android:exported
+		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:26:49-72
 	android:name
 		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:26:19-48
 activity#com.example.n8tech.taskcan.ViewTaskOnMapsActivity
-ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:27:9-60
+ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:27:9-83
+	android:exported
+		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:27:58-81
 	android:name
 		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:27:19-57
 activity#com.example.n8tech.taskcan.ViewCategoryActivity
-ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:28:9-58
+ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:28:9-81
+	android:exported
+		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:28:56-79
 	android:name
 		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:28:19-55
 activity#com.example.n8tech.taskcan.MyTaskActivity
-ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:29:9-52
+ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:29:9-75
+	android:exported
+		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:29:50-73
 	android:name
 		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:29:19-49
 activity#com.example.n8tech.taskcan.SignUpActivity
-ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:30:9-52
+ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:30:9-75
+	android:exported
+		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:30:50-73
 	android:name
 		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:30:19-49
 activity#com.example.n8tech.taskcan.ImageSlideShowActivity
-ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:31:9-60
+ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:31:9-83
+	android:exported
+		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:31:58-81
 	android:name
 		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:31:19-57
 activity#com.example.n8tech.taskcan.EditTaskMapActivity
-ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:32:9-57
+ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:32:9-80
+	android:exported
+		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:32:55-78
 	android:name
 		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:32:19-54
 activity#com.example.n8tech.taskcan.EditProfileActivity
-ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:33:9-57
+ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:33:9-80
+	android:exported
+		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:33:55-78
 	android:name
 		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:33:19-54
 activity#com.example.n8tech.taskcan.TaskDetailActivity
-ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:34:9-56
+ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:34:9-79
+	android:exported
+		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:34:54-77
 	android:name
 		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:34:19-53
 activity#com.example.n8tech.taskcan.EditTaskActivity
-ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:35:9-54
+ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:35:9-77
+	android:exported
+		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:35:52-75
 	android:name
 		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:35:19-51
 activity#com.example.n8tech.taskcan.SignInActivity
 ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:36:9-42:20
+	android:exported
+		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:36:50-73
 	android:name
 		ADDED from C:\Users\m_qui\Documents\Android Projects\TaskCan\app\src\main\AndroidManifest.xml:36:19-49
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER

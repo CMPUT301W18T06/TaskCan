@@ -1,4 +1,4 @@
-#Thu Feb 22 14:07:03 MST 2018
-base.0=C\:\\Data\\UofA\\Lectures\\CMPUT301\\Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\4
+#Tue Mar 06 00:56:13 MST 2018
+base.0=C\:\\Users\\m_qui\\Documents\\Android Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\4
 path.0=classes.dex
 renamed.0=classes.dex

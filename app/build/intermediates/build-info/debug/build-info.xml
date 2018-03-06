@@ -1,104 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
-    abi="arm64-v8a,armeabi-v7a,armeabi"
-    api-level="23"
-    build-mode="FULL"
-    density="xxxhdpi"
+    abi="x86"
+    api-level="27"
+    build-mode="COLD"
+    density="560dpi"
     format="10"
+    ir-eligibility="COMPATIBLE"
     plugin-version="3.0.1"
-    timestamp="1519333615452"
-    token="854182431853588213"
-    verifier="FULL_BUILD_REQUESTED" >
+    timestamp="1520322972287"
+    token="3392778120630719816"
+    verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="1180" />
+        duration="204" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="95" />
+        duration="18" />
     <task
         name="verifier"
-        duration="27" />
+        duration="4" />
 
     <artifact
-        location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\outputs\apk\debug\app-debug.apk"
-        type="SPLIT_MAIN" />
-    <artifact
-        location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
+        location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
         type="SPLIT" />
 
     <build
         build-mode="FULL"
-        timestamp="1519333615452"
+        timestamp="1520310071312"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+            location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\outputs\apk\debug\app-debug.apk"
+            location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\outputs\apk\debug\app-debug.apk"
             type="SPLIT_MAIN" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="CLASS_ADDED"
+        timestamp="1520315118912"
+        verifier="COLD_SWAP_REQUESTED" >
         <artifact
-            location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
+            location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
             type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="METHOD_ADDED"
+        timestamp="1520322069264"
+        verifier="COLD_SWAP_REQUESTED" >
         <artifact
-            location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
-            type="SPLIT" />
+            location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\outputs\apk\debug\app-debug.apk"
+            type="SPLIT_MAIN" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="COMPATIBLE"
+        timestamp="1520322972287"
+        verifier="COLD_SWAP_REQUESTED" >
         <artifact
-            location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Data\UofA\Lectures\CMPUT301\Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
+            location="C:\Users\m_qui\Documents\Android Projects\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
     </build>
 
