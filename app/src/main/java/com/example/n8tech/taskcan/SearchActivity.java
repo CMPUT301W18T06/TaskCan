@@ -18,6 +18,8 @@ package com.example.n8tech.taskcan;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.support.v7.widget.Toolbar;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -25,5 +27,16 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        Toolbar mainToolbar = findViewById(R.id.menu_toolbar);
+        setSupportActionBar(mainToolbar);
+        getSupportActionBar().setTitle("Home");
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu_list, menu);
+        return true;
+    }
+
+
 }

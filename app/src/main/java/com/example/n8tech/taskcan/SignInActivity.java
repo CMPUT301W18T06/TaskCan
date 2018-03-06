@@ -16,10 +16,10 @@
 
 package com.example.n8tech.taskcan;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

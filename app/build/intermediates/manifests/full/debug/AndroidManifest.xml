@@ -20,21 +20,50 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:testOnly="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.example.n8tech.taskcan.SearchActivity" />
-        <activity android:name="com.example.n8tech.taskcan.ResultActivity" />
-        <activity android:name="com.example.n8tech.taskcan.ViewProfileActivity" />
-        <activity android:name="com.example.n8tech.taskcan.MyBidActivity" />
-        <activity android:name="com.example.n8tech.taskcan.ViewTaskOnMapsActivity" />
-        <activity android:name="com.example.n8tech.taskcan.ViewCategoryActivity" />
-        <activity android:name="com.example.n8tech.taskcan.MyTaskActivity" />
-        <activity android:name="com.example.n8tech.taskcan.SignUpActivity" />
-        <activity android:name="com.example.n8tech.taskcan.ImageSlideShowActivity" />
-        <activity android:name="com.example.n8tech.taskcan.EditTaskMapActivity" />
-        <activity android:name="com.example.n8tech.taskcan.EditProfileActivity" />
-        <activity android:name="com.example.n8tech.taskcan.TaskDetailActivity" />
-        <activity android:name="com.example.n8tech.taskcan.EditTaskActivity" />
-        <activity android:name="com.example.n8tech.taskcan.SignInActivity" >
+        <activity
+            android:name="com.example.n8tech.taskcan.SearchActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.n8tech.taskcan.ResultActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.n8tech.taskcan.ViewProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.n8tech.taskcan.MyBidActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.n8tech.taskcan.ViewTaskOnMapsActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.n8tech.taskcan.ViewCategoryActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.n8tech.taskcan.MyTaskActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.n8tech.taskcan.SignUpActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.n8tech.taskcan.ImageSlideShowActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.n8tech.taskcan.EditTaskMapActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.n8tech.taskcan.EditProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.n8tech.taskcan.TaskDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.n8tech.taskcan.EditTaskActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.n8tech.taskcan.SignInActivity"
+            android:exported="true" >
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
