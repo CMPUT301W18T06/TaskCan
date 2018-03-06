@@ -29,6 +29,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -78,7 +80,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String password = passwordText.getText().toString();
                 String contact = contactText.getText().toString();
 
-                if (name.isEmpty()) {
+                if (name.length() < 3 || !StringUtils.isAlphaSpace(name)) {
                     usernameValid = false;
                 }
 
@@ -88,7 +90,7 @@ public class SignUpActivity extends AppCompatActivity {
                     saveInFile();
                 }
 
-                if (email.isEmpty() || !checkEmailValidity(email)) {
+                if (!checkEmailValidity(email)) {
                     emailValid = false;
                 }
 
@@ -102,6 +104,10 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (usernameValid && emailValid && passwordValid && contactValid) {
                     //
+                    contact = contact.replace("-", "");
+                    contact = contact.replace(".", "");
+                    contact = contact.substring(0,3) + "-" + contact.substring(3,6) + "-" + contact.substring(6, contact.length());
+
                     User newUser = new User(name, email, password, contact);
 
                     cacheList.add(newUser);
