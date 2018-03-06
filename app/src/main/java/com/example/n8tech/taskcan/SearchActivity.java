@@ -19,10 +19,17 @@ package com.example.n8tech.taskcan;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class SearchActivity extends AppCompatActivity {
+
+    public static final String SEARCH_MESSAGE = "com.example.n8tech.taskcan.SEARCH_MESSAGE";
+    private EditText searchField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,40 @@ public class SearchActivity extends AppCompatActivity {
         Toolbar mainToolbar = findViewById(R.id.menu_toolbar);
         setSupportActionBar(mainToolbar);
         getSupportActionBar().setTitle("Home");
+
+        Intent intent = getIntent();
+        String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
+
+        searchField = findViewById(R.id.search_activity_search_field);
+        Button searchButton = findViewById(R.id.search_activity_search_button);
+        Button browseButton = findViewById(R.id.search_activity_browse_button);
+        Button mapButton = findViewById(R.id.search_activity_map_button);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String searchText = searchField.getText().toString();
+                Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                intent.putExtra(SEARCH_MESSAGE, searchText);
+                startActivity(intent);
+            }
+        });
+
+        browseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ViewCategoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ViewTaskOnMapsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

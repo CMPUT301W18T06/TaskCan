@@ -38,9 +38,9 @@ import java.util.ArrayList;
 
 public class SignInActivity extends Activity {
 
-    private static final String EXTRA_MESSAGE = "com.example.n8tech.taskcan.MESSAGE";
+    public static final String USER_MESSAGE = "com.example.n8tech.taskcan.USER_MESSAGE";
     private static final String CACHE_FILE = "cache.sav";
-    private static final String ERR_MSG = "Your email or password is incorrect.\nIf you don't remember your password, find a guy named Nathanael";
+    private static final String ERR_MSG = "Your email or password is incorrect.\nIf you don't remember your password... well that sucks!";
     private EditText username;
     private EditText password;
     private ArrayList<User> cacheList;
@@ -61,24 +61,27 @@ public class SignInActivity extends Activity {
             public void onClick(View view) {
 
                 boolean validCombination = false;
+                String usernameText = username.getText().toString();
+                String passwordText = password.getText().toString();
 
                 for (User user : cacheList) {
                     //Remove once we have set things logins we can remember
                     Log.i("Email", user.getEmail());
                     Log.i("Password", user.getPassword());
                     //Loop through all users within cache and see if they entered a valid combination
-                    if (user.getEmail().equals(username.getText().toString()) && user.getPassword().equals(password.getText().toString())) {
+                    if (user.getEmail().equals(usernameText) && user.getPassword().equals(passwordText)) {
 
                         Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                        intent.putExtra(EXTRA_MESSAGE, username.toString());
+                        intent.putExtra(USER_MESSAGE, usernameText);
                         startActivity(intent);
                         validCombination = true;
                     }
                 }
 
-                if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
+                if(usernameText.equals("admin") && passwordText.equals("admin")) {
                     //Admin entry remove eventually
                     Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                    intent.putExtra(USER_MESSAGE, "admin");
                     startActivity(intent);
                     validCombination = true;
                 }

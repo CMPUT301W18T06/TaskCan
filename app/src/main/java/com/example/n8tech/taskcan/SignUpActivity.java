@@ -42,7 +42,6 @@ import java.util.ArrayList;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private static final String EXTRA_MESSAGE = "com.example.n8tech.taskcan.MESSAGE";
     private static final String CACHE_FILE = "cache.sav";
     private EditText usernameText;
     private EditText emailText;
@@ -109,7 +108,7 @@ public class SignUpActivity extends AppCompatActivity {
                     saveInFile();
 
                     Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                    intent.putExtra(EXTRA_MESSAGE, email);
+                    intent.putExtra(SignInActivity.USER_MESSAGE, email);
                     startActivity(intent);
                 } else {
                 //Determine which sections are invalid and create a message
