@@ -20,7 +20,7 @@
     <!--  Gradient Background For Menu Buttons -->
     <gradient
         android:startColor="#FFA8DAFF"
-        android:centerColor="#FF96C0E0"
-        android:endColor="#FF80B0CE"
+        android:centerColor="#FF8FCEFF"
+        android:endColor="#FF6BBFFF"
         android:angle="270" />
 </shape>
