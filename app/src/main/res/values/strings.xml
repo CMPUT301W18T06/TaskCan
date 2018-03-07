@@ -18,6 +18,9 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_item1">Item 1</string>
+    <string name="navigation_drawer_item2">Item 2</string>
+    <string name="navigation_drawer_item3">Item 3</string>
 
     <string name="action_settings">Settings</string>
 
