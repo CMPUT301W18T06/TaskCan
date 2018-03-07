@@ -1,4 +1,4 @@
-#Tue Mar 06 14:51:04 MST 2018
-base.0=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\119
+#Tue Mar 06 19:05:42 MST 2018
+base.0=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\138
 path.0=classes.dex
 renamed.0=classes.dex
