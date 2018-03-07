@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-#Tue Mar 06 16:12:39 MST 2018
-base.0=C\:\\Users\\m_qui\\Documents\\Android Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\9
-=======
-#Tue Mar 06 19:06:15 MST 2018
-base.0=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\143
->>>>>>> Alex
+#Tue Mar 06 19:45:04 MST 2018
+base.0=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\10
 path.0=classes.dex
 renamed.0=classes.dex

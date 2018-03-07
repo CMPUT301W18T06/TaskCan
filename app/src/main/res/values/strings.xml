@@ -25,13 +25,8 @@
     <string name="title_activity_login">Login</string>
     <string name="title_activity_sign_in">Sign In</string>
     <string name="title_activity_sign_up">Sign Up</string>
-<<<<<<< HEAD
     <string name="title_activity_username">\u0020Email</string>
     <string name="title_activity_password">\u0020Password</string>
-=======
-    <string name="title_activity_username">\u0020username</string>
-    <string name="title_activity_password">\u0020password</string>
->>>>>>> Alex
 
     <string name="sign_up_activity_name">\u0020Name*</string>
     <string name="sign_up_activity_email">\u0020Email*</string>

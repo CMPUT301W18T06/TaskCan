@@ -19,14 +19,6 @@
     android:shape="rectangle">
     <!--  Gradient Background For Menu Buttons -->
     <gradient
-<<<<<<< HEAD
-        android:startColor="#FFA8DAFF"
-        android:centerColor="#FF8FCEFF"
-        android:endColor="#FF6BBFFF"
-        android:angle="270" />
-    <corners android:radius="8dp" />
-</shape>
-=======
         android:startColor="#FF29343D"
         android:centerColor="#FF212A31"
         android:endColor="#FF181F25"
@@ -40,4 +32,3 @@
         android:centerColor="#FF8FCEFF"
         android:endColor="#FF6BBFFF"
     -->
->>>>>>> Alex

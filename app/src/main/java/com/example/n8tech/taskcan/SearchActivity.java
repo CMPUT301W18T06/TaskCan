@@ -19,18 +19,15 @@ package com.example.n8tech.taskcan;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.util.Log;
 import android.view.Menu;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-=======
 import android.text.Html;
 import android.view.Menu;
 import android.support.v7.widget.Toolbar;
->>>>>>> Alex
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -44,7 +41,7 @@ public class SearchActivity extends AppCompatActivity {
         Toolbar mainToolbar = findViewById(R.id.menu_toolbar);
         setSupportActionBar(mainToolbar);
         getSupportActionBar().setTitle("Home");
-<<<<<<< HEAD
+        mainToolbar.setTitle(Html.fromHtml("<font color='#FFFFFFF'>Home </font>"));
 
         Intent intent = getIntent();
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
@@ -92,15 +89,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
         startActivity(intent);
-=======
-        mainToolbar.setTitle(Html.fromHtml("<font color='#FFFFFFF'>Home </font>"));
->>>>>>> Alex
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu_list, menu);
-        return true;
+        //mainToolbar.setTitle(Html.fromHtml("<font color='#FFFFFFF'>Home </font>"));
     }
 
 

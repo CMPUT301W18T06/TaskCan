@@ -1,10 +1,6 @@
 {
     "logs": [
         {
-<<<<<<< HEAD
-            "outputFile": "C:\\Users\\m_qui\\Documents\\Android Projects\\TaskCan\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v24\\values-v24.xml",
-            "map": [
-=======
             "outputFile": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v24\\values-v24.xml",
             "map": [
                 {
@@ -24,7 +20,6 @@
                         "endOffsets": "680,741,807,874"
                     }
                 },
->>>>>>> Alex
                 {
                     "source": "C:\\Users\\Beta\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\2efa277b2f1c742766c327420790be23\\res\\values-v24\\values-v24.xml",
                     "from": {

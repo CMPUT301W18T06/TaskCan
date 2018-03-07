@@ -4,41 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-    android:background="@color/colorDarkGrey"
-=======
     android:background="@drawable/edmonton_background"
->>>>>>> Alex
     tools:context="com.example.n8tech.taskcan.SignInActivity">
 
     <EditText
         android:id="@+id/name_field"
-<<<<<<< HEAD
-        android:layout_width="256dp"
-        android:layout_height="48dp"
-=======
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="64dp"
         android:layout_marginStart="64dp"
->>>>>>> Alex
         android:layout_marginTop="32dp"
         android:background="@drawable/entry_field"
         android:ems="10"
         android:hint="@string/sign_up_activity_name"
         android:inputType="textEmailAddress"
         android:radius="8dp"
-<<<<<<< HEAD
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_bar"
-        tools:layout_editor_absoluteX="64dp" />
-
-    <EditText
-        android:id="@+id/email_field"
-        android:layout_width="256dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-=======
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,16 +30,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="64dp"
         android:layout_marginStart="64dp"
->>>>>>> Alex
         android:layout_marginTop="32dp"
         android:background="@drawable/entry_field"
         android:ems="10"
         android:hint="@string/sign_up_activity_email"
         android:inputType="textWebEmailAddress"
-<<<<<<< HEAD
-=======
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
->>>>>>> Alex
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_field" />
@@ -70,30 +46,19 @@
         android:layout_height="56dp"
         android:background="@drawable/gradient_no_rounding"
         android:gravity="center"
-<<<<<<< HEAD
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textColor="@android:color/black"
-=======
         android:text="@string/title_activity_sign_up"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="@color/colorWhite"
->>>>>>> Alex
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-<<<<<<< HEAD
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/title_activity_sign_up" />
-=======
         app:layout_constraintTop_toTopOf="parent" />
->>>>>>> Alex
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <Button
@@ -106,17 +71,12 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/gradient"
         android:text="@string/sign_up_activity_register"
-<<<<<<< HEAD
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-=======
         android:textColor="@color/colorWhite"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
->>>>>>> Alex
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phone_field" />
 
@@ -136,54 +96,38 @@
 
     <EditText
         android:id="@+id/password_field"
-<<<<<<< HEAD
-        android:layout_width="256dp"
-        android:layout_height="48dp"
-=======
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="64dp"
         android:layout_marginStart="64dp"
->>>>>>> Alex
         android:layout_marginTop="32dp"
         android:background="@drawable/entry_field"
         android:ems="10"
         android:hint="@string/sign_up_activity_password"
         android:inputType="textPersonName"
-<<<<<<< HEAD
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-=======
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
->>>>>>> Alex
         app:layout_constraintTop_toBottomOf="@+id/email_field" />
 
     <EditText
         android:id="@+id/phone_field"
-<<<<<<< HEAD
-        android:layout_width="256dp"
-        android:layout_height="48dp"
-=======
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="64dp"
         android:layout_marginStart="64dp"
->>>>>>> Alex
         android:layout_marginTop="32dp"
         android:background="@drawable/entry_field"
         android:ems="10"
         android:hint="@string/sign_up_activity_phone"
         android:inputType="phone"
-<<<<<<< HEAD
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-=======
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
->>>>>>> Alex
         app:layout_constraintTop_toBottomOf="@+id/password_field" />
 
 </android.support.constraint.ConstraintLayout>

@@ -4,11 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-    android:background="@drawable/dot_pattern_blue">
-=======
     android:background="@drawable/edmonton_background">
->>>>>>> Alex
     tools:context="com.example.n8tech.taskcan.SearchActivity">
 
     <android.support.v7.widget.Toolbar
@@ -24,8 +20,8 @@
 
     <EditText
         android:id="@+id/search_activity_search_field"
-        android:layout_width="350dp"
-        android:layout_height="42dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="142dp"
@@ -33,59 +29,57 @@
         android:ems="10"
         android:hint="@string/search_activity_search_hint"
         android:inputType="textPersonName"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
 
     <Button
         android:id="@+id/search_activity_search_button"
-        android:layout_width="350dp"
-        android:layout_height="42dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/gradient"
         android:text="@string/search_activity_search_button"
         android:textAppearance="@style/TextAppearance.AppCompat"
-<<<<<<< HEAD
-=======
         android:textColor="@color/colorWhite"
->>>>>>> Alex
         android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_activity_search_field" />
 
     <Button
         android:id="@+id/search_activity_browse_button"
-        android:layout_width="350dp"
-        android:layout_height="42dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/gradient"
         android:text="@string/search_activity_browse_categories"
         android:textAppearance="@style/TextAppearance.AppCompat"
-<<<<<<< HEAD
-=======
         android:textColor="@color/colorWhite"
->>>>>>> Alex
         android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_activity_search_button" />
 
     <Button
         android:id="@+id/search_activity_map_button"
-        android:layout_width="350dp"
-        android:layout_height="42dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/gradient"
         android:text="@string/search_activity_map"
         android:textAppearance="@style/TextAppearance.AppCompat"
-<<<<<<< HEAD
-=======
         android:textColor="@color/colorWhite"
->>>>>>> Alex
         android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_activity_browse_button" />
 
 
