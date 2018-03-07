@@ -1,9 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\m_qui\\Documents\\Android Projects\\TaskCan\\app\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-it\\values-it.xml",
+            "outputFile": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-it\\values-it.xml",
             "map": [
                 {
+<<<<<<< HEAD
                     "source": "C:\\Users\\m_qui\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-11.8.0.aar\\c5ad3e0c7e5d59e4bf882e42e7c78b62\\res\\values-it\\values.xml",
                     "from": {
                         "startLines": "4",
@@ -39,6 +40,9 @@
                 },
                 {
                     "source": "C:\\Users\\m_qui\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\79191a81c2899a1e127aebe256f2e7f3\\res\\values-it\\values-it.xml",
+=======
+                    "source": "C:\\Users\\Beta\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\2efa277b2f1c742766c327420790be23\\res\\values-it\\values-it.xml",
+>>>>>>> Alex
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

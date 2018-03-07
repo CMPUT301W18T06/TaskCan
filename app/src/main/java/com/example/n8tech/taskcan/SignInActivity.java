@@ -17,7 +17,10 @@
 package com.example.n8tech.taskcan;
 
 import android.app.Activity;
+<<<<<<< HEAD
 import android.content.Intent;
+=======
+>>>>>>> Alex
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+<<<<<<< HEAD
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -44,6 +48,9 @@ public class SignInActivity extends Activity {
     private EditText username;
     private EditText password;
     private ArrayList<User> cacheList;
+=======
+public class SignInActivity extends Activity {
+>>>>>>> Alex
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

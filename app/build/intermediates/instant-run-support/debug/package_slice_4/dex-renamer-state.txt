@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 #Tue Mar 06 16:18:10 MST 2018
 base.0=C\:\\Users\\m_qui\\Documents\\Android Projects\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\4
+=======
+#Tue Mar 06 19:05:42 MST 2018
+base.0=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\138
+>>>>>>> Alex
 path.0=classes.dex
 renamed.0=classes.dex

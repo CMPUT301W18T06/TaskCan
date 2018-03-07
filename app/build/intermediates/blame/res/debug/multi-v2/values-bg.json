@@ -1,6 +1,7 @@
 {
     "logs": [
         {
+<<<<<<< HEAD
             "outputFile": "C:\\Users\\m_qui\\Documents\\Android Projects\\TaskCan\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-bg\\values-bg.xml",
             "map": [
                 {
@@ -22,6 +23,12 @@
                 },
                 {
                     "source": "C:\\Users\\m_qui\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-11.8.0.aar\\c5ad3e0c7e5d59e4bf882e42e7c78b62\\res\\values-bg\\values.xml",
+=======
+            "outputFile": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-bg\\values-bg.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Beta\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\2efa277b2f1c742766c327420790be23\\res\\values-bg\\values-bg.xml",
+>>>>>>> Alex
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
