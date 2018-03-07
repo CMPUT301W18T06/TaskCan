@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/dot_pattern_blue">
+    android:background="@drawable/edmonton_background">
     tools:context="com.example.n8tech.taskcan.SearchActivity">
 
     <android.support.v7.widget.Toolbar
@@ -41,6 +41,7 @@
         android:background="@drawable/gradient"
         android:text="@string/search_activity_search_button"
         android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorWhite"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -54,6 +55,7 @@
         android:background="@drawable/gradient"
         android:text="@string/search_activity_browse_categories"
         android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorWhite"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -67,6 +69,7 @@
         android:background="@drawable/gradient"
         android:text="@string/search_activity_map"
         android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorWhite"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

@@ -2,13 +2,13 @@
 <instant-run
     abi="x86"
     api-level="27"
-    build-mode="COLD"
+    build-mode="FULL"
     density="420dpi"
     format="10"
     plugin-version="3.0.1"
-    timestamp="1520301327344"
+    timestamp="1520381081024"
     token="-763372414882961878"
-    verifier="COLD_SWAP_REQUESTED" >
+    verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
@@ -24,12 +24,45 @@
         duration="0" />
 
     <artifact
+        location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+        type="SPLIT" />
+    <artifact
         location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\outputs\apk\debug\app-debug.apk"
         type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1520301017169"
+        timestamp="1520381081024"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
@@ -53,25 +86,17 @@
             location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
-            type="SPLIT" />
-        <artifact
             location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
             type="SPLIT" />
         <artifact
             location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+            location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\outputs\apk\debug\app-debug.apk"
-            type="SPLIT_MAIN" />
-    </build>
-    <build
-        build-mode="COLD"
-        timestamp="1520301327344"
-        verifier="COLD_SWAP_REQUESTED" >
+            location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+            type="SPLIT" />
         <artifact
             location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\outputs\apk\debug\app-debug.apk"
             type="SPLIT_MAIN" />

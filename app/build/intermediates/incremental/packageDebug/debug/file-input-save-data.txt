@@ -1,17 +1,17 @@
 #Internal package file, do not edit.
-#Mon Mar 05 10:50:30 MST 2018
-2.base=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\51
+#Tue Mar 06 15:07:30 MST 2018
+2.base=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\129
 5.set=DEX
 0.path=classes.dex
 2.baseType=DIRECTORY
-3.base=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\54
+3.base=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\127
 2.set=DEX
 1.path=classes.dex
-4.base=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\52
+4.base=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\131
 count=6
 5.baseType=DIRECTORY
 2.path=classes.dex
-5.base=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\55
+5.base=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\130
 4.set=DEX
 3.path=classes.dex
 3.baseType=DIRECTORY
@@ -19,9 +19,9 @@ count=6
 4.path=classes.dex
 1.baseType=DIRECTORY
 5.path=classes.dex
-0.base=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\50
+0.base=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\128
 0.baseType=DIRECTORY
 3.set=DEX
-1.base=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\53
+1.base=C\:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\126
 4.baseType=DIRECTORY
 0.set=DEX

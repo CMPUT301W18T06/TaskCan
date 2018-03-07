@@ -18,6 +18,7 @@ package com.example.n8tech.taskcan;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.support.v7.widget.Toolbar;
 
@@ -30,6 +31,7 @@ public class SearchActivity extends AppCompatActivity {
         Toolbar mainToolbar = findViewById(R.id.menu_toolbar);
         setSupportActionBar(mainToolbar);
         getSupportActionBar().setTitle("Home");
+        mainToolbar.setTitle(Html.fromHtml("<font color='#FFFFFFF'>Home </font>"));
     }
 
     @Override
