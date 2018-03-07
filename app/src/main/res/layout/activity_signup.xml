@@ -46,6 +46,7 @@
         android:layout_height="56dp"
         android:background="@drawable/gradient_no_rounding"
         android:gravity="center"
+        android:text="@string/title_activity_sign_up"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
@@ -56,8 +57,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/title_activity_sign_up" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <Button
