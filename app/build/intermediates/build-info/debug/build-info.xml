@@ -6,7 +6,7 @@
     density="420dpi"
     format="10"
     plugin-version="3.0.1"
-    timestamp="1520397130744"
+    timestamp="1520399018058"
     token="-763372414882961878"
     verifier="COLD_SWAP_REQUESTED" >
 
@@ -71,7 +71,16 @@
     <build
         build-mode="COLD"
         ir-eligibility="R_CLASS_CHANGE"
-        timestamp="1520396917526"
+        timestamp="1520398003566"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+            type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="CLASS_ADDED"
+        timestamp="1520398661738"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
@@ -83,9 +92,6 @@
             location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
-            type="SPLIT" />
-        <artifact
             location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
             type="SPLIT" />
         <artifact
@@ -94,7 +100,16 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1520397130744"
+        ir-eligibility="COMPATIBLE"
+        timestamp="1520398977980"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+            type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        timestamp="1520399018058"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="C:\Users\Beta\Documents\GitHub\TaskCan\app\build\outputs\apk\debug\app-debug.apk"

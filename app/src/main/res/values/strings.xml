@@ -18,9 +18,11 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="navigation_drawer_item1">Item 1</string>
-    <string name="navigation_drawer_item2">Item 2</string>
-    <string name="navigation_drawer_item3">Item 3</string>
+    <string name="navigation_drawer_home">Search Home</string>
+    <string name="navigation_drawer_my_tasks">My Tasks</string>
+    <string name="navigation_drawer_my_bids">My Bids</string>
+    <string name="navigation_drawer_my_profile">My Profile</string>
+    <string name="navigation_drawer_sign_out">Sign Out</string>
 
     <string name="action_settings">Settings</string>
 

@@ -19,8 +19,8 @@
     android:shape="rectangle">
     <!--  Gradient Background For Menu Buttons -->
     <gradient
-        android:startColor="#C029343D"
-        android:centerColor="#C029343D"
-        android:endColor="#C029343D"
+        android:startColor="#C0181F25"
+        android:centerColor="#C0181F25"
+        android:endColor="#C0181F25"
         android:angle="270" />
 </shape>

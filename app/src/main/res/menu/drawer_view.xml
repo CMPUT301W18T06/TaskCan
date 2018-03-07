@@ -2,16 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/navigation_drawer_item1" />
-        <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_menu_home"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/navigation_drawer_item2" />
+            android:title="@string/navigation_drawer_home" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/navigation_drawer_item3" />
+            android:id="@+id/nav_menu_my_tasks"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/navigation_drawer_my_tasks" />
+        <item
+            android:id="@+id/nav_menu_my_bids"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/navigation_drawer_my_bids" />
+        <item
+            android:id="@+id/nav_menu_my_profile"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/navigation_drawer_my_profile" />
+        <item
+            android:id="@+id/nav_menu_sign_out"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/navigation_drawer_sign_out" />
     </group>
 </menu>

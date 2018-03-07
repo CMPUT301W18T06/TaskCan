@@ -28,12 +28,12 @@
         "source": "C:\\Users\\Beta\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\2efa277b2f1c742766c327420790be23\\res\\color\\abc_primary_text_material_light.xml"
     },
     {
-        "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_ic_star_black_48dp.png.flat",
-        "source": "C:\\Users\\Beta\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\2efa277b2f1c742766c327420790be23\\res\\drawable-xxhdpi-v4\\abc_ic_star_black_48dp.png"
-    },
-    {
         "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable_notification_bg_low.xml.flat",
         "source": "C:\\Users\\Beta\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\71a67cd0849b7ee4eb3e53244210af92\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_ic_star_black_48dp.png.flat",
+        "source": "C:\\Users\\Beta\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\2efa277b2f1c742766c327420790be23\\res\\drawable-xxhdpi-v4\\abc_ic_star_black_48dp.png"
     },
     {
         "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21_notification_action.xml.flat",
@@ -560,6 +560,10 @@
         "source": "C:\\Users\\Beta\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\2efa277b2f1c742766c327420790be23\\res\\drawable\\abc_ratingbar_small_material.xml"
     },
     {
+        "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_ic_menu_24dp.png.flat",
+        "source": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_menu_24dp.png"
+    },
+    {
         "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\anim_abc_popup_enter.xml.flat",
         "source": "C:\\Users\\Beta\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\2efa277b2f1c742766c327420790be23\\res\\anim\\abc_popup_enter.xml"
     },
@@ -634,6 +638,10 @@
     {
         "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
         "source": "C:\\Users\\Beta\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\2efa277b2f1c742766c327420790be23\\res\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_menu_24dp.png.flat",
+        "source": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_menu_24dp.png"
     },
     {
         "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_btn_radio_to_on_mtrl_000.png.flat",
@@ -912,6 +920,10 @@
         "source": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\src\\main\\res\\layout\\nav_header.xml"
     },
     {
+        "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_menu_24dp.png.flat",
+        "source": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_menu_24dp.png"
+    },
+    {
         "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_ic_commit_search_api_mtrl_alpha.png.flat",
         "source": "C:\\Users\\Beta\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\2efa277b2f1c742766c327420790be23\\res\\drawable-mdpi-v4\\abc_ic_commit_search_api_mtrl_alpha.png"
     },
@@ -1032,8 +1044,16 @@
         "source": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\src\\main\\res\\layout\\activity_image_slide_show.xml"
     },
     {
+        "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_menu_24dp.xml.flat",
+        "source": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_menu_24dp.xml"
+    },
+    {
         "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ic_star_half_black_48dp.png.flat",
         "source": "C:\\Users\\Beta\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\2efa277b2f1c742766c327420790be23\\res\\drawable-xhdpi-v4\\abc_ic_star_half_black_48dp.png"
+    },
+    {
+        "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_menu_24dp.png.flat",
+        "source": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_menu_24dp.png"
     },
     {
         "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
@@ -1122,6 +1142,10 @@
     {
         "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_tint_switch_track.xml.flat",
         "source": "C:\\Users\\Beta\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\2efa277b2f1c742766c327420790be23\\res\\color\\abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_menu_24dp.png.flat",
+        "source": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_menu_24dp.png"
     },
     {
         "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_switch_track_mtrl_alpha.9.png.flat",
@@ -1482,6 +1506,10 @@
     {
         "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21_avd_hide_password.xml.flat",
         "source": "C:\\Users\\Beta\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\6af84ea4d051e1651825d3d7ab51c902\\res\\drawable-v21\\avd_hide_password.xml"
+    },
+    {
+        "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_menu_24dp.png.flat",
+        "source": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_menu_24dp.png"
     },
     {
         "merged": "C:\\Users\\Beta\\Documents\\GitHub\\TaskCan\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_text_select_handle_right_mtrl_light.png.flat",

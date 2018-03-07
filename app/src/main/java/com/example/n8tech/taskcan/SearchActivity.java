@@ -17,31 +17,40 @@
 package com.example.n8tech.taskcan;
 
 import android.content.Intent;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.text.Html;
-import android.view.Menu;
-import android.support.v7.widget.Toolbar;
 
 public class SearchActivity extends AppCompatActivity {
 
     public static final String SEARCH_MESSAGE = "com.example.n8tech.taskcan.SEARCH_MESSAGE";
     private EditText searchField;
+    private DrawerLayout mDrawerLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         Toolbar mainToolbar = findViewById(R.id.menu_toolbar);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
         setSupportActionBar(mainToolbar);
         getSupportActionBar().setTitle("Home");
         mainToolbar.setTitle(Html.fromHtml("<font color='#FFFFFFF'>Home </font>"));
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_24dp);
+
+
 
         Intent intent = getIntent();
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
@@ -50,6 +59,24 @@ public class SearchActivity extends AppCompatActivity {
         Button searchButton = findViewById(R.id.search_activity_search_button);
         Button browseButton = findViewById(R.id.search_activity_browse_button);
         Button mapButton = findViewById(R.id.search_activity_map_button);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // set item as selected to persist highlight
+                        // menuItem.setChecked(true);
+                        // close drawer when item is tapped
+                        mDrawerLayout.closeDrawers();
+
+                        // Add code here to update the UI based on the item selected
+                        // For example, swap UI fragments here
+
+                        return true;
+                    }
+                });
+
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,9 +106,13 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu_list, menu);
-        return true;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
