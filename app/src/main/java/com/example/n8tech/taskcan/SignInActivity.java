@@ -36,6 +36,10 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * for later instances, we need to add cache checking to
+ * see if the user is already signed in or not
+ */
 public class SignInActivity extends Activity {
 
     public static final String USER_MESSAGE = "com.example.n8tech.taskcan.USER_MESSAGE";
@@ -50,78 +54,25 @@ public class SignInActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        username = findViewById(R.id.username_field);
-        password = findViewById(R.id.password_field);
-
-        Button signInButton = findViewById(R.id.sign_in_button);
-        Button signUpButton = findViewById(R.id.sign_up_button);
-
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                boolean validCombination = false;
-                String usernameText = username.getText().toString();
-                String passwordText = password.getText().toString();
-
-                for (User user : cacheList) {
-                    //Remove once we have set things logins we can remember
-                    Log.i("Email", user.getEmail());
-                    Log.i("Password", user.getPassword());
-                    //Loop through all users within cache and see if they entered a valid combination
-                    if (user.getEmail().equals(usernameText) && user.getPassword().equals(passwordText)) {
-
-                        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                        intent.putExtra(USER_MESSAGE, usernameText);
-                        startActivity(intent);
-                        validCombination = true;
-                    }
-                }
-
-                if(usernameText.equals("admin") && passwordText.equals("admin")) {
-                    //Admin entry remove eventually
-                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                    intent.putExtra(USER_MESSAGE, "admin");
-                    startActivity(intent);
-                    validCombination = true;
-                }
-
-                /*
-                 * Check against json from elasticsearch if that does not work
-                 */
-                //Add code here
-
-                //Add that user from the elasticsearch to the cache file and save it.
-                //Do same as lines 74-76
-                if(!validCombination) {
-                    Toast toast = Toast.makeText(getApplicationContext(), ERR_MSG, Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-
-            }
-        });
-
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                startActivity(intent);
-            }
-        });
-
+        this.username = findViewById(R.id.username_field);
+        this.password = findViewById(R.id.password_field);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        loadFromFile();
+        this.loadFromFile();
     }
 
+    /**
+     * NO, this method should utilize or be written in FileIO.java class!!
+     * BAD
+     */
     private void loadFromFile() {
         //Load a given JSON file
 
         try {
-            FileInputStream fis = openFileInput(CACHE_FILE);
+            FileInputStream fis = openFileInput(this.CACHE_FILE);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
 
             Gson gson = new Gson();
@@ -129,13 +80,56 @@ public class SignInActivity extends Activity {
             // Taken https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
             // 2018-01-23
             Type listType = new TypeToken<ArrayList<User>>(){}.getType();
-            cacheList = gson.fromJson(in, listType);
+            this.cacheList = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
-            cacheList = new ArrayList<User>();
+            this.cacheList = new ArrayList<User>();
             Log.i("No File", "Created New File");
-        } catch (IOException e) {
-            throw new RuntimeException();
         }
+    }
+
+    public void SignInButton_onClick(View view) {
+        boolean validCombination = false;
+        String usernameText = this.username.getText().toString();
+        String passwordText = this.password.getText().toString();
+
+        for (User user : this.cacheList) {
+            //Remove once we have set things logins we can remember
+            Log.i("Email", user.getEmail());
+            Log.i("Password", user.getPassword());
+            //Loop through all users within cache and see if they entered a valid combination
+            if (user.getEmail().equals(usernameText) && user.getPassword().equals(passwordText)) {
+
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                intent.putExtra(USER_MESSAGE, usernameText);
+                startActivity(intent);
+                validCombination = true;
+            }
+        }
+
+        if(usernameText.equals("admin") && passwordText.equals("admin")) {
+            //Admin entry remove eventually
+            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+            intent.putExtra(USER_MESSAGE, "admin");
+            startActivity(intent);
+            validCombination = true;
+        }
+
+                /*
+                 * Check against json from elasticsearch if that does not work
+                 */
+        //Add code here
+
+        //Add that user from the elasticsearch to the cache file and save it.
+        //Do same as lines 74-76
+        if(!validCombination) {
+            Toast toast = Toast.makeText(getApplicationContext(), ERR_MSG, Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+    public void SignUpButton_onClick(View view) {
+        Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+        startActivity(intent);
     }
 }
