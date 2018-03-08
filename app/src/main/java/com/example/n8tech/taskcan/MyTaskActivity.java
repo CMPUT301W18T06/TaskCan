@@ -52,30 +52,14 @@ public class MyTaskActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_24dp);
 
-        /*  TabHost appears to require a Fragment layout and this needs to go into onCreateView
-        TabHost tabHost = findViewById(android.R.id.tabhost);
-        tabHost.setup();
-
-        TabHost.TabSpec requestsTab = tabHost.newTabSpec("Requests Tab");
-        TabHost.TabSpec assignedTab = tabHost.newTabSpec("Assigned Tab");
-        TabHost.TabSpec archivedTab = tabHost.newTabSpec("Archived Tab");
-
-        requestsTab.setIndicator("Tab1");
-        //requestsTab.setContent(new Intent(this,TabActivity1.class));
-
-        assignedTab.setIndicator("Tab2");
-        //assignedTab.setContent(new Intent(this,TabActivity2.class));
-
-        archivedTab.setIndicator("Tab3");
-        //archivedTab.setContent(new Intent(this,TabActivity3.class));
-
-        tabHost.addTab(requestsTab);
-        tabHost.addTab(assignedTab);
-        tabHost.addTab(archivedTab); */
-
         Intent intent = getIntent();
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
 
+        this.SetNavigationViewItemSelected();
+
+    }
+
+    private void SetNavigationViewItemSelected() {
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -122,7 +106,6 @@ public class MyTaskActivity extends AppCompatActivity {
                         return false;
                     }
                 });
-
     }
 
     @Override
