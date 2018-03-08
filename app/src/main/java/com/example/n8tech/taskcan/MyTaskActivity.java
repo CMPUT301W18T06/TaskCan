@@ -31,26 +31,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TabHost;
 
-public class MyTaskActivity extends AppCompatActivity {
-
-    public static final String SEARCH_MESSAGE = "com.example.n8tech.taskcan.SEARCH_MESSAGE";
-    private EditText searchField;
-    private DrawerLayout mDrawerLayout;
-
+public class MyTaskActivity extends ActivityHeader {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_task);
-        Toolbar mainToolbar = findViewById(R.id.menu_toolbar);
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-
-        setSupportActionBar(mainToolbar);
-        getSupportActionBar().setTitle("My Tasks");
-        mainToolbar.setTitle(Html.fromHtml("<font color='#FFFFFFF'>My Tasks </font>"));
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_24dp);
 
         /*  TabHost appears to require a Fragment layout and this needs to go into onCreateView
         TabHost tabHost = findViewById(android.R.id.tabhost);
@@ -73,74 +58,24 @@ public class MyTaskActivity extends AppCompatActivity {
         tabHost.addTab(assignedTab);
         tabHost.addTab(archivedTab); */
 
-        Intent intent = getIntent();
-        String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        switch (menuItem.getItemId()) {
-                            case R.id.nav_menu_home: {
-                                Intent goToHome = new Intent(MyTaskActivity.this,SearchActivity.class);
-                                startActivityForResult(goToHome, 1);
-
-                                break;
-                            }
-                            case R.id.nav_menu_my_tasks: {
-                                //Intent goToTasks = new Intent(MyTaskActivity.this, MyTaskActivity.class);
-                                //startActivityForResult(goToTasks, 1);
-
-                                break;
-                            }
-                            case R.id.nav_menu_my_bids: {
-                                Intent goToBids = new Intent(MyTaskActivity.this, MyBidActivity.class);
-                                startActivityForResult(goToBids, 1);
-
-                                break;
-                            }
-                            case R.id.nav_menu_my_profile: {
-                                Intent goToProfile = new Intent(MyTaskActivity.this, ViewProfileActivity.class);
-                                startActivityForResult(goToProfile, 1);
-
-                                break;
-                            }
-                            case R.id.nav_menu_sign_out: {
-                                Intent goToSignIn = new Intent(MyTaskActivity.this, SignInActivity.class);
-                                startActivityForResult(goToSignIn, 1);
-
-                                // Need to add sign out functionality
-
-                                break;
-                            }
-                        }
-                        mDrawerLayout.closeDrawers();
-
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
-                        return false;
-                    }
-                });
-
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
         startActivity(intent);
-        //mainToolbar.setTitle(Html.fromHtml("<font color='#FFFFFFF'>Home </font>"));
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_my_task;
+    }
+
+    @Override
+    protected String getActivityTitle() {
+        return "My Tasks";
     }
 
 }
