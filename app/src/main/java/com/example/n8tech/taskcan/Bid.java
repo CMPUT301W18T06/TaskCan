@@ -29,19 +29,24 @@ public class Bid {
     private User bidder;
     private double bidAmount;
     private Calendar datetimeofBid;
+    private Task task;
 
     /**
      * datetimeofBid is automatically initialized to current user device's date and time
+     * bidder and task is initialized here
      */
     public Bid(){
         // empty constructor for method signatures
         this.datetimeofBid = Calendar.getInstance();
+        this.bidder = new User();
+        this.task = new Task();
     }
 
-    public Bid(User bidder, double bidAmount) {
+    public Bid(User bidder, double bidAmount, Task task) {
         this.bidder = bidder;
         this.bidAmount = bidAmount;
         this.datetimeofBid = Calendar.getInstance();
+        this.task = task;
     }
 
     public User getBidder() {
@@ -62,8 +67,7 @@ public class Bid {
 
     public Calendar getDatetimeofBid() { return this.datetimeofBid; }
 
-    public void setDatetimeofBid(Calendar c) {  this.datetimeofBid = c; }
+    public Task getTask() { return this.task; }
 
-    public void setDatetimeofBid() { this.datetimeofBid = Calendar.getInstance(); }
-    
+    public void setTask(Task t) { this.task = t; }
 }
