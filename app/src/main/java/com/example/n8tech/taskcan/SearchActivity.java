@@ -65,15 +65,45 @@ public class SearchActivity extends AppCompatActivity {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        // menuItem.setChecked(true);
-                        // close drawer when item is tapped
+                        switch (menuItem.getItemId()) {
+                            case R.id.nav_menu_home: {
+                                //Intent goToHome = new Intent(SearchActivity.this,SearchActivity.class);
+                                //startActivityForResult(goToHome, 1);
+
+                                break;
+                            }
+                            case R.id.nav_menu_my_tasks: {
+                                Intent goToTasks = new Intent(SearchActivity.this, MyTaskActivity.class);
+                                startActivityForResult(goToTasks, 1);
+
+                                break;
+                            }
+                            case R.id.nav_menu_my_bids: {
+                                Intent goToBids = new Intent(SearchActivity.this, MyBidActivity.class);
+                                startActivityForResult(goToBids, 1);
+
+                                break;
+                            }
+                            case R.id.nav_menu_my_profile: {
+                                Intent goToProfile = new Intent(SearchActivity.this, ViewProfileActivity.class);
+                                startActivityForResult(goToProfile, 1);
+
+                                break;
+                            }
+                            case R.id.nav_menu_sign_out: {
+                                Intent goToSignIn = new Intent(SearchActivity.this,SignInActivity.class);
+                                startActivityForResult(goToSignIn, 1);
+
+                                // Need to add sign out functionality
+
+                                break;
+                            }
+                        }
                         mDrawerLayout.closeDrawers();
 
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
-
-                        return true;
+                        return false;
                     }
                 });
 
