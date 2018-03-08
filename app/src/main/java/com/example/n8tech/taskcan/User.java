@@ -26,11 +26,11 @@ import java.util.ArrayList;
  */
 
 public class User {
-    private String username;
+    private String username; //TODO: isnt username just the password, might want to change this to displayName
     private String password;
     private String email;
     private String contactInformation;
-    private ArrayList<Task> myTaskBids;
+    private ArrayList<Task> myTaskBids; //TODO: perhaps you mean myBids?
     private ArrayList<Task> myTasks;
 
     public User(){

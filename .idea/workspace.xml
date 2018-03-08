@@ -18,8 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83a658d9-6600-429f-885d-c5773401023d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/Task.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/Task.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/User.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/User.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,8 +45,8 @@
       <file leaf-file-name="User.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-45">
-              <caret line="24" column="25" lean-forward="false" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+            <state relative-caret-position="221">
+              <caret line="27" column="19" lean-forward="false" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -1808,7 +1807,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/MyTaskBidList.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/MyTaskList.java" />
         <option value="$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/BidderTest.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/User.java" />
         <option value="$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/UserTest.java" />
         <option value="$PROJECT_DIR$/app/src/test/java/com/example/n8tech/taskcan/TaskTest.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
@@ -1841,6 +1839,7 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_signup.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/SignUpActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/Task.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/User.java" />
       </list>
     </option>
   </component>
@@ -2262,7 +2261,7 @@
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="com.example.n8tech.taskcan.SignInActivity" />
       <method>
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520536427442" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520536584751" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
@@ -2334,7 +2333,7 @@
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
       <method>
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520536427442" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520536584751" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2381,7 +2380,7 @@
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
       </Profilers>
       <method>
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520536427442" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520536584751" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -3097,8 +3096,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/n8tech/taskcan/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-45">
-          <caret line="24" column="25" lean-forward="false" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+        <state relative-caret-position="221">
+          <caret line="27" column="19" lean-forward="false" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
           <folding />
         </state>
       </provider>
