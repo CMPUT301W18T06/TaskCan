@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/edmonton_background"
-    tools:context="com.example.n8tech.taskcan.SignInActivity">
+    tools:context="com.example.n8tech.taskcan.SignUpActivity">
 
     <EditText
         android:id="@+id/name_field"
@@ -58,8 +58,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <Button
         android:id="@+id/register_button"
@@ -71,6 +69,7 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/gradient"
         android:text="@string/sign_up_activity_register"
+        android:onClick="RegisterButton_onClick"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

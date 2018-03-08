@@ -55,90 +55,15 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        loadFromFile();
+        /**
+         * inconsistent use, in signin activity, this is in onStart method
+         */
+        this.loadFromFile();
 
-        usernameText = findViewById(R.id.name_field);
-        emailText = findViewById(R.id.email_field);
-        passwordText = findViewById(R.id.password_field);
-        contactText = findViewById(R.id.phone_field);
-
-        Button registerButton = findViewById(R.id.register_button);
-
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                setResult(RESULT_OK);
-
-                boolean usernameValid = true;
-                boolean emailValid = true;
-                boolean passwordValid = true;
-                boolean contactValid = true;
-
-                String name = usernameText.getText().toString();
-                String email = emailText.getText().toString();
-                String password = passwordText.getText().toString();
-                String contact = contactText.getText().toString();
-
-                if (name.length() < 3 || !StringUtils.isAlphaSpace(name)) {
-                    usernameValid = false;
-                }
-
-                //Remove at some point, just to help with keeping things clean.
-                if(name.equals("clearCache();")) {
-                    cacheList = new ArrayList<User>();
-                    saveInFile();
-                }
-
-                if (!checkEmailValidity(email)) {
-                    emailValid = false;
-                }
-
-                if (password.length() <= 6) {
-                    passwordValid = false;
-                }
-
-                if (!checkContactValidity(contact)) {
-                    contactValid = false;
-                }
-
-                if (usernameValid && emailValid && passwordValid && contactValid) {
-                    //
-                    contact = contact.replace("-", "");
-                    contact = contact.replace(".", "");
-                    contact = contact.substring(0,3) + "-" + contact.substring(3,6) + "-" + contact.substring(6, contact.length());
-
-                    User newUser = new User(name, email, password, contact);
-
-                    cacheList.add(newUser);
-                    saveInFile();
-
-                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                    intent.putExtra(SignInActivity.USER_MESSAGE, email);
-                    startActivity(intent);
-                } else {
-                //Determine which sections are invalid and create a message
-
-                String errMsg = "";
-                if(!usernameValid) {
-                    errMsg = errMsg + "Please enter a valid username.\n";
-                }
-                if(!emailValid) {
-                    errMsg = errMsg + "Please enter a valid email.\n";
-                }
-                if(!passwordValid) {
-                    errMsg = errMsg + "Please enter a valid password. Length of at least 6.\n";
-                }
-                if(!contactValid) {
-                    errMsg = errMsg + "Please enter a valid phone number.\n";
-                }
-                errMsg = errMsg.trim();
-
-                Toast toast = Toast.makeText(getApplicationContext(), errMsg, Toast.LENGTH_SHORT);
-                toast.show();
-            }
-            }
-        });
+        this.usernameText = findViewById(R.id.name_field);
+        this.emailText = findViewById(R.id.email_field);
+        this.passwordText = findViewById(R.id.password_field);
+        this.contactText = findViewById(R.id.phone_field);
     }
 
     private boolean checkEmailValidity(String email) {
@@ -171,6 +96,9 @@ public class SignUpActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * bad!!! use FileIO
+     */
     private void loadFromFile() {
         //Load a given JSON file
 
@@ -188,8 +116,6 @@ public class SignUpActivity extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             cacheList = new ArrayList<User>();
             Log.i("No File", "Created New File");
-        } catch (IOException e) {
-            throw new RuntimeException();
         }
     }
 
@@ -211,6 +137,78 @@ public class SignUpActivity extends AppCompatActivity {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             throw new RuntimeException();
+        }
+    }
+
+    public void RegisterButton_onClick(View view) {
+        setResult(RESULT_OK);
+
+        boolean usernameValid = true;
+        boolean emailValid = true;
+        boolean passwordValid = true;
+        boolean contactValid = true;
+
+        String name = usernameText.getText().toString();
+        String email = emailText.getText().toString();
+        String password = passwordText.getText().toString();
+        String contact = contactText.getText().toString();
+
+        if (name.length() < 3 || !StringUtils.isAlphaSpace(name)) {
+            usernameValid = false;
+        }
+
+        //Remove at some point, just to help with keeping things clean.
+        if(name.equals("clearCache();")) {
+            cacheList = new ArrayList<User>();
+            saveInFile();
+        }
+
+        if (!checkEmailValidity(email)) {
+            emailValid = false;
+        }
+
+        if (password.length() <= 6) {
+            passwordValid = false;
+        }
+
+        if (!checkContactValidity(contact)) {
+            contactValid = false;
+        }
+
+        if (usernameValid && emailValid && passwordValid && contactValid) {
+            //
+            contact = contact.replace("-", "");
+            contact = contact.replace(".", "");
+            contact = contact.substring(0,3) + "-" + contact.substring(3,6) + "-" + contact.substring(6, contact.length());
+
+            User newUser = new User(name, email, password, contact);
+
+            cacheList.add(newUser);
+            saveInFile();
+
+            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+            intent.putExtra(SignInActivity.USER_MESSAGE, email);
+            startActivity(intent);
+        } else {
+            //Determine which sections are invalid and create a message
+
+            String errMsg = "";
+            if(!usernameValid) {
+                errMsg = errMsg + "Please enter a valid username.\n";
+            }
+            if(!emailValid) {
+                errMsg = errMsg + "Please enter a valid email.\n";
+            }
+            if(!passwordValid) {
+                errMsg = errMsg + "Please enter a valid password. Length of at least 6.\n";
+            }
+            if(!contactValid) {
+                errMsg = errMsg + "Please enter a valid phone number.\n";
+            }
+            errMsg = errMsg.trim();
+
+            Toast toast = Toast.makeText(getApplicationContext(), errMsg, Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 }
