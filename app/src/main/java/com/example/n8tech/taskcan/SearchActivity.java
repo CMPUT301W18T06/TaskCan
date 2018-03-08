@@ -32,7 +32,7 @@ import android.text.Html;
 
 public class SearchActivity extends AppCompatActivity {
 
-    public static final String SEARCH_MESSAGE = "com.example.n8tech.taskcan.SEARCH_MESSAGE";
+    public static final String SEARCH_MESSAGE = "com.example.n8tech.taskcan.SEARCH_MESSAGE"; // what is this???
     private EditText searchField;
     private DrawerLayout mDrawerLayout;
 
@@ -41,25 +41,16 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        Toolbar mainToolbar = findViewById(R.id.menu_toolbar);
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        setSupportActionBar(mainToolbar);
-        getSupportActionBar().setTitle("Home");
-        mainToolbar.setTitle(Html.fromHtml("<font color='#FFFFFFF'>Home </font>"));
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_24dp);
-
-
+        this.searchField = findViewById(R.id.search_activity_search_field);
 
         Intent intent = getIntent();
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
 
-        searchField = findViewById(R.id.search_activity_search_field);
-        Button searchButton = findViewById(R.id.search_activity_search_button);
-        Button browseButton = findViewById(R.id.search_activity_browse_button);
-        Button mapButton = findViewById(R.id.search_activity_map_button);
+        this.CreateToolBar();
+        this.SetNavigationViewItemSelected();
+    }
 
+    private void SetNavigationViewItemSelected() {
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -106,40 +97,24 @@ public class SearchActivity extends AppCompatActivity {
                         return false;
                     }
                 });
+    }
 
-
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String searchText = searchField.getText().toString();
-                Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                intent.putExtra(SEARCH_MESSAGE, searchText);
-                startActivity(intent);
-            }
-        });
-
-        browseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ViewCategoryActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ViewTaskOnMapsActivity.class);
-                startActivity(intent);
-            }
-        });
+    private void CreateToolBar() {
+        Toolbar mainToolbar = findViewById(R.id.menu_toolbar);
+        this.mDrawerLayout = findViewById(R.id.drawer_layout);
+        setSupportActionBar(mainToolbar);
+        getSupportActionBar().setTitle("Home");
+        mainToolbar.setTitle(Html.fromHtml("<font color='#FFFFFFF'>Home </font>"));
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_24dp);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
+                this.mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -154,4 +129,20 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
+    public void searchButton_onClick(View view) {
+        String searchText = searchField.getText().toString();
+        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+        intent.putExtra(this.SEARCH_MESSAGE, searchText);
+        startActivity(intent);
+    }
+
+    public void browseButton_onClick(View view) {
+        Intent intent = new Intent(getApplicationContext(), ViewCategoryActivity.class);
+        startActivity(intent);
+    }
+
+    public void mapButton_onClick(View view) {
+        Intent intent = new Intent(getApplicationContext(), ViewTaskOnMapsActivity.class);
+        startActivity(intent);
+    }
 }

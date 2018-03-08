@@ -55,6 +55,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
+            android:onClick="searchButton_onClick"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_activity_search_field" />
@@ -71,6 +72,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
+            android:onClick="browseButton_onClick"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_activity_search_button" />
@@ -87,6 +89,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
+            android:onClick="mapButton_onClick"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_activity_browse_button" />
