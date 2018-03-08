@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TaskCan.iml" filepath="$PROJECT_DIR$/TaskCan.iml" />
-      <module fileurl="file://C:\Users\m_qui\Documents\Android Projects\TaskCan\TaskCan.iml" filepath="C:\Users\m_qui\Documents\Android Projects\TaskCan\TaskCan.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
