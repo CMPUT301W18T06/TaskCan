@@ -16,23 +16,32 @@
 
 package com.example.n8tech.taskcan;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Bidder represents a task provider that has made a bid
  * on a task. Stores the bidder's user information
  * and bid amount.
  */
 
-public class Bidder {
+public class Bid {
     private User bidder;
     private double bidAmount;
+    private Calendar datetimeofBid;
 
-    public Bidder(){
+    /**
+     * datetimeofBid is automatically initialized to current user device's date and time
+     */
+    public Bid(){
         // empty constructor for method signatures
+        this.datetimeofBid = Calendar.getInstance();
     }
 
-    public Bidder(User bidder, double bidAmount) {
+    public Bid(User bidder, double bidAmount) {
         this.bidder = bidder;
         this.bidAmount = bidAmount;
+        this.datetimeofBid = Calendar.getInstance();
     }
 
     public User getBidder() {
@@ -50,4 +59,11 @@ public class Bidder {
     public void setBidAmount(double bidAmount) {
         this.bidAmount = bidAmount;
     }
+
+    public Calendar getDatetimeofBid() { return this.datetimeofBid; }
+
+    public void setDatetimeofBid(Calendar c) {  this.datetimeofBid = c; }
+
+    public void setDatetimeofBid() { this.datetimeofBid = Calendar.getInstance(); }
+    
 }
