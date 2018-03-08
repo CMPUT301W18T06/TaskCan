@@ -26,7 +26,7 @@ import java.util.ArrayList;
  */
 
 public class Task {
-    private String name;
+    private String name; // task title
     private String description;
     private User owner;
     private User provider;
@@ -34,12 +34,13 @@ public class Task {
     private double currentBid;
     private String category;
     private String status;
-    private ArrayList<Bidder> bidderList;
+    private ArrayList<Bid> bidderList; // TODO need a class for this
     private String location;            // TODO change to geolocation variable
 
 
     public Task(){
         // test task
+        bidderList = new ArrayList<>();
     }
 
 
@@ -56,7 +57,6 @@ public class Task {
         // this.currentBid = ?? set here to a default value or leave alone
         this.category = "Other";
         this.status = "Requested";
-        this.bidderList = new ArrayList<Bidder>();
         this.location = null;
     }
 
@@ -124,11 +124,11 @@ public class Task {
         this.status = status;
     }
 
-    public ArrayList<Bidder> getBidderList() {
+    public ArrayList<Bid> getBidderList() {
         return bidderList;
     }
 
-    public void setBidderList(ArrayList<Bidder> bidderList) {
+    public void setBidderList(ArrayList<Bid> bidderList) {
         this.bidderList = bidderList;
     }
 
@@ -146,7 +146,7 @@ public class Task {
         this.location = location;
     }
 
-    public void addBidder(Bidder bidder) {this.bidderList.add(bidder); }
+    public void addBidder(Bid bidder) {this.bidderList.add(bidder); }
 
     public void addBidder(User user, double bid) {}
 
