@@ -38,7 +38,12 @@
             android:ems="10"
             android:hint="@string/search_activity_search_hint"
             android:inputType="textPersonName"
+            android:paddingBottom="11dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="11dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />

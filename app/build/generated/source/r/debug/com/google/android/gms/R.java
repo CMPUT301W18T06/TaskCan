@@ -71,8 +71,8 @@ public final class R {
         public static final int common_google_signin_btn_text_light_focused = 0x7f07006c;
         public static final int common_google_signin_btn_text_light_normal = 0x7f07006d;
         public static final int common_google_signin_btn_text_light_normal_background = 0x7f07006e;
-        public static final int googleg_disabled_color_18 = 0x7f070079;
-        public static final int googleg_standard_color_18 = 0x7f07007a;
+        public static final int googleg_disabled_color_18 = 0x7f07007a;
+        public static final int googleg_standard_color_18 = 0x7f07007b;
     }
     public static final class id {
         public static final int adjust_height = 0x7f08001c;
@@ -83,16 +83,16 @@ public final class R {
         public static final int hybrid = 0x7f080057;
         public static final int icon_only = 0x7f08005a;
         public static final int light = 0x7f080062;
-        public static final int none = 0x7f08007f;
-        public static final int normal = 0x7f080080;
-        public static final int radio = 0x7f08008e;
-        public static final int satellite = 0x7f080094;
-        public static final int standard = 0x7f0800bf;
-        public static final int terrain = 0x7f0800c5;
-        public static final int text = 0x7f0800c6;
-        public static final int text2 = 0x7f0800c7;
-        public static final int wide = 0x7f0800e0;
-        public static final int wrap_content = 0x7f0800e3;
+        public static final int none = 0x7f08008e;
+        public static final int normal = 0x7f08008f;
+        public static final int radio = 0x7f08009e;
+        public static final int satellite = 0x7f0800a4;
+        public static final int standard = 0x7f0800cf;
+        public static final int terrain = 0x7f0800d6;
+        public static final int text = 0x7f0800d7;
+        public static final int text2 = 0x7f0800d8;
+        public static final int wide = 0x7f0800fa;
+        public static final int wrap_content = 0x7f0800fd;
     }
     public static final class integer {
         public static final int google_play_services_version = 0x7f090007;

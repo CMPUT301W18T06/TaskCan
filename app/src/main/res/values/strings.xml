@@ -30,16 +30,16 @@
     <string name="title_activity_login">Login</string>
     <string name="title_activity_sign_in">Sign In</string>
     <string name="title_activity_sign_up">Sign Up</string>
-    <string name="title_activity_username">\u0020Email</string>
-    <string name="title_activity_password">\u0020Password</string>
+    <string name="title_activity_username">Email</string>
+    <string name="title_activity_password">Password</string>
 
-    <string name="sign_up_activity_name">\u0020Name*</string>
-    <string name="sign_up_activity_email">\u0020Email*</string>
-    <string name="sign_up_activity_password">\u0020Password*</string>
-    <string name="sign_up_activity_phone">\u0020Phone Number*</string>
+    <string name="sign_up_activity_name">Name*</string>
+    <string name="sign_up_activity_email">Email*</string>
+    <string name="sign_up_activity_password">Password*</string>
+    <string name="sign_up_activity_phone">Phone Number*</string>
     <string name="sign_up_activity_register">Register</string>
 
-    <string name="search_activity_search_hint">\u0020Search For Tasks</string>
+    <string name="search_activity_search_hint">Search For Tasks</string>
     <string name="search_activity_search_button">Search</string>
     <string name="search_activity_browse_categories">Browse Categories</string>
     <string name="search_activity_map">Map</string>
@@ -48,6 +48,17 @@
     <string name="my_task_activity_requested">Requested</string>
     <string name="my_task_activity_assigned">Assigned</string>
     <string name="my_task_activity_archived">Archived</string>
+    <string name="my_task_activity_task">Task</string>
+    <string name="my_task_activity_current_bid">Current Bid</string>
+
+    <string name="my_bid_activity_pending">Pending</string>
+    <string name="my_bid_activity_assigned">Assigned</string>
+
+    <string name="view_profile_edit_profile_button">Edit Profile</string>
+    <string name="view_profile_name">Name:</string>
+    <string name="view_profile_username">Username:</string>
+    <string name="view_profile_email">Email:</string>
+    <string name="view_profile_phone">Phone Number:</string>
 
 
 </resources>
