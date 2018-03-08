@@ -44,5 +44,10 @@
     <string name="search_activity_browse_categories">Browse Categories</string>
     <string name="search_activity_map">Map</string>
 
+    <string name="my_task_activity_new_task">New Task</string>
+    <string name="my_task_activity_requested">Requested</string>
+    <string name="my_task_activity_assigned">Assigned</string>
+    <string name="my_task_activity_archived">Archived</string>
+
 
 </resources>
