@@ -6,7 +6,7 @@ local.properties
 .DS_Store
 
 /build
-+/app/build
+/app/build
 
 .externalNativeBuild
 
