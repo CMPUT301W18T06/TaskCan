@@ -31,9 +31,7 @@ import android.widget.EditText;
 import android.text.Html;
 
 import com.example.n8tech.taskcan.R;
-import com.example.n8tech.taskcan.SignInActivity;
-import com.example.n8tech.taskcan.ViewCategoryActivity;
-import com.example.n8tech.taskcan.ViewTaskOnMapsActivity;
+
 
 public class SearchActivity extends ActivityHeader {
 

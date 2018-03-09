@@ -29,7 +29,6 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.example.n8tech.taskcan.R;
-import com.example.n8tech.taskcan.SearchActivity;
 
 public class MyBidActivity extends ActivityHeader {
 

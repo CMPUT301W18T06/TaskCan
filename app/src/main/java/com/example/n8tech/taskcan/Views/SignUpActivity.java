@@ -16,6 +16,7 @@
 
 package com.example.n8tech.taskcan.Views;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -26,8 +27,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
-import com.example.n8tech.taskcan.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

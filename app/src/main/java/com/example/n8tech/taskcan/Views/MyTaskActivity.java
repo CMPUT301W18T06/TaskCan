@@ -32,7 +32,7 @@ import android.widget.EditText;
 import android.widget.TabHost;
 
 import com.example.n8tech.taskcan.R;
-import com.example.n8tech.taskcan.SearchActivity;
+
 
 public class MyTaskActivity extends ActivityHeader {
 
