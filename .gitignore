@@ -8,8 +8,8 @@ local.properties
 
 /build
 /app/build
-.idea
 
+.gradle
 .externalNativeBuild
 
 # Log Files
