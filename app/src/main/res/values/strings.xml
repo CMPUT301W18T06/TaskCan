@@ -60,5 +60,7 @@
     <string name="view_profile_email">Email:</string>
     <string name="view_profile_phone">Phone Number:</string>
 
+    <string name="view_category_name_descr">Categories</string>
+
 
 </resources>

@@ -16,16 +16,34 @@
 
 package com.example.n8tech.taskcan.Views;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.n8tech.taskcan.R;
 
-public class ViewCategoryActivity extends AppCompatActivity {
+public class ViewCategoryActivity extends ActivityHeader {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_category);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_view_category;
+    }
+
+    @Override
+    protected String getActivityTitle() {
+        return "Browse Categories";
     }
 }
