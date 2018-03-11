@@ -38,6 +38,16 @@ public class ViewProfileActivity extends ActivityHeader {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Button editButton = findViewById(R.id.view_profile_edit_profile_button);
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), EditProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

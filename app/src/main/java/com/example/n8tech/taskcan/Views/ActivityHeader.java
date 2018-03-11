@@ -15,7 +15,7 @@ import com.example.n8tech.taskcan.R;
 
 
 /**
- * Header that inititalizes the Application Bar and Navigation Drawer
+ * Header that initializes the Application Bar and Navigation Drawer
  * for Activities which require their functionality.
  */
 

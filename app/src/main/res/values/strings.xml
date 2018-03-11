@@ -64,5 +64,7 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_task_map">Tasks Near Me</string>
 
+    <string name="edit_profile_activity_save_button">Save</string>
+
 
 </resources>
