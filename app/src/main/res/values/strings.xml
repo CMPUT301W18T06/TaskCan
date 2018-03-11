@@ -61,6 +61,8 @@
     <string name="view_profile_phone">Phone Number:</string>
 
     <string name="view_category_name_descr">Categories</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_task_map">Tasks Near Me</string>
 
 
 </resources>
