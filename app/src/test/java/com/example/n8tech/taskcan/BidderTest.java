@@ -18,6 +18,10 @@ package com.example.n8tech.taskcan;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.example.n8tech.taskcan.Models.Bidder;
+import com.example.n8tech.taskcan.Models.User;
+import com.example.n8tech.taskcan.Views.SignInActivity;
+
 /**
  * Created by cbinns on 2/22/2018.
  * Edited by msquigle on 2/23/2018.

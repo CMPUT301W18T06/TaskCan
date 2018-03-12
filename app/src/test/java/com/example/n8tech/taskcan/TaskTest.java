@@ -18,6 +18,11 @@ package com.example.n8tech.taskcan;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.example.n8tech.taskcan.Models.Bidder;
+import com.example.n8tech.taskcan.Models.Task;
+import com.example.n8tech.taskcan.Models.User;
+import com.example.n8tech.taskcan.Views.SignInActivity;
+
 import java.util.ArrayList;
 
 /**
