@@ -25,16 +25,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TabHost;
 
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 
 public class MyTaskActivity extends ActivityHeader {
+
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +69,18 @@ public class MyTaskActivity extends ActivityHeader {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Intent intent = getIntent();
+        String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
+        setCurrentUser(userMsg);
+        Gson gson = new Gson();
+        currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+
+        Log.i("Testing", currentUser.getEmail());
+    }
 
     @Override
     public void onBackPressed() {

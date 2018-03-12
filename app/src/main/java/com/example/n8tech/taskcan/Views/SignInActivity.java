@@ -71,6 +71,11 @@ public class SignInActivity extends Activity {
 
     public void signInButtonClick(View v) {
 
+        //Need to reverse order for security purposes
+        //Should check server before local cache
+
+        Gson gson = new Gson();
+
         boolean validCombination = false;
         String usernameText = username.getText().toString();
         String passwordText = password.getText().toString();
@@ -83,9 +88,10 @@ public class SignInActivity extends Activity {
             if (user.getEmail().equals(usernameText) && user.getPassword().equals(passwordText)) {
 
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                intent.putExtra(USER_MESSAGE, usernameText); //Change to userId once not null
+                intent.putExtra(USER_MESSAGE, gson.toJson(user)); //Change to userId once not null
                 startActivity(intent);
                 validCombination = true;
+                return;
             }
         }
 
@@ -95,6 +101,7 @@ public class SignInActivity extends Activity {
             intent.putExtra(USER_MESSAGE, "admin");
             startActivity(intent);
             validCombination = true;
+            return;
         }
 
         ElasticsearchController.GetUser getUser
@@ -116,10 +123,10 @@ public class SignInActivity extends Activity {
                 saveInFile();
 
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                Gson gson = new Gson();
                 intent.putExtra(USER_MESSAGE, gson.toJson(user));
                 startActivity(intent);
                 validCombination = true;
+                return;
             }
 
         }

@@ -25,25 +25,38 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class ViewProfileActivity extends ActivityHeader {
+
+    private TextView displayName;
+    private TextView id;
+    private TextView email;
+    private TextView contactInformation;
+
+    private User currentUser;
+    private Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Button editButton = findViewById(R.id.view_profile_edit_profile_button);
-
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), EditProfileActivity.class);
+                intent.putExtra(SignInActivity.USER_MESSAGE, gson.toJson(currentUser));
                 startActivity(intent);
             }
         });
@@ -51,9 +64,35 @@ public class ViewProfileActivity extends ActivityHeader {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        Intent intent = getIntent();
+        String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
+        setCurrentUser(userMsg);
+        currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+
+        Log.i("Testing", currentUser.getEmail());
+
+        id = findViewById(R.id.view_profile_username_display);
+        if(currentUser.getId() == null) {
+            id.setText("Not yet set");
+        } else {
+            id.setText(currentUser.getId());
+        }
+        displayName = findViewById(R.id.view_profile_name_display);
+        displayName.setText(currentUser.getUsername());
+        email = findViewById(R.id.view_profile_email_display);
+        email.setText(currentUser.getEmail());
+        contactInformation = findViewById(R.id.view_profile_phone_display);
+        contactInformation.setText(currentUser.getContactInformation());
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+        intent.putExtra(SignInActivity.USER_MESSAGE, gson.toJson(currentUser));
         startActivity(intent);
     }
 

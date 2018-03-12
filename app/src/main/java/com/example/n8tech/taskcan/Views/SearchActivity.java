@@ -16,6 +16,7 @@
 
 package com.example.n8tech.taskcan.Views ;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -43,19 +44,24 @@ public class SearchActivity extends ActivityHeader {
     private EditText searchField;
     private User currentUser;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        searchField = findViewById(R.id.search_activity_search_field);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         Intent intent = getIntent();
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
+        setCurrentUser(userMsg);
         Gson gson = new Gson();
         currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
 
         Log.i("Testing", currentUser.getEmail());
-
-        searchField = findViewById(R.id.search_activity_search_field);
     }
 
     @Override

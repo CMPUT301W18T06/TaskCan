@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
 
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
 
@@ -22,6 +23,7 @@ import com.google.gson.Gson;
 
 public abstract class ActivityHeader extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
+    private String currentUser;
     protected abstract int getLayoutResourceId();
     protected abstract String getActivityTitle();
 
@@ -46,24 +48,28 @@ public abstract class ActivityHeader extends AppCompatActivity {
                         switch (menuItem.getItemId()) {
                             case R.id.nav_menu_home: {
                                 Intent goToHome = new Intent(ActivityHeader.this,SearchActivity.class);
+                                goToHome.putExtra(SignInActivity.USER_MESSAGE, currentUser);
                                 startActivityForResult(goToHome, 1);
 
                                 break;
                             }
                             case R.id.nav_menu_my_tasks: {
                                 Intent goToTasks = new Intent(ActivityHeader.this, MyTaskActivity.class);
+                                goToTasks.putExtra(SignInActivity.USER_MESSAGE, currentUser);
                                 startActivityForResult(goToTasks, 1);
 
                                 break;
                             }
                             case R.id.nav_menu_my_bids: {
                                 Intent goToBids = new Intent(ActivityHeader.this, MyBidActivity.class);
+                                goToBids.putExtra(SignInActivity.USER_MESSAGE, currentUser);
                                 startActivityForResult(goToBids, 1);
 
                                 break;
                             }
                             case R.id.nav_menu_my_profile: {
                                 Intent goToProfile = new Intent(ActivityHeader.this, ViewProfileActivity.class);
+                                goToProfile.putExtra(SignInActivity.USER_MESSAGE, currentUser);
                                 startActivityForResult(goToProfile, 1);
 
                                 break;
@@ -96,6 +102,10 @@ public abstract class ActivityHeader extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
     }
 
 }
