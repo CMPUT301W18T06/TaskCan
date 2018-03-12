@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.n8tech.taskcan.Models.ElasticsearchController;
+import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
 import com.example.n8tech.taskcan.Views.SignUpActivity;
 import com.example.n8tech.taskcan.Models.User;
@@ -51,7 +52,7 @@ public class SignInActivity extends Activity {
     private static final String ERR_MSG = "Your email or password is incorrect.\nIf you don't remember your password... well that sucks!";
     private EditText username;
     private EditText password;
-    private ArrayList<User> cacheList;
+    private UserList cacheList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +112,7 @@ public class SignInActivity extends Activity {
             Log.i("testing", user.getId() + user.getEmail() + ":" + user.getPassword());
 
             if(user.getEmail().equals(usernameText) && user.getPassword().equals(passwordText)) {
-                cacheList.add(user);
+                cacheList.addUser(user);
                 saveInFile();
 
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
@@ -144,11 +145,11 @@ public class SignInActivity extends Activity {
 
             // Taken https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
             // 2018-01-23
-            Type listType = new TypeToken<ArrayList<User>>(){}.getType();
+            Type listType = new TypeToken<UserList>(){}.getType();
             cacheList = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
-            cacheList = new ArrayList<User>();
+            cacheList = new UserList();
             Log.i("No File", "Created New File");
         } catch (IOException e) {
             throw new RuntimeException();

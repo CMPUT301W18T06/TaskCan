@@ -1,5 +1,6 @@
 package com.example.n8tech.taskcan.Models;
 
+import android.accounts.NetworkErrorException;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -25,10 +26,10 @@ public class ElasticsearchController {
 
     private static JestDroidClient client;
 
-    public static class AddUser extends AsyncTask<User, Void, Void> {
+    public static class AddUser extends AsyncTask<User, Void, String> {
 
         @Override
-        protected Void doInBackground(User... users) {
+        protected String doInBackground(User... users) {
             verifySettings();
             Log.i("Testing", client.toString());
             Gson gson = (new GsonBuilder()).setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
@@ -52,9 +53,11 @@ public class ElasticsearchController {
                     }
                 } catch (Exception e) {
                     Log.i("Error", "The application failed to build and add the user");
+                    return "NetworkError";
+
                 }
             }
-            return null;
+            return "NoNetworkError";
         }
 
     }
@@ -66,10 +69,21 @@ public class ElasticsearchController {
             verifySettings();
             ArrayList<User> userList = new ArrayList<User>();
 
+            //String query = "?q=email:testing";
+            //Implement SearchSourceBuilder
             String query = "{\n" +
-                    " \"query\" : { \n" +
-                    "\"term\" : { \"" + search_params[0] + "\" : \"" + search_params[1] + "\" }\n" +
-                    "}\n" +
+                    "    \"query\": {\n" +
+                    "        \"filtered\" : {\n" +
+                    "            \"query\" : {\n" +
+                    "                \"query_string\" : {\n" +
+                    "                    \"query\" : \"test\"\n" +
+                    "                }\n" +
+                    "            },\n" +
+                    "            \"filter\" : {\n" +
+                    "                \"term\" : { \"" + search_params[0] + "\" : \"" + search_params[1] + "\" }\n" +
+                    "            }\n" +
+                    "        }\n" +
+                    "    }\n" +
                     "}";
 
             Log.i("Testing", query);
@@ -89,6 +103,7 @@ public class ElasticsearchController {
                     Log.i("Error", "The search query has failed");
                 }
             } catch (Exception e) {
+                //When no connection this occurs
                 Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
             }
 

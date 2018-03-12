@@ -17,6 +17,7 @@
 package com.example.n8tech.taskcan.Views;
 
 
+import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 import com.example.n8tech.taskcan.Models.ElasticsearchController;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
+import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -54,7 +56,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText emailText;
     private EditText passwordText;
     private EditText contactText;
-    private ArrayList<User> cacheList;
+    private UserList cacheList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +90,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         //Remove at some point, just to help with keeping things clean.
         if (name.equals("clearCache();")) {
-            cacheList = new ArrayList<User>();
+            //cacheList = new ArrayList<User>();
+            cacheList = new UserList();
             saveInFile();
         }
 
@@ -115,13 +118,26 @@ public class SignUpActivity extends AppCompatActivity {
             ElasticsearchController.AddUser addUser
                     = new ElasticsearchController.AddUser();
             addUser.execute(newUser);
+            String completed = "";
+            try {
+                completed = addUser.get();
+                Log.i("Testing", completed);
+            } catch (Exception e) {
+                Log.i("Error", e.toString());
+            }
 
-            cacheList.add(newUser);
-            saveInFile();
+            if(completed == "NoNetworkError") {
+                cacheList.addUser(newUser);
+                saveInFile();
 
-            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-            intent.putExtra(SignInActivity.USER_MESSAGE, email);
-            startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                intent.putExtra(SignInActivity.USER_MESSAGE, email);
+                startActivity(intent);
+            } else {
+                String errMsg = "Cannot connect to the network currently.\nPlease try again later";
+                Toast toast = Toast.makeText(getApplicationContext(), errMsg, Toast.LENGTH_SHORT);
+                toast.show();
+            }
         } else {
             //Determine which sections are invalid and create a message
 
@@ -211,7 +227,8 @@ public class SignUpActivity extends AppCompatActivity {
             cacheList = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
-            cacheList = new ArrayList<User>();
+            //cacheList = new ArrayList<User>();
+            cacheList = new UserList();
             Log.i("No File", "Created New File");
         } catch (IOException e) {
             throw new RuntimeException();
