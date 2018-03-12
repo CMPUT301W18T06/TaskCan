@@ -32,7 +32,7 @@ public class Task {
     private double currentBid;
     private String category;
     private String status;
-    private ArrayList<Bidder> bidderList;
+    private BidderList bidderList;
     private String location;            // TODO change to geolocation variable
 
 
@@ -55,7 +55,7 @@ public class Task {
         // this.currentBid = ?? set here to a default value or leave alone
         this.category = "Other";
         this.status = "Requested";
-        this.bidderList = new ArrayList<Bidder>();
+        this.bidderList = new BidderList();
         this.location = null;
     }
 
@@ -123,17 +123,17 @@ public class Task {
         this.status = status;
     }
 
-    public ArrayList<Bidder> getBidderList() {
+    public BidderList getBidderList() {
         return bidderList;
     }
 
-    public void setBidderList(ArrayList<Bidder> bidderList) {
+    public void setBidderList(BidderList bidderList) {
         this.bidderList = bidderList;
     }
 
-    public ArrayList<User> getUserBidList() {
+    public UserList getUserBidList() {
         //Needs to seperate out users
-        ArrayList<User> userList = new ArrayList<User>();
+        UserList userList = new UserList();
         return userList;
     }
 
@@ -145,7 +145,7 @@ public class Task {
         this.location = location;
     }
 
-    public void addBidder(Bidder bidder) {this.bidderList.add(bidder); }
+    public void addBidder(Bidder bidder) {this.bidderList.addBidder(bidder); }
 
     public void addBidder(User user, double bid) {}
 

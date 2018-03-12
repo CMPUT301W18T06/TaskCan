@@ -118,6 +118,7 @@ public class SignUpActivity extends AppCompatActivity {
             ElasticsearchController.AddUser addUser
                     = new ElasticsearchController.AddUser();
             addUser.execute(newUser);
+
             String completed = "";
             try {
                 completed = addUser.get();
@@ -127,11 +128,14 @@ public class SignUpActivity extends AppCompatActivity {
             }
 
             if(completed == "NoNetworkError") {
+                //Completed without error, need a few different tests to add once ES is working as expected
+                //Log.i("testing", newUser.getId());
                 cacheList.addUser(newUser);
                 saveInFile();
 
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                intent.putExtra(SignInActivity.USER_MESSAGE, email);
+                Gson gson = new Gson();
+                intent.putExtra(SignInActivity.USER_MESSAGE, gson.toJson(newUser));
                 startActivity(intent);
             } else {
                 String errMsg = "Cannot connect to the network currently.\nPlease try again later";
@@ -223,7 +227,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             // Taken https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
             // 2018-01-23
-            Type listType = new TypeToken<ArrayList<User>>(){}.getType();
+            Type listType = new TypeToken<UserList>(){}.getType();
             cacheList = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {

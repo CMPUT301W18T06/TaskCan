@@ -1,6 +1,5 @@
 package com.example.n8tech.taskcan.Models;
 
-import android.accounts.NetworkErrorException;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -11,7 +10,6 @@ import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;

@@ -24,19 +24,24 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.text.Html;
 
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 
 public class SearchActivity extends ActivityHeader {
 
     public static final String SEARCH_MESSAGE = "com.example.n8tech.taskcan.SEARCH_MESSAGE";
     private EditText searchField;
+    private User currentUser;
 
 
     @Override
@@ -45,6 +50,10 @@ public class SearchActivity extends ActivityHeader {
 
         Intent intent = getIntent();
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
+        Gson gson = new Gson();
+        currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+
+        Log.i("Testing", currentUser.getEmail());
 
         searchField = findViewById(R.id.search_activity_search_field);
     }

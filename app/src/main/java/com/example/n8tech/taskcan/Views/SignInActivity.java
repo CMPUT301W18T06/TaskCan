@@ -83,7 +83,7 @@ public class SignInActivity extends Activity {
             if (user.getEmail().equals(usernameText) && user.getPassword().equals(passwordText)) {
 
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                intent.putExtra(USER_MESSAGE, usernameText);
+                intent.putExtra(USER_MESSAGE, usernameText); //Change to userId once not null
                 startActivity(intent);
                 validCombination = true;
             }
@@ -116,7 +116,8 @@ public class SignInActivity extends Activity {
                 saveInFile();
 
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                intent.putExtra(USER_MESSAGE, usernameText);
+                Gson gson = new Gson();
+                intent.putExtra(USER_MESSAGE, gson.toJson(user));
                 startActivity(intent);
                 validCombination = true;
             }
