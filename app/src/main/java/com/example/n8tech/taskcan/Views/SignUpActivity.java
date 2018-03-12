@@ -27,6 +27,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.n8tech.taskcan.Models.ElasticsearchController;
+import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
@@ -65,83 +67,82 @@ public class SignUpActivity extends AppCompatActivity {
         passwordText = findViewById(R.id.password_field);
         contactText = findViewById(R.id.phone_field);
 
-        Button registerButton = findViewById(R.id.register_button);
+    }
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    public void registerButtonClick(View v) {
+        setResult(RESULT_OK);
 
-                setResult(RESULT_OK);
+        boolean usernameValid = true;
+        boolean emailValid = true;
+        boolean passwordValid = true;
+        boolean contactValid = true;
 
-                boolean usernameValid = true;
-                boolean emailValid = true;
-                boolean passwordValid = true;
-                boolean contactValid = true;
+        String name = usernameText.getText().toString();
+        String email = emailText.getText().toString();
+        String password = passwordText.getText().toString();
+        String contact = contactText.getText().toString();
 
-                String name = usernameText.getText().toString();
-                String email = emailText.getText().toString();
-                String password = passwordText.getText().toString();
-                String contact = contactText.getText().toString();
+        if (name.length() < 3 || !StringUtils.isAlphaSpace(name)) {
+            usernameValid = false;
+        }
 
-                if (name.length() < 3 || !StringUtils.isAlphaSpace(name)) {
-                    usernameValid = false;
-                }
+        //Remove at some point, just to help with keeping things clean.
+        if (name.equals("clearCache();")) {
+            cacheList = new ArrayList<User>();
+            saveInFile();
+        }
 
-                //Remove at some point, just to help with keeping things clean.
-                if(name.equals("clearCache();")) {
-                    cacheList = new ArrayList<User>();
-                    saveInFile();
-                }
+        if (!checkEmailValidity(email)) {
+            emailValid = false;
+        }
 
-                if (!checkEmailValidity(email)) {
-                    emailValid = false;
-                }
+        if (password.length() <= 6) {
+            passwordValid = false;
+        }
 
-                if (password.length() <= 6) {
-                    passwordValid = false;
-                }
+        if (!checkContactValidity(contact)) {
+            contactValid = false;
+        }
 
-                if (!checkContactValidity(contact)) {
-                    contactValid = false;
-                }
+        if (usernameValid && emailValid && passwordValid && contactValid) {
+            //
+            contact = contact.replace("-", "");
+            contact = contact.replace(".", "");
+            contact = contact.substring(0, 3) + "-" + contact.substring(3, 6) + "-" + contact.substring(6, contact.length());
 
-                if (usernameValid && emailValid && passwordValid && contactValid) {
-                    //
-                    contact = contact.replace("-", "");
-                    contact = contact.replace(".", "");
-                    contact = contact.substring(0,3) + "-" + contact.substring(3,6) + "-" + contact.substring(6, contact.length());
+            User newUser = new User(name, email, password, contact);
 
-                    User newUser = new User(name, email, password, contact);
+            ElasticsearchController.AddUser addUser
+                    = new ElasticsearchController.AddUser();
+            addUser.execute(newUser);
 
-                    cacheList.add(newUser);
-                    saveInFile();
+            cacheList.add(newUser);
+            saveInFile();
 
-                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                    intent.putExtra(SignInActivity.USER_MESSAGE, email);
-                    startActivity(intent);
-                } else {
-                //Determine which sections are invalid and create a message
+            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+            intent.putExtra(SignInActivity.USER_MESSAGE, email);
+            startActivity(intent);
+        } else {
+            //Determine which sections are invalid and create a message
 
-                String errMsg = "";
-                if(!usernameValid) {
-                    errMsg = errMsg + "Please enter a valid username.\n";
-                }
-                if(!emailValid) {
-                    errMsg = errMsg + "Please enter a valid email.\n";
-                }
-                if(!passwordValid) {
-                    errMsg = errMsg + "Please enter a valid password. Length of at least 6.\n";
-                }
-                if(!contactValid) {
-                    errMsg = errMsg + "Please enter a valid phone number.\n";
-                }
-                errMsg = errMsg.trim();
-
-                Toast toast = Toast.makeText(getApplicationContext(), errMsg, Toast.LENGTH_SHORT);
-                toast.show();
+            String errMsg = "";
+            if (!usernameValid) {
+                errMsg = errMsg + "Please enter a valid username.\n";
             }
+            if (!emailValid) {
+                errMsg = errMsg + "Please enter a valid email.\n";
             }
-        });
+            if (!passwordValid) {
+                errMsg = errMsg + "Please enter a valid password. Length of at least 6.\n";
+            }
+            if (!contactValid) {
+                errMsg = errMsg + "Please enter a valid phone number.\n";
+            }
+            errMsg = errMsg.trim();
+
+            Toast toast = Toast.makeText(getApplicationContext(), errMsg, Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     private boolean checkEmailValidity(String email) {
@@ -160,6 +161,27 @@ public class SignUpActivity extends AppCompatActivity {
                 return false;
             }
         }
+
+        ElasticsearchController.GetUser getUser
+                = new ElasticsearchController.GetUser();
+        getUser.execute("email", email);
+
+        ArrayList<User> userList = new ArrayList<>();
+
+        try {
+            userList = getUser.get();
+        } catch (Exception e) {
+            Log.i("Error", "Couldn't load users from server");
+        }
+
+        for(User user : userList) {
+            Log.i("testing", user.getId() + user.getEmail());
+            if(user.getEmail() == email) {
+                return false;
+            }
+
+        }
+
         return true;
     }
 

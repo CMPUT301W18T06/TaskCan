@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class Task {
     private String name;
     private String description;
-    private User owner;
+    private String owner;
     private User provider;
     private double maximumBid;
     private double currentBid;
@@ -41,7 +41,7 @@ public class Task {
     }
 
     // minimum information needed to create a new task
-    public Task(String name, String description, User owner) {
+    public Task(String name, String description, String owner) {
         // TODO: length checking for name & description
         this.name = name;
         this.description = description;
@@ -49,7 +49,9 @@ public class Task {
 
         // set default values for a new task
         this.provider = null;
-        this.maximumBid = Double.POSITIVE_INFINITY;
+        //this.maximumBid = Double.POSITIVE_INFINITY;
+        //Swapping since JSON can't handle infinity may swap back later
+        this.maximumBid = -1;
         // this.currentBid = ?? set here to a default value or leave alone
         this.category = "Other";
         this.status = "Requested";
@@ -73,11 +75,11 @@ public class Task {
         this.description = description;
     }
 
-    public User getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 

@@ -17,6 +17,7 @@
 package com.example.n8tech.taskcan.Views;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.n8tech.taskcan.Models.ElasticsearchController;
 import com.example.n8tech.taskcan.R;
 import com.example.n8tech.taskcan.Views.SignUpActivity;
 import com.example.n8tech.taskcan.Models.User;
@@ -32,10 +34,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -55,69 +60,77 @@ public class SignInActivity extends Activity {
 
         username = findViewById(R.id.username_field);
         password = findViewById(R.id.password_field);
-
-        Button signInButton = findViewById(R.id.sign_in_button);
-        Button signUpButton = findViewById(R.id.sign_up_button);
-
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                boolean validCombination = false;
-                String usernameText = username.getText().toString();
-                String passwordText = password.getText().toString();
-
-                for (User user : cacheList) {
-                    //Remove once we have set things logins we can remember
-                    Log.i("Email", user.getEmail());
-                    Log.i("Password", user.getPassword());
-                    //Loop through all users within cache and see if they entered a valid combination
-                    if (user.getEmail().equals(usernameText) && user.getPassword().equals(passwordText)) {
-
-                        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                        intent.putExtra(USER_MESSAGE, usernameText);
-                        startActivity(intent);
-                        validCombination = true;
-                    }
-                }
-
-                if(usernameText.equals("admin") && passwordText.equals("admin")) {
-                    //Admin entry remove eventually
-                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                    intent.putExtra(USER_MESSAGE, "admin");
-                    startActivity(intent);
-                    validCombination = true;
-                }
-
-                /*
-                 * Check against json from elasticsearch if that does not work
-                 */
-                //Add code here
-
-                //Add that user from the elasticsearch to the cache file and save it.
-                //Do same as lines 74-76
-                if(!validCombination) {
-                    Toast toast = Toast.makeText(getApplicationContext(), ERR_MSG, Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-
-            }
-        });
-
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         loadFromFile();
+    }
+
+    public void signInButtonClick(View v) {
+
+        boolean validCombination = false;
+        String usernameText = username.getText().toString();
+        String passwordText = password.getText().toString();
+
+        for (User user : cacheList) {
+            //Remove once we have set things logins we can remember
+            Log.i("Email", user.getEmail());
+            Log.i("Password", user.getPassword());
+            //Loop through all users within cache and see if they entered a valid combination
+            if (user.getEmail().equals(usernameText) && user.getPassword().equals(passwordText)) {
+
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                intent.putExtra(USER_MESSAGE, usernameText);
+                startActivity(intent);
+                validCombination = true;
+            }
+        }
+
+        if(usernameText.equals("admin") && passwordText.equals("admin")) {
+            //Admin entry remove eventually
+            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+            intent.putExtra(USER_MESSAGE, "admin");
+            startActivity(intent);
+            validCombination = true;
+        }
+
+        ElasticsearchController.GetUser getUser
+                = new ElasticsearchController.GetUser();
+        getUser.execute("email", usernameText);
+
+        ArrayList<User> userList = new ArrayList<>();
+        try {
+            userList = getUser.get();
+        } catch (Exception e) {
+            Log.i("Error", "Couldn't load users from server");
+        }
+
+        for(User user : userList) {
+            Log.i("testing", user.getId() + user.getEmail() + ":" + user.getPassword());
+
+            if(user.getEmail().equals(usernameText) && user.getPassword().equals(passwordText)) {
+                cacheList.add(user);
+                saveInFile();
+
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                intent.putExtra(USER_MESSAGE, usernameText);
+                startActivity(intent);
+                validCombination = true;
+            }
+
+        }
+
+        if(!validCombination) {
+            Toast toast = Toast.makeText(getApplicationContext(), ERR_MSG, Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+    public void signUpButtonClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+        startActivity(intent);
     }
 
     private void loadFromFile() {
@@ -138,6 +151,26 @@ public class SignInActivity extends Activity {
             cacheList = new ArrayList<User>();
             Log.i("No File", "Created New File");
         } catch (IOException e) {
+            throw new RuntimeException();
+        }
+    }
+    private void saveInFile() {
+        //Save SubList to a JSON file
+
+        try {
+            FileOutputStream fos = openFileOutput(CACHE_FILE,
+                    Context.MODE_PRIVATE);
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+
+            Gson gson = new Gson();
+            gson.toJson(cacheList, out);
+            out.flush();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
             throw new RuntimeException();
         }
     }

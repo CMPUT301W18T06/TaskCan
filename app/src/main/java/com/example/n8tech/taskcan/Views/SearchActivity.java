@@ -47,42 +47,29 @@ public class SearchActivity extends ActivityHeader {
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
 
         searchField = findViewById(R.id.search_activity_search_field);
-        Button searchButton = findViewById(R.id.search_activity_search_button);
-        Button browseButton = findViewById(R.id.search_activity_browse_button);
-        Button mapButton = findViewById(R.id.search_activity_map_button);
-
-
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String searchText = searchField.getText().toString();
-                Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                intent.putExtra(SEARCH_MESSAGE, searchText);
-                startActivity(intent);
-            }
-        });
-
-        browseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ViewCategoryActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ViewTaskOnMapsActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+        startActivity(intent);
+    }
+
+    public void searchButtonClick(View v) {
+        String searchText = searchField.getText().toString();
+        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+        intent.putExtra(SEARCH_MESSAGE, searchText);
+        startActivity(intent);
+    }
+
+    public void browseButtonClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), ViewCategoryActivity.class);
+        startActivity(intent);
+    }
+
+    public void mapButtonClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), ViewTaskOnMapsActivity.class);
         startActivity(intent);
     }
 

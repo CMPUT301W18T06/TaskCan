@@ -18,6 +18,8 @@ package com.example.n8tech.taskcan.Models;
 
 import java.util.ArrayList;
 
+import io.searchbox.annotations.JestId;
+
 /**
  * A User is a Task Requester and or Task provider.
  * This class stores profile information and
@@ -31,6 +33,9 @@ public class User {
     private String contactInformation;
     private ArrayList<Task> myTaskBids;
     private ArrayList<Task> myTasks;
+
+    @JestId
+    private String id;
 
     public User(){
         // test user
@@ -77,13 +82,19 @@ public class User {
         this.contactInformation = contactInformation;
     }
 
-    public void addBidTask(Task task) {}
+    public String getId() {return id; }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void addBidTask(Task task) { myTaskBids.add(task); }
 
     public void removeBidTask(Task task) {}
 
     public ArrayList<Task> getBidTaskList() { return this.myTaskBids; }
 
-    public void addTask(Task task) {}
+    public void addTask(Task task) { myTasks.add(task); }
 
     public void removeTask(Task task) {}
 
