@@ -14,11 +14,19 @@
  *  limitations under the License.
  */
 
-package com.example.n8tech.taskcan;
+package com.example.n8tech.taskcan.Views;
 
-/**
- * Created by cbinns on 2/22/2018.
- */
 
-public class FileIO {
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+import com.example.n8tech.taskcan.R;
+
+public class EditTaskMapActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_task_map);
+    }
 }

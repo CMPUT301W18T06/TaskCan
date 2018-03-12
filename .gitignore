@@ -2,11 +2,14 @@
 
 # local properties
 local.properties
+.idea
 
 .DS_Store
 
 /build
+/app/build
 
+.gradle
 .externalNativeBuild
 
 # Log Files

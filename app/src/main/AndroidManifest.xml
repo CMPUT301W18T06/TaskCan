@@ -11,35 +11,81 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <application
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".SearchActivity" android:exported="true"/>
-        <activity android:name=".ResultActivity" android:exported="true"/>
-        <activity android:name=".ViewProfileActivity" android:exported="true"/>
-        <activity android:name=".MyBidActivity" android:exported="true"/>
-        <activity android:name=".ViewTaskOnMapsActivity" android:exported="true"/>
-        <activity android:name=".ViewCategoryActivity" android:exported="true"/>
-        <activity android:name=".MyTaskActivity" android:exported="true"/>
-        <activity android:name=".SignUpActivity" android:exported="true"/>
-        <activity android:name=".ImageSlideShowActivity" android:exported="true"/>
-        <activity android:name=".EditTaskMapActivity" android:exported="true"/>
-        <activity android:name=".EditProfileActivity" android:exported="true"/>
-        <activity android:name=".TaskDetailActivity" android:exported="true"/>
-        <activity android:name=".EditTaskActivity" android:exported="true"/>
-        <activity android:name=".SignInActivity" android:exported="true">
+        <activity
+            android:name=".Views.SearchActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Views.ResultActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Views.ViewProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Views.MyBidActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Views.ViewCategoryActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Views.MyTaskActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Views.SignUpActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Views.ImageSlideShowActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Views.EditTaskMapActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Views.EditProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Views.TaskDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Views.EditTaskActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Views.SignInActivity"
+            android:exported="true">
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".Views.ViewTaskOnMapsActivity"
+            android:label="@string/title_activity_task_map"></activity>
     </application>
 
 </manifest>
