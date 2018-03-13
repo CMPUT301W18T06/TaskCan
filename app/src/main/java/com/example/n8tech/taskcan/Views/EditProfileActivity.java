@@ -54,12 +54,12 @@ public class EditProfileActivity extends ActivityHeader {
 
         Log.i("Testing", currentUser.getEmail());
 
-        id = findViewById(R.id.edit_profile_username_display);
+        /*id = findViewById(R.id.edit_profile_username_display);
         if(currentUser.getId() == null) {
             id.setText("Not yet set");
         } else {
             id.setText("");
-        }
+        }*/
         displayName = findViewById(R.id.edit_profile_name_display);
         displayName.setText(currentUser.getUsername());
         email = findViewById(R.id.edit_profile_email_display);

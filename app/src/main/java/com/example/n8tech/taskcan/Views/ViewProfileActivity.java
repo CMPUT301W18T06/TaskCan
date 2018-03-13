@@ -74,12 +74,12 @@ public class ViewProfileActivity extends ActivityHeader {
 
         Log.i("Testing", currentUser.getEmail());
 
-        id = findViewById(R.id.view_profile_username_display);
+        /*id = findViewById(R.id.view_profile_username_display);
         if(currentUser.getId() == null) {
             id.setText("Not yet set");
         } else {
             id.setText(currentUser.getId());
-        }
+        }*/
         displayName = findViewById(R.id.view_profile_name_display);
         displayName.setText(currentUser.getUsername());
         email = findViewById(R.id.view_profile_email_display);
