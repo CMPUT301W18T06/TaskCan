@@ -40,7 +40,6 @@ import com.google.gson.reflect.TypeToken;
 public class ViewProfileActivity extends ActivityHeader {
 
     private TextView displayName;
-    private TextView id;
     private TextView email;
     private TextView contactInformation;
 
@@ -74,12 +73,6 @@ public class ViewProfileActivity extends ActivityHeader {
 
         Log.i("Testing", currentUser.getEmail());
 
-        /*id = findViewById(R.id.view_profile_username_display);
-        if(currentUser.getId() == null) {
-            id.setText("Not yet set");
-        } else {
-            id.setText(currentUser.getId());
-        }*/
         displayName = findViewById(R.id.view_profile_name_display);
         displayName.setText(currentUser.getUsername());
         email = findViewById(R.id.view_profile_email_display);

@@ -97,8 +97,9 @@ public class SignInActivity extends Activity {
 
         if(usernameText.equals("admin") && passwordText.equals("admin")) {
             //Admin entry remove eventually
+            User admin = new User("admin", "admin@n8tech.com", "admin", "Volcano Base");
             Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-            intent.putExtra(USER_MESSAGE, "admin");
+            intent.putExtra(USER_MESSAGE, gson.toJson(admin));
             startActivity(intent);
             validCombination = true;
             return;

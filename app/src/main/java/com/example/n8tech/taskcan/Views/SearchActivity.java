@@ -43,6 +43,7 @@ public class SearchActivity extends ActivityHeader {
     public static final String SEARCH_MESSAGE = "com.example.n8tech.taskcan.SEARCH_MESSAGE";
     private EditText searchField;
     private User currentUser;
+    private Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +60,9 @@ public class SearchActivity extends ActivityHeader {
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
         setCurrentUser(userMsg);
 
-        //Gson gson = new Gson();
-        //currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+        currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
 
-        //Log.i("Testing", currentUser.getEmail());
+        Log.i("Testing", currentUser.getEmail());
     }
 
     @Override
