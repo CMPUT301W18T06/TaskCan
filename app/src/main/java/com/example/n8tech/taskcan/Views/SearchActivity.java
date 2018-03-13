@@ -58,10 +58,11 @@ public class SearchActivity extends ActivityHeader {
         Intent intent = getIntent();
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
         setCurrentUser(userMsg);
-        Gson gson = new Gson();
-        currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
 
-        Log.i("Testing", currentUser.getEmail());
+        //Gson gson = new Gson();
+        //currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+
+        //Log.i("Testing", currentUser.getEmail());
     }
 
     @Override
