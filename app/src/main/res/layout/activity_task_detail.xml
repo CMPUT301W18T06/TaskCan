@@ -16,55 +16,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-
-        <TextView
-            android:id="@+id/task_details_bar"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/menu_toolbar"
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:background="@drawable/gradient_no_rounding"
-            android:gravity="center"
-            android:text="Task Details"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-            android:textColor="@color/colorWhite"
-            android:textSize="24sp"
+            android:elevation="4dp"
+            android:theme="@style/AppTheme"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
 
         <TextView
             android:id="@+id/task_details_activity_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
             android:text="(task name)"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/task_details_bar" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
 
         <TextView
             android:id="@+id/task_details_activity_requester_username_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
             android:text="(requester username)"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/task_details_activity_name_text" />
 
         <TextView
             android:id="@+id/task_details_activity_current_bid_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
             android:text="(current bid)"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/task_details_activity_requester_username_text" />
 
 
@@ -112,14 +103,14 @@
             android:id="@+id/task_details_activity_location_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/gradient"
             android:text="Location"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/task_details_activity_current_bid_text" />
         <Button
             android:id="@+id/task_details_activity_view_bids_button"
@@ -174,6 +165,16 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/menu_toolbar"
+            app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal" />
 
     </android.support.constraint.ConstraintLayout>
 
