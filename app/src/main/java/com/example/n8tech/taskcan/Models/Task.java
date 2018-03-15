@@ -32,9 +32,9 @@ public class Task {
     private User provider;
     private double maximumBid;
     private String category;
-    private String status;
     private Bids bids;
     private String location;            // TODO change to geolocation variable
+    private boolean taskCompleted;
 
 
     public Task(){
@@ -56,9 +56,17 @@ public class Task {
         this.maximumBid = -1;
         // this.currentBid = ?? set here to a default value or leave alone
         this.category = "Other";
-        this.status = "Requested";
         this.bids = new Bids();
         this.location = null;
+        this.taskCompleted = false;
+    }
+
+    public void setTaskCompleted(boolean completed) {
+        if (!this.taskCompleted) this.taskCompleted = completed;
+    }
+
+    public boolean getTaskCompleted() {
+        return this.taskCompleted;
     }
 
     public String getTaskTitle() {
@@ -116,11 +124,18 @@ public class Task {
     }
 
     public String getStatus() {
-        return this.status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+        if (this.getTaskCompleted()) {
+            return "done";
+        }
+        if (this.provider != null) {
+            return "assigned";
+        }
+        if (this.bids.getSize() == 0) {
+            return "requested";
+        }
+        if (this.bids.getSize() > 0) {
+            return "bidded";
+        }
     }
 
     public Bids getBids() {
