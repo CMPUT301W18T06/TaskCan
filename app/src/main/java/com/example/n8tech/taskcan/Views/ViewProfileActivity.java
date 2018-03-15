@@ -94,6 +94,8 @@ public class ViewProfileActivity extends ActivityHeader {
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(ViewProfileActivity.this, SearchActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(SignInActivity.USER_MESSAGE, gson.toJson(currentUser));
         startActivity(intent);
     }

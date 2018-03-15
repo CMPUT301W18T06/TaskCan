@@ -95,6 +95,8 @@ public class MyTaskActivity extends ActivityHeader {
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(MyTaskActivity.this, SearchActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
