@@ -30,7 +30,7 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String contactInformation;
+    private int phoneNumber;
     private ArrayList<Task> myTaskBids;
     private ArrayList<Task> myTasks;
 
@@ -41,17 +41,17 @@ public class User {
         // test user
     }
 
-    public User(String username, String email, String password, String contactInformation) {
+    public User(String username, String email, String password, int phoneNumber) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.contactInformation = contactInformation;
+        this.phoneNumber = phoneNumber;
         this.myTaskBids = new ArrayList<Task>();
         this.myTasks = new ArrayList<Task>();
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
@@ -59,7 +59,7 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
@@ -67,34 +67,34 @@ public class User {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getContactInformation() {
-        return contactInformation;
+    public int getPhoneNumber() {
+        return this.phoneNumber;
     }
 
-    public void setContactInformation(String contactInformation) {
-        this.contactInformation = contactInformation;
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getId() {return id; }
+    public String getId() {return this.id; }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public void addBidTask(Task task) { myTaskBids.add(task); }
+    public void addBidTask(Task task) { this.myTaskBids.add(task); }
 
     public void removeBidTask(Task task) {}
 
     public ArrayList<Task> getBidTaskList() { return this.myTaskBids; }
 
-    public void addTask(Task task) { myTasks.add(task); }
+    public void addTask(Task task) { this.myTasks.add(task); }
 
     public void removeTask(Task task) {}
 
