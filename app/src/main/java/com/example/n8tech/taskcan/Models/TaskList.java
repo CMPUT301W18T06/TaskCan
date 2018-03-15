@@ -7,10 +7,10 @@ import java.util.Iterator;
  * Created by m_qui on 3/12/2018.
  */
 
-public class Tasks implements Iterable<Task> {
+public class TaskList implements Iterable<Task> {
     private ArrayList<Task> taskList;
 
-    public Tasks() {
+    public TaskList() {
         this.taskList = new ArrayList<Task>();
     }
 

@@ -32,7 +32,7 @@ public class Task {
     private User provider;
     private double maximumBid;
     private String category;
-    private Bids bids;
+    private BidList bidList;
     private String location;            // TODO change to geolocation variable
     private boolean taskCompleted;
 
@@ -56,7 +56,7 @@ public class Task {
         this.maximumBid = -1;
         // this.currentBid = ?? set here to a default value or leave alone
         this.category = "Other";
-        this.bids = new Bids();
+        this.bidList = new BidList();
         this.location = null;
         this.taskCompleted = false;
     }
@@ -130,29 +130,29 @@ public class Task {
         if (this.provider != null) {
             return "assigned";
         }
-        if (this.bids.getSize() == 0) {
+        if (this.bidList.getSize() == 0) {
             return "requested";
         }
-        if (this.bids.getSize() > 0) {
+        if (this.bidList.getSize() > 0) {
             return "bidded";
         }
         throw new IllegalStateException(); //TODO: make sure this is the right exception
     }
 
-    public Bids getBids() {
-        return this.bids;
+    public BidList getBidList() {
+        return this.bidList;
     }
 
-    public void setBids(Bids bids) {
-        this.bids = bids;
+    public void setBidList(BidList bidList) {
+        this.bidList = bidList;
     }
 
     //TODO: this point on, not really sure what is going on withe the below methods, waiting for more clarification
 
-    public Users getUserBidList() {
-        //Needs to seperate out users
-        Users users = new Users();
-        return users;
+    public UserList getUserBidList() {
+        //Needs to seperate out userList
+        UserList userList = new UserList();
+        return userList;
     }
 
     public String getLocation() {
@@ -163,7 +163,7 @@ public class Task {
         this.location = location;
     }
 
-    public void addBidder(Bid bid) {this.bids.addBid(bid); }
+    public void addBidder(Bid bid) {this.bidList.addBid(bid); }
 
     public void addBidder(User user, double bid) {}
 

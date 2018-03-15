@@ -7,11 +7,11 @@ import java.util.Iterator;
  * Created by m_qui on 3/12/2018.
  */
 
-public class Users implements Iterable<User> {
+public class UserList implements Iterable<User> {
 
     private ArrayList<User> userList;
 
-    public Users() {
+    public UserList() {
         this.userList = new ArrayList<User>();
     }
 

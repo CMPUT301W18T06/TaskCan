@@ -102,7 +102,7 @@ public class MyBidActivity extends ActivityHeader {
 
     @Override
     protected String getActivityTitle() {
-        return "My Bids";
+        return "My BidList";
     }
 
 }

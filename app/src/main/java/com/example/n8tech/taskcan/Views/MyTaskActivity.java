@@ -112,7 +112,7 @@ public class MyTaskActivity extends ActivityHeader {
 
     @Override
     protected String getActivityTitle() {
-        return "My Tasks";
+        return "My TaskList";
     }
 
 }

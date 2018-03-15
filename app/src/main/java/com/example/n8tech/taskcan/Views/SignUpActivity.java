@@ -28,7 +28,7 @@ import android.widget.Toast;
 
 import com.example.n8tech.taskcan.Models.ElasticsearchController;
 import com.example.n8tech.taskcan.Models.User;
-import com.example.n8tech.taskcan.Models.Users;
+import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -53,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText emailText;
     private EditText passwordText;
     private EditText contactText;
-    private Users cacheList;
+    private UserList cacheList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +88,7 @@ public class SignUpActivity extends AppCompatActivity {
         //Remove at some point, just to help with keeping things clean.
         if (name.equals("clearCache();")) {
             //cacheList = new ArrayList<User>();
-            this.cacheList = new Users();
+            this.cacheList = new UserList();
             saveInFile();
         }
 
@@ -224,12 +224,12 @@ public class SignUpActivity extends AppCompatActivity {
 
             // Taken https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
             // 2018-01-23
-            Type listType = new TypeToken<Users>(){}.getType();
+            Type listType = new TypeToken<UserList>(){}.getType();
             this.cacheList = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
             //cacheList = new ArrayList<User>();
-            this.cacheList = new Users();
+            this.cacheList = new UserList();
             Log.i("No File", "Created New File");
         } catch (IOException e) {
             throw new RuntimeException();

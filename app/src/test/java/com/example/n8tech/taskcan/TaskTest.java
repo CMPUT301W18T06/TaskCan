@@ -63,7 +63,7 @@ public class TaskTest extends ActivityInstrumentationTestCase2 {
         assert(task1.getProvider().equals(user2));
         assert(task1.getMaximumBid() == 20.00);
         assert(task1.getCategory() == "Pets");
-        assert(task1.getBids().getBidder(1).equals(bid1));
+        assert(task1.getBidList().getBidder(1).equals(bid1));
         assert(task1.getLocation() == "Edmonton");
     }
 
@@ -78,7 +78,7 @@ public class TaskTest extends ActivityInstrumentationTestCase2 {
         assert(task1.getMaximumBid() == Double.POSITIVE_INFINITY);
         assert(task1.getCategory() == "Other");
         assert(task1.getStatus() == "Requested");
-        assert(task1.getBids().isEmpty());
+        assert(task1.getBidList().isEmpty());
         assert(task1.getLocation() == null);
     }
 
@@ -125,9 +125,9 @@ public class TaskTest extends ActivityInstrumentationTestCase2 {
         task1.addBidder(user6, 17.84);
 
         //Check if lists after adding are correct.
-        assert(task1.getBids().size() == 6);
+        assert(task1.getBidList().size() == 6);
         assert(task1.getUserBidList().size() == 6);
-        assert(task1.getBids().equals(bidList));
+        assert(task1.getBidList().equals(bidList));
         assert(task1.getUserBidList().equals(userList));
 
         task1.cancelBidder(user3);
@@ -135,18 +135,18 @@ public class TaskTest extends ActivityInstrumentationTestCase2 {
         bidList.remove(bidList.indexOf(bid3));
 
         //Test if cancelling a bidder is done correctly
-        assert(task1.getBids().size() == 5);
+        assert(task1.getBidList().size() == 5);
         assert(task1.getUserBidList().size() == 5);
-        assert(task1.getBids().equals(bidList));
+        assert(task1.getBidList().equals(bidList));
         assert(task1.getUserBidList().equals(userList));
 
         task1.updateBidder(user5, 11.76);
         bidList.set(3,new Bid(user5, 11.76));
 
         //Test if updating a bidder is done correctly.
-        assert(task1.getBids().size() == 5);
+        assert(task1.getBidList().size() == 5);
         assert(task1.getUserBidList().size() == 5);
-        assert(task1.getBids().equals(bidList));
+        assert(task1.getBidList().equals(bidList));
         assert(task1.getUserBidList().equals(userList));
     }
 
@@ -182,17 +182,17 @@ public class TaskTest extends ActivityInstrumentationTestCase2 {
         task1.addBidder(user2, 15.32);
         task1.addBidder(user3, 12.89);
         //Ensure added correctly.
-        assert(task1.getBids().size() == 3);
+        assert(task1.getBidList().size() == 3);
         assert(task1.getUserBidList().size() == 3);
-        assert(task1.getBids().equals(bidList));
+        assert(task1.getBidList().equals(bidList));
         assert(task1.getUserBidList().equals(userList));
 
         task1.setStatus("Assigned");
         task1.addBidder(user4, 67.55);
         //Test that bids are not added when assigned.
-        assert(task1.getBids().size() == 3);
+        assert(task1.getBidList().size() == 3);
         assert(task1.getUserBidList().size() == 3);
-        assert(task1.getBids().equals(bidList));
+        assert(task1.getBidList().equals(bidList));
         assert(task1.getUserBidList().equals(userList));
 
 
@@ -201,17 +201,17 @@ public class TaskTest extends ActivityInstrumentationTestCase2 {
         userList.add(user4);
         bidList.add(bid4);
         //Test status changed back to requested and it adds correctly.
-        assert(task1.getBids().size() == 4);
+        assert(task1.getBidList().size() == 4);
         assert(task1.getUserBidList().size() == 4);
-        assert(task1.getBids().equals(bidList));
+        assert(task1.getBidList().equals(bidList));
         assert(task1.getUserBidList().equals(userList));
 
         task1.setStatus("Completed");
         task1.addBidder(user5, 54.33);
         //Test status being completed and that bids are not added.
-        assert(task1.getBids().size() == 4);
+        assert(task1.getBidList().size() == 4);
         assert(task1.getUserBidList().size() == 4);
-        assert(task1.getBids().equals(bidList));
+        assert(task1.getBidList().equals(bidList));
         assert(task1.getUserBidList().equals(userList));
 
         //Test to make sure once a job is completed it's completed.

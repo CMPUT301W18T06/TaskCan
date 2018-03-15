@@ -68,7 +68,7 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
 
     @Override
     protected String getActivityTitle() {
-        return "Tasks Near Me";
+        return "TaskList Near Me";
     }
 
     /**
