@@ -90,6 +90,15 @@ public class SearchActivity extends ActivityHeader {
     }
 
     @Override
+    protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
+        if (!this.getClass().equals(nextClass)) {
+            Intent i = new Intent(SearchActivity.this, nextClass);
+            i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
+            startActivityForResult(i, 1);
+        }
+    }
+
+    @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_search;
     }

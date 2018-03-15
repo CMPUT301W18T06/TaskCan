@@ -1,5 +1,6 @@
 package com.example.n8tech.taskcan.Views;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -24,7 +25,7 @@ import com.google.gson.Gson;
 //TODO: refractor class name to something that makes more sense in english because EditProfileActivity is NOT a ActivityHeader
 public abstract class ActivityHeader extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
-    private String currentUser;
+    protected String currentUser;
     protected abstract int getLayoutResourceId();
     protected abstract String getActivityTitle();
 
@@ -35,7 +36,10 @@ public abstract class ActivityHeader extends AppCompatActivity {
         this.mDrawerLayout = findViewById(R.id.drawer_layout);
 
         this.initializeToolBar();
+        this.initializeNavagation();
+    }
 
+    private void initializeNavagation() {
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -43,52 +47,43 @@ public abstract class ActivityHeader extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.nav_menu_home: {
-                                Intent goToHome = new Intent(ActivityHeader.this,SearchActivity.class);
-                                goToHome.putExtra(SignInActivity.USER_MESSAGE, currentUser);
-                                startActivityForResult(goToHome, 1);
-
+                                navigationView_itemOnClick(SearchActivity.class);
                                 break;
                             }
                             case R.id.nav_menu_my_tasks: {
-                                Intent goToTasks = new Intent(ActivityHeader.this, MyTaskActivity.class);
-                                goToTasks.putExtra(SignInActivity.USER_MESSAGE, currentUser);
-                                startActivityForResult(goToTasks, 1);
-
+                                navigationView_itemOnClick(MyTaskActivity.class);
                                 break;
                             }
                             case R.id.nav_menu_my_bids: {
-                                Intent goToBids = new Intent(ActivityHeader.this, MyBidActivity.class);
-                                goToBids.putExtra(SignInActivity.USER_MESSAGE, currentUser);
-                                startActivityForResult(goToBids, 1);
-
+                                navigationView_itemOnClick(MyBidActivity.class);
                                 break;
                             }
                             case R.id.nav_menu_my_profile: {
-                                Intent goToProfile = new Intent(ActivityHeader.this, ViewProfileActivity.class);
-                                goToProfile.putExtra(SignInActivity.USER_MESSAGE, currentUser);
-                                startActivityForResult(goToProfile, 1);
-
+                                navigationView_itemOnClick(ViewProfileActivity.class);
                                 break;
                             }
                             case R.id.nav_menu_sign_out: {
-                                Intent goToSignIn = new Intent(ActivityHeader.this,SignInActivity.class);
-                                startActivityForResult(goToSignIn, 1);
-
-                                // Need to add sign out functionality
-
+                                navigationView_itemOnClick(SignInActivity.class);
+                                //TODO: Need to add sign out functionality
                                 break;
                             }
                         }
                         mDrawerLayout.closeDrawers();
 
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
+                        //TODO: Add code here to update the UI based on the item selected
+                        //TODO: For example, swap UI fragments here
                         return false;
                     }
                 });
-
-
     }
+//    private <T> void navigationView_itemOnClick(Class<T> nextClass) {
+//        if (!this.getClass().equals(nextClass)) {
+//            Intent i = new Intent(ActivityHeader.this, nextClass);
+//            i.putExtra(SignInActivity.USER_MESSAGE, currentUser);
+//            startActivityForResult(i, 1);
+//        }
+//    }
+    protected abstract <T> void navigationView_itemOnClick(Class<T> nextClass);
 
     private void initializeToolBar() {
         Toolbar mainToolbar = findViewById(R.id.menu_toolbar);

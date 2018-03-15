@@ -31,6 +31,15 @@ public class ResultActivity extends ActivityHeader {
     }
 
     @Override
+    protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
+        if (!this.getClass().equals(nextClass)) {
+            Intent i = new Intent(ResultActivity.this, nextClass);
+            i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
+            startActivityForResult(i, 1);
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
     }

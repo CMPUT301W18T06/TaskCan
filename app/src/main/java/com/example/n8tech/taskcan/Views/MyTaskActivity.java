@@ -70,6 +70,15 @@ public class MyTaskActivity extends ActivityHeader {
     }
 
     @Override
+    protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
+        if (!this.getClass().equals(nextClass)) {
+            Intent i = new Intent(MyTaskActivity.this, nextClass);
+            i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
+            startActivityForResult(i, 1);
+        }
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
 

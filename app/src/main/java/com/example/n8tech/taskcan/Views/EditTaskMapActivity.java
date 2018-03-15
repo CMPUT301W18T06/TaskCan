@@ -44,6 +44,15 @@ public class EditTaskMapActivity extends ActivityHeader implements OnMapReadyCal
     }
 
     @Override
+    protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
+        if (!this.getClass().equals(nextClass)) {
+            Intent i = new Intent(EditTaskMapActivity.this, nextClass);
+            i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
+            startActivityForResult(i, 1);
+        }
+    }
+
+    @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_edit_task_map;
     }

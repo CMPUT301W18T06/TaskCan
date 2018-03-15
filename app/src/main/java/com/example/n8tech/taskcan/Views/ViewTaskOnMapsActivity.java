@@ -44,6 +44,15 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
     }
 
     @Override
+    protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
+        if (!this.getClass().equals(nextClass)) {
+            Intent i = new Intent(ViewTaskOnMapsActivity.this, nextClass);
+            i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
+            startActivityForResult(i, 1);
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
