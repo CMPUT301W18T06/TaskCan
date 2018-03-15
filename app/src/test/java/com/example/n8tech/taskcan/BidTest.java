@@ -18,7 +18,7 @@ package com.example.n8tech.taskcan;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.example.n8tech.taskcan.Models.Bidder;
+import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Views.SignInActivity;
 
@@ -27,16 +27,16 @@ import com.example.n8tech.taskcan.Views.SignInActivity;
  * Edited by msquigle on 2/23/2018.
  */
 
-public class BidderTest extends ActivityInstrumentationTestCase2 {
+public class BidTest extends ActivityInstrumentationTestCase2 {
 
-    public BidderTest() { super(SignInActivity.class); };
+    public BidTest() { super(SignInActivity.class); };
 
     public void testAddBidder() {
         User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
-        Bidder bidder1 = new Bidder();
-        bidder1.setBidder(user1);
-        bidder1.setBidAmount(12.21);
-        assert(bidder1.getBidder().equals(user1));
-        assert(bidder1.getBidAmount() == 12.21);
+        Bid bid1 = new Bid();
+        bid1.setBidder(user1);
+        bid1.setBidAmount(12.21);
+        assert(bid1.getBidder().equals(user1));
+        assert(bid1.getBidAmount() == 12.21);
     }
 }

@@ -33,8 +33,6 @@ public class ResultActivity extends ActivityHeader {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-        startActivity(intent);
     }
 
     @Override

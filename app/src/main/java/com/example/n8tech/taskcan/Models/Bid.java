@@ -18,20 +18,22 @@ package com.example.n8tech.taskcan.Models;
 
 
 /**
- * Bidder represents a task provider that has made a bid
+ * Bid represents a task provider that has made a bid
  * on a task. Stores the bidder's user information
  * and bid amount.
  */
 
-public class Bidder {
+public class Bid {
     private User bidder;
     private double bidAmount;
 
-    public Bidder(){
+    public Bid(){
         // empty constructor for method signatures
+        bidder = new User();
+        bidAmount = 0;
     }
 
-    public Bidder(User bidder, double bidAmount) {
+    public Bid(User bidder, double bidAmount) {
         this.bidder = bidder;
         this.bidAmount = bidAmount;
     }

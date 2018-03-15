@@ -16,8 +16,6 @@
 
 package com.example.n8tech.taskcan.Models;
 
-import java.util.ArrayList;
-
 /**
  * Task represents a task from a requester
  * and stores task details
@@ -26,14 +24,14 @@ import java.util.ArrayList;
 public class Task {
     private String name;
     private String description;
-    private String owner;
+    private User owner;
     private String ownerDisplayName;
     private User provider;
     private double maximumBid;
     private double currentBid;
     private String category;
     private String status;
-    private BidderList bidderList;
+    private Bids bids;
     private String location;            // TODO change to geolocation variable
 
 
@@ -42,7 +40,7 @@ public class Task {
     }
 
     // minimum information needed to create a new task
-    public Task(String name, String description, String owner, String ownerDisplayName) {
+    public Task(String name, String description, User owner, String ownerDisplayName) {
         // TODO: length checking for name & description
         this.name = name;
         this.description = description;
@@ -57,7 +55,7 @@ public class Task {
         // this.currentBid = ?? set here to a default value or leave alone
         this.category = "Other";
         this.status = "Requested";
-        this.bidderList = new BidderList();
+        this.bids = new Bids();
         this.location = null;
     }
 
@@ -77,11 +75,11 @@ public class Task {
         this.description = description;
     }
 
-    public String getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 
@@ -129,12 +127,12 @@ public class Task {
         this.status = status;
     }
 
-    public BidderList getBidderList() {
-        return bidderList;
+    public Bids getBids() {
+        return bids;
     }
 
-    public void setBidderList(BidderList bidderList) {
-        this.bidderList = bidderList;
+    public void setBids(Bids bids) {
+        this.bids = bids;
     }
 
     public UserList getUserBidList() {
@@ -151,7 +149,7 @@ public class Task {
         this.location = location;
     }
 
-    public void addBidder(Bidder bidder) {this.bidderList.addBidder(bidder); }
+    public void addBidder(Bid bid) {this.bids.addBidder(bid); }
 
     public void addBidder(User user, double bid) {}
 
