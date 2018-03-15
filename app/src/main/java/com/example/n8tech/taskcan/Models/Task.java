@@ -136,6 +136,7 @@ public class Task {
         if (this.bids.getSize() > 0) {
             return "bidded";
         }
+        throw new IllegalStateException(); //TODO: make sure this is the right exception
     }
 
     public Bids getBids() {
