@@ -34,11 +34,15 @@ public class EditProfileActivity extends ActivityHeader {
 
     private EditText displayName;
     private EditText email;
-    private EditText contactInformation;
+    private EditText phonenumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.displayName = findViewById(R.id.edit_profile_name_display);
+        this.email = findViewById(R.id.edit_profile_email_display);
+        this.phonenumber = findViewById(R.id.edit_profile_phone_display);
 
     }
 
@@ -57,17 +61,13 @@ public class EditProfileActivity extends ActivityHeader {
 
         Intent intent = getIntent();
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
-        setCurrentUser(userMsg);
-        currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+        this.currentUser = this.gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
 
-        Log.i("Testing", currentUser.getEmail());
+        Log.i("Testing", this.currentUser.getEmail());
 
-        displayName = findViewById(R.id.edit_profile_name_display);
-        displayName.setText(currentUser.getUsername());
-        email = findViewById(R.id.edit_profile_email_display);
-        email.setText(currentUser.getEmail());
-        contactInformation = findViewById(R.id.edit_profile_phone_display);
-        contactInformation.setText(currentUser.getPhoneNumber());
+        this.displayName.setText(this.currentUser.getUsername());
+        this.email.setText(this.currentUser.getEmail());
+        this.phonenumber.setText(this.currentUser.getPhoneNumber());
     }
 
     /*@Override

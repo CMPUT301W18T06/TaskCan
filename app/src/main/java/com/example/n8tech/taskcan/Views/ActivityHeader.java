@@ -22,7 +22,7 @@ import com.google.gson.Gson;
  * for Activities which require their functionality.
  */
 
-//TODO: refractor class name to something that makes more sense in english because EditProfileActivity is NOT a ActivityHeader
+//TODO: refactor class name to something that makes more sense in english because EditProfileActivity is NOT a ActivityHeader
 public abstract class ActivityHeader extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     protected String currentUser;
