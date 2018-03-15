@@ -28,6 +28,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TabHost;
 
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
@@ -41,26 +42,10 @@ public class MyBidActivity extends ActivityHeader {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*  TabHost appears to require a Fragment layout and this needs to go into onCreateView
-        TabHost tabHost = findViewById(android.R.id.tabhost);
-        tabHost.setup();
-
-        TabHost.TabSpec requestsTab = tabHost.newTabSpec("Requests Tab");
-        TabHost.TabSpec assignedTab = tabHost.newTabSpec("Assigned Tab");
-        TabHost.TabSpec archivedTab = tabHost.newTabSpec("Archived Tab");
-
-        requestsTab.setIndicator("Tab1");
-        //requestsTab.setContent(new Intent(this,TabActivity1.class));
-
-        assignedTab.setIndicator("Tab2");
-        //assignedTab.setContent(new Intent(this,TabActivity2.class));
-
-        archivedTab.setIndicator("Tab3");
-        //archivedTab.setContent(new Intent(this,TabActivity3.class));
-
-        tabHost.addTab(requestsTab);
-        tabHost.addTab(assignedTab);
-        tabHost.addTab(archivedTab); */
+        TabHost mTabHost = findViewById(R.id.tabHost);
+        mTabHost.setup();
+        mTabHost.addTab(mTabHost.newTabSpec("pendingBidTab").setIndicator("Pending", null).setContent(R.id.pending));
+        mTabHost.addTab(mTabHost.newTabSpec("assignedBidTab").setIndicator("Assigned", null).setContent(R.id.assigned));
 
     }
 
