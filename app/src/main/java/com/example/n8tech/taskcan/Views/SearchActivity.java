@@ -49,7 +49,7 @@ public class SearchActivity extends ActivityHeader {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        searchField = findViewById(R.id.search_activity_search_field);
+        this.searchField = findViewById(R.id.search_activity_search_field);
     }
 
     @Override
@@ -60,20 +60,21 @@ public class SearchActivity extends ActivityHeader {
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
         setCurrentUser(userMsg);
 
-        currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+        this.currentUser = this.gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
 
-        Log.i("Testing", currentUser.getEmail());
+        Log.i("Testing", this.currentUser.getEmail());
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
-        startActivity(intent);
+        Intent i = new Intent(Intent.ACTION_MAIN);
+        i.addCategory(Intent.CATEGORY_HOME);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
     }
 
     public void searchButtonClick(View v) {
-        String searchText = searchField.getText().toString();
+        String searchText = this.searchField.getText().toString();
         Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
         intent.putExtra(SEARCH_MESSAGE, searchText);
         startActivity(intent);
@@ -94,7 +95,7 @@ public class SearchActivity extends ActivityHeader {
         if (!this.getClass().equals(nextClass)) {
             Intent i = new Intent(SearchActivity.this, nextClass);
             i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
-            startActivityForResult(i, 1);
+            startActivity(i);
         }
     }
 

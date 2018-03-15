@@ -67,7 +67,7 @@ public class ViewProfileActivity extends ActivityHeader {
         if (!this.getClass().equals(nextClass)) {
             Intent i = new Intent(ViewProfileActivity.this, nextClass);
             i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
-            startActivityForResult(i, 1);
+            startActivity(i);
         }
     }
 
@@ -93,7 +93,7 @@ public class ViewProfileActivity extends ActivityHeader {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+        Intent intent = new Intent(ViewProfileActivity.this, SearchActivity.class);
         intent.putExtra(SignInActivity.USER_MESSAGE, gson.toJson(currentUser));
         startActivity(intent);
     }

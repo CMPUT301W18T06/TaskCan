@@ -57,8 +57,8 @@ public class SignInActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        username = findViewById(R.id.username_field);
-        password = findViewById(R.id.password_field);
+        this.username = findViewById(R.id.username_field);
+        this.password = findViewById(R.id.password_field);
     }
 
     @Override
@@ -75,8 +75,8 @@ public class SignInActivity extends Activity {
         Gson gson = new Gson();
 
         boolean validCombination = false;
-        String usernameText = username.getText().toString();
-        String passwordText = password.getText().toString();
+        String usernameText = this.username.getText().toString();
+        String passwordText = this.password.getText().toString();
 
         for (User user : cacheList) {
             //Remove once we have set things logins we can remember
@@ -86,7 +86,7 @@ public class SignInActivity extends Activity {
             if (user.getEmail().equals(usernameText) && user.getPassword().equals(passwordText)) {
 
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                intent.putExtra(USER_MESSAGE, gson.toJson(user)); //Change to userId once not null
+                intent.putExtra(this.USER_MESSAGE, gson.toJson(user)); //Change to userId once not null
                 startActivity(intent);
                 validCombination = true;
                 return;
@@ -97,7 +97,7 @@ public class SignInActivity extends Activity {
             //Admin entry remove eventually
             User admin = new User("admin", "admin@n8tech.com", "admin", "7801234567");
             Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-            intent.putExtra(USER_MESSAGE, gson.toJson(admin));
+            intent.putExtra(this.USER_MESSAGE, gson.toJson(admin));
             startActivity(intent);
             validCombination = true;
             return;
@@ -118,11 +118,11 @@ public class SignInActivity extends Activity {
             Log.i("testing", user.getId() + user.getEmail() + ":" + user.getPassword());
 
             if(user.getEmail().equals(usernameText) && user.getPassword().equals(passwordText)) {
-                cacheList.addUser(user);
+                this.cacheList.addUser(user);
                 saveInFile();
 
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                intent.putExtra(USER_MESSAGE, gson.toJson(user));
+                intent.putExtra(this.USER_MESSAGE, gson.toJson(user));
                 startActivity(intent);
                 validCombination = true;
                 return;
@@ -131,7 +131,7 @@ public class SignInActivity extends Activity {
         }
 
         if(!validCombination) {
-            Toast toast = Toast.makeText(getApplicationContext(), ERR_MSG, Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), this.ERR_MSG, Toast.LENGTH_SHORT);
             toast.show();
         }
     }
@@ -145,7 +145,7 @@ public class SignInActivity extends Activity {
         //Load a given JSON file
 
         try {
-            FileInputStream fis = openFileInput(CACHE_FILE);
+            FileInputStream fis = openFileInput(this.CACHE_FILE);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
 
             Gson gson = new Gson();
@@ -153,10 +153,10 @@ public class SignInActivity extends Activity {
             // Taken https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
             // 2018-01-23
             Type listType = new TypeToken<Users>(){}.getType();
-            cacheList = gson.fromJson(in, listType);
+            this.cacheList = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
-            cacheList = new Users();
+            this.cacheList = new Users();
             Log.i("No File", "Created New File");
         } catch (IOException e) {
             throw new RuntimeException();
@@ -166,12 +166,12 @@ public class SignInActivity extends Activity {
         //Save SubList to a JSON file
 
         try {
-            FileOutputStream fos = openFileOutput(CACHE_FILE,
+            FileOutputStream fos = openFileOutput(this.CACHE_FILE,
                     Context.MODE_PRIVATE);
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
 
             Gson gson = new Gson();
-            gson.toJson(cacheList, out);
+            gson.toJson(this.cacheList, out);
             out.flush();
 
         } catch (FileNotFoundException e) {

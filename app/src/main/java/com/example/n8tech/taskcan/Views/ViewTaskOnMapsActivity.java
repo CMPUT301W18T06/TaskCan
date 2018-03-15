@@ -48,7 +48,7 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
         if (!this.getClass().equals(nextClass)) {
             Intent i = new Intent(ViewTaskOnMapsActivity.this, nextClass);
             i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
-            startActivityForResult(i, 1);
+            startActivity(i);
         }
     }
 

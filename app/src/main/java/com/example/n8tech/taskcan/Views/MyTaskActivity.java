@@ -74,7 +74,7 @@ public class MyTaskActivity extends ActivityHeader {
         if (!this.getClass().equals(nextClass)) {
             Intent i = new Intent(MyTaskActivity.this, nextClass);
             i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
-            startActivityForResult(i, 1);
+            startActivity(i);
         }
     }
 
@@ -86,15 +86,15 @@ public class MyTaskActivity extends ActivityHeader {
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
         setCurrentUser(userMsg);
         Gson gson = new Gson();
-        currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+        this.currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
 
-        Log.i("Testing", currentUser.getEmail());
+        Log.i("Testing", this.currentUser.getEmail());
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+        Intent intent = new Intent(MyTaskActivity.this, SearchActivity.class);
         startActivity(intent);
     }
 

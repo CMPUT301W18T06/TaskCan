@@ -35,7 +35,7 @@ public class ResultActivity extends ActivityHeader {
         if (!this.getClass().equals(nextClass)) {
             Intent i = new Intent(ResultActivity.this, nextClass);
             i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
-            startActivityForResult(i, 1);
+            startActivity(i);
         }
     }
 

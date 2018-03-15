@@ -35,7 +35,7 @@ public class ViewCategoryActivity extends ActivityHeader {
         if (!this.getClass().equals(nextClass)) {
             Intent i = new Intent(ViewCategoryActivity.this, nextClass);
             i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
-            startActivityForResult(i, 1);
+            startActivity(i);
         }
     }
 

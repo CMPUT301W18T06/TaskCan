@@ -48,7 +48,7 @@ public class EditTaskMapActivity extends ActivityHeader implements OnMapReadyCal
         if (!this.getClass().equals(nextClass)) {
             Intent i = new Intent(EditTaskMapActivity.this, nextClass);
             i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
-            startActivityForResult(i, 1);
+            startActivity(i);
         }
     }
 
@@ -73,11 +73,11 @@ public class EditTaskMapActivity extends ActivityHeader implements OnMapReadyCal
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        this.mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
         LatLng uofa = new LatLng(53.523, -113.526);
-        mMap.addMarker(new MarkerOptions().position(uofa).title("Marker in University of Alberta"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(uofa, 12.0f));
+        this.mMap.addMarker(new MarkerOptions().position(uofa).title("Marker in University of Alberta"));
+        this.mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(uofa, 12.0f));
     }
 }
