@@ -7,28 +7,32 @@ import java.util.Iterator;
  * Created by m_qui on 3/12/2018.
  */
 
-public class UserList implements Iterable<User> {
+public class Users implements Iterable<User> {
 
     private ArrayList<User> userList;
 
-    public UserList() {
-        userList = new ArrayList<User>();
+    public Users() {
+        this.userList = new ArrayList<User>();
     }
 
     public void addUser(User user) {
-        userList.add(user);
+        this.userList.add(user);
     }
 
     public User getUser(int i) {
-        return userList.get(i);
+        return this.userList.get(i);
+    }
+
+    public int getSize() {
+        return userList.size();
     }
 
     public Iterator<User> iterator() {
-        return new UserListIterator();
+        return new UsersIterator();
     }
 
     //https://stackoverflow.com/questions/975383/how-can-i-use-the-java-for-each-loop-with-custom-classes
-    class UserListIterator implements Iterator<User> {
+    class UsersIterator implements Iterator<User> {
 
         private int index = 0;
 

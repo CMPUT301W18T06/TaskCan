@@ -17,21 +17,18 @@
 package com.example.n8tech.taskcan.Views;
 
 
-import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.n8tech.taskcan.Models.ElasticsearchController;
-import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
-import com.example.n8tech.taskcan.Models.UserList;
+import com.example.n8tech.taskcan.Models.Users;
 import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -56,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText emailText;
     private EditText passwordText;
     private EditText contactText;
-    private UserList cacheList;
+    private Users cacheList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +88,7 @@ public class SignUpActivity extends AppCompatActivity {
         //Remove at some point, just to help with keeping things clean.
         if (name.equals("clearCache();")) {
             //cacheList = new ArrayList<User>();
-            cacheList = new UserList();
+            cacheList = new Users();
             saveInFile();
         }
 
@@ -227,12 +224,12 @@ public class SignUpActivity extends AppCompatActivity {
 
             // Taken https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
             // 2018-01-23
-            Type listType = new TypeToken<UserList>(){}.getType();
+            Type listType = new TypeToken<Users>(){}.getType();
             cacheList = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
             //cacheList = new ArrayList<User>();
-            cacheList = new UserList();
+            cacheList = new Users();
             Log.i("No File", "Created New File");
         } catch (IOException e) {
             throw new RuntimeException();

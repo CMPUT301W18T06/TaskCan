@@ -22,14 +22,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.n8tech.taskcan.Models.ElasticsearchController;
-import com.example.n8tech.taskcan.Models.UserList;
+import com.example.n8tech.taskcan.Models.Users;
 import com.example.n8tech.taskcan.R;
-import com.example.n8tech.taskcan.Views.SignUpActivity;
 import com.example.n8tech.taskcan.Models.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -52,7 +50,7 @@ public class SignInActivity extends Activity {
     private static final String ERR_MSG = "Your email or password is incorrect.\nIf you don't remember your password... well that sucks!";
     private EditText username;
     private EditText password;
-    private UserList cacheList;
+    private Users cacheList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,11 +152,11 @@ public class SignInActivity extends Activity {
 
             // Taken https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
             // 2018-01-23
-            Type listType = new TypeToken<UserList>(){}.getType();
+            Type listType = new TypeToken<Users>(){}.getType();
             cacheList = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
-            cacheList = new UserList();
+            cacheList = new Users();
             Log.i("No File", "Created New File");
         } catch (IOException e) {
             throw new RuntimeException();

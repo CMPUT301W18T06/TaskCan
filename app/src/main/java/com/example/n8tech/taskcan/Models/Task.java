@@ -149,10 +149,10 @@ public class Task {
 
     //TODO: this point on, not really sure what is going on withe the below methods, waiting for more clarification
 
-    public UserList getUserBidList() {
+    public Users getUserBidList() {
         //Needs to seperate out users
-        UserList userList = new UserList();
-        return userList;
+        Users users = new Users();
+        return users;
     }
 
     public String getLocation() {
