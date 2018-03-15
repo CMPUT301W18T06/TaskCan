@@ -61,10 +61,10 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         loadFromFile();
 
-        usernameText = findViewById(R.id.name_field);
-        emailText = findViewById(R.id.email_field);
-        passwordText = findViewById(R.id.password_field);
-        contactText = findViewById(R.id.phone_field);
+        this.usernameText = findViewById(R.id.name_field);
+        this.emailText = findViewById(R.id.email_field);
+        this.passwordText = findViewById(R.id.password_field);
+        this.contactText = findViewById(R.id.phone_field);
 
     }
 
@@ -76,10 +76,10 @@ public class SignUpActivity extends AppCompatActivity {
         boolean passwordValid = true;
         boolean contactValid = true;
 
-        String name = usernameText.getText().toString();
-        String email = emailText.getText().toString();
-        String password = passwordText.getText().toString();
-        String contact = contactText.getText().toString();
+        String name = this.usernameText.getText().toString();
+        String email = this.emailText.getText().toString();
+        String password = this.passwordText.getText().toString();
+        String contact = this.contactText.getText().toString();
 
         if (name.length() < 3 || !StringUtils.isAlphaSpace(name)) {
             usernameValid = false;
@@ -88,7 +88,7 @@ public class SignUpActivity extends AppCompatActivity {
         //Remove at some point, just to help with keeping things clean.
         if (name.equals("clearCache();")) {
             //cacheList = new ArrayList<User>();
-            cacheList = new Users();
+            this.cacheList = new Users();
             saveInFile();
         }
 
@@ -225,11 +225,11 @@ public class SignUpActivity extends AppCompatActivity {
             // Taken https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
             // 2018-01-23
             Type listType = new TypeToken<Users>(){}.getType();
-            cacheList = gson.fromJson(in, listType);
+            this.cacheList = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
             //cacheList = new ArrayList<User>();
-            cacheList = new Users();
+            this.cacheList = new Users();
             Log.i("No File", "Created New File");
         } catch (IOException e) {
             throw new RuntimeException();
@@ -240,7 +240,7 @@ public class SignUpActivity extends AppCompatActivity {
         //Save SubList to a JSON file
 
         try {
-            FileOutputStream fos = openFileOutput(CACHE_FILE,
+            FileOutputStream fos = openFileOutput(this.CACHE_FILE,
                     Context.MODE_PRIVATE);
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
 
