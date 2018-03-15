@@ -17,6 +17,7 @@
 package com.example.n8tech.taskcan.Models;
 
 import java.util.ArrayList;
+import java.util.InvalidPropertiesFormatException;
 
 import io.searchbox.annotations.JestId;
 
@@ -71,7 +72,8 @@ public class User {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (email.contains("@")) this.email = email;
+        else throw new IllegalArgumentException();
     }
 
     public int getPhoneNumber() {
@@ -79,7 +81,8 @@ public class User {
     }
 
     public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        if (String.valueOf(phoneNumber).length() == 10) this.phoneNumber = phoneNumber;
+        else throw new IllegalArgumentException();
     }
 
     public String getId() {return this.id; }

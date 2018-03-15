@@ -65,18 +65,18 @@ public class Task {
         return this.taskTitle;
     }
 
-    public void setTaskTitle(String taskTitle) throws StringTooLongExeception {
+    public void setTaskTitle(String taskTitle) {
         if (taskTitle.length() <= this.MAX_TITLE_NAME_LENGTH) this.taskTitle = taskTitle;
-        else throw new StringTooLongExeception();
+        else throw new IllegalArgumentException();
     }
 
     public String getDescription() {
         return this.description;
     }
 
-    public void setDescription(String description) throws StringTooLongExeception {
+    public void setDescription(String description) {
         if (description.length() <= this.MAX_DESCRIPTION_LENGTH) this.description = description;
-        else throw new StringTooLongExeception();
+        else throw new IllegalArgumentException();
     }
 
     public User getOwner() {
