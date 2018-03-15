@@ -16,32 +16,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-
-        <TextView
-            android:id="@+id/edit_task_activity_bar"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/menu_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
             android:background="@drawable/gradient_no_rounding"
-            android:gravity="center"
-            android:text="Edit Task"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-            android:textColor="@color/colorWhite"
-            android:textSize="24sp"
+            android:elevation="4dp"
+            android:theme="@style/AppTheme"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView"/>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+
 
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="0dp"
-            android:layout_height="505dp"
-            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_bar"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_bar">
+            app:layout_constraintTop_toBottomOf="@+id/menu_toolbar">
 
 
             <LinearLayout
@@ -59,6 +53,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
                         android:text="(task name)"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -155,6 +150,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/gradient"
+                        android:onClick="addPhotosButtonClick"
                         android:text="Add Photos"
                         android:textAppearance="@style/TextAppearance.AppCompat"
                         android:textColor="@color/colorWhite"
@@ -173,6 +169,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/gradient"
+                        android:onClick="editLocationButtonClick"
                         android:text="Edit Location"
                         android:textAppearance="@style/TextAppearance.AppCompat"
                         android:textColor="@color/colorWhite"

@@ -16,16 +16,37 @@
 
 package com.example.n8tech.taskcan.Views;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.n8tech.taskcan.R;
 
-public class EditTaskActivity extends AppCompatActivity {
+public class EditTaskActivity extends ActivityHeader {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_task);
+
+    }
+
+    public void addPhotosButtonClick(View v) {
+
+    }
+
+    public void editLocationButtonClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), EditTaskMapActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_edit_task;
+    }
+
+    @Override
+    protected String getActivityTitle() {
+        return "Edit Task";
     }
 }

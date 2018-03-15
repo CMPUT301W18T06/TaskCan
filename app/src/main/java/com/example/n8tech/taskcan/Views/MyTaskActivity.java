@@ -89,6 +89,11 @@ public class MyTaskActivity extends ActivityHeader {
         startActivity(intent);
     }
 
+    public void newTaskButtonClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), EditTaskActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_my_task;
