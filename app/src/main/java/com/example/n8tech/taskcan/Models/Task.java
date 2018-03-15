@@ -22,13 +22,15 @@ package com.example.n8tech.taskcan.Models;
  */
 
 public class Task {
-    private String name;
+    final private int MAX_TITLE_NAME_LENGTH = 30;
+    final private int MAX_DESCRIPTION_LENGTH = 30;
+
+    private String taskTitle;
     private String description;
-    private User owner;
+    private User owner; //TODO:  ******* possible recursive error *********
     private String ownerDisplayName;
     private User provider;
     private double maximumBid;
-    private double currentBid;
     private String category;
     private String status;
     private Bids bids;
@@ -42,7 +44,7 @@ public class Task {
     // minimum information needed to create a new task
     public Task(String name, String description, User owner, String ownerDisplayName) {
         // TODO: length checking for name & description
-        this.name = name;
+        this.taskTitle = name;
         this.description = description;
         this.owner = owner;
         this.ownerDisplayName = ownerDisplayName;
@@ -59,36 +61,38 @@ public class Task {
         this.location = null;
     }
 
-    public String getName() {
-        return name;
+    public String getTaskTitle() {
+        return this.taskTitle;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTaskTitle(String taskTitle) throws StringTooLongExeception {
+        if (taskTitle.length() <= this.MAX_TITLE_NAME_LENGTH) this.taskTitle = taskTitle;
+        else throw new StringTooLongExeception();
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String description) throws StringTooLongExeception {
+        if (description.length() <= this.MAX_DESCRIPTION_LENGTH) this.description = description;
+        else throw new StringTooLongExeception();
     }
 
     public User getOwner() {
-        return owner;
+        return this.owner;
     }
 
     public void setOwner(User owner) {
         this.owner = owner;
     }
 
-    public String getOwnerDisplayName() { return ownerDisplayName; }
+    public String getOwnerDisplayName() { return this.ownerDisplayName; }
 
     public void setOwnerDisplayName(String ownerDisplayName) { this.ownerDisplayName = ownerDisplayName; }
 
     public User getProvider() {
-        return provider;
+        return this.provider;
     }
 
     public void setProvider(User provider) {
@@ -96,23 +100,15 @@ public class Task {
     }
 
     public double getMaximumBid() {
-        return maximumBid;
+        return this.maximumBid;
     }
 
     public void setMaximumBid(double maximumBid) {
         this.maximumBid = maximumBid;
     }
 
-    public double getCurrentBid() {
-        return currentBid;
-    }
-
-    public void setCurrentBid(double currentBid) {
-        this.currentBid = currentBid;
-    }
-
     public String getCategory() {
-        return category;
+        return this.category;
     }
 
     public void setCategory(String category) {
@@ -120,7 +116,7 @@ public class Task {
     }
 
     public String getStatus() {
-        return status;
+        return this.status;
     }
 
     public void setStatus(String status) {
@@ -128,13 +124,15 @@ public class Task {
     }
 
     public Bids getBids() {
-        return bids;
+        return this.bids;
     }
 
     public void setBids(Bids bids) {
         this.bids = bids;
     }
 
+    //TODO: this point on, not really sure what is going on withe the below methods, waiting for more clarification
+    
     public UserList getUserBidList() {
         //Needs to seperate out users
         UserList userList = new UserList();
@@ -142,7 +140,7 @@ public class Task {
     }
 
     public String getLocation() {
-        return location;
+        return this.location;
     }
 
     public void setLocation(String location) {

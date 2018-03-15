@@ -31,7 +31,7 @@ public class Bids implements Iterable<Bid> {
     }
 
     public Iterator<Bid> iterator() {
-        return new BidListIterator();
+        return new BidsIterator();
     }
 
     public Boolean bidderExists(User bidder) {
@@ -43,15 +43,29 @@ public class Bids implements Iterable<Bid> {
     }
 
     public int indexOfBidContaining(User bidder) {
-        for (int i = 0; i < this.bids.size(); i++) {
+        for (int i = 0; i < this.getSize(); i++) {
             if(getBid(i).getBidder().getEmail().equals(bidder.getEmail()))
                 return i;
         }
         throw new NoSuchElementException();
     }
 
+    public int getSize() {
+        return this.bids.size();
+    }
+
+    public Bid getLowestBid() {
+        int lowestBidIndex = 0;
+        for (int currentBidIndex = 0; currentBidIndex < this.getSize(); currentBidIndex++) {
+            if (this.bids.get(currentBidIndex).getBidAmount() <
+                    this.bids.get(lowestBidIndex).getBidAmount())
+                lowestBidIndex = currentBidIndex;
+        }
+        return this.bids.get(lowestBidIndex);
+    }
+
     //https://stackoverflow.com/questions/975383/how-can-i-use-the-java-for-each-loop-with-custom-classes
-    class BidListIterator implements Iterator<Bid> {
+    class BidsIterator implements Iterator<Bid> {
 
         private int index = 0;
 
