@@ -21,6 +21,7 @@ import com.google.gson.Gson;
  * for Activities which require their functionality.
  */
 
+//TODO: refractor class name to something that makes more sense in english because EditProfileActivity is NOT a ActivityHeader
 public abstract class ActivityHeader extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private String currentUser;
@@ -31,14 +32,9 @@ public abstract class ActivityHeader extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResourceId());
+        this.mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        Toolbar mainToolbar = findViewById(R.id.menu_toolbar);
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        setSupportActionBar(mainToolbar);
-        getSupportActionBar().setTitle(getActivityTitle());
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_24dp);
+        this.initializeToolBar();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
@@ -94,11 +90,20 @@ public abstract class ActivityHeader extends AppCompatActivity {
 
     }
 
+    private void initializeToolBar() {
+        Toolbar mainToolbar = findViewById(R.id.menu_toolbar);
+        setSupportActionBar(mainToolbar);
+        getSupportActionBar().setTitle(getActivityTitle());
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_24dp);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
+                this.mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -31,7 +31,7 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private int phoneNumber;
+    private String phoneNumber;
     private ArrayList<Task> myTaskBids;
     private ArrayList<Task> myTasks;
 
@@ -42,7 +42,7 @@ public class User {
         // test user
     }
 
-    public User(String username, String email, String password, int phoneNumber) {
+    public User(String username, String email, String password, String phoneNumber) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -76,12 +76,12 @@ public class User {
         else throw new IllegalArgumentException();
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return this.phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
-        if (String.valueOf(phoneNumber).length() == 10) this.phoneNumber = phoneNumber;
+    public void setPhoneNumber(String phoneNumber) {
+        if (phoneNumber.length() == 10) this.phoneNumber = phoneNumber;
         else throw new IllegalArgumentException();
     }
 

@@ -58,7 +58,7 @@ public class EditProfileActivity extends ActivityHeader {
         email = findViewById(R.id.edit_profile_email_display);
         email.setText(currentUser.getEmail());
         contactInformation = findViewById(R.id.edit_profile_phone_display);
-        contactInformation.setText(currentUser.getContactInformation());
+        contactInformation.setText(currentUser.getPhoneNumber());
     }
 
     /*@Override
