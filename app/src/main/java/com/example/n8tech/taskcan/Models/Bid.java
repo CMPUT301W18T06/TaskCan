@@ -29,8 +29,8 @@ public class Bid {
 
     public Bid(){
         // empty constructor for method signatures
-        bidder = new User();
-        bidAmount = 0;
+        this.bidder = new User();
+        this.bidAmount = 0;
     }
 
     public Bid(User bidder, double bidAmount) {
@@ -39,7 +39,7 @@ public class Bid {
     }
 
     public User getBidder() {
-        return bidder;
+        return this.bidder;
     }
 
     public void setBidder(User bidder) {
@@ -47,7 +47,7 @@ public class Bid {
     }
 
     public double getBidAmount() {
-        return bidAmount;
+        return this.bidAmount;
     }
 
     public void setBidAmount(double bidAmount) {

@@ -149,7 +149,7 @@ public class Task {
         this.location = location;
     }
 
-    public void addBidder(Bid bid) {this.bids.addBidder(bid); }
+    public void addBidder(Bid bid) {this.bids.addBid(bid); }
 
     public void addBidder(User user, double bid) {}
 
