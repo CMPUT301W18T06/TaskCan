@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
@@ -77,8 +78,12 @@ public class ViewProfileActivity extends ActivityHeader {
 
         Intent intent = getIntent();
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
-        setCurrentUser(userMsg);
-        currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+
+        //setCurrentUser(userMsg);
+        //currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+
+        this.currentUser = CurrentUserSingleton.getUser();
+
 
         Log.i("Testing", currentUser.getEmail());
 

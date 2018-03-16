@@ -18,6 +18,7 @@ package com.example.n8tech.taskcan.Views ;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.database.CursorIndexOutOfBoundsException;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -32,6 +33,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.text.Html;
 
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
@@ -44,12 +46,14 @@ public class SearchActivity extends ActivityHeader {
     private EditText searchField;
     private User currentUser;
     private Gson gson = new Gson();
+    //private CurrentUserSingleton currentUserSingleton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         this.searchField = findViewById(R.id.search_activity_search_field);
+
     }
 
     @Override
@@ -58,9 +62,10 @@ public class SearchActivity extends ActivityHeader {
 
         Intent intent = getIntent();
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
-        setCurrentUser(userMsg);
+        //setCurrentUser(userMsg);
 
-        this.currentUser = this.gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+        //this.currentUser = this.gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+        this.currentUser = CurrentUserSingleton.getUser();
 
         Log.i("Testing", this.currentUser.getEmail());
     }

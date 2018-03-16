@@ -20,13 +20,17 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 
 public class TaskDetailActivity extends ActivityHeader {
-
+    private User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.currentUser = CurrentUserSingleton.getUser();
 
     }
 

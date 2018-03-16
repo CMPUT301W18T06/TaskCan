@@ -17,36 +17,40 @@
 package com.example.n8tech.taskcan.Views;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.menu.MenuView;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 
-import org.w3c.dom.Text;
+import static com.example.n8tech.taskcan.Models.CurrentUserSingleton.getUser;
 
 public class EditTaskActivity extends ActivityHeader  {
-    Spinner categorySpinner;
-    String taskId;
-    String activityName;
-    TextView statusText;
-    TextView maxBidText;
-    EditText taskNameEditText;
-    EditText taskDescriptionEditText;
+    private Spinner categorySpinner;
+    private String taskId;
+    private String activityName;
+    private TextView statusText;
+    private TextView maxBidText;
+    private EditText taskNameEditText;
+    private EditText taskDescriptionEditText;
+    private int spinnerPosition;
+    //private CurrentUserSingleton currentUserSingleton;
+    private User currentUser;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.currentUser= CurrentUserSingleton.getUser();
+        Log.i("current user", currentUser.getUsername());
 
         statusText = (TextView) findViewById(R.id.edit_task_activity_status_set_text);
         maxBidText = (TextView) findViewById(R.id.edit_task_activity_money_edit_text);
@@ -83,6 +87,10 @@ public class EditTaskActivity extends ActivityHeader  {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         categorySpinner.setAdapter(spinnerAdapter);
+
+        // set spinner category
+        spinnerPosition = spinnerAdapter.getPosition("Outdoors");       // set item to be task.getStatus() when implemented
+        categorySpinner.setSelection(spinnerPosition);
 
 
     }

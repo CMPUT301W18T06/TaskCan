@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
@@ -61,7 +62,9 @@ public class EditProfileActivity extends ActivityHeader {
 
         Intent intent = getIntent();
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
-        this.currentUser = this.gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+        //this.currentUser = this.gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+
+        this.currentUser = CurrentUserSingleton.getUser();
 
         Log.i("Testing", this.currentUser.getEmail());
 

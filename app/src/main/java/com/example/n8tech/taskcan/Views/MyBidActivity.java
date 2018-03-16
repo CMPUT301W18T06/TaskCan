@@ -30,6 +30,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TabHost;
 
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
@@ -64,9 +65,11 @@ public class MyBidActivity extends ActivityHeader {
 
         Intent intent = getIntent();
         String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
-        setCurrentUser(userMsg);
+        //setCurrentUser(userMsg);
         Gson gson = new Gson();
-        this.currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+        //this.currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
+        this.currentUser = CurrentUserSingleton.getUser();
+
 
         Log.i("Testing", currentUser.getEmail());
     }

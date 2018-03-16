@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.ElasticsearchController;
 import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
@@ -59,6 +60,8 @@ public class SignInActivity extends Activity {
 
         this.username = findViewById(R.id.username_field);
         this.password = findViewById(R.id.password_field);
+
+
     }
 
     @Override
@@ -80,6 +83,9 @@ public class SignInActivity extends Activity {
 
         for (User user : cacheList) {
             //Remove once we have set things logins we can remember
+
+
+
             Log.i("Email", user.getEmail());
             Log.i("Password", user.getPassword());
             //Loop through all users within cache and see if they entered a valid combination
@@ -87,6 +93,8 @@ public class SignInActivity extends Activity {
 
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                 intent.putExtra(this.USER_MESSAGE, gson.toJson(user)); //Change to userId once not null
+
+                CurrentUserSingleton.setUser(user);
                 startActivity(intent);
                 validCombination = true;
                 return;
@@ -99,6 +107,8 @@ public class SignInActivity extends Activity {
             Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
             intent.putExtra(this.USER_MESSAGE, gson.toJson(admin));
             startActivity(intent);
+
+            CurrentUserSingleton.setUser(admin);
             validCombination = true;
             return;
         }
@@ -119,10 +129,15 @@ public class SignInActivity extends Activity {
 
             if(user.getEmail().equals(usernameText) && user.getPassword().equals(passwordText)) {
                 this.cacheList.addUser(user);
+                // set current user in the singleton
+                CurrentUserSingleton.setUser(user);
+
                 saveInFile();
 
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                 intent.putExtra(this.USER_MESSAGE, gson.toJson(user));
+
+
                 startActivity(intent);
                 validCombination = true;
                 return;
