@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
 
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
@@ -63,8 +64,14 @@ public abstract class ActivityHeader extends AppCompatActivity {
                                 break;
                             }
                             case R.id.nav_menu_sign_out: {
-                                navigationView_itemOnClick(SignInActivity.class);
+                                CurrentUserSingleton.resetCurrentUser();
+
+                                Intent i = new Intent(getApplicationContext(), SignInActivity.class);
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(i);
+                                //navigationView_itemOnClick(SignInActivity.class);
                                 //TODO: Need to add sign out functionality
+
                                 break;
                             }
                         }

@@ -66,7 +66,7 @@ public class EditTaskActivity extends ActivityHeader  {
         taskId = (String) bundle.get("task id");
 
         // TODO implement Elastic search here/load from file to get task information then set the editTexts
-        //
+        // 
         //
 
         // determine if Edit Task or New Task
