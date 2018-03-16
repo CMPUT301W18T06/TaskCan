@@ -66,5 +66,20 @@
 
     <string name="edit_profile_activity_save_button">Save</string>
 
+    <string-array name="categories_array">
+        <item>Other</item>
+        <item>Outdoors</item>
+        <item>Indoors</item>
+        <item>Pick-up</item>
+        <item>Drop-off</item>
+        <item>Animal</item>
+        <item>Children</item>
+        <item>Home Repair</item>
+        <item>Landscape</item>
+        <item>Computers</item>
+        <item>Food</item>
+        <item>Academics</item>
+    </string-array>
+
 
 </resources>

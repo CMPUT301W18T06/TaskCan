@@ -20,14 +20,31 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.n8tech.taskcan.R;
 
-public class EditTaskActivity extends ActivityHeader {
-
+public class EditTaskActivity extends ActivityHeader  {
+    Spinner categorySpinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        categorySpinner = (Spinner) findViewById(R.id.edit_task_activity_category_spinner);
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,
+                R.array.categories_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        categorySpinner.setAdapter(spinnerAdapter);
+
+
+
 
     }
 
@@ -47,6 +64,17 @@ public class EditTaskActivity extends ActivityHeader {
     public void editLocationButtonClick(View v) {
         Intent intent = new Intent(getApplicationContext(), EditTaskMapActivity.class);
         startActivity(intent);
+    }
+
+    public void setSpinnerContent(Spinner spinner){
+        // depending on whether in addTask state or edit task state content will be different
+        final String[] categories = {"Other", "Outdoors", "Indoors", "Pick-Up", "Drop-Off", "Animal", "Children", "Home Repair", "Landscape", "Computers", "Food", "Academics"};
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, categories);
+
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+
     }
 
     @Override
