@@ -33,6 +33,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TabHost;
 
+import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
@@ -88,6 +89,11 @@ public class MyTaskActivity extends ActivityHeader {
 
     public void newTaskButtonClick(View v) {
         Intent intent = new Intent(getApplicationContext(), EditTaskActivity.class);
+        // Create a new task here and send it with flag "new task" to set banner on editTaskActivity
+        Task newTask = new Task();      // create new empty task
+        Log.i("task uuid created", newTask.getTaskId());
+        intent.putExtra("task id",newTask.getTaskId());
+        intent.putExtra("edit or new", "New Task");
         startActivity(intent);
     }
 

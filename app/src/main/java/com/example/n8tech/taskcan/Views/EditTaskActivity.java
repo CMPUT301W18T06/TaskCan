@@ -19,21 +19,62 @@ package com.example.n8tech.taskcan.Views;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.MenuView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.n8tech.taskcan.R;
 
+import org.w3c.dom.Text;
+
 public class EditTaskActivity extends ActivityHeader  {
     Spinner categorySpinner;
+    String taskId;
+    String activityName;
+    TextView statusText;
+    TextView maxBidText;
+    EditText taskNameEditText;
+    EditText taskDescriptionEditText;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        statusText = (TextView) findViewById(R.id.edit_task_activity_status_set_text);
+        maxBidText = (TextView) findViewById(R.id.edit_task_activity_money_edit_text);
+        taskNameEditText = (EditText) findViewById(R.id.edit_task_activity_name_edit_text);
+        taskDescriptionEditText = (EditText) findViewById(R.id.edit_task_activity_task_description_edit_text);
         categorySpinner = (Spinner) findViewById(R.id.edit_task_activity_category_spinner);
+
+
+
+        // get info from intent
+        Intent detailsIntent = getIntent();
+        Bundle bundle= detailsIntent.getExtras();
+        taskId = (String) bundle.get("task id");
+
+        // TODO implement Elastic search here/load from file to get task information then set the editTexts
+        //
+        //
+
+        // determine if Edit Task or New Task
+        activityName = (String) bundle.get("edit or new");
+        Log.i("activity name", activityName);
+
+        // TODO set menu toolbar to be var activityName
+
+
+
+
+
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,
@@ -42,8 +83,6 @@ public class EditTaskActivity extends ActivityHeader  {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         categorySpinner.setAdapter(spinnerAdapter);
-
-
 
 
     }

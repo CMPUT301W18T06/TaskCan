@@ -81,5 +81,11 @@
         <item>Academics</item>
     </string-array>
 
+    <string-array name="task_status_spinner_array">
+        <item>Requested</item>
+        <item>Assigned</item>
+        <item>Done</item>
+    </string-array>
+
 
 </resources>
