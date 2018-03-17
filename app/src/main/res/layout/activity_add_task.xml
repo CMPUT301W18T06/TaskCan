@@ -151,7 +151,7 @@
                         android:layout_marginTop="8dp"
                         android:background="@drawable/gradient"
                         android:onClick="addPhotosButtonClick"
-                        android:text="Edit Images"
+                        android:text="Add Image"
                         android:textAppearance="@style/TextAppearance.AppCompat"
                         android:textColor="@color/colorWhite"
                         android:textSize="18sp"
