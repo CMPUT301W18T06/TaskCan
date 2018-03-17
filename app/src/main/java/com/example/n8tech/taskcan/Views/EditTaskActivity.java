@@ -50,7 +50,7 @@ public class EditTaskActivity extends ActivityHeader  {
     private User currentUser;
     private ArrayAdapter<CharSequence> categorySpinnerAdapter;
     private ArrayAdapter<CharSequence> statusSpinnerAdapter;
-    int PLACE_PICKER_REQUEST = 1;
+    int PLACE_PICKER_REQUEST = 5;
     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
 
