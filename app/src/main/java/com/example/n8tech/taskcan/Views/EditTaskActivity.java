@@ -187,7 +187,7 @@ public class EditTaskActivity extends ActivityHeader  {
         }
 
         taskStatus = taskStatusSpinner.getSelectedItem().toString();
-        task.setTaskStatus(taskStatus);
+        task.setStatus(taskStatus);
 
         category = categorySpinner.getSelectedItem().toString();
         task.setCategory(category);
@@ -212,7 +212,7 @@ public class EditTaskActivity extends ActivityHeader  {
         Log.i("*** desc", task.getDescription());
         Log.i("*** maximum bid",Double.toString(task.getMaximumBid()));
         Log.i("*** category",task.getCategory());
-        Log.i("*** task uuid",task.getTaskId());
+        Log.i("*** task uuid",task.getTaskUUID());
 
         if (valid) {
             // TODO update task in user's task list
@@ -225,14 +225,7 @@ public class EditTaskActivity extends ActivityHeader  {
 
     }
 
-    public void deleteButtonClick(View v){
-        // remove task from currentusers task list and go back to my task activity
-        currentUser.removeTask(task);
-        Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
 
-    }
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_edit_task;
