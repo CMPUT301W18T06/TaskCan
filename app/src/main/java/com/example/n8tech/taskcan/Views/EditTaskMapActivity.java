@@ -20,8 +20,13 @@ package com.example.n8tech.taskcan.Views;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.n8tech.taskcan.R;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -32,6 +37,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class EditTaskMapActivity extends ActivityHeader implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,4 +86,5 @@ public class EditTaskMapActivity extends ActivityHeader implements OnMapReadyCal
         this.mMap.addMarker(new MarkerOptions().position(uofa).title("Marker in University of Alberta"));
         this.mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(uofa, 12.0f));
     }
+
 }

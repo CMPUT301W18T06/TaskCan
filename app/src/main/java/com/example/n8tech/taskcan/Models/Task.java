@@ -17,6 +17,9 @@
 package com.example.n8tech.taskcan.Models;
 
 import android.util.Log;
+
+import com.google.android.gms.location.places.Place;
+
 import java.util.UUID;
 
 /**
@@ -36,7 +39,7 @@ public class Task {
     private double maximumBid;
     private String category;
     private BidList bidList;
-    private String location;            // TODO change to geolocation variable
+    private Place location;            // TODO change to geolocation variable
     private boolean taskCompleted;
     private String taskId;                 // TODO need unique task UUID
     private String taskStatus;
@@ -184,11 +187,11 @@ public class Task {
     }
 
 
-    public String getLocation() {
+    public Place getLocation() {
         return this.location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Place location) {
         this.location = location;
     }
 
