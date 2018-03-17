@@ -52,9 +52,6 @@
             android:name=".Views.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".Views.ImageSlideShowActivity"
-            android:exported="true" />
-        <activity
             android:name=".Views.EditTaskMapActivity"
             android:exported="true" />
         <activity

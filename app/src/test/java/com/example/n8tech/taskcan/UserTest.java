@@ -78,7 +78,7 @@ public class UserTest extends ActivityInstrumentationTestCase2 {
         ArrayList<Task> taskList = new ArrayList<Task>();
         taskList.add(task1);
         taskList.add(task2);
-        assert(user1.getTaskList() == taskList);
+        assert(user1.getMyTaskList() == taskList);
 
         user1.removeBidTask(task2);
         taskList.remove(1);

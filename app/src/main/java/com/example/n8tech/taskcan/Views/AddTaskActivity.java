@@ -16,8 +16,12 @@
 
 package com.example.n8tech.taskcan.Views;
 
+        import android.app.AlertDialog;
+        import android.app.DialogFragment;
+        import android.content.DialogInterface;
         import android.content.Intent;
         import android.os.Bundle;
+        import android.provider.MediaStore;
         import android.util.Log;
         import android.view.View;
         import android.widget.ArrayAdapter;
@@ -112,10 +116,38 @@ public class AddTaskActivity extends ActivityHeader  {
             startActivity(i);
         }
     }
-
+    // https://stackoverflow.com/questions/4671428/how-can-i-add-a-third-button-to-an-android-alert-dialog
     public void addPhotosButtonClick(View v) {
-
+        String title = "Add Photo";
+        String message = "Pick from gallery or take new photo?";
+        String positive = "Gallery", neutral = "Cancel", negative = "Camera";
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(positive, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto , 1);
+            }
+        });
+        builder.setNeutralButton(neutral, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setNegativeButton(negative, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePicture, 0);
+            }
+        });
+        builder.create().show();
     }
+
 
     public void editLocationButtonClick(View v) {
         // TODO: should this be a map page and drop a pin or just entering an address and validating that address ???
@@ -199,6 +231,9 @@ public class AddTaskActivity extends ActivityHeader  {
         if (valid) {
             Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            // add task to current user's myTasks list
+            currentUser.addTask(newTask);
             startActivity(intent);
         }
 
