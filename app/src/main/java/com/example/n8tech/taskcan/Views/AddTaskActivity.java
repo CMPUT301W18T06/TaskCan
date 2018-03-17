@@ -20,12 +20,17 @@ package com.example.n8tech.taskcan.Views;
         import android.app.DialogFragment;
         import android.content.DialogInterface;
         import android.content.Intent;
+        import android.graphics.Bitmap;
+        import android.graphics.BitmapFactory;
+        import android.net.Uri;
         import android.os.Bundle;
         import android.provider.MediaStore;
         import android.util.Log;
         import android.view.View;
         import android.widget.ArrayAdapter;
         import android.widget.EditText;
+        import android.widget.ImageSwitcher;
+        import android.widget.ImageView;
         import android.widget.Spinner;
         import android.widget.TextView;
         import android.widget.Toast;
@@ -35,8 +40,15 @@ package com.example.n8tech.taskcan.Views;
         import com.example.n8tech.taskcan.Models.User;
         import com.example.n8tech.taskcan.R;
 
+        import java.io.ByteArrayOutputStream;
+        import java.io.FileNotFoundException;
+        import java.io.InputStream;
+        import java.util.ArrayList;
+        import java.util.Arrays;
+        import java.util.List;
 
-public class AddTaskActivity extends ActivityHeader  {
+
+public class AddTaskActivity extends ActivityHeader {
     private Spinner categorySpinner;
     private Task newTask;
     private String taskId;
@@ -49,26 +61,23 @@ public class AddTaskActivity extends ActivityHeader  {
     private int spinnerPosition;
     private User currentUser;
     private ArrayAdapter<CharSequence> categorySpinnerAdapter;
+    private ArrayList<ArrayList<Integer>> images;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.images = new ArrayList<ArrayList<Integer>>();
         this.currentUser = CurrentUserSingleton.getUser();
         Log.i("current user", currentUser.getUsername());
 
         findViewsByIdAndSetContent();
 
 
-
-
-
         // TODO implement Elastic search post here/save from file to save task information
         //
         //
     }
-
 
 
     private void findViewsByIdAndSetContent() {
@@ -100,7 +109,6 @@ public class AddTaskActivity extends ActivityHeader  {
     }
 
 
-
     @Override
     protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
         if (!this.getClass().equals(nextClass)) {
@@ -109,6 +117,7 @@ public class AddTaskActivity extends ActivityHeader  {
             startActivity(i);
         }
     }
+
     // https://stackoverflow.com/questions/4671428/how-can-i-add-a-third-button-to-an-android-alert-dialog
     public void addPhotosButtonClick(View v) {
         String title = "Add Photo";
@@ -122,7 +131,7 @@ public class AddTaskActivity extends ActivityHeader  {
             public void onClick(DialogInterface dialog, int which) {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto , 1);
+                startActivityForResult(pickPhoto, 0);
             }
         });
         builder.setNeutralButton(neutral, new DialogInterface.OnClickListener() {
@@ -135,7 +144,7 @@ public class AddTaskActivity extends ActivityHeader  {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePicture, 0);
+                startActivityForResult(takePicture, 1);
             }
         });
         builder.create().show();
@@ -154,7 +163,7 @@ public class AddTaskActivity extends ActivityHeader  {
 
     }
 
-    public void saveButtonClick(View v){
+    public void saveButtonClick(View v) {
         String taskName;
         String taskDescription;
         double maximumBid;
@@ -169,7 +178,7 @@ public class AddTaskActivity extends ActivityHeader  {
         newTask = new Task();
 
         taskName = taskNameEditText.getText().toString();
-        if (taskName.length() < 30 && !taskName.equals("")){
+        if (taskName.length() < 30 && !taskName.equals("")) {
             // task name is valid, set task name
             newTask.setTaskTitle(taskName);
         } else {
@@ -179,7 +188,7 @@ public class AddTaskActivity extends ActivityHeader  {
 
 
         taskDescription = taskDescriptionEditText.getText().toString();
-        if (taskDescription.length() < 300 ){
+        if (taskDescription.length() < 300) {
             // valid
             newTask.setDescription(taskDescription);
         } else {
@@ -196,7 +205,7 @@ public class AddTaskActivity extends ActivityHeader  {
 
         if (!maximumBidString.equals("")) {
             maximumBid = Double.parseDouble(maximumBidString);
-            newTask.setMaximumBid(Math.round(maximumBid*100.0)/100.0);                      // round to 2 decimal places
+            newTask.setMaximumBid(Math.round(maximumBid * 100.0) / 100.0);                      // round to 2 decimal places
         } else {
             newTask.setMaximumBid(-1);
         }
@@ -210,9 +219,9 @@ public class AddTaskActivity extends ActivityHeader  {
 
         Log.i("*** name", newTask.getTaskTitle());
         Log.i("*** desc", newTask.getDescription());
-        Log.i("*** maximum bid",Double.toString(newTask.getMaximumBid()));
-        Log.i("*** category",newTask.getCategory());
-        Log.i("*** task uuid",newTask.getTaskId());
+        Log.i("*** maximum bid", Double.toString(newTask.getMaximumBid()));
+        Log.i("*** category", newTask.getCategory());
+        Log.i("*** task uuid", newTask.getTaskId());
 
         if (valid) {
             Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
@@ -234,5 +243,46 @@ public class AddTaskActivity extends ActivityHeader  {
     @Override
     protected String getActivityTitle() {
         return "Add Task";
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        if ((requestCode == 0 || requestCode == 1) && resultCode == RESULT_OK) {
+            // get image
+            Uri selectedImage = imageReturnedIntent.getData();
+            InputStream imageStream = null;
+            try {
+                imageStream = getContentResolver().openInputStream(selectedImage);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+            // check img size
+            if (this.sizeOf(bitmap) < R.integer.IMAGE_MAX_BYTE_SIZE) {
+                // bitmap to int[]
+                int x = bitmap.getWidth();
+                int y = bitmap.getHeight();
+                int[] image = new int[x * y];
+                bitmap.getPixels(image, 0, x, 0, 0, x, y);
+                ArrayList<Integer> image_array = new ArrayList<>();
+                for (int i = 0; i < image.length; i++)
+                    image_array.add(image[i]);
+                // store
+                images.add(image_array);
+
+                Toast.makeText(AddTaskActivity.this, "Image added successfully!",
+                        Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(AddTaskActivity.this, "Image size too large! (<65536bytes)",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
+
+    private int sizeOf(Bitmap bitmap) {
+        return bitmap.getRowBytes() * bitmap.getHeight();
     }
 }
