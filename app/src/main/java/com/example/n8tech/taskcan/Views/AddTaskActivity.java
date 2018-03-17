@@ -39,6 +39,10 @@ package com.example.n8tech.taskcan.Views;
         import com.example.n8tech.taskcan.Models.Task;
         import com.example.n8tech.taskcan.Models.User;
         import com.example.n8tech.taskcan.R;
+        import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+        import com.google.android.gms.common.GooglePlayServicesRepairableException;
+        import com.google.android.gms.location.places.Place;
+        import com.google.android.gms.location.places.ui.PlacePicker;
 
         import java.io.ByteArrayOutputStream;
         import java.io.FileNotFoundException;
@@ -60,8 +64,11 @@ public class AddTaskActivity extends ActivityHeader {
     private TextView taskStatusText;
     private int spinnerPosition;
     private User currentUser;
+    private Place location;
     private ArrayAdapter<CharSequence> categorySpinnerAdapter;
     private ArrayList<ArrayList<Integer>> images;
+    int PLACE_PICKER_REQUEST = 5;
+    PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
 
     @Override
@@ -153,8 +160,15 @@ public class AddTaskActivity extends ActivityHeader {
 
     public void editLocationButtonClick(View v) {
         // TODO: should this be a map page and drop a pin or just entering an address and validating that address ???
-        Intent intent = new Intent(getApplicationContext(), EditTaskMapActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(getApplicationContext(), EditTaskMapActivity.class);
+        //startActivity(intent);
+        try {
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
     }
 
     public void cancelButtonClick(View v) {
@@ -169,7 +183,6 @@ public class AddTaskActivity extends ActivityHeader {
         double maximumBid;
         String maximumBidString;
         String category;
-        String location;            // TODO how to store location?
         String taskStatus = "Requested";
         boolean valid = Boolean.TRUE;
 
@@ -211,7 +224,7 @@ public class AddTaskActivity extends ActivityHeader {
         }
 
         // TODO location validity testing
-        //newTask.setLocation(?);
+        newTask.setLocation(this.location);
 
         // TODO set task owner to current user's uuid?
 
@@ -277,6 +290,12 @@ public class AddTaskActivity extends ActivityHeader {
             else {
                 Toast.makeText(AddTaskActivity.this, "Image size too large! (<65536bytes)",
                         Toast.LENGTH_LONG).show();
+            }
+        } else if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                this.location = PlacePicker.getPlace(this, imageReturnedIntent);
+                String toastMsg = String.format("Place: %s", this.location.getName());
+                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
             }
         }
 
