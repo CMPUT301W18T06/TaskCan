@@ -24,6 +24,14 @@ public class TaskList implements Iterable<Task> {
         return this.taskList.get(i);
     }
 
+    public int getIndexOfTask(Task task){
+        return this.taskList.indexOf(task);
+    }
+
+    public void replaceAtIndex(int index, Task task){
+        this.taskList.set(index, task);
+    }
+
     public int getSize() {
         return this.taskList.size();
     }
