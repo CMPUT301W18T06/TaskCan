@@ -26,13 +26,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
+import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 
-import static com.example.n8tech.taskcan.Models.CurrentUserSingleton.getUser;
 
 public class EditTaskActivity extends ActivityHeader  {
     private Spinner categorySpinner;
+    private Spinner taskStatusSpinner;
+    private Task task;
     private String taskId;
     private String activityName;
     private TextView statusText;
@@ -40,9 +42,9 @@ public class EditTaskActivity extends ActivityHeader  {
     private EditText taskNameEditText;
     private EditText taskDescriptionEditText;
     private int spinnerPosition;
-    //private CurrentUserSingleton currentUserSingleton;
     private User currentUser;
-
+    private ArrayAdapter<CharSequence> categorySpinnerAdapter;
+    private ArrayAdapter<CharSequence> statusSpinnerAdapter;
 
 
     @Override
@@ -52,12 +54,7 @@ public class EditTaskActivity extends ActivityHeader  {
         this.currentUser= CurrentUserSingleton.getUser();
         Log.i("current user", currentUser.getUsername());
 
-        statusText = (TextView) findViewById(R.id.edit_task_activity_status_set_text);
-        maxBidText = (TextView) findViewById(R.id.edit_task_activity_money_edit_text);
-        taskNameEditText = (EditText) findViewById(R.id.edit_task_activity_name_edit_text);
-        taskDescriptionEditText = (EditText) findViewById(R.id.edit_task_activity_task_description_edit_text);
-        categorySpinner = (Spinner) findViewById(R.id.edit_task_activity_category_spinner);
-
+        findViewsByIdAndSetContent();
 
 
         // get info from intent
@@ -66,7 +63,7 @@ public class EditTaskActivity extends ActivityHeader  {
         taskId = (String) bundle.get("task id");
 
         // TODO implement Elastic search here/load from file to get task information then set the editTexts
-        // 
+        //
         //
 
         // determine if Edit Task or New Task
@@ -75,22 +72,50 @@ public class EditTaskActivity extends ActivityHeader  {
 
         // TODO set menu toolbar to be var activityName
 
+        ;
 
 
+    }
 
-
-
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,
+    private void SetCategorySpinnerContent() {
+        categorySpinnerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.categories_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        categorySpinner.setAdapter(spinnerAdapter);
+        categorySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(categorySpinnerAdapter);
 
-        // set spinner category
-        spinnerPosition = spinnerAdapter.getPosition("Outdoors");       // set item to be task.getStatus() when implemented
+        // set spinner category to be shown on activity
+        spinnerPosition = categorySpinnerAdapter.getPosition("Other");       // TODO:  set item to be task.getCategory() when implemented
         categorySpinner.setSelection(spinnerPosition);
+    }
+
+    private void SetTaskStatusSpinnerContent() {
+        statusSpinnerAdapter = ArrayAdapter.createFromResource(this,
+                R.array.task_status_spinner_array, android.R.layout.simple_spinner_item);
+        statusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        taskStatusSpinner.setAdapter(statusSpinnerAdapter);
+
+        // set spinner category to be shown on activity
+        spinnerPosition = statusSpinnerAdapter.getPosition("Requested");       // TODO:  set item to be task.getStatus() when implemented
+        taskStatusSpinner.setSelection(spinnerPosition);
+    }
+
+    private void findViewsByIdAndSetContent() {
+        maxBidText = (TextView) findViewById(R.id.edit_task_activity_money_edit_text);
+        taskNameEditText = (EditText) findViewById(R.id.edit_task_activity_name_edit_text);
+        taskDescriptionEditText = (EditText) findViewById(R.id.edit_task_activity_task_description_edit_text);
+        categorySpinner = (Spinner) findViewById(R.id.edit_task_activity_category_spinner);
+        taskStatusSpinner = (Spinner) findViewById(R.id.edit_task_activity_status_spinner);
+
+        // TODO get task information here and set editTexts
+        /*
+        maxBidText.setText(task.getMaximumBid());       // set double to string
+        taskNameEditText.setText(task.getTaskTitle());
+        taskDescriptionEditText.setText(task.getDescription());
+
+        */
+        // set category spinner content and set to task's category
+        SetCategorySpinnerContent();
+        SetTaskStatusSpinnerContent();
 
 
     }
@@ -109,6 +134,7 @@ public class EditTaskActivity extends ActivityHeader  {
     }
 
     public void editLocationButtonClick(View v) {
+        // TODO: should this be a map page and drop a pin or just entering an address and validating that address ???
         Intent intent = new Intent(getApplicationContext(), EditTaskMapActivity.class);
         startActivity(intent);
     }

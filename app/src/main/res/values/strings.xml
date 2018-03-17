@@ -67,18 +67,15 @@
     <string name="edit_profile_activity_save_button">Save</string>
 
     <string-array name="categories_array">
+        <item>Home Maintenance</item>
+        <item>Delivery Services</item>
+        <item>Pet Care</item>
+        <item>Personal Assistance</item>
+        <item>Landscaping</item>
+        <item>Automotive Services</item>
+        <item>Culinary Services</item>
+        <item>Tutoring</item>
         <item>Other</item>
-        <item>Outdoors</item>
-        <item>Indoors</item>
-        <item>Pick-up</item>
-        <item>Drop-off</item>
-        <item>Animal</item>
-        <item>Children</item>
-        <item>Home Repair</item>
-        <item>Landscape</item>
-        <item>Computers</item>
-        <item>Food</item>
-        <item>Academics</item>
     </string-array>
 
     <string-array name="task_status_spinner_array">
