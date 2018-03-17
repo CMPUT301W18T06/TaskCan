@@ -26,7 +26,7 @@ import java.util.UUID;
 
 public class Task {
     final private int MAX_TITLE_NAME_LENGTH = 30;
-    final private int MAX_DESCRIPTION_LENGTH = 30;
+    final private int MAX_DESCRIPTION_LENGTH = 300;
 
     private String taskTitle;
     private String description;
@@ -213,4 +213,5 @@ public class Task {
         // TODO: check if status has changed, update bid list if one was accepted, etc
 
     }
+
 }

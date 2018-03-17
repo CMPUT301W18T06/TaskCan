@@ -55,7 +55,6 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText passwordText;
     private EditText contactText;
     private UserList cacheList;
-    //private CurrentUserSingleton currentUserSingleton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +97,7 @@ public class SignUpActivity extends AppCompatActivity {
             emailValid = false;
         }
 
-        if (password.length() <= 6) {
+        if (password.length() < 6) {
             passwordValid = false;
         }
 
