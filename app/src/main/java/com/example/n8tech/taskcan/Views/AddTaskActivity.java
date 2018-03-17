@@ -30,6 +30,10 @@ package com.example.n8tech.taskcan.Views;
         import com.example.n8tech.taskcan.Models.Task;
         import com.example.n8tech.taskcan.Models.User;
         import com.example.n8tech.taskcan.R;
+        import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+        import com.google.android.gms.common.GooglePlayServicesRepairableException;
+        import com.google.android.gms.location.places.Place;
+        import com.google.android.gms.location.places.ui.PlacePicker;
 
 
 public class AddTaskActivity extends ActivityHeader  {
@@ -44,7 +48,10 @@ public class AddTaskActivity extends ActivityHeader  {
     private TextView taskStatusText;
     private int spinnerPosition;
     private User currentUser;
+    private Place location;
     private ArrayAdapter<CharSequence> categorySpinnerAdapter;
+    int PLACE_PICKER_REQUEST = 1;
+    PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
 
     @Override
@@ -112,8 +119,15 @@ public class AddTaskActivity extends ActivityHeader  {
 
     public void editLocationButtonClick(View v) {
         // TODO: should this be a map page and drop a pin or just entering an address and validating that address ???
-        Intent intent = new Intent(getApplicationContext(), EditTaskMapActivity.class);
-        startActivity(intent);
+        // Intent intent = new Intent(getApplicationContext(), EditTaskMapActivity.class);
+        // startActivity(intent);
+        try {
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
     }
 
     public void cancelButtonClick(View v) {
@@ -170,7 +184,7 @@ public class AddTaskActivity extends ActivityHeader  {
         }
 
         // TODO location validity testing
-        //newTask.setLocation(?);
+        newTask.setLocation(this.location);
 
         // TODO set task owner to current user's uuid?
 
@@ -188,6 +202,16 @@ public class AddTaskActivity extends ActivityHeader  {
             startActivity(intent);
         }
 
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                this.location = PlacePicker.getPlace(this, data);
+                String toastMsg = String.format("Place: %s", this.location.getName());
+                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
 
