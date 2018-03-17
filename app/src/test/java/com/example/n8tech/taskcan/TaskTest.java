@@ -47,7 +47,7 @@ public class TaskTest extends ActivityInstrumentationTestCase2 {
         Bid bid1 = new Bid(user3, 18.91);
         Task task1 = new Task();
 
-        task1.setName("Walk my dog");
+        task1.setTaskTitle("Walk my dog");
         task1.setDescription("Around the block");
         task1.setOwner(user1);
         task1.setProvider(user2);
@@ -57,13 +57,13 @@ public class TaskTest extends ActivityInstrumentationTestCase2 {
         task1.addBidder(bid1);
         task1.setLocation("Edmonton");
 
-        assert(task1.getName() == "Walk my dog");
+        assert(task1.getTaskTitle() == "Walk my dog");
         assert(task1.getDescription() == "Around the block");
         assert(task1.getOwner().equals(user1));
         assert(task1.getProvider().equals(user2));
         assert(task1.getMaximumBid() == 20.00);
         assert(task1.getCategory() == "Pets");
-        assert(task1.getBidList().getBidder(1).equals(bid1));
+        assert(task1.getBidList().getBid(1).equals(bid1));
         assert(task1.getLocation() == "Edmonton");
     }
 

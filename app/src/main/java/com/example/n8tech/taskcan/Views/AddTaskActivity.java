@@ -185,6 +185,9 @@ public class AddTaskActivity extends ActivityHeader  {
         if (valid) {
             Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            // add task to current user's myTasks list
+            currentUser.addTask(newTask);
             startActivity(intent);
         }
 

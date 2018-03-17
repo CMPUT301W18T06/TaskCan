@@ -18,7 +18,9 @@ public class TaskList implements Iterable<Task> {
         this.taskList.add(task);
     }
 
-    public Task getTask(int i) {
+    public void removeTask(Task task) {this.taskList.remove(task);}
+
+    public Task getTaskAtIndex(int i) {
         return this.taskList.get(i);
     }
 

@@ -78,7 +78,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:text="Available Budget:"
+                        android:text="Available Budget (CAD):"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_task_description_edit_text" />
@@ -106,14 +106,13 @@
 
                     <EditText
                         android:id="@+id/edit_task_activity_money_edit_text"
-                        android:layout_width="wrap_content"
+                        android:layout_width="170dp"
                         android:layout_height="42dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:ems="10"
                         android:inputType="numberDecimal"
-                        android:text="$"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/edit_task_activity_max_bid_text"
                         app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_task_description_edit_text" />
@@ -187,6 +186,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/gradient"
+                        android:onClick="deleteButtonClick"
                         android:text="Delete"
                         android:textAppearance="@style/TextAppearance.AppCompat"
                         android:textColor="@color/colorWhite"
@@ -205,6 +205,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/gradient"
+                        android:onClick="saveButtonClick"
                         android:text="Save"
                         android:textAppearance="@style/TextAppearance.AppCompat"
                         android:textColor="@color/colorWhite"

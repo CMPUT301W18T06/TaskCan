@@ -32,8 +32,8 @@ public class User {
     private String password;
     private String email;
     private String phoneNumber;
-    private ArrayList<Task> myTaskBids;
-    private ArrayList<Task> myTasks;
+    private TaskList myTaskBids;
+    private TaskList myTasks;
 
     @JestId
     private String id;
@@ -47,8 +47,8 @@ public class User {
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.myTaskBids = new ArrayList<Task>();
-        this.myTasks = new ArrayList<Task>();
+        this.myTaskBids = new TaskList();
+        this.myTasks = new TaskList();
     }
 
     public String getUsername() {
@@ -91,15 +91,15 @@ public class User {
         this.id = id;
     }
 
-    public void addBidTask(Task task) { this.myTaskBids.add(task); }
+    public void addBidTask(Task task) { this.myTaskBids.addTask(task); }
 
     public void removeBidTask(Task task) {}
 
-    public ArrayList<Task> getBidTaskList() { return this.myTaskBids; }
+    public TaskList getBidTaskList() { return this.myTaskBids; }
 
-    public void addTask(Task task) { this.myTasks.add(task); }
+    public void addTask(Task task) { this.myTasks.addTask(task); }
 
-    public void removeTask(Task task) {}
+    public void removeTask(Task task) { this.myTasks.removeTask(task);}
 
-    public ArrayList<Task> getTaskList() { return this.myTasks; }
+    public TaskList getMyTaskList() { return this.myTasks; }
 }
