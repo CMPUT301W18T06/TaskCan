@@ -51,9 +51,10 @@ public class SignUpActivity extends AppCompatActivity {
 
     private static final String CACHE_FILE = "cache.sav";
     private EditText usernameText;
+    private EditText profileNameText;
     private EditText emailText;
     private EditText passwordText;
-    private EditText contactText;
+    private EditText phoneNumberText;
     private UserList cacheList;
 
     @Override
@@ -65,7 +66,7 @@ public class SignUpActivity extends AppCompatActivity {
         this.usernameText = findViewById(R.id.name_field);
         this.emailText = findViewById(R.id.email_field);
         this.passwordText = findViewById(R.id.password_field);
-        this.contactText = findViewById(R.id.phone_field);
+        this.phoneNumberText = findViewById(R.id.phone_field);
 
     }
 
@@ -75,12 +76,12 @@ public class SignUpActivity extends AppCompatActivity {
         boolean usernameValid = true;
         boolean emailValid = true;
         boolean passwordValid = true;
-        boolean contactValid = true;
+        boolean phoneNumberValid     = true;
 
         String name = this.usernameText.getText().toString();
         String email = this.emailText.getText().toString();
         String password = this.passwordText.getText().toString();
-        String contact = this.contactText.getText().toString();
+        String contact = this.phoneNumberText.getText().toString();
 
         if (name.length() < 3 || !StringUtils.isAlphaSpace(name)) {
             usernameValid = false;
@@ -102,10 +103,10 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         if (!checkContactValidity(contact)) {
-            contactValid = false;
+            phoneNumberValid = false;
         }
 
-        if (usernameValid && emailValid && passwordValid && contactValid) {
+        if (usernameValid && emailValid && passwordValid && phoneNumberValid) {
             //
             contact = contact.replace("-", "");
             contact = contact.replace(".", "");
@@ -134,9 +135,13 @@ public class SignUpActivity extends AppCompatActivity {
                 cacheList.addUser(newUser);
                 saveInFile();
 
+                CurrentUserSingleton.setUser(newUser);
+
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                 Gson gson = new Gson();
                 intent.putExtra(SignInActivity.USER_MESSAGE, gson.toJson(newUser));
+
+
                 startActivity(intent);
             } else {
                 String errMsg = "Cannot connect to the network currently.\nPlease try again later";
@@ -156,7 +161,7 @@ public class SignUpActivity extends AppCompatActivity {
             if (!passwordValid) {
                 errMsg = errMsg + "Please enter a valid password. Length of at least 6.\n";
             }
-            if (!contactValid) {
+            if (!phoneNumberValid) {
                 errMsg = errMsg + "Please enter a valid phone number.\n";
             }
             errMsg = errMsg.trim();

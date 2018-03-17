@@ -28,18 +28,24 @@ import io.searchbox.annotations.JestId;
  */
 
 public class User {
-    private String username;
-    private String password;
-    private String email;
-    private String phoneNumber;
+    private String profileName;             //persons name, ex "Carolyn Binns", doesnt have to be unique, cant be empty string
+    private String username;                //unique username chosen by the user, ex  "cbinns"
+    private String password;                //if not set, password is ""
+    private String email;                   //not unique. check that "@" and "." exist and in order
+    private String phoneNumber;             //7 numbers
     private TaskList myTaskBids;
     private TaskList myTasks;
+
+
 
     @JestId
     private String id;
 
     public User(){
         // test user
+        this.myTasks = new TaskList();
+        this.myTaskBids = new TaskList();
+
     }
 
     public User(String username, String email, String password, String phoneNumber) {
@@ -49,6 +55,22 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.myTaskBids = new TaskList();
         this.myTasks = new TaskList();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getProfileName() {
+        return profileName;
+    }
+
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
     }
 
     public String getUsername() {
@@ -72,8 +94,9 @@ public class User {
     }
 
     public void setEmail(String email) {
-        if (email.contains("@")) this.email = email;
-        else throw new IllegalArgumentException();
+        this.email = email;
+        //if (email.contains("@")) this.email = email;
+        //else throw new IllegalArgumentException();
     }
 
     public String getPhoneNumber() {
@@ -81,19 +104,21 @@ public class User {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        if (phoneNumber.length() == 10) this.phoneNumber = phoneNumber;
-        else throw new IllegalArgumentException();
+        this.phoneNumber = phoneNumber;
+        //if (phoneNumber.length() == 10) this.phoneNumber = phoneNumber;
+        //else throw new IllegalArgumentException();
     }
 
-    public String getId() {return this.id; }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public void addBidTask(Task task) { this.myTaskBids.addTask(task); }
 
-    public void removeBidTask(Task task) {}
+    public void replaceTaskAtIndex(int index, Task task){
+        this.myTasks.replaceAtIndex(index, task);
+    }
+
+    public void removeBidTask(Task task) {
+        this.myTasks.removeTask(task);
+    }
 
     public TaskList getBidTaskList() { return this.myTaskBids; }
 

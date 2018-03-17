@@ -60,8 +60,6 @@ public class SignInActivity extends Activity {
 
         this.username = findViewById(R.id.username_field);
         this.password = findViewById(R.id.password_field);
-
-
     }
 
     @Override
