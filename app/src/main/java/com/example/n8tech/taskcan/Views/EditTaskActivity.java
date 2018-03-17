@@ -192,6 +192,8 @@ public class EditTaskActivity extends ActivityHeader  {
         Log.i("*** task uuid",task.getTaskId());
 
         if (valid) {
+            // TODO update task in user's task list
+            
             Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
