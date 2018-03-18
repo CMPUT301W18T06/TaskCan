@@ -55,7 +55,9 @@ public class Bid {
 
     public void setBidAmount(double bidAmount) {
         if (bidAmount < 0.01){
-            // TODO: implement error and reprompt for bid less than 1 cent
+            if (bidAmount < 0.01){
+                throw new IllegalArgumentException();
+            }
         }
         this.bidAmount = this.bidAmount == 0 ? bidAmount : this.bidAmount;
     }
