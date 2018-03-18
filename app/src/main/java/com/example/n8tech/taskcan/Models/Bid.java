@@ -35,6 +35,9 @@ public class Bid {
 
     public Bid(User bidder, double bidAmount) {
         this.bidder = bidder;
+        if (bidAmount < 0.01){
+            // TODO: implement error and reprompt for bid less than 1 cent
+        }
         this.bidAmount = bidAmount;
     }
 
@@ -43,7 +46,6 @@ public class Bid {
     }
 
     public void setBidder(User bidder) {
-        //this.bidder = bidder;
         this.bidder = this.bidder.getUsername() == null ? bidder : this.bidder;
     }
 
@@ -52,8 +54,9 @@ public class Bid {
     }
 
     public void setBidAmount(double bidAmount) {
-        //this.bidAmount = bidAmount;
-        if (bidAmount > 0.0)
+        if (bidAmount < 0.01){
+            // TODO: implement error and reprompt for bid less than 1 cent
+        }
         this.bidAmount = this.bidAmount == 0 ? bidAmount : this.bidAmount;
     }
 }

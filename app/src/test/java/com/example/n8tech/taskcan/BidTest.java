@@ -44,6 +44,10 @@ public class BidTest {
         bid1.setBidAmount(12.21);
         assertEquals(bid1.getBidder(), user1);
         assertEquals(bid1.getBidAmount(), 12.21, 0.00);
+        User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        Bid bid2 = new Bid(user2, 150.00);
+        assertEquals(bid2.getBidder(), user2);
+        assertEquals(bid2.getBidAmount(), 150.00, 0.00);
     }
 
     @Test
@@ -67,7 +71,7 @@ public class BidTest {
         User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
         Bid bid2 = new Bid(user2, 150.00);
         User user3 = new User("Nathan", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        Bid bid3 = new Bid(user3, 0.00);
+        Bid bid3 = new Bid(user3, 0.01);
         bid1.setBidAmount(200.00);
         assertEquals(bid1.getBidAmount(), 12.21, 0.00);
         bid2.setBidAmount(300.00);
@@ -75,6 +79,19 @@ public class BidTest {
         bid1.setBidAmount(0.00);
         assertEquals(bid1.getBidAmount(), 12.21, 0.00);
         bid3.setBidAmount(2.00);
-        assertEquals(bid3.getBidAmount(), 0.00, 0.00);
+        assertEquals(bid3.getBidAmount(), 0.01, 0.00);
+    }
+
+    @Test
+    //ensure that you can't set a bid to less than 1 cent
+    public void testMinimumBidAmount(){
+        User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
+        Bid bid1 = new Bid();
+        bid1.setBidder(user1);
+        bid1.setBidAmount(0.00);
+        // test that ensures an error was called
+        User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        Bid bid2 = new Bid(user2, 0.00);
+        // test that ensures an error was called
     }
 }
