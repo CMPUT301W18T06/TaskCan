@@ -22,21 +22,27 @@ import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Views.SignInActivity;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 /**
  * Created by cbinns on 2/22/2018.
  * Edited by msquigle on 2/23/2018.
  */
 
-public class BidTest extends ActivityInstrumentationTestCase2 {
+public class BidTest {
 
-    public BidTest() { super(SignInActivity.class); };
+    public BidTest() {
 
+    }
+
+    @Test
     public void testAddBidder() {
         User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
         Bid bid1 = new Bid();
         bid1.setBidder(user1);
         bid1.setBidAmount(12.21);
-        assert(bid1.getBidder().equals(user1));
-        assert(bid1.getBidAmount() == 12.21);
+        assertEquals(bid1.getBidder(), user1);
+        assertEquals(bid1.getBidAmount(), 12.21, 0.00);
     }
 }

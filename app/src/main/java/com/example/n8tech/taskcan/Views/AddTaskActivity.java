@@ -15,41 +15,41 @@
  */
 
 package com.example.n8tech.taskcan.Views;
+import android.app.AlertDialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import android.app.AlertDialog;
-        import android.app.DialogFragment;
-        import android.content.DialogInterface;
-        import android.content.Intent;
-        import android.graphics.Bitmap;
-        import android.graphics.BitmapFactory;
-        import android.net.Uri;
-        import android.os.Bundle;
-        import android.provider.MediaStore;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.ArrayAdapter;
-        import android.widget.EditText;
-        import android.widget.ImageSwitcher;
-        import android.widget.ImageView;
-        import android.widget.Spinner;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
+import com.example.n8tech.taskcan.Models.Task;
+import com.example.n8tech.taskcan.Models.User;
+import com.example.n8tech.taskcan.R;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
-        import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
-        import com.example.n8tech.taskcan.Models.Task;
-        import com.example.n8tech.taskcan.Models.User;
-        import com.example.n8tech.taskcan.R;
-        import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-        import com.google.android.gms.common.GooglePlayServicesRepairableException;
-        import com.google.android.gms.location.places.Place;
-        import com.google.android.gms.location.places.ui.PlacePicker;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-        import java.io.ByteArrayOutputStream;
-        import java.io.FileNotFoundException;
-        import java.io.InputStream;
-        import java.util.ArrayList;
-        import java.util.Arrays;
-        import java.util.List;
 
 
 public class AddTaskActivity extends ActivityHeader {
@@ -209,7 +209,7 @@ public class AddTaskActivity extends ActivityHeader {
             valid = Boolean.FALSE;
         }
 
-        newTask.setTaskStatus(taskStatus);
+        newTask.setStatus(taskStatus);
 
         category = categorySpinner.getSelectedItem().toString();
         newTask.setCategory(category);
@@ -227,6 +227,7 @@ public class AddTaskActivity extends ActivityHeader {
         newTask.setLocation(this.location);
 
         // TODO set task owner to current user's uuid?
+        newTask.setOwner(currentUser.getUsername());
 
         // TODO: save task in elastic search or in file here
 
@@ -234,7 +235,7 @@ public class AddTaskActivity extends ActivityHeader {
         Log.i("*** desc", newTask.getDescription());
         Log.i("*** maximum bid", Double.toString(newTask.getMaximumBid()));
         Log.i("*** category", newTask.getCategory());
-        Log.i("*** task uuid", newTask.getTaskId());
+        Log.i("*** task uuid", newTask.getTaskUUID());
 
         if (valid) {
             Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);

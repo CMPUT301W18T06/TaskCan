@@ -112,6 +112,7 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/task_details_activity_current_bid_text" />
+
         <Button
             android:id="@+id/task_details_activity_view_bids_button"
             android:layout_width="0dp"
@@ -120,6 +121,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/gradient"
+            android:onClick="viewBidsButtonClick"
             android:text="View Bids"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/colorWhite"
@@ -138,6 +140,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/gradient"
+            android:onClick="editButtonClick"
             android:text="Edit"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/colorWhite"
@@ -156,6 +159,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/gradient"
+            android:onClick="deleteButtonClick"
             android:text="Delete"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/colorWhite"
