@@ -37,6 +37,7 @@ public class BidTest {
     }
 
     @Test
+    //ensure that you can add a bidder and bid amount with both constructors
     public void testAddBidder() {
         User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
         Bid bid1 = new Bid();
@@ -76,7 +77,7 @@ public class BidTest {
         assertEquals(bid1.getBidAmount(), 12.21, 0.00);
         bid2.setBidAmount(300.00);
         assertEquals(bid2.getBidAmount(), 150.00, 0.00);
-        bid1.setBidAmount(0.00);
+        bid1.setBidAmount(0.01);
         assertEquals(bid1.getBidAmount(), 12.21, 0.00);
         bid3.setBidAmount(2.00);
         assertEquals(bid3.getBidAmount(), 0.01, 0.00);
@@ -85,13 +86,27 @@ public class BidTest {
     @Test
     //ensure that you can't set a bid to less than 1 cent
     public void testMinimumBidAmount(){
+        int exceptionCatcher = 0;
         User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
         Bid bid1 = new Bid();
         bid1.setBidder(user1);
-        bid1.setBidAmount(0.00);
-        // test that ensures an error was called
+        try{
+            bid1.setBidAmount(0.00);
+        }
+        catch(IllegalArgumentException e){
+            exceptionCatcher++;
+            assertEquals(true, true);
+        }
         User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
-        Bid bid2 = new Bid(user2, 0.00);
-        // test that ensures an error was called
+        try {
+            Bid bid2 = new Bid(user2, -10.00);
+        }
+        catch(IllegalArgumentException e){
+            exceptionCatcher++;
+            assertEquals(true, true);
+        }
+        if(exceptionCatcher < 2){
+            assertEquals(true, false);
+        }
     }
 }
