@@ -34,10 +34,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.ElasticsearchController;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
+import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -68,6 +70,7 @@ public class AddTaskActivity extends ActivityHeader {
     private Place location;
     private ArrayAdapter<CharSequence> categorySpinnerAdapter;
     private ArrayList<ArrayList<Integer>> images;
+    private FileIO fileIO;
     int PLACE_PICKER_REQUEST = 5;
     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
@@ -251,6 +254,9 @@ public class AddTaskActivity extends ActivityHeader {
             ElasticsearchController.UpdateUser updateUser
                     = new ElasticsearchController.UpdateUser();
             updateUser.execute(currentUser);
+            //UserList cacheList = fileIO.loadFromFile(getApplicationContext());
+            //fileIO.saveInFile(getApplicationContext(),cacheList);
+
             startActivity(intent);
         }
 

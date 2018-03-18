@@ -16,9 +16,77 @@
 
 package com.example.n8tech.taskcan;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.example.n8tech.taskcan.Models.User;
+import com.example.n8tech.taskcan.Models.UserList;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
+
 /**
  * Created by cbinns on 2/22/2018.
  */
 
 public class FileIO {
+
+    private static final String CACHE_FILE = "cache.sav";
+
+    public UserList loadFromFile(Context context) {
+        //Load a given JSON file
+
+        UserList cacheList;
+
+        try {
+            FileInputStream fis = context.openFileInput(CACHE_FILE);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+
+            Gson gson = new Gson();
+
+            // Taken https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
+            // 2018-01-23
+            Type listType = new TypeToken<UserList>(){}.getType();
+            cacheList = gson.fromJson(in, listType);
+
+        } catch (FileNotFoundException e) {
+
+            cacheList = new UserList();
+            Log.i("No File", "Created New File");
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
+
+        return cacheList;
+    }
+
+    public void saveInFile(Context context, UserList cacheList) {
+        //Save SubList to a JSON file
+
+        try {
+            FileOutputStream fos = context.openFileOutput(this.CACHE_FILE,
+                    Context.MODE_PRIVATE);
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+
+            Gson gson = new Gson();
+            gson.toJson(cacheList, out);
+            out.flush();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        }
+    }
 }
