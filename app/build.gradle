@@ -33,11 +33,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation 'io.searchbox:jest-droid:1.0.0'
+    implementation 'io.searchbox:jest-droid:2.0.0'
     implementation 'com.google.android.gms:play-services-location:11.8.0'
     implementation 'com.google.android.gms:play-services-maps:11.8.0'
     compile 'com.jayway.android.robotium:robotium-solo:5.6.3'
     compile 'com.jayway.android.robotium:robotium-solo:5.6.3'
     implementation 'com.google.android.gms:play-services-places:11.8.0'
     compile 'me.relex:circleindicator:1.2.2@aar'
+    implementation 'org.elasticsearch:elasticsearch:1.2.4'
 }

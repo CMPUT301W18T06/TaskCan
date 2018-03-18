@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
+import com.example.n8tech.taskcan.Models.ElasticsearchController;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
@@ -230,12 +231,15 @@ public class AddTaskActivity extends ActivityHeader {
         newTask.setOwner(currentUser.getUsername());
 
         // TODO: save task in elastic search or in file here
+        ElasticsearchController.AddTask addTask
+                = new ElasticsearchController.AddTask();
+        addTask.execute(newTask);
 
         Log.i("*** name", newTask.getTaskTitle());
         Log.i("*** desc", newTask.getDescription());
         Log.i("*** maximum bid", Double.toString(newTask.getMaximumBid()));
         Log.i("*** category", newTask.getCategory());
-        Log.i("*** task uuid", newTask.getTaskUUID());
+        Log.i("*** task uuid", newTask.getId());
 
         if (valid) {
             Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);

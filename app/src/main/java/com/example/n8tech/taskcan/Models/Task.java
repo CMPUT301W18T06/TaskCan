@@ -22,6 +22,8 @@ import com.google.android.gms.location.places.Place;
 
 import java.util.UUID;
 
+import io.searchbox.annotations.JestId;
+
 /**
  * Task represents a task from a requester
  * and stores task details.
@@ -41,8 +43,10 @@ public class Task {
     private BidList bidList;
     private Place location;            // TODO change to geolocation variable
     private boolean taskCompleted;
-    private String taskUUID;                 // TODO need unique task UUID
     private String status;
+
+    @JestId
+    private String id;
 
 
 
@@ -190,9 +194,13 @@ public class Task {
     //TODO: this point on, not really sure what is going on withe the below methods, waiting for more clarification
 
 
-    public String getTaskUUID() {
+    public String getId() {
         // Use for elastic search and cache file.
-        return taskUUID;
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 

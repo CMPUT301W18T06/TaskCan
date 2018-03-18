@@ -111,13 +111,13 @@ public class SignInActivity extends Activity {
             return;
         }
 
-        ElasticsearchController.GetUser getUser
-                = new ElasticsearchController.GetUser();
-        getUser.execute("email", usernameText);
+        ElasticsearchController.SearchUser searchUser
+                = new ElasticsearchController.SearchUser();
+        searchUser.execute(usernameText);
 
         ArrayList<User> userList = new ArrayList<>();
         try {
-            userList = getUser.get();
+            userList = searchUser.get();
         } catch (Exception e) {
             Log.i("Error", "Couldn't load users from server");
         }

@@ -190,14 +190,14 @@ public class SignUpActivity extends AppCompatActivity {
             }
         }
 
-        ElasticsearchController.GetUser getUser
-                = new ElasticsearchController.GetUser();
-        getUser.execute("email", email);
+        ElasticsearchController.SearchUser searchUser
+                = new ElasticsearchController.SearchUser();
+        searchUser.execute(email);
 
         ArrayList<User> userList = new ArrayList<>();
 
         try {
-            userList = getUser.get();
+            userList = searchUser.get();
         } catch (Exception e) {
             Log.i("Error", "Couldn't load users from server");
         }
