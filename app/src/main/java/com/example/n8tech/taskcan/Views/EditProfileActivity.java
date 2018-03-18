@@ -31,7 +31,6 @@ import org.apache.commons.lang3.StringUtils;
 
 
 public class EditProfileActivity extends ActivityHeader {
-    private static final String CACHE_FILE = "cache.sav";
     private User currentUser;
     private UserList cacheList;
 
@@ -57,7 +56,6 @@ public class EditProfileActivity extends ActivityHeader {
     protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
         if (!this.getClass().equals(nextClass)) {
             Intent i = new Intent(EditProfileActivity.this, nextClass);
-            i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
             startActivity(i);
         }
     }
@@ -65,10 +63,6 @@ public class EditProfileActivity extends ActivityHeader {
     @Override
     protected void onStart() {
         super.onStart();
-
-        Intent intent = getIntent();
-        String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
-        //this.currentUser = this.gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
 
         this.currentUser = CurrentUserSingleton.getUser();
 
