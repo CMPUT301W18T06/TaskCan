@@ -78,8 +78,8 @@ public class UserTest {
     public void testUserAddTask() {
         //Tests that it correctly updates its tasks
         User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
-        Task task1 = new Task("Walk my Dog", "Walk Fluffy", user1, "DisplayName1", "Category1");
-        Task task2 = new Task("Walk my Cat", "Walk Furry", user1, "DisplayName2", "Category2");;
+        Task task1 = new Task("Walk my Dog", "Walk Fluffy", user1.getUsername(), "Category1");
+        Task task2 = new Task("Walk my Cat", "Walk Furry", user1.getUsername(), "Category2");;
 
         user1.addTask(task1);
         user1.addTask(task2);

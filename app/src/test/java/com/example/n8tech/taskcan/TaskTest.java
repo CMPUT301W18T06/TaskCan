@@ -53,7 +53,7 @@ public class TaskTest{
 
         task1.setTaskTitle("Walk my cat");
         task1.setDescription("Around the block");
-        task1.setOwner(user1);
+        task1.setOwner(user1.getUsername());
         task1.setProvider(user2);
         task1.setMaximumBid(20.00);
         task1.setCategory("Pets");
@@ -62,7 +62,7 @@ public class TaskTest{
 
         assertEquals(task1.getTaskTitle(), "Walk my cat");
         assertEquals(task1.getDescription(), "Around the block");
-        assertEquals(task1.getOwner(), user1);
+        assertEquals(task1.getOwner(), user1.getUsername());
         assertEquals(task1.getProvider(), user2);
         assertEquals(task1.getMaximumBid(), 20.00, 0.00);
         assertEquals(task1.getCategory(), "Pets");
@@ -76,7 +76,7 @@ public class TaskTest{
          * Ensures that when a task with minimal information is added that all other fields are assigned correctly.
          */
         User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
-        Task task1 = new Task("Walk my dog", "Around the block", user1, "DisplayName", "Category1");
+        Task task1 = new Task("Walk my dog", "Around the block", "user1", "Category1");
 
         assertEquals(task1.getProvider(), null);
         assertEquals(task1.getMaximumBid(),-1, 0.00);
@@ -131,9 +131,10 @@ public class TaskTest{
 
         //Check if lists after adding are correct.
         assertEquals(task1.getBidList().getSize(), 6);
-        assertEquals(task1.getUserBidList().getSize(), 6);
-        assertEquals(task1.getBidList(), bidList);
-        assertEquals(task1.getUserBidList(), userList);
+        //assertEquals(task1.getUserBidList().getSize(), 6);
+        for(int i = 0; i < bidList.size(); i++) {
+            assertEquals(task1.getBidList().getBid(i), bidList.get(i));
+        }
 
         task1.cancelBidder(user3);
         userList.remove(userList.indexOf(user3));
@@ -141,18 +142,18 @@ public class TaskTest{
 
         //Test if cancelling a bidder is done correctly
         assertEquals(task1.getBidList().getSize(), 5);
-        assertEquals(task1.getUserBidList().getSize(), 5);
-        assertEquals(task1.getBidList(), bidList);
-        assertEquals(task1.getUserBidList(), userList);
+        for(int i = 0; i < bidList.size(); i++) {
+            assertEquals(task1.getBidList().getBid(i), bidList.get(i));
+        }
 
         task1.updateBidder(user5, 11.76);
         bidList.set(3,new Bid(user5, 11.76));
 
         //Test if updating a bidder is done correctly.
         assertEquals(task1.getBidList().getSize(), 5);
-        assertEquals(task1.getUserBidList().getSize(), 5);
-        assertEquals(task1.getBidList(), bidList);
-        assertEquals(task1.getUserBidList(), userList);
+        for(int i = 0; i < bidList.size(); i++) {
+            assertEquals(task1.getBidList().getBid(i), bidList.get(i));
+        }
     }
 
     @Test
@@ -195,41 +196,35 @@ public class TaskTest{
         }
         //assertEquals(task1.getUserBidList(), userList);     //not yet implemented
 
-        task1.setTaskStatus("Assigned");
+        task1.setStatus("Assigned");
         task1.addBidder(bid4);
         //Test that bids are not added when assigned.
         assertEquals(task1.getBidList().getSize(), 3);
-        //assertEquals(task1.getUserBidList().getSize(), 3);  //not yet implemented
         for(int i = 0; i < bidList.size(); i++) {
             assertEquals(task1.getBidList().getBid(i), bidList.get(i));
         }
-        //assertEquals(task1.getUserBidList(), userList);     //not yet implemented
 
 
-        task1.setTaskStatus("Requested");
+        task1.setStatus("Requested");
         task1.addBidder(bid4);
         userList.add(user4);
         bidList.add(bid4);
         //Test status changed back to requested and it adds correctly.
         assertEquals(task1.getBidList().getSize(), 4);
-        //assertEquals(task1.getUserBidList().getSize(), 4);  //not yet implemented
         for(int i = 0; i < bidList.size(); i++) {
             assertEquals(task1.getBidList().getBid(i), bidList.get(i));
         }
-        //assertEquals(task1.getUserBidList(), userList);     //not yet implemented
 
-        task1.setTaskStatus("Completed");
+        task1.setStatus("Completed");
         task1.addBidder(bid5);
         //Test status being completed and that bids are not added.
         assertEquals(task1.getBidList().getSize(), 4);
-        //assertEquals(task1.getUserBidList().getSize(), 4);  //not yet implemented
         for(int i = 0; i < bidList.size(); i++) {
             assertEquals(task1.getBidList().getBid(i), bidList.get(i));
         }
-        //assertEquals(task1.getUserBidList(), userList);     //not yet implemented
 
         //Test to make sure once a job is completed it's completed.
-        task1.setTaskStatus("Requested");
+        task1.setStatus("Requested");
         assertEquals(task1.getStatus(), "Completed");
     }
 
@@ -246,7 +241,7 @@ public class TaskTest{
 
         task1.setTaskTitle("Walk my dog");
         task1.setDescription("Around the block");
-        task1.setOwner(user1);
+        task1.setOwner(user1.getUsername());
         task1.setProvider(user2);
         task1.setMaximumBid(20.00);
         task1.setCategory("Pets");
@@ -270,12 +265,12 @@ public class TaskTest{
         assertEquals(task1.getDescription(), "");
 
         //Test that the owner of a task cannot be changed.
-        task1.setOwner(user3);
-        assertEquals(task1.getOwner(), user1);
+        task1.setOwner(user3.getUsername());
+        assertEquals(task1.getOwner(), user1.getUsername());
 
         //Test that the owner cannot be null.
         task1.setOwner(null);
-        assertEquals(task1.getOwner(), user1);
+        assertEquals(task1.getOwner(), user1.getUsername());
 
         //Test that the provider can be changed.
         task1.setProvider(user3);

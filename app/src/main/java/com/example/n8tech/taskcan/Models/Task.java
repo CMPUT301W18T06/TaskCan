@@ -59,17 +59,12 @@ public class Task {
         this.status = "Requested";
 
         // TODO create a unique task id. check elastic search to ensure its unique?
-<<<<<<< HEAD
         //this.taskId = UUID.randomUUID().toString();
         //Log.i("uuid for task: ", this.taskId);
-=======
-        this.taskUUID = UUID.randomUUID().toString();
-        Log.i("uuid for task: ", this.taskUUID);
->>>>>>> d3c35295d39b071b08ad155a14f5c838ae62ada2
     }
 
     // minimum information needed to create a new task
-    public Task(String name, String description, String ownerUsename, String category) {
+    public Task(String name, String description, String ownerUsername, String category) {
         // TODO: length checking for name & description
         this.taskTitle = name;
         this.description = description;
