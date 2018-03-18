@@ -47,6 +47,8 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import java.util.regex.*;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private static final String CACHE_FILE = "cache.sav";
@@ -175,10 +177,10 @@ public class SignUpActivity extends AppCompatActivity {
         /*
          * Will eventually check with ElasticSearch if email is already taken.
          */
-
-        int emailAtIndex = email.indexOf("@");
-
-        if (emailAtIndex == -1) {
+        // regex checking if email is valid email
+        boolean isProperEmail = Pattern.compile("^[a-z0-9]+[@][a-z]+[.][a-z0-9]{2,}").matcher(email).matches();
+        
+        if (isProperEmail == false){
             return false;
         }
 
