@@ -58,8 +58,8 @@ public class Task {
         this.taskStatus = "Requested";
 
         // TODO create a unique task id. check elastic search to ensure its unique?
-        this.taskId = UUID.randomUUID().toString();
-        Log.i("uuid for task: ", this.taskId);
+        //this.taskId = UUID.randomUUID().toString();
+        //Log.i("uuid for task: ", this.taskId);
     }
 
     // minimum information needed to create a new task
@@ -83,8 +83,8 @@ public class Task {
         this.taskStatus = "Requested";
 
         // TODO create a unique task id. check elastic search to ensure its unique?
-        this.taskId = UUID.randomUUID().toString();
-        Log.i("uuid for task: ", this.taskId);
+        //this.taskId = UUID.randomUUID().toString();
+        //Log.i("uuid for task: ", this.taskId);
     }
 
     public void setTaskCompleted(boolean completed) {
@@ -196,8 +196,6 @@ public class Task {
     }
 
     public void addBidder(Bid bid) {this.bidList.addBid(bid); }
-
-    public void addBidder(User user, double bid) {}
 
     public void updateBidder(User user, double bid) {}
 

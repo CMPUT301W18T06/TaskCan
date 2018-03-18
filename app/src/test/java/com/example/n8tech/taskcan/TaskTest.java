@@ -22,6 +22,10 @@ import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Views.SignInActivity;
+import com.google.android.gms.location.places.Place;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
@@ -30,13 +34,13 @@ import java.util.ArrayList;
  * Edited by msquigle on 2/23/2018.
  */
 
-public class TaskTest extends ActivityInstrumentationTestCase2 {
+public class TaskTest{
 
     public TaskTest(){
-        super(SignInActivity.class);
     }
     // TODO Tests to make sure certain things cannot be overwritten some things can be
 
+    @Test
     public void testAddTask() {
         /*
          * Test basic functionality, being able to set each field and guaranteeing that it is written correctly.
@@ -47,41 +51,42 @@ public class TaskTest extends ActivityInstrumentationTestCase2 {
         Bid bid1 = new Bid(user3, 18.91);
         Task task1 = new Task();
 
-        task1.setTaskTitle("Walk my dog");
+        task1.setTaskTitle("Walk my cat");
         task1.setDescription("Around the block");
         task1.setOwner(user1);
         task1.setProvider(user2);
         task1.setMaximumBid(20.00);
         task1.setCategory("Pets");
-        task1.addBidder(user2, 15.32);
         task1.addBidder(bid1);
-        task1.setLocation("Edmonton");
+        //task1.setLocation("Edmonton");
 
-        assert(task1.getTaskTitle() == "Walk my dog");
-        assert(task1.getDescription() == "Around the block");
-        assert(task1.getOwner().equals(user1));
-        assert(task1.getProvider().equals(user2));
-        assert(task1.getMaximumBid() == 20.00);
-        assert(task1.getCategory() == "Pets");
-        assert(task1.getBidList().getBid(1).equals(bid1));
-        assert(task1.getLocation() == "Edmonton");
+        assertEquals(task1.getTaskTitle(), "Walk my cat");
+        assertEquals(task1.getDescription(), "Around the block");
+        assertEquals(task1.getOwner(), user1);
+        assertEquals(task1.getProvider(), user2);
+        assertEquals(task1.getMaximumBid(), 20.00, 0.00);
+        assertEquals(task1.getCategory(), "Pets");
+        assertEquals(task1.getBidList().getBid(0), bid1);
+       // assert(task1.getLocation() == "Edmonton");
     }
 
+    @Test
     public void testAddMinTask() {
         /*
          * Ensures that when a task with minimal information is added that all other fields are assigned correctly.
          */
         User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
-        Task task1 = new Task("Walk my dog", "Around the block", user1);
+        Task task1 = new Task("Walk my dog", "Around the block", user1, "DisplayName", "Category1");
 
-        assert(task1.getProvider() == null);
-        assert(task1.getMaximumBid() == Double.POSITIVE_INFINITY);
-        assert(task1.getCategory() == "Other");
-        assert(task1.getStatus() == "Requested");
-        assert(task1.getBidList().isEmpty());
-        assert(task1.getLocation() == null);
+        assertEquals(task1.getProvider(), null);
+        assertEquals(task1.getMaximumBid(),-1, 0.00);
+        assertEquals(task1.getCategory(), "Category1");
+        assertEquals(task1.getStatus(), "Requested");
+        assertEquals(task1.getBidList().getSize(), 0);
+        assertEquals(task1.getLocation(), null);
     }
 
+    @Test
     public void testBidListManipulation() {
         /*
          * Tests how a bidList will change throughout it's lifetime
@@ -117,39 +122,40 @@ public class TaskTest extends ActivityInstrumentationTestCase2 {
         bidList.add(bid6);
 
         Task task1 = new Task();
-        task1.addBidder(user1, 23.23);
-        task1.addBidder(user2, 15.32);
-        task1.addBidder(user3, 12.89);
-        task1.addBidder(user4, 67.55);
-        task1.addBidder(user5, 54.33);
-        task1.addBidder(user6, 17.84);
+        task1.addBidder(bid1);
+        task1.addBidder(bid2);
+        task1.addBidder(bid3);
+        task1.addBidder(bid4);
+        task1.addBidder(bid5);
+        task1.addBidder(bid6);
 
         //Check if lists after adding are correct.
-        assert(task1.getBidList().size() == 6);
-        assert(task1.getUserBidList().size() == 6);
-        assert(task1.getBidList().equals(bidList));
-        assert(task1.getUserBidList().equals(userList));
+        assertEquals(task1.getBidList().getSize(), 6);
+        assertEquals(task1.getUserBidList().getSize(), 6);
+        assertEquals(task1.getBidList(), bidList);
+        assertEquals(task1.getUserBidList(), userList);
 
         task1.cancelBidder(user3);
         userList.remove(userList.indexOf(user3));
         bidList.remove(bidList.indexOf(bid3));
 
         //Test if cancelling a bidder is done correctly
-        assert(task1.getBidList().size() == 5);
-        assert(task1.getUserBidList().size() == 5);
-        assert(task1.getBidList().equals(bidList));
-        assert(task1.getUserBidList().equals(userList));
+        assertEquals(task1.getBidList().getSize(), 5);
+        assertEquals(task1.getUserBidList().getSize(), 5);
+        assertEquals(task1.getBidList(), bidList);
+        assertEquals(task1.getUserBidList(), userList);
 
         task1.updateBidder(user5, 11.76);
         bidList.set(3,new Bid(user5, 11.76));
 
         //Test if updating a bidder is done correctly.
-        assert(task1.getBidList().size() == 5);
-        assert(task1.getUserBidList().size() == 5);
-        assert(task1.getBidList().equals(bidList));
-        assert(task1.getUserBidList().equals(userList));
+        assertEquals(task1.getBidList().getSize(), 5);
+        assertEquals(task1.getUserBidList().getSize(), 5);
+        assertEquals(task1.getBidList(), bidList);
+        assertEquals(task1.getUserBidList(), userList);
     }
 
+    @Test
     public void testTaskStatuses() {
         /*
          * Test restrictions on adding bids depending on status
@@ -178,47 +184,56 @@ public class TaskTest extends ActivityInstrumentationTestCase2 {
         bidList.add(bid3);
 
         Task task1 = new Task();
-        task1.addBidder(user1, 23.23);
-        task1.addBidder(user2, 15.32);
-        task1.addBidder(user3, 12.89);
+        task1.addBidder(bid1);
+        task1.addBidder(bid2);
+        task1.addBidder(bid3);
         //Ensure added correctly.
-        assert(task1.getBidList().size() == 3);
-        assert(task1.getUserBidList().size() == 3);
-        assert(task1.getBidList().equals(bidList));
-        assert(task1.getUserBidList().equals(userList));
+        assertEquals(task1.getBidList().getSize(), 3);
+        //assertEquals(task1.getUserBidList().getSize(), 3);  //not yet implemented
+        for(int i = 0; i < bidList.size(); i++){
+            assertEquals(task1.getBidList().getBid(i), bidList.get(i));
+        }
+        //assertEquals(task1.getUserBidList(), userList);     //not yet implemented
 
-        task1.setStatus("Assigned");
-        task1.addBidder(user4, 67.55);
+        task1.setTaskStatus("Assigned");
+        task1.addBidder(bid4);
         //Test that bids are not added when assigned.
-        assert(task1.getBidList().size() == 3);
-        assert(task1.getUserBidList().size() == 3);
-        assert(task1.getBidList().equals(bidList));
-        assert(task1.getUserBidList().equals(userList));
+        assertEquals(task1.getBidList().getSize(), 3);
+        //assertEquals(task1.getUserBidList().getSize(), 3);  //not yet implemented
+        for(int i = 0; i < bidList.size(); i++) {
+            assertEquals(task1.getBidList().getBid(i), bidList.get(i));
+        }
+        //assertEquals(task1.getUserBidList(), userList);     //not yet implemented
 
 
-        task1.setStatus("Requested");
-        task1.addBidder(user4, 67.55);
+        task1.setTaskStatus("Requested");
+        task1.addBidder(bid4);
         userList.add(user4);
         bidList.add(bid4);
         //Test status changed back to requested and it adds correctly.
-        assert(task1.getBidList().size() == 4);
-        assert(task1.getUserBidList().size() == 4);
-        assert(task1.getBidList().equals(bidList));
-        assert(task1.getUserBidList().equals(userList));
+        assertEquals(task1.getBidList().getSize(), 4);
+        //assertEquals(task1.getUserBidList().getSize(), 4);  //not yet implemented
+        for(int i = 0; i < bidList.size(); i++) {
+            assertEquals(task1.getBidList().getBid(i), bidList.get(i));
+        }
+        //assertEquals(task1.getUserBidList(), userList);     //not yet implemented
 
-        task1.setStatus("Completed");
-        task1.addBidder(user5, 54.33);
+        task1.setTaskStatus("Completed");
+        task1.addBidder(bid5);
         //Test status being completed and that bids are not added.
-        assert(task1.getBidList().size() == 4);
-        assert(task1.getUserBidList().size() == 4);
-        assert(task1.getBidList().equals(bidList));
-        assert(task1.getUserBidList().equals(userList));
+        assertEquals(task1.getBidList().getSize(), 4);
+        //assertEquals(task1.getUserBidList().getSize(), 4);  //not yet implemented
+        for(int i = 0; i < bidList.size(); i++) {
+            assertEquals(task1.getBidList().getBid(i), bidList.get(i));
+        }
+        //assertEquals(task1.getUserBidList(), userList);     //not yet implemented
 
         //Test to make sure once a job is completed it's completed.
-        task1.setStatus("Requested");
-        assert(task1.getStatus() == "Completed");
+        task1.setTaskStatus("Requested");
+        assertEquals(task1.getStatus(), "Completed");
     }
 
+    @Test
     public void testOverwrites() {
         /*
          * Tests how different members of a task can be overwritten.
@@ -229,74 +244,73 @@ public class TaskTest extends ActivityInstrumentationTestCase2 {
         Bid bid1 = new Bid(user3, 18.91);
         Task task1 = new Task();
 
-        task1.setName("Walk my dog");
+        task1.setTaskTitle("Walk my dog");
         task1.setDescription("Around the block");
         task1.setOwner(user1);
         task1.setProvider(user2);
         task1.setMaximumBid(20.00);
         task1.setCategory("Pets");
-        task1.addBidder(user2, 15.32);
         task1.addBidder(bid1);
-        task1.setLocation("Edmonton");
+        //task1.setLocation("Edmonton");
 
         //Test that the name can be changed
-        task1.setName("Brush my teeth");
-        assert(task1.getName() == "Brush my teeth");
+        task1.setTaskTitle("Brush my teeth");
+        assertEquals(task1.getTaskTitle(), "Brush my teeth");
 
         //Test that name cannot be set to null.
-        task1.setName("");
-        assert(task1.getName() == "Brush my teeth");
+        task1.setTaskTitle("");
+        assertEquals(task1.getTaskTitle(), "Brush my teeth");
 
         //Test that the description can be changed.
         task1.setDescription("Extremely Lazy");
-        assert(task1.getDescription() == "Extremely Lazy");
+        assertEquals(task1.getDescription(), "Extremely Lazy");
 
         //Test that the description can be set to null.
         task1.setDescription("");
-        assert(task1.getDescription() == "");
+        assertEquals(task1.getDescription(), "");
 
         //Test that the owner of a task cannot be changed.
         task1.setOwner(user3);
-        assert(task1.getOwner() == user1);
+        assertEquals(task1.getOwner(), user1);
 
         //Test that the owner cannot be null.
         task1.setOwner(null);
-        assert(task1.getOwner() == user1);
+        assertEquals(task1.getOwner(), user1);
 
         //Test that the provider can be changed.
         task1.setProvider(user3);
-        assert(task1.getProvider() == user3);
+        assertEquals(task1.getProvider(), user3);
 
         //Test that the provider can be null.
         task1.setProvider(null);
-        assert(task1.getProvider() == null);
+        assertEquals(task1.getProvider(), null);
 
         //Test that the max bid can be increased.
         task1.setMaximumBid(25.00);
-        assert(task1.getMaximumBid() == 25.00);
+        assertEquals(task1.getMaximumBid(), 25.00);
 
         //Test that the max bid can be decreased.
         task1.setMaximumBid(10.00);
-        assert(task1.getMaximumBid() == 10.00);
+        assertEquals(task1.getMaximumBid(), 10.00);
 
         //Test that the category can be changed to an allowable option.
         task1.setCategory("Personal");
-        assert(task1.getCategory() == "Personal");
+        assertEquals(task1.getCategory(), "Personal");
 
         //Test that the category cannot be set to a non-set category.
         task1.setCategory("asdf");
-        assert(task1.getCategory() == "Personal");
+        assertEquals(task1.getCategory(), "Personal");
 
         //Test that the location can be changed.
-        task1.setLocation("Calgary");
-        assert(task1.getLocation() == "Calgary");
+        //task1.setLocation("Calgary");
+        //assert(task1.getLocation() == "Calgary");
 
         //Test that geographical coordinates will be converted.
-        task1.setLocation("53.5444, 113.4909");
-        assert(task1.getLocation() == "Edmonton");
+        //task1.setLocation("53.5444, 113.4909");
+        //assert(task1.getLocation() == "Edmonton");
 
         //Test that geographical location can be set to null.
         task1.setLocation(null);
-        assert(task1.getLocation() == null);
+        assertEquals(task1.getLocation(), null);
     }
 }

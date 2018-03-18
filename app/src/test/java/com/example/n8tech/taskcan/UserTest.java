@@ -22,6 +22,8 @@ import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Views.SignInActivity;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 /**
@@ -29,26 +31,27 @@ import java.util.ArrayList;
  * Edited by msquigle on 2/23/2018.
  */
 
-public class UserTest extends ActivityInstrumentationTestCase2 {
+public class UserTest {
 
     public UserTest(){
-        super(SignInActivity.class);
     }
 
+    @Test
     public void testAddUser() {
         //Tests that a user retains set information.
         User user1 = new User();
         user1.setUsername("Joe");
         user1.setPassword("7355608");
         user1.setEmail("joe@n8tech.com");
-        user1.setContactInformation("123-456-7890");
+        user1.setPhoneNumber("123-456-7890");
 
-        assert(user1.getUsername() == "Joe");
-        assert(user1.getPassword() == "7355608");
-        assert(user1.getEmail() == "joe@n8tech.com");
-        assert(user1.getContactInformation() == "123-456-7890");
+        assertEquals(user1.getUsername(), "Joe");
+        assertEquals(user1.getPassword(), "7355608");
+        assertEquals(user1.getEmail(), "joe@n8tech.com");
+        assertEquals(user1.getPhoneNumber(), "123-456-7890");
     }
 
+    @Test
     public void testUserAddBidTask() {
         //Tests that it correctly updates its bid tasks
         User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
@@ -57,32 +60,40 @@ public class UserTest extends ActivityInstrumentationTestCase2 {
 
         user1.addBidTask(task1);
         user1.addBidTask(task2);
-        ArrayList<Task> bidTaskList = new ArrayList<Task>();
+        ArrayList<Task> bidTaskList = new ArrayList<>();
         bidTaskList.add(task1);
         bidTaskList.add(task2);
-        assert(user1.getBidTaskList().equals(bidTaskList));
+        for (int i = 0; i < bidTaskList.size(); i++){
+            assertEquals(user1.getBidTaskList().getTaskAtIndex(0), bidTaskList.get(0));
+        }
 
         user1.removeBidTask(task2);
         bidTaskList.remove(1);
-        assert(user1.getBidTaskList().equals(bidTaskList));
+        for (int i = 0; i < bidTaskList.size(); i++){
+            assertEquals(user1.getBidTaskList().getTaskAtIndex(i), bidTaskList.get(i));
+        }
     }
 
+    @Test
     public void testUserAddTask() {
         //Tests that it correctly updates its tasks
         User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
-        Task task1 = new Task();
-        Task task2 = new Task();
+        Task task1 = new Task("Walk my Dog", "Walk Fluffy", user1, "DisplayName1", "Category1");
+        Task task2 = new Task("Walk my Cat", "Walk Furry", user1, "DisplayName2", "Category2");;
 
         user1.addTask(task1);
         user1.addTask(task2);
         ArrayList<Task> taskList = new ArrayList<Task>();
         taskList.add(task1);
         taskList.add(task2);
-        assert(user1.getMyTaskList() == taskList);
-
+        for (int i = 0; i < taskList.size(); i++) {
+            assertEquals(user1.getMyTaskList().getTaskAtIndex(i), taskList.get(i));
+        }
         user1.removeBidTask(task2);
         taskList.remove(1);
-        assert(user1.getBidTaskList().equals(taskList));
+        for (int i = 0; i < taskList.size(); i++) {
+            assertEquals(user1.getMyTaskList().getTaskAtIndex(i), taskList.get(i));
+        }
     }
 
 }

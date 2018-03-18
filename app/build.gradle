@@ -19,6 +19,9 @@ android {
     sourceSets {
         main { java.srcDirs = ['src/main/java', 'src/main/java/model', 'src/main/java/2'] }
     }
+    testOptions {
+        unitTests.returnDefaultValues = false
+    }
 }
 
 dependencies {
