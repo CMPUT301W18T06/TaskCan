@@ -239,7 +239,8 @@ public class AddTaskActivity extends ActivityHeader {
         Log.i("*** desc", newTask.getDescription());
         Log.i("*** maximum bid", Double.toString(newTask.getMaximumBid()));
         Log.i("*** category", newTask.getCategory());
-        Log.i("*** task uuid", newTask.getId());
+        //Async task, Id not set by this point, causes crash
+        //Log.i("*** task uuid", newTask.getId());
 
         if (valid) {
             Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
@@ -247,6 +248,9 @@ public class AddTaskActivity extends ActivityHeader {
 
             // add task to current user's myTasks list
             currentUser.addTask(newTask);
+            ElasticsearchController.UpdateUser updateUser
+                    = new ElasticsearchController.UpdateUser();
+            updateUser.execute(currentUser);
             startActivity(intent);
         }
 

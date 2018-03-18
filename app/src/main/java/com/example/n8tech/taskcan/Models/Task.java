@@ -196,7 +196,7 @@ public class Task {
 
     public String getId() {
         // Use for elastic search and cache file.
-        return id;
+        return this.id;
     }
 
     public void setId(String id) {
