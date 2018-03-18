@@ -230,10 +230,9 @@ public class AddTaskActivity extends ActivityHeader {
         // TODO location validity testing
         newTask.setLocation(this.location);
 
-        // TODO set task owner to current user's uuid?
-        newTask.setOwner(currentUser.getUsername());
+        newTask.setOwner(currentUser.getId());
 
-        // TODO: save task in elastic search or in file here
+        // TODO:in file here
         ElasticsearchController.AddTask addTask
                 = new ElasticsearchController.AddTask();
         addTask.execute(newTask);

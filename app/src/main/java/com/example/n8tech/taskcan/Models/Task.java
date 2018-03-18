@@ -20,8 +20,6 @@ import android.util.Log;
 
 import com.google.android.gms.location.places.Place;
 
-import java.util.UUID;
-
 import io.searchbox.annotations.JestId;
 
 /**
@@ -222,6 +220,11 @@ public class Task {
     public void updateTask(){
         // TODO: check if status has changed, update bid list if one was accepted, etc
 
+    }
+
+    public String toString() {
+
+        return this.taskTitle + "\n" + this.description;
     }
 
 }

@@ -127,4 +127,9 @@ public class User {
     public void removeTask(Task task) { this.myTasks.removeTask(task);}
 
     public TaskList getMyTaskList() { return this.myTasks; }
+
+    public String toString() {
+        return "";
+    }
+
 }

@@ -36,6 +36,8 @@ public class TaskList implements Iterable<Task> {
         return this.taskList.size();
     }
 
+    public String toString() { return this.taskList.toString(); }
+
     public Iterator<Task> iterator() {
         return new TasksIterator();
     }

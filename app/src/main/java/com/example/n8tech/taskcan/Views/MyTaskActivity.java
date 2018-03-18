@@ -50,12 +50,12 @@ import java.util.List;
 
 public class MyTaskActivity extends ActivityHeader {
 
-    private TaskList myTaskList = new TaskList(); // TODO get current user's tasklist
+    private TaskList myTaskList = new TaskList();
     private User currentUser;
     private RecyclerView RequestedRecyclerView;
     private RecyclerView AssignedRecyclerView;
     private RecyclerView ArchivedRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private TaskViewRecyclerAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
 
@@ -110,6 +110,10 @@ public class MyTaskActivity extends ActivityHeader {
         //this.currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
 
         this.currentUser = CurrentUserSingleton.getUser();
+        this.myTaskList = this.currentUser.getMyTaskList();
+
+        Log.i("Testing", String.valueOf(this.myTaskList.getSize()));
+        mAdapter.notifyDataSetChanged();
 
         Log.i("Testing", this.currentUser.getEmail());
     }

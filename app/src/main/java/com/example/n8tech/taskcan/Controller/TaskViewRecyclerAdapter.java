@@ -38,7 +38,7 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public TaskViewRecyclerAdapter(TaskList myTaskList) {
-        taskList = myTaskList;
+        this.taskList = myTaskList;
     }
 
     // Create new views (invoked by the layout manager)
