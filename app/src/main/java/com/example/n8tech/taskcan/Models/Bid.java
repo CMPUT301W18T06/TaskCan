@@ -45,6 +45,7 @@ public class Bid {
         return this.bidder;
     }
 
+    // https://stackoverflow.com/questions/14146182/how-to-create-a-variable-that-can-be-set-only-once-but-isnt-final-in-java
     public void setBidder(User bidder) {
         this.bidder = this.bidder.getUsername() == null ? bidder : this.bidder;
     }
