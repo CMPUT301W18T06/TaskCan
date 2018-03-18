@@ -33,16 +33,16 @@ public class Task {
 
     private String taskTitle;
     private String description;
-    private User owner; //TODO:  ******* possible recursive error ********* (SHOULD BE USERS UUID STRING)
-    private String ownerDisplayName;
+    private String ownerUsername;
     private User provider;
     private double maximumBid;
+    private double currentBid;
     private String category;
     private BidList bidList;
     private Place location;            // TODO change to geolocation variable
     private boolean taskCompleted;
-    private String taskId;                 // TODO need unique task UUID
-    private String taskStatus;
+    private String taskUUID;                 // TODO need unique task UUID
+    private String status;
 
 
 
@@ -51,40 +51,44 @@ public class Task {
         this.taskTitle="";
         this.description="";
         this.maximumBid = -1;
+        this.currentBid = -1;
         this.category = "Other";
         this.bidList = new BidList();
         this.location = null;
         this.taskCompleted = false;
-        this.taskStatus = "Requested";
+        this.status = "Requested";
 
         // TODO create a unique task id. check elastic search to ensure its unique?
+<<<<<<< HEAD
         //this.taskId = UUID.randomUUID().toString();
         //Log.i("uuid for task: ", this.taskId);
+=======
+        this.taskUUID = UUID.randomUUID().toString();
+        Log.i("uuid for task: ", this.taskUUID);
+>>>>>>> d3c35295d39b071b08ad155a14f5c838ae62ada2
     }
 
     // minimum information needed to create a new task
-    public Task(String name, String description, User owner, String ownerDisplayName, String category) {
+    public Task(String name, String description, String ownerUsename, String category) {
         // TODO: length checking for name & description
         this.taskTitle = name;
         this.description = description;
-        this.owner = owner;
-        this.ownerDisplayName = ownerDisplayName;
+        this.ownerUsername = ownerUsername;
+
 
         // set default values for a new task
         this.provider = null;
-        //this.maximumBid = Double.POSITIVE_INFINITY;
-        //Swapping since JSON can't handle infinity may swap back later
         this.maximumBid = -1;
-        // this.currentBid = ?? set here to a default value or leave alone
+        this.currentBid = -1;
         this.category = category;
         this.bidList = new BidList();
         this.location = null;
         this.taskCompleted = false;     // ie requested
-        this.taskStatus = "Requested";
+        this.status = "Requested";
 
         // TODO create a unique task id. check elastic search to ensure its unique?
-        //this.taskId = UUID.randomUUID().toString();
-        //Log.i("uuid for task: ", this.taskId);
+        //this.taskUUID = UUID.randomUUID().toString();
+        //Log.i("uuid for task: ", this.taskUUID);
     }
 
     public void setTaskCompleted(boolean completed) {
@@ -113,18 +117,15 @@ public class Task {
         else throw new IllegalArgumentException();
     }
 
-    public User getOwner() {
-        return this.owner;
+    public String getOwner() {
+        return this.ownerUsername;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setOwner(String owner) {
+        this.ownerUsername = owner;
     }
 
-    public String getOwnerDisplayName() { return this.ownerDisplayName; }
-
-    public void setOwnerDisplayName(String ownerDisplayName) { this.ownerDisplayName = ownerDisplayName; }
-
+    // TODO change this.provider to providers username string
     public User getProvider() {
         return this.provider;
     }
@@ -141,6 +142,14 @@ public class Task {
         this.maximumBid = maximumBid;
     }
 
+    public double getCurrentBid() {
+        return currentBid;
+    }
+
+    public void setCurrentBid(double currentBid) {
+        this.currentBid = currentBid;
+    }
+
     public String getCategory() {
         return this.category;
     }
@@ -149,20 +158,29 @@ public class Task {
         this.category = category;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getStatus() {
         if (this.getTaskCompleted()) {
-            return "Done";
+            this.status = "Done";
+
         }
-        if (this.provider != null) {
-            return "Assigned";
+        else if (this.provider != null) {
+            this.status = "Assigned";
+
         }
-        if (this.bidList.getSize() == 0) {
-            return "Requested";
+        else if (this.bidList.getSize() == 0) {
+            this.status = "Requested";
         }
-        if (this.bidList.getSize() > 0) {
-            return "Bidded";
+        else if (this.bidList.getSize() > 0) {
+            this.status = "Bidded";
         }
-        throw new IllegalStateException(); //TODO: make sure this is the right exception
+        else {
+            throw new IllegalStateException(); //TODO: make sure this is the right exception
+        }
+        return this.status;
     }
 
     public BidList getBidList() {
@@ -175,15 +193,10 @@ public class Task {
 
     //TODO: this point on, not really sure what is going on withe the below methods, waiting for more clarification
 
-    public UserList getUserBidList() {
-        //Needs to seperate out userList
-        UserList userList = new UserList();
-        return userList;
-    }
 
-    public String getTaskId() {
+    public String getTaskUUID() {
         // Use for elastic search and cache file.
-        return taskId;
+        return taskUUID;
     }
 
 
@@ -201,14 +214,6 @@ public class Task {
 
     public void cancelBidder(User user) {}
 
-
-    public String getTaskStatus() {
-        return taskStatus;
-    }
-
-    public void setTaskStatus(String taskStatus) {
-        this.taskStatus = taskStatus;
-    }
 
     public void updateTask(){
         // TODO: check if status has changed, update bid list if one was accepted, etc
