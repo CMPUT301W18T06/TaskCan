@@ -38,6 +38,8 @@ public class BidList implements Iterable<Bid> {
         for (Bid b : this.bids) {
             if(b.getBidder().getEmail().equals(bidder.getEmail()))
                 return true;
+            else if(bidder.getEmail().equals(null))
+                break;
         }
         return false;
     }
@@ -46,6 +48,8 @@ public class BidList implements Iterable<Bid> {
         for (int i = 0; i < this.getSize(); i++) {
             if(getBid(i).getBidder().getEmail().equals(bidder.getEmail()))
                 return i;
+            else if(bidder.getEmail().equals(null))
+                break;
         }
         throw new NoSuchElementException();
     }
