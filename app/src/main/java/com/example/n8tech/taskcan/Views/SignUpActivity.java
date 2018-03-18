@@ -178,7 +178,7 @@ public class SignUpActivity extends AppCompatActivity {
          * Will eventually check with ElasticSearch if email is already taken.
          */
         // regex checking if email is valid email
-        boolean isProperEmail = Pattern.compile("^[a-z0-9]+[@][a-z]+[.][a-z0-9]{2,}").matcher(email).matches();
+        boolean isProperEmail = Pattern.compile("^[a-z0-9]+[@][a-z0-9]+[.][a-z0-9]{2,}").matcher(email).matches();
 
         if (isProperEmail == false){
             return false;

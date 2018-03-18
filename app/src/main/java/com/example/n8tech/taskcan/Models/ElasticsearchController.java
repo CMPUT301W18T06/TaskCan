@@ -39,8 +39,9 @@ public class ElasticsearchController {
             Gson gson = (new GsonBuilder()).setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
 
             for (User user : users){
-                Log.i("Testing", user.getEmail());
-                Index index = new Index.Builder(user).index("cmput301w18t06").type("user").build();
+                Log.i("Testing", gson.toJson(user));
+                String jsonUser = gson.toJson(user);
+                Index index = new Index.Builder(jsonUser).index("cmput301w18t06").type("user").build();
                 Log.i("Testing", index.getData(gson));
                 Log.i("Testing", index.getURI());
                 Log.i("Testing", index.getRestMethodName());
@@ -74,9 +75,11 @@ public class ElasticsearchController {
             Log.i("Testing", client.toString());
             Gson gson = (new GsonBuilder()).setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
 
+
             for (User user : users){
+
                 Log.i("Testing", user.getEmail());
-                Index index = new Index.Builder(user).index("cmput301w18t06").type("user").id(user.getId()).build();
+                Index index = new Index.Builder(gson.toJson(user)).index("cmput301w18t06").type("user").id(user.getId()).build();
                 Log.i("Testing", index.getData(gson));
                 Log.i("Testing", index.getURI());
                 Log.i("Testing", index.getRestMethodName());
@@ -149,7 +152,7 @@ public class ElasticsearchController {
             //Implement SearchSourceBuilder
 
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            searchSourceBuilder.query(QueryBuilders.matchQuery("email", search_params[0]));
+            searchSourceBuilder.query(QueryBuilders.termQuery("email", search_params[0]));
 
             Search search = new Search.Builder(searchSourceBuilder.toString())
                             .addIndex("cmput301w18t06")
