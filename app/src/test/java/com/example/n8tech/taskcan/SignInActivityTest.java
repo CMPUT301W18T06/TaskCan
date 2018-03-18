@@ -10,20 +10,22 @@ import com.robotium.solo.Solo;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * Created by nbelayne on 3/18/18.
  */
 
-public class SignInActivityTest extends ActivityInstrumentationTestCase2<SignInActivity> {
+public class SignInActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
 
     public SignInActivityTest() {
         super(com.example.n8tech.taskcan.Views.SignInActivity.class);
     }
 
-    public void testStart() throws Exception {
-        Activity activity = getActivity();
-    }
+//    public void testStart() throws Exception {
+//        Activity activity = getActivity();
+//    }
 
     public void setUp() throws Exception {
         solo = new Solo(getInstrumentation(), getActivity());

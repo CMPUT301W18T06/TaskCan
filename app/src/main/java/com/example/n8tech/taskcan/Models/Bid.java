@@ -43,7 +43,8 @@ public class Bid {
     }
 
     public void setBidder(User bidder) {
-        this.bidder = bidder;
+        //this.bidder = bidder;
+        this.bidder = this.bidder.getUsername() == null ? bidder : this.bidder;
     }
 
     public double getBidAmount() {
@@ -51,6 +52,8 @@ public class Bid {
     }
 
     public void setBidAmount(double bidAmount) {
-        this.bidAmount = bidAmount;
+        //this.bidAmount = bidAmount;
+        if (bidAmount > 0.0)
+        this.bidAmount = this.bidAmount == 0 ? bidAmount : this.bidAmount;
     }
 }
