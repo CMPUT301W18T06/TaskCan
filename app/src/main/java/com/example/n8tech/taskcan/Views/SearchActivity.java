@@ -45,7 +45,6 @@ public class SearchActivity extends ActivityHeader {
     public static final String SEARCH_MESSAGE = "com.example.n8tech.taskcan.SEARCH_MESSAGE";
     private EditText searchField;
     private User currentUser;
-    private Gson gson = new Gson();
     //private CurrentUserSingleton currentUserSingleton;
 
     @Override
@@ -60,11 +59,6 @@ public class SearchActivity extends ActivityHeader {
     protected void onStart() {
         super.onStart();
 
-        Intent intent = getIntent();
-        String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
-        //setCurrentUser(userMsg);
-
-        //this.currentUser = this.gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
         this.currentUser = CurrentUserSingleton.getUser();
 
         Log.i("Testing", this.currentUser.getEmail());
@@ -101,7 +95,6 @@ public class SearchActivity extends ActivityHeader {
     protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
         if (!this.getClass().equals(nextClass)) {
             Intent i = new Intent(SearchActivity.this, nextClass);
-            i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
             startActivity(i);
         }
     }

@@ -15,13 +15,15 @@ public class UserList implements Iterable<User> {
         this.userList = new ArrayList<User>();
     }
 
-    public void addUser(User user) {
-        this.userList.add(user);
-    }
+    public void addUser(User user) { this.userList.add(user); }
 
     public User getUser(int i) {
         return this.userList.get(i);
     }
+
+    public int getUserIndex(User user) { return this.userList.indexOf(user); }
+
+    public Boolean delUser(User user) { return this.userList.remove(user); }
 
     public int getSize() {
         return userList.size();

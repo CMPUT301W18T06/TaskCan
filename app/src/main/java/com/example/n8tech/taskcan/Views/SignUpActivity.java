@@ -137,12 +137,8 @@ public class SignUpActivity extends AppCompatActivity {
                 cacheList.addUser(newUser);
                 saveInFile();
 
-                CurrentUserSingleton.setUser(newUser);
-
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                Gson gson = new Gson();
-                intent.putExtra(SignInActivity.USER_MESSAGE, gson.toJson(newUser));
-
+                CurrentUserSingleton.setUser(newUser);
 
                 startActivity(intent);
             } else {
@@ -194,7 +190,8 @@ public class SignUpActivity extends AppCompatActivity {
                 = new ElasticsearchController.SearchUser();
         searchUser.execute(email);
 
-        ArrayList<User> userList = new ArrayList<>();
+        //ArrayList<User> userList = new ArrayList<>();
+        UserList userList = new UserList();
 
         try {
             userList = searchUser.get();

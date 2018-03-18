@@ -94,7 +94,6 @@ public class MyTaskActivity extends ActivityHeader {
     protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
         if (!this.getClass().equals(nextClass)) {
             Intent i = new Intent(MyTaskActivity.this, nextClass);
-            i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
             startActivity(i);
         }
     }
@@ -102,12 +101,6 @@ public class MyTaskActivity extends ActivityHeader {
     @Override
     protected void onStart() {
         super.onStart();
-
-        Intent intent = getIntent();
-        String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
-        setCurrentUser(userMsg);
-        Gson gson = new Gson();
-        //this.currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
 
         this.currentUser = CurrentUserSingleton.getUser();
         this.myTaskList = this.currentUser.getMyTaskList();

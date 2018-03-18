@@ -116,7 +116,6 @@ public class AddTaskActivity extends ActivityHeader {
     protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
         if (!this.getClass().equals(nextClass)) {
             Intent i = new Intent(AddTaskActivity.this, nextClass);
-            i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
             startActivity(i);
         }
     }

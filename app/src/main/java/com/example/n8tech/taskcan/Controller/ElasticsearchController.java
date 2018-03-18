@@ -4,7 +4,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.n8tech.taskcan.Models.Task;
+import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.User;
+import com.example.n8tech.taskcan.Models.UserList;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
@@ -115,12 +117,13 @@ public class ElasticsearchController {
         }
     }
 
-    public static class SearchUser extends AsyncTask<String, Void, ArrayList<User>> {
+    public static class SearchUser extends AsyncTask<String, Void, UserList> {
 
         @Override
-        protected ArrayList<User> doInBackground(String... search_params) {
+        protected UserList doInBackground(String... search_params) {
             verifySettings();
-            ArrayList<User> userList = new ArrayList<User>();
+            ArrayList<User> tempList = new ArrayList<>();
+            UserList userList = new UserList();
 
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.matchQuery("email", search_params[0]));
@@ -136,7 +139,10 @@ public class ElasticsearchController {
                 result = client.execute(search);
 
                 if(result.isSucceeded()) {
-                    userList = (ArrayList<User>) result.getSourceAsObjectList(User.class);
+                    tempList = (ArrayList<User>) result.getSourceAsObjectList(User.class);
+                    for (User user : tempList) {
+                        userList.addUser(user);
+                    }
                 }
                 else {
                     Log.i("Error", "The search query has failed");
@@ -238,12 +244,13 @@ public class ElasticsearchController {
         }
     }
 
-    public static class SearchTask extends AsyncTask<String, Void, ArrayList<Task>> {
+    public static class SearchTask extends AsyncTask<String, Void, TaskList> {
 
         @Override
-        protected ArrayList<Task> doInBackground(String... search_params) {
+        protected TaskList doInBackground(String... search_params) {
             verifySettings();
-            ArrayList<Task> taskList = new ArrayList<Task>();
+            ArrayList<Task> tempList = new ArrayList<Task>();
+            TaskList taskList = new TaskList();
 
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.matchQuery("taskTitle", search_params[0]));
@@ -259,7 +266,10 @@ public class ElasticsearchController {
                 result = client.execute(search);
 
                 if(result.isSucceeded()) {
-                    taskList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
+                    tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
+                    for (Task task : tempList) {
+                        taskList.addTask(task);
+                    }
                 }
                 else {
                     Log.i("Error", "The search query has failed");

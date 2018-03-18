@@ -56,7 +56,6 @@ public class ViewProfileActivity extends ActivityHeader {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), EditProfileActivity.class);
-                intent.putExtra(SignInActivity.USER_MESSAGE, gson.toJson(currentUser));
                 startActivity(intent);
             }
         });
@@ -67,7 +66,6 @@ public class ViewProfileActivity extends ActivityHeader {
     protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
         if (!this.getClass().equals(nextClass)) {
             Intent i = new Intent(ViewProfileActivity.this, nextClass);
-            i.putExtra(SignInActivity.USER_MESSAGE, super.currentUser);
             startActivity(i);
         }
     }
@@ -76,14 +74,7 @@ public class ViewProfileActivity extends ActivityHeader {
     protected void onStart() {
         super.onStart();
 
-        Intent intent = getIntent();
-        String userMsg = intent.getStringExtra(SignInActivity.USER_MESSAGE);
-
-        //setCurrentUser(userMsg);
-        //currentUser = gson.fromJson(userMsg, new TypeToken<User>(){}.getType());
-
         this.currentUser = CurrentUserSingleton.getUser();
-
 
         Log.i("Testing", currentUser.getEmail());
 
@@ -101,7 +92,6 @@ public class ViewProfileActivity extends ActivityHeader {
         Intent intent = new Intent(ViewProfileActivity.this, SearchActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra(SignInActivity.USER_MESSAGE, gson.toJson(currentUser));
         startActivity(intent);
     }
 
