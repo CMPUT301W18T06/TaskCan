@@ -179,7 +179,7 @@ public class SignUpActivity extends AppCompatActivity {
          */
         // regex checking if email is valid email
         boolean isProperEmail = Pattern.compile("^[a-z0-9]+[@][a-z]+[.][a-z0-9]{2,}").matcher(email).matches();
-        
+
         if (isProperEmail == false){
             return false;
         }
@@ -207,7 +207,6 @@ public class SignUpActivity extends AppCompatActivity {
             if(user.getEmail() == email) {
                 return false;
             }
-
         }
 
         return true;
