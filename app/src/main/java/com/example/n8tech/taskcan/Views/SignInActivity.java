@@ -26,7 +26,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
-import com.example.n8tech.taskcan.Models.ElasticsearchController;
+import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
 import com.example.n8tech.taskcan.Models.User;

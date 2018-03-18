@@ -1,8 +1,10 @@
-package com.example.n8tech.taskcan.Models;
+package com.example.n8tech.taskcan.Controller;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.n8tech.taskcan.Models.Task;
+import com.example.n8tech.taskcan.Models.User;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
