@@ -170,7 +170,7 @@
                         android:layout_marginTop="8dp"
                         android:background="@drawable/gradient"
                         android:onClick="editLocationButtonClick"
-                        android:text="Edit Location"
+                        android:text="@string/add_task_activity_location_button"
                         android:textAppearance="@style/TextAppearance.AppCompat"
                         android:textColor="@color/colorWhite"
                         android:textSize="18sp"

@@ -157,7 +157,7 @@ public class AddTaskActivity extends ActivityHeader {
         builder.create().show();
     }
 
-
+    // https://developers.google.com/places/android-api/placepicker
     public void editLocationButtonClick(View v) {
         // TODO: should this be a map page and drop a pin or just entering an address and validating that address ???
         //Intent intent = new Intent(getApplicationContext(), EditTaskMapActivity.class);

@@ -24,6 +24,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
@@ -33,17 +35,29 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TabHost;
 
+import com.example.n8tech.taskcan.Controller.TaskViewRecyclerAdapter;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Task;
+import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MyTaskActivity extends ActivityHeader {
 
+    private TaskList myTaskList = new TaskList(); // TODO get current user's tasklist
     private User currentUser;
+    private RecyclerView RequestedRecyclerView;
+    private RecyclerView AssignedRecyclerView;
+    private RecyclerView ArchivedRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +68,25 @@ public class MyTaskActivity extends ActivityHeader {
         mTabHost.addTab(mTabHost.newTabSpec("requestedTaskTab").setIndicator("Requested", null).setContent(R.id.requested));
         mTabHost.addTab(mTabHost.newTabSpec("assignedTaskTab").setIndicator("Assigned", null).setContent(R.id.assigned));
         mTabHost.addTab(mTabHost.newTabSpec("archivedTaskTab").setIndicator("Archived", null).setContent(R.id.archived));
+
+        RequestedRecyclerView = findViewById(R.id.my_task_activity_recyclerview_requested);
+        AssignedRecyclerView = findViewById(R.id.my_task_activity_recyclerview_assigned);
+        ArchivedRecyclerView = findViewById(R.id.my_task_activity_recyclerview_archived);
+
+        RequestedRecyclerView.setHasFixedSize(true);
+        AssignedRecyclerView.setHasFixedSize(true);
+        ArchivedRecyclerView.setHasFixedSize(true);
+
+        mLayoutManager = new LinearLayoutManager(this);
+        RequestedRecyclerView.setLayoutManager(mLayoutManager);
+        //AssignedRecyclerView.setLayoutManager(mLayoutManager);
+        //ArchivedRecyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new TaskViewRecyclerAdapter(myTaskList);
+        RequestedRecyclerView.setAdapter(mAdapter);
+        //AssignedRecyclerView.setAdapter(mAdapter);
+        //ArchivedRecyclerView.setAdapter(mAdapter);
+
 
     }
 

@@ -59,6 +59,7 @@ public class Task {
         this.status = "Requested";
 
         // TODO create a unique task id. check elastic search to ensure its unique?
+
         //this.taskId = UUID.randomUUID().toString();
         //Log.i("uuid for task: ", this.taskId);
     }
