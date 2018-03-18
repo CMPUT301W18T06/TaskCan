@@ -56,9 +56,6 @@ public class SignInActivity extends Activity {
 
     public void signInButtonClick(View v) {
 
-        //Need to reverse order for security purposes
-        //Should check server before local cache
-
         String usernameText = this.username.getText().toString();
         String passwordText = this.password.getText().toString();
 
@@ -84,10 +81,11 @@ public class SignInActivity extends Activity {
             Log.i("Email", user.getEmail());
             Log.i("Password", user.getPassword());
             //Loop through all users within cache and see if they entered a valid combination
-            if (user.getEmail().equals(usernameText) && user.getPassword().equals(passwordText)) {
-
+            if (user.getEmail().equals(usernameText)) {
                 offlineUser = user;
-                offlineValid = true;
+                if (user.getPassword().equals(passwordText)) {
+                    offlineValid = true;
+                }
             }
         }
 
@@ -124,6 +122,7 @@ public class SignInActivity extends Activity {
         } else if (onlineValid && !offlineValid) {
 
             //Need to check if cache has the email somewhere and delete it
+            if(offlineUser != null) { this.cacheList.delUser(offlineUser); }
             this.cacheList.addUser(onlineUser);
             fileIO.saveInFile(getApplicationContext(),this.cacheList);
 
