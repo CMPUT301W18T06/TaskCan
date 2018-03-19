@@ -132,6 +132,12 @@ public class TaskDetailActivity extends ActivityHeader {
         startActivity(intent);
     }
 
+    public void taskDetailLocationButtonClick(View v){
+        Intent intent = new Intent(getApplicationContext(), ViewTaskOnMapsActivity.class);
+        intent.putExtra("taskIndex", currentTaskIndex);
+        v.getContext().startActivity(intent);
+    }
+
     @Override
     protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
         if (!this.getClass().equals(nextClass)) {
