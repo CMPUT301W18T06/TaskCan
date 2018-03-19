@@ -47,9 +47,9 @@ public class TaskTest{
         /*
          * Test basic functionality, being able to set each field and guaranteeing that it is written correctly.
          */
-        User user1 = new User("Joe", "joe123", "7355608", "joe@n8tech.com", "123-456-7890");
-        User user2 = new User("Bill", "bill123", "1111", "bill@n8tech.com", "098-765-4321");
-        User user3 = new User("Mary", "mary123", "1234", "mary@n8tech.com", "312-893-8293");
+        User user1 = new User("Joe", "joe12345", "7355608", "joe@n8tech.com", "123-456-7890");
+        User user2 = new User("Bill", "bill12345", "1111", "bill@n8tech.com", "098-765-4321");
+        User user3 = new User("Mary", "mary12345", "1234", "mary@n8tech.com", "312-893-8293");
         Bid bid1 = new Bid(user3.getUsername(), "1", 18.91);
         Task task1 = new Task();
 
@@ -77,7 +77,7 @@ public class TaskTest{
         /*
          * Ensures that when a task with minimal information is added that all other fields are assigned correctly.
          */
-        User user1 = new User("Joe", "joe123", "7355608", "joe@n8tech.com", "123-456-7890");
+        User user1 = new User("Joe", "joe12345", "7355608", "joe@n8tech.com", "123-456-7890");
         Task task1 = new Task("Walk my dog", "Walk dog around the block", user1.getUsername(), "1345679", "Category1");
 
         assertEquals(task1.getProviderUsername(), null);
@@ -94,12 +94,12 @@ public class TaskTest{
          * Tests how a bidList will change throughout it's lifetime
          */
 
-        User user1 = new User("Joe", "joe123", "7355608", "joe@n8tech.com", "123-456-7890");
-        User user2 = new User("Bill", "bill123", "1111", "bill@n8tech.com", "098-765-4321");
-        User user3 = new User("Mary", "mary123", "1234", "mary@n8tech.com", "312-893-8293");
-        User user4 = new User("Jill", "jill123", "5678", "jill@n8tech.com", "932-232-6753");
-        User user5 = new User("Tom", "tom123", "9999", "tom@n8tech.com", "723-999-9999");
-        User user6 = new User("Pam", "pam123", "1212", "pam@n8tech.com", "000-111-2222");
+        User user1 = new User("Joe", "joe12345", "7355608", "joe@n8tech.com", "123-456-7890");
+        User user2 = new User("Bill", "bill12345", "1111", "bill@n8tech.com", "098-765-4321");
+        User user3 = new User("Mary", "mary12345", "1234", "mary@n8tech.com", "312-893-8293");
+        User user4 = new User("Jill", "jill12345", "5678", "jill@n8tech.com", "932-232-6753");
+        User user5 = new User("Tom", "tom12345", "9999", "tom@n8tech.com", "723-999-9999");
+        User user6 = new User("Pam", "pam12345", "1212", "pam@n8tech.com", "000-111-2222");
         Bid bid1 = new Bid(user1.getUsername(), "1", 23.23);
         Bid bid2 = new Bid(user2.getUsername(), "2", 15.32);
         Bid bid3 = new Bid(user3.getUsername(), "3", 12.89);
@@ -164,12 +164,12 @@ public class TaskTest{
         /*
          * Test restrictions on adding bids depending on status
          */
-        User user1 = new User("Joe", "joe123", "7355608", "joe@n8tech.com", "123-456-7890");
-        User user2 = new User("Bill", "bill123", "1111", "bill@n8tech.com", "098-765-4321");
-        User user3 = new User("Mary", "mary123", "1234", "mary@n8tech.com", "312-893-8293");
-        User user4 = new User("Jill", "jill123", "5678", "jill@n8tech.com", "932-232-6753");
-        User user5 = new User("Tom", "tom123", "9999", "tom@n8tech.com", "723-999-9999");
-        User user6 = new User("Pam", "pam123", "1212", "pam@n8tech.com", "000-111-2222");
+        User user1 = new User("Joe", "joe12345", "7355608", "joe@n8tech.com", "123-456-7890");
+        User user2 = new User("Bill", "bill12345", "1111", "bill@n8tech.com", "098-765-4321");
+        User user3 = new User("Mary", "mary12345", "1234", "mary@n8tech.com", "312-893-8293");
+        User user4 = new User("Jill", "jill12345", "5678", "jill@n8tech.com", "932-232-6753");
+        User user5 = new User("Tom", "tom12345", "9999", "tom@n8tech.com", "723-999-9999");
+        User user6 = new User("Pam", "pam12345", "1212", "pam@n8tech.com", "000-111-2222");
         Bid bid1 = new Bid(user1.getUsername(), "1", 23.23);
         Bid bid2 = new Bid(user2.getUsername(), "2", 15.32);
         Bid bid3 = new Bid(user3.getUsername(), "3", 12.89);
@@ -236,9 +236,9 @@ public class TaskTest{
         /*
          * Tests how different members of a task can be overwritten.
          */
-        User user1 = new User("Joe", "joe123", "7355608", "joe@n8tech.com", "123-456-7890");
-        User user2 = new User("Bill", "bill123", "1111", "bill@n8tech.com", "098-765-4321");
-        User user3 = new User("Mary", "mary123", "1234", "mary@n8tech.com", "312-893-8293");
+        User user1 = new User("Joe", "joe12345", "7355608", "joe@n8tech.com", "123-456-7890");
+        User user2 = new User("Bill", "bill12345", "1111", "bill@n8tech.com", "098-765-4321");
+        User user3 = new User("Mary", "mary12345", "1234", "mary@n8tech.com", "312-893-8293");
         Bid bid1 = new Bid(user3.getUsername(), "1", 18.91);
         Task task1 = new Task();
 

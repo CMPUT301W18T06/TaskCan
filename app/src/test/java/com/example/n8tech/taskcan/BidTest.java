@@ -37,13 +37,13 @@ public class BidTest {
     @Test
     //ensure that you can add a bidder and bid amount with both constructors
     public void testAddBidder() {
-        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user1 = new User("Joe", "joe12345", "joe@n8tech.com", "7355608", "123-456-7890");
         Bid bid1 = new Bid();
         bid1.setBidUsername(user1.getUsername());
         bid1.setBidAmount(12.21);
         assertEquals(bid1.getBidUsername(), user1);
         assertEquals(bid1.getBidAmount(), 12.21, 0.00);
-        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user2 = new User("Alan", "alan12345", "alan@n8tech.com", "ilovenate", "780-980-5623");
         Bid bid2 = new Bid(user2.getUsername(), "2", 150.00);
         assertEquals(bid2.getBidUsername(), user2);
         assertEquals(bid2.getBidAmount(), 150.00, 0.00);
@@ -52,9 +52,9 @@ public class BidTest {
     @Test
     //ensure that you can only set the bidder once
     public void testSwitchingBidUser(){
-        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user1 = new User("Joe", "joe12345", "joe@n8tech.com", "7355608", "123-456-7890");
         Bid bid1 = new Bid(user1.getUsername(), "1", 12.21);
-        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user2 = new User("Alan", "alan12345", "alan@n8tech.com", "ilovenate", "780-980-5623");
         Bid bid2 = new Bid(user2.getUsername(), "2", 150.00);
         bid1.setBidUsername(user2.getUsername());
         assertEquals(bid1.getBidUsername(), user1);
@@ -65,9 +65,9 @@ public class BidTest {
     @Test
     //ensure that you can only set the bid amount once
     public void testSwitchingBidAmount(){
-        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user1 = new User("Joe", "joe12345", "joe@n8tech.com", "7355608", "123-456-7890");
         Bid bid1 = new Bid(user1.getUsername(), "1", 12.21);
-        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user2 = new User("Alan", "alan12345", "alan@n8tech.com", "ilovenate", "780-980-5623");
         Bid bid2 = new Bid(user2.getUsername(), "2", 150.00);
         User user3 = new User("Nathan", "nathan123", "nathan@n8tech.com", "ilovealan", "780-750-5600");
         Bid bid3 = new Bid(user3.getUsername(), "3", 0.01);
@@ -85,7 +85,7 @@ public class BidTest {
     //ensure that you can't set a bid to less than 1 cent
     public void testMinimumBidAmount(){
         int exceptionCatcher = 0;
-        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user1 = new User("Joe", "joe12345", "joe@n8tech.com", "7355608", "123-456-7890");
         Bid bid1 = new Bid();
         bid1.setBidUsername(user1.getUsername());
         try{
@@ -95,7 +95,7 @@ public class BidTest {
             exceptionCatcher++;
             assertEquals(true, true);
         }
-        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user2 = new User("Alan", "alan12345", "alan@n8tech.com", "ilovenate", "780-980-5623");
         try {
             Bid bid2 = new Bid(user2.getUsername(), "2", -10.00);
         }

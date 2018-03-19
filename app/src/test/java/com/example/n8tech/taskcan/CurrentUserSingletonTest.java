@@ -19,8 +19,8 @@ public class CurrentUserSingletonTest {
     @Test
     // ensures that the getUser, setUser, and resetCurrentUser methods work
     public void testResetCurrentUser(){
-        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user1 = new User("Joe", "joe12345", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan", "alan12345", "alan@n8tech.com", "ilovenate", "780-980-5623");
         User user3 = new User("Nathan", "nathan123", "nathan@n8tech.com", "ilovealan", "780-750-5600");
         CurrentUserSingleton single = new CurrentUserSingleton();
         assertEquals(single.getUser().getUsername(), null);
