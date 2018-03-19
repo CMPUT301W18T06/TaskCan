@@ -3,11 +3,15 @@ package com.example.n8tech.taskcan;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.n8tech.taskcan.Controller.ElasticsearchController;
+import com.example.n8tech.taskcan.Models.TaskList;
+import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Views.AddTaskActivity;
 
 import com.robotium.solo.Solo;
@@ -52,7 +56,23 @@ public class AddTaskActivityTest extends ActivityInstrumentationTestCase2 {
         solo.clickOnView(solo.getView(TextView.class, 1));
         solo.clickOnButton("Save");
         assertTrue(solo.waitForActivity("MyTaskActivity"));
-            }
+
+        ElasticsearchController.SearchTask searchTask
+                = new ElasticsearchController.SearchTask();
+        searchTask.execute("This is what the task does.");
+        TaskList taskList = new TaskList();
+        try {
+            taskList = searchTask.get();
+        } catch (Exception e) {
+            Log.i("Error", "Couldn't load users from server");
+        }
+
+        ElasticsearchController.DeleteTask deleteTask
+                = new ElasticsearchController.DeleteTask();
+        for(Task newTask : taskList){
+            deleteTask.execute(newTask);
+        }
+    }
 
     public void testCancel(){
         solo.assertCurrentActivity("Wrong activity", AddTaskActivity.class);
