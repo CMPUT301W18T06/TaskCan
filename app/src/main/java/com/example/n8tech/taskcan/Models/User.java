@@ -36,8 +36,6 @@ public class User {
     private TaskList myTaskBids;
     private TaskList myTasks;
 
-
-
     @JestId
     private String id;
 
@@ -58,7 +56,7 @@ public class User {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(String id) {
