@@ -66,7 +66,7 @@ public class SearchActivity extends ActivityHeader {
 
         this.currentUser = CurrentUserSingleton.getUser();
 
-        Log.i("Testing", this.currentUser.getEmail());
+        // Log.i("Testing", this.currentUser.getEmail());
     }
 
     @Override

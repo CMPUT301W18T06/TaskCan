@@ -17,6 +17,7 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import java.util.ArrayList;
 
 import io.searchbox.client.JestResult;
+import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Get;
 import io.searchbox.core.Index;
@@ -117,6 +118,30 @@ public class ElasticsearchController {
             }
 
             return user;
+        }
+    }
+    public static class DeleteUser extends AsyncTask<User, Void, String> {
+
+        @Override
+        protected String doInBackground(User... search_params) {
+            verifySettings();
+            for(User user : search_params) {
+
+                Delete del = new Delete.Builder(user.getId()).index("cmput301w18t06").type("user").build();
+
+                try {
+                    JestResult result = client.execute(del);
+
+                    if (!result.isSucceeded()) {
+                        Log.i("Error", "The search query has failed");
+                    }
+                } catch (Exception e) {
+                    //When no connection this occurs
+                    Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                    return "NetworkError";
+                }
+            }
+            return "NoNetworkError";
         }
     }
 
@@ -243,6 +268,31 @@ public class ElasticsearchController {
             }
 
             return task;
+        }
+    }
+
+    public static class DeleteTask extends AsyncTask<Task, Void, String> {
+
+        @Override
+        protected String doInBackground(Task... search_params) {
+            verifySettings();
+            for(Task task : search_params) {
+                Log.i("Testing", task.getId());
+                Delete del = new Delete.Builder(task.getId()).index("cmput301w18t06").type("task").build();
+
+                try {
+                    JestResult result = client.execute(del);
+
+                    if (!result.isSucceeded()) {
+                        Log.i("Error", "The search query has failed");
+                    }
+                } catch (Exception e) {
+                    //When no connection this occurs
+                    Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                    return "NetworkError";
+                }
+            }
+            return "NoNetworkError";
         }
     }
 
