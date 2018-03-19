@@ -1,18 +1,21 @@
 package com.example.n8tech.taskcan.Controller;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.n8tech.taskcan.Views.AddTaskActivity;
+import com.example.n8tech.taskcan.Views.MyTaskActivity;
+import com.example.n8tech.taskcan.Views.SearchActivity;
+import com.example.n8tech.taskcan.Views.TaskDetailActivity;
 
 /**
  * https://developer.android.com/guide/topics/ui/layout/recyclerview.html#java
@@ -55,13 +58,24 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
     }
 
     // Replace the contents of a view (invoked by the layout manager)
+    // onClick from https://stackoverflow.com/questions/24471109/recyclerview-onclick
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        Task currentTask = taskList.getTaskAtIndex(position);
+        final Task currentTask = taskList.getTaskAtIndex(position);
         holder.taskTitle.setText(currentTask.getTaskTitle());
         holder.taskBid.setText(String.valueOf(currentTask.getMaximumBid()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("TestingAdapterClick", String.valueOf(position));
+                Intent intent = new Intent(view.getContext(), TaskDetailActivity.class);
+                intent.putExtra("taskIndex", position);
+                view.getContext().startActivity(intent);
+            }
+        });
 
     }
 

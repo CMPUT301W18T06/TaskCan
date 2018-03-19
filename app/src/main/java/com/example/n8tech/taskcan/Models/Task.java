@@ -195,7 +195,12 @@ public class Task {
 
     /** @param status task status of completion */
     public void setStatus(String status) {
-        this.status = status;
+        if(this.status == "Completed"){
+            this.status = status == "Completed" ? "Completed" : this.status;
+        }
+        else{
+            this.status = status;
+        }
     }
 
     /**
@@ -208,15 +213,15 @@ public class Task {
      * @throws IllegalStateException If none of these statuses are applicable.
      */
     public String getStatus() {
-        if (this.getTaskCompleted()) {
-            this.status = "Done";
+        if (this.getTaskCompleted() || this.status.equals("Completed")) {
+            this.status = "Completed";
 
         }
-        else if (this.providerUsername != null) {
+        else if (this.providerUsername != null || this.status.equals("Assigned")) {
             this.status = "Assigned";
 
         }
-        else if (this.bidList.getSize() == 0) {
+        else if (this.bidList.getSize() == 0 || this.status.equals("Requested")) {
             this.status = "Requested";
         }
         else if (this.bidList.getSize() > 0) {
@@ -259,6 +264,31 @@ public class Task {
         this.location = location;
     }
 
+    /** @return task name and description string */
+    public String toString() {
+
+        return this.taskTitle + "\n" + this.description;
+    }
+
+    /** Adds a bid to the task bid list only when task status is either "Requested" or "Bidded".
+     * @param bid bid to be added to task bid list
+     */
+    public void addBidder(Bid bid) {
+        if(this.getStatus().equals("Assigned") || this.getStatus().equals("Completed")){}
+        else{
+            this.bidList.addBid(bid);
+        }
+    }
+
+    /** @param user bidder of bid to be removed from bid list */
+    public void cancelBidder(User user) {
+        if (this.bidList.bidderExists(user)) {
+            int i = this.bidList.indexOfBidContaining(user);
+            Bid cancelBid = this.bidList.getBid(i);
+            this.bidList.removeBid(cancelBid);
+        }
+    }
+    
     /**
      * Checks if task status has changed and updates the task details.
      */
@@ -266,24 +296,11 @@ public class Task {
         // TODO: check if status has changed, update bid list if one was accepted, etc
     }
 
-    /** @return task name and description string */
-    public String toString() {
-
-        return this.taskTitle + "\n" + this.description;
-    }
-
     //TODO: this point on, not really sure what is going on with the below methods, waiting for more clarification
-
-    /** @param bid bid to be added to task bid list */
-    public void addBidder(Bid bid) {this.bidList.addBid(bid); }
-
     /**
      * @param user task bidder
      * @param bid amount set on a bid
      */
     public void updateBidder(User user, double bid) {}
-
-    /** @param user bidder of cancelled bid */
-    public void cancelBidder(User user) {}
 
 }
