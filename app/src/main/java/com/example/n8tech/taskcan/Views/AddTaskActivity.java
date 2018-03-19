@@ -63,7 +63,8 @@ import java.util.ArrayList;
  */
 
 public class AddTaskActivity extends ActivityHeader {
-    private final String IMAGES_KEY = "AddTaskActivity_IMAGESKEY";
+    public final static String IMAGES_KEY = "AddTaskActivity_IMAGESKEY";
+    private final Integer EDIT_IMAGES_REQUEST_CODE = 0;
 
     private Spinner categorySpinner;
     private Task newTask;
@@ -346,6 +347,7 @@ public class AddTaskActivity extends ActivityHeader {
 
     public void viewImagesOnClick(View view) {
         Intent i = new Intent(AddTaskActivity.this, EditImageSlideShowActivity.class);
-//        i.putExtra(this.IMAGES_KEY, this.images);
+        i.putExtra(this.IMAGES_KEY, this.images.getImages());
+        startActivityForResult(i, this.EDIT_IMAGES_REQUEST_CODE);
     }
 }
