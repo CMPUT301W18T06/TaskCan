@@ -90,10 +90,10 @@ public class SignInActivity extends Activity {
         for (User user : this.cacheList) {
             //Remove once we have set things logins we can remember
 
-            Log.i("Email", user.getEmail());
+            Log.i("Username", user.getUsername());
             Log.i("Password", user.getPassword());
             //Loop through all users within cache and see if they entered a valid combination
-            if (user.getEmail().equals(usernameText)) {
+            if (user.getUsername().equals(usernameText)) {
                 offlineUser = user;
                 if (user.getPassword().equals(passwordText)) {
                     offlineValid = true;
@@ -119,9 +119,9 @@ public class SignInActivity extends Activity {
         }
 
         for(User user : userList) {
-            Log.i("testing", user.getId() + user.getEmail() + ":" + user.getPassword());
+            Log.i("testing", user.getId() + user.getUsername() + ":" + user.getPassword());
 
-            if(user.getEmail().equals(usernameText) && user.getPassword().equals(passwordText)) {
+            if(user.getUsername().equals(usernameText) && user.getPassword().equals(passwordText)) {
 
                 onlineUser = user;
                 onlineValid = true;

@@ -61,25 +61,24 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="@string/view_profile_name"
+            android:text="@string/view_profile_username"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
 
-        <EditText
+        <TextView
             android:id="@+id/edit_profile_username_display"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:background="@drawable/entry_field"
-            android:inputType="text"
+            android:background="@drawable/display_field"
             android:paddingBottom="4dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingTop="4dp"
-            android:text="jsmittty"
+            android:text="jsmitty"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -125,6 +124,7 @@
             android:paddingTop="4dp"
             android:text="John Smith"
             android:textSize="24sp"
+            android:maxLength="50"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_profile_name_descr" />
@@ -144,6 +144,7 @@
             android:paddingTop="4dp"
             android:text="jsmith@example.com"
             android:textSize="24sp"
+            android:maxLength="100"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_profile_email_descr" />
