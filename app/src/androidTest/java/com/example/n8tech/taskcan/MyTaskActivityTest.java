@@ -37,7 +37,13 @@ public class MyTaskActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testMyTasksPage(){
-        // TODO write test cases
+        solo.assertCurrentActivity("Wrong activity", MyTaskActivity.class);
+        solo.clickOnButton("New Task");
+        assertTrue(solo.waitForActivity("AddTaskActivity"));
+        solo.goBack();
+        assertTrue(solo.waitForActivity("MyTaskActivity"));
+        solo.goBack();
+        assertTrue(solo.waitForActivity("SearchActivity"));
     }
 
     @Override

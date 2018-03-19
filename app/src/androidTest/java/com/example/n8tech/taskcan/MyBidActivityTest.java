@@ -37,7 +37,8 @@ public class MyBidActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testMyBidsPage(){
-        // TODO write test cases 
+        // TODO write test cases
+        // bids not implemented yet
     }
 
     @Override
