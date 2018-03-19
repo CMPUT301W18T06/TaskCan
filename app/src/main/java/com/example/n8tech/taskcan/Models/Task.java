@@ -34,6 +34,7 @@ public class Task {
     private String taskTitle;
     private String description;
     private String ownerUsername;
+    private String ownerId;
     private User provider;
     private double maximumBid;
     private double currentBid;
@@ -67,12 +68,12 @@ public class Task {
     }
 
     // minimum information needed to create a new task
-    public Task(String name, String description, String ownerUsername, String category) {
+    public Task(String name, String description, String ownerUsername, String ownerId, String category) {
         // TODO: length checking for name & description
         this.taskTitle = name;
         this.description = description;
         this.ownerUsername = ownerUsername;
-
+        this.ownerId = ownerId;
 
         // set default values for a new task
         this.provider = null;
@@ -122,6 +123,10 @@ public class Task {
     public void setOwner(String owner) {
         this.ownerUsername = owner;
     }
+
+    public String getOwnerId() { return this.ownerId; }
+
+    public void setOwnerId(String id) { this.ownerId = id; }
 
     // TODO change this.provider to providers username string
     public User getProvider() {

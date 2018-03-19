@@ -169,7 +169,6 @@ public class ElasticsearchController {
                 try {
                     DocumentResult result = client.execute(index);
 
-                    Log.i("Testing", result.getJsonString());
                     if(result.isSucceeded()) {
                         task.setId(result.getId());
                     }

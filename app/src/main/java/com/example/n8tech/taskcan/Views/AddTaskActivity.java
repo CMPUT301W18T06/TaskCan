@@ -36,6 +36,7 @@ import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
+import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -62,7 +63,7 @@ public class AddTaskActivity extends ActivityHeader {
     private Place location;
     private ArrayAdapter<CharSequence> categorySpinnerAdapter;
     private ArrayList<ArrayList<Integer>> images;
-    private FileIO fileIO;
+    private FileIO fileIO = new FileIO();
     int PLACE_PICKER_REQUEST = 5;
     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
@@ -221,12 +222,10 @@ public class AddTaskActivity extends ActivityHeader {
         // TODO location validity testing
         newTask.setLocation(this.location);
 
-        newTask.setOwner(currentUser.getId());
+        newTask.setOwner(currentUser.getUsername());
+        newTask.setOwnerId(currentUser.getId());
 
         // TODO:in file here
-        ElasticsearchController.AddTask addTask
-                = new ElasticsearchController.AddTask();
-        addTask.execute(newTask);
 
         Log.i("*** name", newTask.getTaskTitle());
         Log.i("*** desc", newTask.getDescription());
@@ -236,18 +235,41 @@ public class AddTaskActivity extends ActivityHeader {
         //Log.i("*** task uuid", newTask.getId());
 
         if (valid) {
-            Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-            // add task to current user's myTasks list
-            currentUser.addTask(newTask);
-            ElasticsearchController.UpdateUser updateUser
-                    = new ElasticsearchController.UpdateUser();
-            updateUser.execute(currentUser);
-            //UserList cacheList = fileIO.loadFromFile(getApplicationContext());
-            //fileIO.saveInFile(getApplicationContext(),cacheList);
+            ElasticsearchController.AddTask addTask
+                    = new ElasticsearchController.AddTask();
+            addTask.execute(this.newTask);
 
-            startActivity(intent);
+            String completed = new String();
+            try {
+                completed = addTask.get();
+                Log.i("Testing", completed);
+            } catch (Exception e) {
+                Log.i("Error", e.toString());
+            }
+
+            if (completed == "NoNetworkError") {
+                // add task to current user's myTasks list
+                UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
+                cacheList.delUser(this.currentUser);
+                currentUser.addTask(newTask);
+
+                ElasticsearchController.UpdateUser updateUser
+                        = new ElasticsearchController.UpdateUser();
+                updateUser.execute(currentUser);
+
+                cacheList.addUser(this.currentUser);
+                this.fileIO.saveInFile(getApplicationContext(), cacheList);
+
+                Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                startActivity(intent);
+            } else {
+                //save for later when connection is there
+            }
+        } else {
+            //Toast invalid
         }
 
     }
