@@ -159,13 +159,13 @@ public class AddTaskActivity extends ActivityHeader {
                 dialog.cancel();
             }
         });
-        builder.setNegativeButton(negative, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePicture, 1);
-            }
-        });
+//        builder.setNegativeButton(negative, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(takePicture, 1);
+//            }
+//        });
         builder.create().show();
     }
 
