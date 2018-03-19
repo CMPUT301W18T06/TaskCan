@@ -5,12 +5,17 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
+ *
+ *
  * Created by m_qui on 3/12/2018.
  */
 
 public class BidList implements Iterable<Bid> {
     private ArrayList<Bid> bids;
 
+    /**
+     * 
+     */
     public BidList() {
         this.bids = new ArrayList<Bid>();
     }
