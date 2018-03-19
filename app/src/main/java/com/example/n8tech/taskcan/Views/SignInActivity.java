@@ -55,7 +55,7 @@ public class SignInActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        this.username = findViewById(R.id.username_field);
+        this.username = findViewById(R.id.name_field);
         this.password = findViewById(R.id.password_field);
     }
 
@@ -72,7 +72,7 @@ public class SignInActivity extends Activity {
 
         if(usernameText.equals("admin") && passwordText.equals("admin")) {
             //Admin entry remove eventually
-            User admin = new User("admin", "admin@n8tech.com", "admin", "7801234567");
+            User admin = new User("admin", "admin", "admin@n8tech.com", "admin", "7801234567");
 
             Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
             startActivity(intent);

@@ -58,7 +58,8 @@ public class User {
      * @param password password set by the user for log-in
      * @param phoneNumber user's phone number -- must be seven numbers
      */
-    public User(String username, String email, String password, String phoneNumber) {
+    public User(String profileName, String username, String email, String password, String phoneNumber) {
+        this.profileName = profileName;
         this.username = username;
         this.password = password;
         this.email = email;
