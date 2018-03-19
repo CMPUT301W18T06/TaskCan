@@ -35,17 +35,16 @@ import com.example.n8tech.taskcan.R;
  * @author CMPUT301W18T06
  */
 public class ResultActivity extends ActivityHeader {
-
-    private TaskList myTaskList = new TaskList();
+    private TaskList resultTaskList = new TaskList();
     private User currentUser;
-    private RecyclerView ResultRecyclerView;
     private SearchResultRecyclerAdapter mAdapter;
+    private TaskList myTaskList = new TaskList();
+    private RecyclerView ResultRecyclerView;
     private RecyclerView.LayoutManager ResultLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override

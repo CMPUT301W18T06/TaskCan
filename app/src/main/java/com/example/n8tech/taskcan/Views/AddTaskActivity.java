@@ -353,7 +353,6 @@ public class AddTaskActivity extends ActivityHeader {
             b.putParcelableArrayList(this.IMAGES_KEY, this.images.getImages());
             i.putExtras(b);
             startActivityForResult(i, this.EDIT_IMAGES_REQUEST_CODE);
-            view.getContext().startActivity(i);
         }
     }
 }

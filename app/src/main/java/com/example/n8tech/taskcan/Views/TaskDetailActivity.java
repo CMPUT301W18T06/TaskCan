@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.FileIO;
@@ -42,6 +43,7 @@ import java.util.Locale;
  * @author CMPUT301W18T06
  */
 public class TaskDetailActivity extends ActivityHeader {
+    public static final String IMAGES_KEY = "TaskDetailActivity_IMAGESKEY";
     private User currentUser;
     private Task task;
     private TextView taskNameText;
@@ -158,7 +160,17 @@ public class TaskDetailActivity extends ActivityHeader {
     }
 
     public void viewImagesButtonClick(View v){
-
+        if (this.task.getImageList().getSize() == 0) {
+            Toast.makeText(getApplicationContext(), "No images to show! Please add image!",
+                    Toast.LENGTH_LONG).show();
+        }
+        else {
+            Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
+            Bundle b = new Bundle();
+            b.putParcelableArrayList(this.IMAGES_KEY, this.task.getImageList().getImages());
+            i.putExtras(b);
+            startActivity(i);
+        }
     }
 
     @Override
