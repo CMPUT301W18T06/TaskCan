@@ -343,10 +343,11 @@ public class AddTaskActivity extends ActivityHeader {
     }
 
     public void viewImagesOnClick(View view) {
-        Intent i = new Intent(AddTaskActivity.this, EditImageSlideShowActivity.class);
+        Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
         Bundle b = new Bundle();
         b.putParcelableArrayList(this.IMAGES_KEY, this.images.getImages());
         i.putExtras(b);
         startActivityForResult(i, this.EDIT_IMAGES_REQUEST_CODE);
+        view.getContext().startActivity(i);
     }
 }

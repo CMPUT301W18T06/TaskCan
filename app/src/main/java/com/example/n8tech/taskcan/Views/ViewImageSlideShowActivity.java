@@ -45,23 +45,23 @@ public class ViewImageSlideShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_image_slide_show);
-        this.slides.setImages(getIntent().<Image>getParcelableArrayListExtra(IMAGES_KEY));
-        this.initialialSlideShow();
+//        this.slides.setImages(getIntent().<Image>getParcelableArrayListExtra(IMAGES_KEY));
+//        this.initialialSlideShow();
     }
 
-    private void initialialSlideShow() {
-        mPager = findViewById(R.id.pager);
-        mPager.setAdapter(new SlideShowAdapter(ViewImageSlideShowActivity.this, slides));
-        CircleIndicator indicator = findViewById(R.id.indicator);
-        indicator.setViewPager(mPager);
-
-        new Runnable() {
-            public void run() {
-                if (currentPage == slides.getSize()) {
-                    currentPage = 0;
-                }
-                mPager.setCurrentItem(currentPage++, true);
-            }
-        };
-    }
+//    private void initialialSlideShow() {
+//        mPager = findViewById(R.id.pager);
+//        mPager.setAdapter(new SlideShowAdapter(ViewImageSlideShowActivity.this, slides));
+//        CircleIndicator indicator = findViewById(R.id.indicator);
+//        indicator.setViewPager(mPager);
+//
+//        new Runnable() {
+//            public void run() {
+//                if (currentPage == slides.getSize()) {
+//                    currentPage = 0;
+//                }
+//                mPager.setCurrentItem(currentPage++, true);
+//            }
+//        };
+//    }
 }
