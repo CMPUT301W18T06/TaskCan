@@ -47,6 +47,7 @@ import java.util.regex.*;
  */
 public class SignUpActivity extends AppCompatActivity {
 
+    private EditText profileNameText;
     private EditText usernameText;
     private EditText emailText;
     private EditText passwordText;
@@ -60,6 +61,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         this.cacheList = this.fileIO.loadFromFile(getApplicationContext());
 
+        this.profileNameText = findViewById(R.id.name_field);
         this.usernameText = findViewById(R.id.username_field);
         this.emailText = findViewById(R.id.email_field);
         this.passwordText = findViewById(R.id.password_field);
@@ -69,24 +71,29 @@ public class SignUpActivity extends AppCompatActivity {
     public void registerButtonClick(View v) {
         setResult(RESULT_OK);
 
+        boolean profileNameValid = true;
         boolean usernameValid = true;
         boolean emailValid = true;
         boolean passwordValid = true;
-        boolean phoneNumberValid     = true;
+        boolean phoneNumberValid = true;
 
-        String name = this.usernameText.getText().toString();
+        String profileName = this.profileNameText.getText().toString();
+        String username = this.usernameText.getText().toString();
         String email = this.emailText.getText().toString();
         String password = this.passwordText.getText().toString();
         String contact = this.phoneNumberText.getText().toString();
 
-        if (name.length() < 1 || !StringUtils.isAlphaSpace(name)) {
-            usernameValid = false;
+        if (profileName.length() < 2 || profileName.length() > 50 || !StringUtils.isAlphaSpace(profileName)) {
+            profileNameValid = false;
         }
-
         //Remove at some point, just to help with keeping things clean.
-        if (name.equals("clearCache();")) {
+        if (profileName.equals("clearCache();")) {
             this.cacheList = new UserList();
             this.fileIO.saveInFile(getApplicationContext(),this.cacheList);
+        }
+
+        if (!checkUsernameValidity(username)) {
+            usernameValid = false;
         }
 
         if (!checkEmailValidity(email)) {
@@ -101,13 +108,13 @@ public class SignUpActivity extends AppCompatActivity {
             phoneNumberValid = false;
         }
 
-        if (usernameValid && emailValid && passwordValid && phoneNumberValid) {
+        if (profileNameValid && usernameValid && emailValid && passwordValid && phoneNumberValid) {
             //
             contact = contact.replace("-", "");
             contact = contact.replace(".", "");
             contact = contact.substring(0, 3) + "-" + contact.substring(3, 6) + "-" + contact.substring(6, contact.length());
 
-            User newUser = new User("",name, email, password, contact);
+            User newUser = new User(profileName, username, email, password, contact);
 
             ElasticsearchController.AddUser addUser
                     = new ElasticsearchController.AddUser();
@@ -158,18 +165,15 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-    private boolean checkEmailValidity(String email) {
-        // regex checking if email is valid email
-        boolean isProperEmail = Pattern.compile("^[a-z0-9]+[@][a-z0-9]+[.][a-z0-9]{2,}").matcher(email).matches();
+    private boolean checkUsernameValidity(String username) {
 
-        if (!isProperEmail){
+        if(username.length() < 8 || username.length() > 50) {
             return false;
         }
-
         //Check if email is already taken
         ElasticsearchController.SearchUser searchUser
                 = new ElasticsearchController.SearchUser();
-        searchUser.execute(email);
+        searchUser.execute(username);
 
         UserList userList = new UserList();
 
@@ -180,10 +184,20 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         for(User user : userList) {
-            Log.i("testing", user.getId() + user.getEmail());
-            if(user.getEmail().equals(email)) {
+            Log.i("testing", user.getId() + user.getUsername());
+            if(user.getUsername().equals(username)) {
                 return false;
             }
+        }
+        return true;
+    }
+
+    private boolean checkEmailValidity(String email) {
+        // regex checking if email is valid email
+        boolean isProperEmail = Pattern.compile("^[a-z0-9]+[@][a-z0-9]+[.][a-z0-9]{2,}").matcher(email).matches();
+
+        if (!isProperEmail){
+            return false;
         }
         return true;
     }
