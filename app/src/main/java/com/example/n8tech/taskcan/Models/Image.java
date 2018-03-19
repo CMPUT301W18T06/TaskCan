@@ -20,12 +20,9 @@ public class Image {
         this.image = new ArrayList<>();
     }
 
-    /**
-     * @param position integer representing the pixel position
-     * @param value integer representing the pixel value
-     */
-    public void setImagePixel(int position, int value) {
-        this.image.set(position, value);
+    /** @param value integer representing the pixel value */
+    public void setImagePixel(int value) {
+        this.image.add(value);
     }
 
     /** @param image an ArrayList of integers */
