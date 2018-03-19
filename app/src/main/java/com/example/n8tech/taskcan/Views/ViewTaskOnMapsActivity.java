@@ -109,7 +109,7 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
         mMap = googleMap;
 
         if (task.getLocation() != null) {
-            LatLng taskMarker = task.getLocation().getLatLng();
+            LatLng taskMarker = task.getLocation();
             mMap.addMarker(new MarkerOptions().position(taskMarker).title(task.getTaskTitle()));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(taskMarker, 10.0f));
         }
