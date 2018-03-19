@@ -47,7 +47,9 @@ public class TaskDetailActivity extends ActivityHeader {
         this.currentUser = CurrentUserSingleton.getUser();
 
         // TODO get task that was clicked and set fields
-        //task =
+        Bundle extras = getIntent().getExtras();
+        int currentTaskIndex = extras.getInt("taskIndex");
+        task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);
         findByIdsAndSetTextFields();
 
     }
