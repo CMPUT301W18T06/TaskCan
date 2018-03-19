@@ -35,7 +35,7 @@ public class Task {
     private String description;
     private String ownerUsername;
     private String ownerId;
-    private User provider;
+    private String providerUsername;
     private double maximumBid;
     private double currentBid;
     private String category;
@@ -76,7 +76,7 @@ public class Task {
         this.ownerId = ownerId;
 
         // set default values for a new task
-        this.provider = null;
+        this.providerUsername = null;
         this.maximumBid = -1;
         this.currentBid = -1;
         this.category = category;
@@ -129,12 +129,10 @@ public class Task {
     public void setOwnerId(String id) { this.ownerId = id; }
 
     // TODO change this.provider to providers username string
-    public User getProvider() {
-        return this.provider;
-    }
+    public String getProvider() {return this.providerUsername;}
 
-    public void setProvider(User provider) {
-        this.provider = provider;
+    public void setProvider(String newProvider) {
+        this.providerUsername = newProvider;
     }
 
     public double getMaximumBid() {
@@ -170,7 +168,7 @@ public class Task {
             this.status = "Done";
 
         }
-        else if (this.provider != null) {
+        else if (this.providerUsername != null) {
             this.status = "Assigned";
 
         }
@@ -194,9 +192,6 @@ public class Task {
         this.bidList = bidList;
     }
 
-    //TODO: this point on, not really sure what is going on withe the below methods, waiting for more clarification
-
-
     public String getId() {
         // Use for elastic search and cache file.
         return this.id;
@@ -206,7 +201,6 @@ public class Task {
         this.id = id;
     }
 
-
     public Place getLocation() {
         return this.location;
     }
@@ -215,21 +209,21 @@ public class Task {
         this.location = location;
     }
 
-    public void addBidder(Bid bid) {this.bidList.addBid(bid); }
-
-    public void updateBidder(User user, double bid) {}
-
-    public void cancelBidder(User user) {}
-
-
     public void updateTask(){
         // TODO: check if status has changed, update bid list if one was accepted, etc
-
     }
 
     public String toString() {
 
         return this.taskTitle + "\n" + this.description;
     }
+
+    //TODO: this point on, not really sure what is going on with the below methods, waiting for more clarification
+
+    public void addBidder(Bid bid) {this.bidList.addBid(bid); }
+
+    public void updateBidder(User user, double bid) {}
+
+    public void cancelBidder(User user) {}
 
 }
