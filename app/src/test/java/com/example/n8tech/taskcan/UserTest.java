@@ -56,7 +56,7 @@ public class UserTest {
     @Test
     public void testUserAddBidTask() {
         //Tests that it correctly updates its bid tasks
-        User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
+        User user1 = new User("Joe", "joe123", "7355608", "joe@n8tech.com", "123-456-7890");
         Task task1 = new Task();
         Task task2 = new Task();
 
@@ -79,7 +79,7 @@ public class UserTest {
     @Test
     public void testUserAddTask() {
         //Tests that it correctly updates its tasks
-        User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
+        User user1 = new User("Joe", "joe123", "7355608", "joe@n8tech.com", "123-456-7890");
         Task task1 = new Task("Walk my Dog", "Walk Fluffy", user1.getUsername(), "9876541", "Category1");
         Task task2 = new Task("Walk my Cat", "Walk Furry", user1.getUsername(), "134658", "Category2");
 

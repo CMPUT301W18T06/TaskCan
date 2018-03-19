@@ -27,13 +27,13 @@ public class UserListTest {
     // ensure you can add Users to UserList
     public void addUserToUserList(){
         int exceptionCatcher = 0;
-        User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
-        User user3 = new User("Nathan", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro@n8tech.com", "iloveschool", "780-123-0000");
-        User user7 = new User("Jenny", "jenny@n8tech.com", "iloveshopping", "781-113-1001");
+        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user3 = new User("Nathan", "nathan123", "nathan@n8tech.com", "ilovealan", "780-750-5600");
+        User user4 = new User("Matt", "matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex", "alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro123", "caro@n8tech.com", "iloveschool", "780-123-0000");
+        User user7 = new User("Jenny", "jenny123","jenny@n8tech.com", "iloveshopping", "781-113-1001");
         UserList newList = new UserList();
         newList.addUser(user1);
         newList.addUser(user2);
@@ -62,13 +62,13 @@ public class UserListTest {
     @Test
     // ensure you can remove Users from UserList and not Users that aren't in the UserList
     public void removeUserFromUserList(){
-        User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
-        User user3 = new User("Nathan", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro@n8tech.com", "iloveschool", "780-123-0000");
-        User user7 = new User("Jenny", "jenny@n8tech.com", "iloveshopping", "781-113-1001");
+        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user3 = new User("Nathan", "nathan123", "nathan@n8tech.com", "ilovealan", "780-750-5600");
+        User user4 = new User("Matt", "matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex", "alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro123", "caro@n8tech.com", "iloveschool", "780-123-0000");
+        User user7 = new User("Jenny", "jenny123","jenny@n8tech.com", "iloveshopping", "781-113-1001");
         UserList newList = new UserList();
         newList.addUser(user1);
         newList.addUser(user2);
@@ -95,13 +95,13 @@ public class UserListTest {
     // ensure Users are retrieved from UserList in correct order
     public void getUserFromUserList(){
         int exceptionCatcher = 0;
-        User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
-        User user3 = new User("Nathan", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro@n8tech.com", "iloveschool", "780-123-0000");
-        User user7 = new User("Jenny", "jenny@n8tech.com", "iloveshopping", "781-113-1001");
+        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user3 = new User("Nathan", "nathan123", "nathan@n8tech.com", "ilovealan", "780-750-5600");
+        User user4 = new User("Matt", "matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex", "alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro123", "caro@n8tech.com", "iloveschool", "780-123-0000");
+        User user7 = new User("Jenny", "jenny123","jenny@n8tech.com", "iloveshopping", "781-113-1001");
         UserList newList = new UserList();
         newList.addUser(user1);
         newList.addUser(user2);
@@ -144,12 +144,12 @@ public class UserListTest {
     @Test
     // ensures that the getSize() method returns the correct size
     public void getSizeOfUserList() {
-        User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
-        User user3 = new User("Nathan", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro@n8tech.com", "iloveschool", "780-123-0000");
+        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user3 = new User("Nathan", "nathan123", "nathan@n8tech.com", "ilovealan", "780-750-5600");
+        User user4 = new User("Matt", "matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex", "alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro123", "caro@n8tech.com", "iloveschool", "780-123-0000");
         UserList newList = new UserList();
         newList.addUser(user1);
         newList.addUser(user2);
@@ -170,12 +170,12 @@ public class UserListTest {
     @Test
     // ensure Iterator works
     public void testIterator(){
-        User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
-        User user3 = new User("Nathan", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro@n8tech.com", "iloveschool", "780-123-0000");
+        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user3 = new User("Nathan", "nathan123", "nathan@n8tech.com", "ilovealan", "780-750-5600");
+        User user4 = new User("Matt", "matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex", "alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro123", "caro@n8tech.com", "iloveschool", "780-123-0000");
         UserList newList = new UserList();
         newList.addUser(user1);
         newList.addUser(user2);

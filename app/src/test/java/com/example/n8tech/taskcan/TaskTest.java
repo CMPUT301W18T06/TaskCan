@@ -47,25 +47,25 @@ public class TaskTest{
         /*
          * Test basic functionality, being able to set each field and guaranteeing that it is written correctly.
          */
-        User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
-        User user2 = new User("Bill", "1111", "bill@n8tech.com", "098-765-4321");
-        User user3 = new User("Mary", "1234", "mary@n8tech.com", "312-893-8293");
-        Bid bid1 = new Bid(user3, 18.91);
+        User user1 = new User("Joe", "joe123", "7355608", "joe@n8tech.com", "123-456-7890");
+        User user2 = new User("Bill", "bill123", "1111", "bill@n8tech.com", "098-765-4321");
+        User user3 = new User("Mary", "mary123", "1234", "mary@n8tech.com", "312-893-8293");
+        Bid bid1 = new Bid(user3.getUsername(), "1", 18.91);
         Task task1 = new Task();
 
         task1.setTaskTitle("Walk my cat");
         task1.setDescription("Around the block");
-        task1.setOwner(user1.getUsername());
+        task1.setOwnerUsername(user1.getUsername());
         task1.setMaximumBid(20.00);
         task1.setCategory("Pets");
         task1.addBidder(bid1);
-        task1.setProvider(user2.getUsername());
+        task1.setProviderUsername(user2.getUsername());
         //task1.setLocation("Edmonton");
 
         assertEquals(task1.getTaskTitle(), "Walk my cat");
         assertEquals(task1.getDescription(), "Around the block");
-        assertEquals(task1.getOwner(), user1.getUsername());
-        assertEquals(task1.getProvider(), user2.getUsername());
+        assertEquals(task1.getOwnerUsername(), user1.getUsername());
+        assertEquals(task1.getProviderUsername(), user2.getUsername());
         assertEquals(task1.getMaximumBid(), 20.00, 0.00);
         assertEquals(task1.getCategory(), "Pets");
         assertEquals(task1.getBidList().getBid(0), bid1);
@@ -77,10 +77,10 @@ public class TaskTest{
         /*
          * Ensures that when a task with minimal information is added that all other fields are assigned correctly.
          */
-        User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
+        User user1 = new User("Joe", "joe123", "7355608", "joe@n8tech.com", "123-456-7890");
         Task task1 = new Task("Walk my dog", "Walk dog around the block", user1.getUsername(), "1345679", "Category1");
 
-        assertEquals(task1.getProvider(), null);
+        assertEquals(task1.getProviderUsername(), null);
         assertEquals(task1.getMaximumBid(),-1, 0.00);
         assertEquals(task1.getCategory(), "Category1");
         assertEquals(task1.getStatus(), "Requested");
@@ -94,18 +94,18 @@ public class TaskTest{
          * Tests how a bidList will change throughout it's lifetime
          */
 
-        User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
-        User user2 = new User("Bill", "1111", "bill@n8tech.com", "098-765-4321");
-        User user3 = new User("Mary", "1234", "mary@n8tech.com", "312-893-8293");
-        User user4 = new User("Jill", "5678", "jill@n8tech.com", "932-232-6753");
-        User user5 = new User("Tom", "9999", "tom@n8tech.com", "723-999-9999");
-        User user6 = new User("Pam", "1212", "pam@n8tech.com", "000-111-2222");
-        Bid bid1 = new Bid(user1, 23.23);
-        Bid bid2 = new Bid(user2, 15.32);
-        Bid bid3 = new Bid(user3, 12.89);
-        Bid bid4 = new Bid(user4, 67.55);
-        Bid bid5 = new Bid(user5, 54.33);
-        Bid bid6 = new Bid(user6, 17.84);
+        User user1 = new User("Joe", "joe123", "7355608", "joe@n8tech.com", "123-456-7890");
+        User user2 = new User("Bill", "bill123", "1111", "bill@n8tech.com", "098-765-4321");
+        User user3 = new User("Mary", "mary123", "1234", "mary@n8tech.com", "312-893-8293");
+        User user4 = new User("Jill", "jill123", "5678", "jill@n8tech.com", "932-232-6753");
+        User user5 = new User("Tom", "tom123", "9999", "tom@n8tech.com", "723-999-9999");
+        User user6 = new User("Pam", "pam123", "1212", "pam@n8tech.com", "000-111-2222");
+        Bid bid1 = new Bid(user1.getUsername(), "1", 23.23);
+        Bid bid2 = new Bid(user2.getUsername(), "2", 15.32);
+        Bid bid3 = new Bid(user3.getUsername(), "3", 12.89);
+        Bid bid4 = new Bid(user4.getUsername(), "4", 67.55);
+        Bid bid5 = new Bid(user5.getUsername(), "5", 54.33);
+        Bid bid6 = new Bid(user6.getUsername(), "6", 17.84);
 
         ArrayList<User> userList = new ArrayList<User>();
         userList.add(user1);
@@ -138,7 +138,7 @@ public class TaskTest{
             assertEquals(task1.getBidList().getBid(i), bidList.get(i));
         }
 
-        task1.cancelBidder(user3);
+        task1.cancelBidder(user3.getUsername());
         userList.remove(userList.indexOf(user3));
         bidList.remove(bidList.indexOf(bid3));
 
@@ -164,18 +164,18 @@ public class TaskTest{
         /*
          * Test restrictions on adding bids depending on status
          */
-        User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
-        User user2 = new User("Bill", "1111", "bill@n8tech.com", "098-765-4321");
-        User user3 = new User("Mary", "1234", "mary@n8tech.com", "312-893-8293");
-        User user4 = new User("Jill", "5678", "jill@n8tech.com", "932-232-6753");
-        User user5 = new User("Tom", "9999", "tom@n8tech.com", "723-999-9999");
-        User user6 = new User("Pam", "1212", "pam@n8tech.com", "000-111-2222");
-        Bid bid1 = new Bid(user1, 23.23);
-        Bid bid2 = new Bid(user2, 15.32);
-        Bid bid3 = new Bid(user3, 12.89);
-        Bid bid4 = new Bid(user4, 67.55);
-        Bid bid5 = new Bid(user5, 54.33);
-        Bid bid6 = new Bid(user6, 17.84);
+        User user1 = new User("Joe", "joe123", "7355608", "joe@n8tech.com", "123-456-7890");
+        User user2 = new User("Bill", "bill123", "1111", "bill@n8tech.com", "098-765-4321");
+        User user3 = new User("Mary", "mary123", "1234", "mary@n8tech.com", "312-893-8293");
+        User user4 = new User("Jill", "jill123", "5678", "jill@n8tech.com", "932-232-6753");
+        User user5 = new User("Tom", "tom123", "9999", "tom@n8tech.com", "723-999-9999");
+        User user6 = new User("Pam", "pam123", "1212", "pam@n8tech.com", "000-111-2222");
+        Bid bid1 = new Bid(user1.getUsername(), "1", 23.23);
+        Bid bid2 = new Bid(user2.getUsername(), "2", 15.32);
+        Bid bid3 = new Bid(user3.getUsername(), "3", 12.89);
+        Bid bid4 = new Bid(user4.getUsername(), "4", 67.55);
+        Bid bid5 = new Bid(user5.getUsername(), "5", 54.33);
+        Bid bid6 = new Bid(user6.getUsername(), "6", 17.84);
 
         ArrayList<User> userList = new ArrayList<User>();
         userList.add(user1);
@@ -236,16 +236,16 @@ public class TaskTest{
         /*
          * Tests how different members of a task can be overwritten.
          */
-        User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
-        User user2 = new User("Bill", "1111", "bill@n8tech.com", "098-765-4321");
-        User user3 = new User("Mary", "1234", "mary@n8tech.com", "312-893-8293");
-        Bid bid1 = new Bid(user3, 18.91);
+        User user1 = new User("Joe", "joe123", "7355608", "joe@n8tech.com", "123-456-7890");
+        User user2 = new User("Bill", "bill123", "1111", "bill@n8tech.com", "098-765-4321");
+        User user3 = new User("Mary", "mary123", "1234", "mary@n8tech.com", "312-893-8293");
+        Bid bid1 = new Bid(user3.getUsername(), "1", 18.91);
         Task task1 = new Task();
 
         task1.setTaskTitle("Walk my dog");
         task1.setDescription("Around the block");
-        task1.setOwner(user1.getUsername());
-        task1.setProvider(user2.getUsername());
+        task1.setOwnerUsername(user1.getUsername());
+        task1.setProviderUsername(user2.getUsername());
         task1.setMaximumBid(20.00);
         task1.setCategory("Pets");
         task1.addBidder(bid1);
@@ -268,20 +268,20 @@ public class TaskTest{
         assertEquals(task1.getDescription(), "");
 
         //Test that the owner of a task cannot be changed.
-        task1.setOwner(user3.getUsername());
-        assertEquals(task1.getOwner(), user1.getUsername());
+        task1.setOwnerUsername(user3.getUsername());
+        assertEquals(task1.getOwnerUsername(), user1.getUsername());
 
         //Test that the owner cannot be null.
-        task1.setOwner(null);
-        assertEquals(task1.getOwner(), user1.getUsername());
+        task1.setOwnerUsername(null);
+        assertEquals(task1.getOwnerUsername(), user1.getUsername());
 
         //Test that the provider can be changed.
-        task1.setProvider(user3.getUsername());
-        assertEquals(task1.getProvider(), user3);
+        task1.setProviderUsername(user3.getUsername());
+        assertEquals(task1.getProviderUsername(), user3);
 
         //Test that the provider can be null.
-        task1.setProvider(null);
-        assertEquals(task1.getProvider(), null);
+        task1.setProviderUsername(null);
+        assertEquals(task1.getProviderUsername(), null);
 
         //Test that the max bid can be increased.
         task1.setMaximumBid(25.00);
