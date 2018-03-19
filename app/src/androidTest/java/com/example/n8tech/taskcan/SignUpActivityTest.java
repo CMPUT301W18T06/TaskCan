@@ -5,6 +5,7 @@ import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
 
+import com.example.n8tech.taskcan.Views.SearchActivity;
 import com.example.n8tech.taskcan.Views.SignUpActivity;
 
 import com.robotium.solo.Solo;
@@ -26,8 +27,7 @@ public class SignUpActivityTest extends ActivityInstrumentationTestCase2 {
     public void testStart() throws Exception {
         Activity activity = getActivity();
     }
-
-    @Override
+    
     public void setUp() throws Exception {
         super.setUp();
         Instrumentation instrument = getInstrumentation();
@@ -36,7 +36,15 @@ public class SignUpActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testSignUpPage(){
-        // TODO write test cases
+        solo.assertCurrentActivity("Wrong activity", SignUpActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.name_field), "User");
+        solo.enterText((EditText) solo.getView(R.id.username_field), "userName");
+        solo.enterText((EditText) solo.getView(R.id.email_field), "user@n8tech.com");
+        solo.enterText((EditText) solo.getView(R.id.password_field), "Password");
+        solo.enterText((EditText) solo.getView(R.id.phone_field), "780-987-6542");
+        solo.clickOnButton("Register");
+        //assertTrue(solo.waitForActivity("SearchActivity"));
+        assertTrue(solo.waitForActivity(SearchActivity.class));
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
 
+import com.example.n8tech.taskcan.Views.SignInActivity;
 import com.example.n8tech.taskcan.Views.ViewProfileActivity;
 
 import com.robotium.solo.Solo;
@@ -38,6 +39,12 @@ public class ViewProfileActivityTest extends ActivityInstrumentationTestCase2 {
 
     public void testViewProfilePage(){
         // TODO write test cases
+        solo.assertCurrentActivity("Wrong activity", SignInActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.name_field), "testtest");
+        solo.enterText((EditText) solo.getView(R.id.password_field), "password");
+        solo.clickOnButton("Sign In");
+        assertTrue(solo.waitForActivity("SearchActivity"));
+        //solo.click
     }
 
     @Override
