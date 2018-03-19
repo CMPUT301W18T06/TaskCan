@@ -20,6 +20,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
+import com.example.n8tech.taskcan.Models.Task;
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,6 +31,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.apache.commons.lang3.ObjectUtils;
+import org.elasticsearch.common.mvel2.util.NullType;
 
 /**
  * ViewTaskonMapsActivity implements Maps to display the geolocation of a task.
@@ -38,6 +44,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Task task;
+    private User currentUser;
+    private int currentTaskIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +55,16 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        this.currentUser = CurrentUserSingleton.getUser();
+
+        Bundle extras = getIntent().getExtras();
+        currentTaskIndex = extras.getInt("taskIndex");
+        if (currentTaskIndex != -1) {
+            task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);
+        } else {
+            task = new Task();
+        }
 
     }
 
@@ -73,7 +92,7 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
 
     @Override
     protected String getActivityTitle() {
-        return "TaskList Near Me";
+        return "Task Finder";
     }
 
     /**
@@ -89,9 +108,10 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng uofa = new LatLng(53.523, -113.526);
-        mMap.addMarker(new MarkerOptions().position(uofa).title("Marker in University of Alberta"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(uofa, 12.0f));
+        if (task.getLocation() != null) {
+            LatLng taskMarker = task.getLocation().getLatLng();
+            mMap.addMarker(new MarkerOptions().position(taskMarker).title(task.getTaskTitle()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(taskMarker, 10.0f));
+        }
     }
 }

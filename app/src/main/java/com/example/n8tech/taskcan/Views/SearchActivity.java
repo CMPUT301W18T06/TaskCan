@@ -93,7 +93,8 @@ public class SearchActivity extends ActivityHeader {
 
     public void mapButtonClick(View v) {
         Intent intent = new Intent(getApplicationContext(), ViewTaskOnMapsActivity.class);
-        startActivity(intent);
+        intent.putExtra("taskIndex", -1);
+        v.getContext().startActivity(intent);
     }
 
     @Override
