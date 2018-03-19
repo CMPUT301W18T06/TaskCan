@@ -55,6 +55,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:hint="Task Name *"
+                        android:maxLength="30"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -68,6 +69,7 @@
                         android:layout_marginTop="8dp"
                         android:inputType="textMultiLine"
                         android:hint="Task Description"
+                        android:maxLength="300"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/add_task_activity_name_edit_text" />
