@@ -19,6 +19,7 @@ package com.example.n8tech.taskcan.Views;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -105,22 +106,38 @@ public class TaskDetailActivity extends ActivityHeader {
 
 
     public void deleteButtonClick(View v){
-        // remove task from currentusers task list and go back to my task activity
-        UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
-        cacheList.delUser(this.currentUser);
-        currentUser.removeTask(task);
 
+        ElasticsearchController.DeleteTask deleteTask
+                = new ElasticsearchController.DeleteTask();
+        deleteTask.execute(this.task);
 
-        ElasticsearchController.UpdateUser updateUser
-                = new ElasticsearchController.UpdateUser();
-        updateUser.execute(currentUser);
+        String completed = new String();
+        try {
+            completed = deleteTask.get();
+            Log.i("Testing", completed);
+        } catch (Exception e) {
+            Log.i("Error", e.toString());
+        }
 
-        cacheList.addUser(this.currentUser);
-        this.fileIO.saveInFile(getApplicationContext(), cacheList);
+        if(completed.equals("NoNetworkError")) {
+            // remove task from currentusers task list and go back to my task activity
+            UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
+            cacheList.delUser(this.currentUser);
+            currentUser.removeTask(task);
 
-        Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+            ElasticsearchController.UpdateUser updateUser
+                    = new ElasticsearchController.UpdateUser();
+            updateUser.execute(currentUser);
+
+            cacheList.addUser(this.currentUser);
+            this.fileIO.saveInFile(getApplicationContext(), cacheList);
+
+            Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        } else {
+            //add offline functionality
+        }
     }
 
     public void editButtonClick(View view){
