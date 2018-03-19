@@ -19,6 +19,10 @@ package com.example.n8tech.taskcan.Views;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.R;
@@ -37,6 +41,18 @@ public class ViewCategoryActivity extends ActivityHeader {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        GridView categoryGridview = (GridView) findViewById(R.id.activity_view_category_grid);
+        //categoryGridview.setAdapter(new Adapter(this));
+
+        categoryGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                Toast.makeText(ViewCategoryActivity.this, "" + position,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
     @Override
@@ -47,14 +63,14 @@ public class ViewCategoryActivity extends ActivityHeader {
         }
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-    }
+    }*/
 
     @Override
     protected int getLayoutResourceId() {
