@@ -5,21 +5,29 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
+ * BidList contains an iterable ArrayList of Bid objects as well as
+ * methods that check for a specific bidder, return specific bidder indeces
+ * as well the lowest bid on the list based on bidAmount.
  *
- *
- * Created by m_qui on 3/12/2018.
+ * @author CMPUT301W18T06
+ * @see Bid
  */
 
 public class BidList implements Iterable<Bid> {
     private ArrayList<Bid> bids;
 
     /**
-     * 
+     * Creates an instance of BidList creating a new ArrayList of Bids.
      */
     public BidList() {
         this.bids = new ArrayList<Bid>();
     }
 
+    /**
+     * Adds a new bid to the list.
+     * If a bid exists with the same bidder, the bid is updated with the new bid amount.
+     * @param bid Bid to be added to the BidList
+     */
     public void addBid(Bid bid) {
         User bidder = bid.getBidder();
         if (this.bidderExists(bidder)) {
@@ -31,14 +39,26 @@ public class BidList implements Iterable<Bid> {
         }
     }
 
+    /**
+     * @param i integer representing BidList index
+     * @return bid with the corresponding index
+     */
     public Bid getBid(int i) {
         return this.bids.get(i);
     }
 
+    /**
+     * Creates a BidList iterator.
+     */
     public Iterator<Bid> iterator() {
         return new BidsIterator();
     }
 
+    /**
+     * Checks if the bidder has made a bid on the list.
+     * @param bidder task provider that has created a bid
+     * @return true if bidder exists on the list, otherwise false
+     */
     public Boolean bidderExists(User bidder) {
         for (Bid b : this.bids) {
             if(b.getBidder().getEmail().equals(bidder.getEmail()))
@@ -49,6 +69,12 @@ public class BidList implements Iterable<Bid> {
         return false;
     }
 
+    /**
+     * Returns the index of a bid on the list made by the bidder.
+     * @param bidder task provider that has created a bid
+     * @return i BidList index
+     * @throws NoSuchElementException If bidder does not exist in the BidList.
+     */
     public int indexOfBidContaining(User bidder) {
         for (int i = 0; i < this.getSize(); i++) {
             if(getBid(i).getBidder().getEmail().equals(bidder.getEmail()))
@@ -59,10 +85,15 @@ public class BidList implements Iterable<Bid> {
         throw new NoSuchElementException();
     }
 
+    /** @return integer representing list size */
     public int getSize() {
         return this.bids.size();
     }
 
+    /**
+     * Checks for the lowest bid in the list based on bidAmount value.
+     * @return bid
+     */
     public Bid getLowestBid() {
         int lowestBidIndex = 0;
         for (int currentBidIndex = 0; currentBidIndex < this.getSize(); currentBidIndex++) {
@@ -73,6 +104,10 @@ public class BidList implements Iterable<Bid> {
         return this.bids.get(lowestBidIndex);
     }
 
+    /**
+     * Iterator object over BidList.
+     * @throws UnsupportedOperationException If remove() method is called
+     */
     //https://stackoverflow.com/questions/975383/how-can-i-use-the-java-for-each-loop-with-custom-classes
     class BidsIterator implements Iterator<Bid> {
 
