@@ -31,14 +31,13 @@ import io.searchbox.annotations.JestId;
  */
 
 public class Task {
-    final private int MAX_TITLE_NAME_LENGTH = 30;
-    final private int MAX_DESCRIPTION_LENGTH = 300;
 
     private String taskTitle;
     private String description;
     private String ownerUsername;
     private String ownerId;
     private String providerUsername;
+    private String providerId;
     private double maximumBid;
     private double currentBid;
     private String category;
@@ -62,11 +61,6 @@ public class Task {
         this.location = null;
         this.taskCompleted = false;
         this.status = "Requested";
-
-        // TODO create a unique task id. check elastic search to ensure its unique?
-
-        //this.taskId = UUID.randomUUID().toString();
-        //Log.i("uuid for task: ", this.taskId);
     }
 
     /** Creates a Task object with the minimum details as specified by requirements.
@@ -79,13 +73,13 @@ public class Task {
      * @param category category the task belongs to
      */
     public Task(String name, String description, String ownerUsername, String ownerId, String category) {
-        // TODO: length checking for name & description
+
         this.taskTitle = name;
         this.description = description;
         this.ownerUsername = ownerUsername;
         this.ownerId = ownerId;
-
         this.providerUsername = null;
+        this.providerId = null;
         this.maximumBid = -1;
         this.currentBid = -1;
         this.category = category;
@@ -94,19 +88,15 @@ public class Task {
         this.taskCompleted = false;     // ie requested
         this.status = "Requested";
 
-        // TODO create a unique task id. check elastic search to ensure its unique?
-        //this.taskUUID = UUID.randomUUID().toString();
-        //Log.i("uuid for task: ", this.taskUUID);
+    }
+    /** @return true if task has been completed, otherwise false */
+    public boolean getTaskCompleted() {
+        return this.taskCompleted;
     }
 
     /** @param completed true if task has been completed */
     public void setTaskCompleted(boolean completed) {
         if (!this.taskCompleted) this.taskCompleted = completed;
-    }
-
-    /** @return true if task has been completed, otherwise false */
-    public boolean getTaskCompleted() {
-        return this.taskCompleted;
     }
 
     /** @return task name */
@@ -117,11 +107,9 @@ public class Task {
     /**
      * Sets the task name and checks for name length.
      * @param taskTitle name of the task
-     * @throws IllegalArgumentException If task name exceeds 30 characters.
      */
     public void setTaskTitle(String taskTitle) {
-        if (taskTitle.length() <= this.MAX_TITLE_NAME_LENGTH) this.taskTitle = taskTitle;
-        else throw new IllegalArgumentException();
+        this.taskTitle = taskTitle;
     }
 
     /** @return task description */
@@ -132,20 +120,16 @@ public class Task {
     /**
      * Sets the task description and checks for description length.
      * @param description
-     * @throws IllegalArgumentException If task description exceeds 300 characters.
      */
-    public void setDescription(String description) {
-        if (description.length() <= this.MAX_DESCRIPTION_LENGTH) this.description = description;
-        else throw new IllegalArgumentException();
-    }
+    public void setDescription(String description) { this.description = description; }
 
     /** @return username of the task requester */
-    public String getOwner() {
+    public String getOwnerUsername() {
         return this.ownerUsername;
     }
 
     /** @param owner username of the task requester */
-    public void setOwner(String owner) {
+    public void setOwnerUsername(String owner) {
         this.ownerUsername = owner;
     }
 
@@ -156,12 +140,17 @@ public class Task {
     public void setOwnerId(String id) { this.ownerId = id; }
 
     /** @return username of the task provider */
-    public String getProvider() {return this.providerUsername;}
+    public String getProviderUsername() {return this.providerUsername;}
 
     /** @param newProvider username of the task provider */
-    public void setProvider(String newProvider) {
+    public void setProviderUsername(String newProvider) {
         this.providerUsername = newProvider;
+        this.status = "Assigned";
     }
+
+    public String getProviderId() { return this.providerId; }
+
+    public void setProviderId(String providerId) { this.providerId = providerId; }
 
     /** @return maximum bid placed on the task */
     public double getMaximumBid() {
@@ -212,26 +201,7 @@ public class Task {
      * @return task status of completion
      * @throws IllegalStateException If none of these statuses are applicable.
      */
-    public String getStatus() {
-        if (this.getTaskCompleted() || this.status.equals("Completed")) {
-            this.status = "Completed";
-
-        }
-        else if (this.providerUsername != null || this.status.equals("Assigned")) {
-            this.status = "Assigned";
-
-        }
-        else if (this.bidList.getSize() == 0 || this.status.equals("Requested")) {
-            this.status = "Requested";
-        }
-        else if (this.bidList.getSize() > 0) {
-            this.status = "Bidded";
-        }
-        else {
-            throw new IllegalStateException(); //TODO: make sure this is the right exception
-        }
-        return this.status;
-    }
+    public String getStatus() { return this.status; }
 
     /** @return task bid list */
     public BidList getBidList() {
@@ -280,10 +250,10 @@ public class Task {
         }
     }
 
-    /** @param user bidder of bid to be removed from bid list */
-    public void cancelBidder(User user) {
-        if (this.bidList.bidderExists(user)) {
-            int i = this.bidList.indexOfBidContaining(user);
+    /** @param userId bidder of bid to be removed from bid list */
+    public void cancelBidder(String userId) {
+        if (this.bidList.getBidUserIndex(userId) != -1) {
+            int i = this.bidList.getBidUserIndex(userId);
             Bid cancelBid = this.bidList.getBid(i);
             this.bidList.removeBid(cancelBid);
         }

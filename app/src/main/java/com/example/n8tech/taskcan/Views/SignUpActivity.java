@@ -107,7 +107,7 @@ public class SignUpActivity extends AppCompatActivity {
             contact = contact.replace(".", "");
             contact = contact.substring(0, 3) + "-" + contact.substring(3, 6) + "-" + contact.substring(6, contact.length());
 
-            User newUser = new User(name, email, password, contact);
+            User newUser = new User("",name, email, password, contact);
 
             ElasticsearchController.AddUser addUser
                     = new ElasticsearchController.AddUser();
