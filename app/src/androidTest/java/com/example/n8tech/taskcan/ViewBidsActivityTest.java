@@ -17,6 +17,7 @@ import com.robotium.solo.Solo;
  * @author CMPUT301W18T06
  */
 // TODO Fix solo errors
+    // bids not implemented yet
 public class ViewBidsActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
 
