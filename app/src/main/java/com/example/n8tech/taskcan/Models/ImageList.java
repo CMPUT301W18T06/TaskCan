@@ -12,7 +12,7 @@ import java.util.function.Consumer;
  * Created by ahuang on 2018-03-19.
  */
 
-public class ImageList implements Iterable<Image> {
+public class ImageList implements Iterable<Image>{
     private ArrayList<Image> images;
     public ImageList() {
         this.images = new ArrayList<>();
@@ -26,6 +26,9 @@ public class ImageList implements Iterable<Image> {
     }
     public Image getImage(int position) {
         return this.images.get(position);
+    }
+    public ArrayList<Image> getImages() {
+        return this.images;
     }
 
     @NonNull

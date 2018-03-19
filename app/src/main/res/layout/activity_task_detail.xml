@@ -214,6 +214,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/gradient"
+            android:onClick="taskDetailLocationButtonClick"
             android:text="View Location"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/colorWhite"
