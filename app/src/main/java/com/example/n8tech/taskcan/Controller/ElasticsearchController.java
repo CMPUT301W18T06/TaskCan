@@ -305,7 +305,46 @@ public class ElasticsearchController {
             TaskList taskList = new TaskList();
 
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            searchSourceBuilder.query(QueryBuilders.termQuery("description", search_params[0]));
+            searchSourceBuilder.query(QueryBuilders.matchQuery("description", search_params[0]));
+
+            Search search = new Search.Builder(searchSourceBuilder.toString())
+                    .addIndex("cmput301w18t06")
+                    .addType("task")
+                    .build();
+
+            JestResult result;
+
+            try {
+                result = client.execute(search);
+
+                if(result.isSucceeded()) {
+                    tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
+                    for (Task task : tempList) {
+                        taskList.addTask(task);
+                    }
+                }
+                else {
+                    Log.i("Error", "The search query has failed");
+                }
+            } catch (Exception e) {
+                //When no connection this occurs
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return taskList;
+        }
+    }
+
+    public static class SearchCategoryTask extends AsyncTask<String, Void, TaskList> {
+
+        @Override
+        protected TaskList doInBackground(String... search_params) {
+            verifySettings();
+            ArrayList<Task> tempList = new ArrayList<Task>();
+            TaskList taskList = new TaskList();
+
+            SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+            searchSourceBuilder.query(QueryBuilders.matchQuery("category", search_params[0]));
 
             Search search = new Search.Builder(searchSourceBuilder.toString())
                     .addIndex("cmput301w18t06")
