@@ -42,12 +42,14 @@ public class UserTest {
     public void testAddUser() {
         //Tests that a user retains set information.
         User user1 = new User();
-        user1.setUsername("Joe");
+        user1.setProfileName("Joe");
+        user1.setUsername("joe12345");
         user1.setPassword("7355608");
         user1.setEmail("joe@n8tech.com");
         user1.setPhoneNumber("123-456-7890");
 
-        assertEquals(user1.getUsername(), "Joe");
+        assertEquals(user1.getProfileName(), "Joe");
+        assertEquals(user1.getUsername(), "joe12345");
         assertEquals(user1.getPassword(), "7355608");
         assertEquals(user1.getEmail(), "joe@n8tech.com");
         assertEquals(user1.getPhoneNumber(), "123-456-7890");
@@ -56,7 +58,7 @@ public class UserTest {
     @Test
     public void testUserAddBidTask() {
         //Tests that it correctly updates its bid tasks
-        User user1 = new User("Joe", "joe123", "7355608", "joe@n8tech.com", "123-456-7890");
+        User user1 = new User("Joe", "joe12345", "7355608", "joe@n8tech.com", "123-456-7890");
         Task task1 = new Task();
         Task task2 = new Task();
 
@@ -79,7 +81,7 @@ public class UserTest {
     @Test
     public void testUserAddTask() {
         //Tests that it correctly updates its tasks
-        User user1 = new User("Joe", "joe123", "7355608", "joe@n8tech.com", "123-456-7890");
+        User user1 = new User("Joe", "joe12345", "7355608", "joe@n8tech.com", "123-456-7890");
         Task task1 = new Task("Walk my Dog", "Walk Fluffy", user1.getUsername(), "9876541", "Category1");
         Task task2 = new Task("Walk my Cat", "Walk Furry", user1.getUsername(), "134658", "Category2");
 
