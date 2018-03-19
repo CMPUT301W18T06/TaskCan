@@ -210,13 +210,16 @@ public class AddTaskActivity extends ActivityHeader {
 
 
         taskDescription = taskDescriptionEditText.getText().toString();
+        newTask.setDescription(taskDescription);
+
+        /*
         if (taskDescription.length() < 300) {
             // valid
             newTask.setDescription(taskDescription);
         } else {
             Toast.makeText(AddTaskActivity.this, "Description must be less than 300 characters", Toast.LENGTH_LONG).show();
             valid = Boolean.FALSE;
-        }
+        }*/
 
         newTask.setStatus(taskStatus);
 
@@ -225,13 +228,24 @@ public class AddTaskActivity extends ActivityHeader {
 
         maximumBidString = maxBidText.getText().toString();
 
+        if ((!maximumBidString.isEmpty())
+                && ((!maximumBidString.contains(".")) || (maximumBidString.indexOf(".") + 3 >= maximumBidString.length()))){
+
+            maximumBid = Double.parseDouble(maximumBidString);
+
+        } else {
+            Toast.makeText(AddTaskActivity.this, "Please enter CAD in form $x.xx", Toast.LENGTH_LONG).show();
+            valid = Boolean.FALSE;
+        }
+
+        /*
         if (!maximumBidString.equals("")) {
             maximumBid = Double.parseDouble(maximumBidString);
             newTask.setMaximumBid(Math.round(maximumBid * 100.0) / 100.0);                      // round to 2 decimal places
         } else {
             newTask.setMaximumBid(-1);
         }
-
+        */
         // TODO location validity testing
         newTask.setLocation(this.location);
 
@@ -244,8 +258,7 @@ public class AddTaskActivity extends ActivityHeader {
         Log.i("*** desc", newTask.getDescription());
         Log.i("*** maximum bid", Double.toString(newTask.getMaximumBid()));
         Log.i("*** category", newTask.getCategory());
-        //Async task, Id not set by this point, causes crash
-        //Log.i("*** task uuid", newTask.getId());
+
 
         if (valid) {
 

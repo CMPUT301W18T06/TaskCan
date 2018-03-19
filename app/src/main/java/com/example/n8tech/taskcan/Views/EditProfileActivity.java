@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
@@ -47,11 +48,11 @@ public class EditProfileActivity extends ActivityHeader {
     private User currentUser;
     private UserList cacheList;
 
-
-    private EditText displayName;
+    private TextView username;
+    private EditText profileName;
     private EditText email;
     private EditText phoneNumber;
-    private String newDisplayName;
+    private String newProfileName;
     private String newEmail;
     private String newPhoneNumber;
     private FileIO fileIO = new FileIO();
@@ -60,9 +61,10 @@ public class EditProfileActivity extends ActivityHeader {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.displayName = findViewById(R.id.edit_profile_name_display);
+        this.profileName = findViewById(R.id.edit_profile_name_display);
         this.email = findViewById(R.id.edit_profile_email_display);
         this.phoneNumber = findViewById(R.id.edit_profile_phone_display);
+        this.username = findViewById(R.id.edit_profile_username_display);
 
     }
 
@@ -79,23 +81,22 @@ public class EditProfileActivity extends ActivityHeader {
         super.onStart();
 
         this.currentUser = CurrentUserSingleton.getUser();
-
         Log.i("Testing", this.currentUser.getEmail());
 
-        this.displayName.setText(this.currentUser.getUsername());
+        this.profileName.setText(this.currentUser.getProfileName());
         this.email.setText(this.currentUser.getEmail());
         this.phoneNumber.setText(this.currentUser.getPhoneNumber());
+        this.username.setText(this.currentUser.getUsername());
     }
 
     public void saveButtonClick(View v){
-        // TODO validity checking. should they be able to change email/username?
         Boolean valid = Boolean.TRUE;
 
-        newDisplayName = displayName.getText().toString();
+        newProfileName = profileName.getText().toString();
         newEmail = email.getText().toString();
         newPhoneNumber = phoneNumber.getText().toString();
 
-        if (newDisplayName.length() < 1 || !StringUtils.isAlphaSpace(newDisplayName)){
+        if (newProfileName.length() < 1 || !StringUtils.isAlphaSpace(newProfileName)){
             valid = Boolean.FALSE;
             Toast.makeText(EditProfileActivity.this, "Please enter valid name", Toast.LENGTH_LONG).show();
         }
@@ -121,7 +122,8 @@ public class EditProfileActivity extends ActivityHeader {
 
             currentUser.setEmail(newEmail);
             currentUser.setPhoneNumber(newPhoneNumber);
-            currentUser.setUsername(newDisplayName);
+            currentUser.setProfileName(newProfileName);
+
 
             // TODO save with elastic search / in file
             cacheList.addUser(currentUser);
@@ -134,13 +136,9 @@ public class EditProfileActivity extends ActivityHeader {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
-
-
     }
 
     private boolean checkContactValidity() {
-        // TODO check this is actually a phone number, ie #s not letters.
-
         newPhoneNumber = newPhoneNumber.replace("-", "");
         newPhoneNumber = newPhoneNumber.replace(".", "");
 
