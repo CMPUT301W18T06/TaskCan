@@ -44,24 +44,24 @@ public class EditImageSlideShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_image_slide_show);
-        this.slides = new ImageList();
-        this.slides.setImages(getIntent().getExtras().<Image>getParcelableArrayList(AddTaskActivity.IMAGES_KEY));
-        this.initialialSlideShow();
+//        this.slides = new ImageList();
+//        this.slides.setImages(getIntent().getExtras().<Image>getParcelableArrayList(AddTaskActivity.IMAGES_KEY));
+//        this.initialialSlideShow();
     }
-
-    private void initialialSlideShow() {
-        mPager = findViewById(R.id.pager);
-        mPager.setAdapter(new SlideShowAdapter(EditImageSlideShowActivity.this, slides));
-        CircleIndicator indicator = findViewById(R.id.indicator);
-        indicator.setViewPager(mPager);
-
-        new Runnable() {
-            public void run() {
-                if (currentPage == slides.getSize()) {
-                    currentPage = 0;
-                }
-                mPager.setCurrentItem(currentPage++, true);
-            }
-        };
-    }
+//
+//    private void initialialSlideShow() {
+//        mPager = findViewById(R.id.pager);
+//        mPager.setAdapter(new SlideShowAdapter(EditImageSlideShowActivity.this, slides));
+//        CircleIndicator indicator = findViewById(R.id.indicator);
+//        indicator.setViewPager(mPager);
+//
+//        new Runnable() {
+//            public void run() {
+//                if (currentPage == slides.getSize()) {
+//                    currentPage = 0;
+//                }
+//                mPager.setCurrentItem(currentPage++, true);
+//            }
+//        };
+//    }
 }
