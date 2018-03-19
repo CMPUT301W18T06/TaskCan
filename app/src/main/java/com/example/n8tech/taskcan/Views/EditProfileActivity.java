@@ -96,7 +96,7 @@ public class EditProfileActivity extends ActivityHeader {
         newEmail = email.getText().toString();
         newPhoneNumber = phoneNumber.getText().toString();
 
-        if (newProfileName.length() < 1 || !StringUtils.isAlphaSpace(newProfileName)){
+        if (newProfileName.length() < 1 || newProfileName.length() > 50 || !StringUtils.isAlphaSpace(newProfileName)){
             valid = Boolean.FALSE;
             Toast.makeText(EditProfileActivity.this, "Please enter valid name", Toast.LENGTH_LONG).show();
         }
@@ -154,27 +154,6 @@ public class EditProfileActivity extends ActivityHeader {
 
         if (!isProperEmail){
             return false;
-        }
-
-        //Check if email is already taken
-        ElasticsearchController.SearchUser searchUser
-                = new ElasticsearchController.SearchUser();
-        searchUser.execute(email);
-
-        UserList userList = new UserList();
-
-        try {
-            userList = searchUser.get();
-        } catch (Exception e) {
-            Log.i("Error", "Couldn't load users from server");
-            return false;
-        }
-
-        for(User user : userList) {
-            Log.i("testing", user.getId() + user.getEmail());
-            if(user.getEmail().equals(email)) {
-                return false;
-            }
         }
         return true;
     }
