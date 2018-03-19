@@ -37,6 +37,7 @@ public class SearchActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testSearchPage(){
+        I DID THIS ON MY MAC
         // TODO write test cases
     }
 
