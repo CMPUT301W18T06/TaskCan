@@ -118,7 +118,7 @@ public class MyTaskActivity extends ActivityHeader {
         Log.i("Testing", String.valueOf(this.myTaskList.getSize()));
         mAdapter.notifyDataSetChanged();
 
-        Log.i("Testing", this.currentUser.getEmail());
+        // Log.i("Testing", this.currentUser.getEmail());
     }
 
     @Override
