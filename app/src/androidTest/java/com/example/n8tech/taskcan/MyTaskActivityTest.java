@@ -3,7 +3,6 @@ package com.example.n8tech.taskcan;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.EditText;
 
 import com.example.n8tech.taskcan.Views.MyTaskActivity;
 

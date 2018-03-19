@@ -81,8 +81,9 @@ public class EditProfileActivity extends ActivityHeader {
         super.onStart();
 
         this.currentUser = CurrentUserSingleton.getUser();
-        Log.i("Testing", this.currentUser.getEmail());
-
+        if(this.currentUser.getEmail() != null) {
+            Log.i("Testing", this.currentUser.getEmail());
+        }
         this.profileName.setText(this.currentUser.getProfileName());
         this.email.setText(this.currentUser.getEmail());
         this.phoneNumber.setText(this.currentUser.getPhoneNumber());

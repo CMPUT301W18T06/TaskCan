@@ -72,7 +72,9 @@ public class ViewProfileActivity extends ActivityHeader {
 
         this.currentUser = CurrentUserSingleton.getUser();
 
-        Log.i("Testing", currentUser.getEmail());
+        if(currentUser.getEmail() != null) {
+            Log.i("Testing", currentUser.getEmail());
+        }
 
         profileName = findViewById(R.id.view_profile_name_display);
         profileName.setText(currentUser.getProfileName());

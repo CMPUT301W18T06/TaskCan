@@ -70,8 +70,9 @@ public class MyBidActivity extends ActivityHeader {
 
         this.currentUser = CurrentUserSingleton.getUser();
 
-
-        Log.i("Testing", currentUser.getEmail());
+        if(currentUser.getEmail() != null) {
+            Log.i("Testing", currentUser.getEmail());
+        }
     }
 
     @Override

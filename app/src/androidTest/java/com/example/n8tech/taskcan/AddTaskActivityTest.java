@@ -14,6 +14,7 @@ import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Views.AddTaskActivity;
 
+import com.example.n8tech.taskcan.Views.TaskDetailActivity;
 import com.robotium.solo.Solo;
 
 
@@ -85,9 +86,8 @@ public class AddTaskActivityTest extends ActivityInstrumentationTestCase2 {
         solo.clickOnView(solo.getView(TextView.class, 1));
         solo.clickOnButton("Save");
         assertTrue(solo.waitForActivity("MyTaskActivity"));
-        
-        assertTrue(solo.searchText("Task name"));
-        assertTrue(solo.waitForActivity("TaskDetailActivity"));
+
+        solo.assertCurrentActivity("Wrong activity", TaskDetailActivity.class);
 
         solo.clickOnButton("Edit");
         assertTrue(solo.waitForActivity("EditTaskActivity"));
@@ -111,7 +111,7 @@ public class AddTaskActivityTest extends ActivityInstrumentationTestCase2 {
         solo.scrollToTop();
         solo.clickOnView(solo.getView(TextView.class, 1));
         solo.clickOnButton("Cancel");
-        assertTrue(solo.waitForActivity("ViewProfileActivity"));
+        assertTrue(solo.waitForActivity("MyTaskActivity"));
     }
 
     @Override
