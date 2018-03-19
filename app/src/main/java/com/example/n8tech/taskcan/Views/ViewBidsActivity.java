@@ -8,6 +8,11 @@ import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 
+/**
+ * ViewBidsActivity allows the current user to view bids on a task.
+ *
+ * @author CMPUT301W18T06
+ */
 public class ViewBidsActivity extends ActivityHeader {
     private User currentUser;
 

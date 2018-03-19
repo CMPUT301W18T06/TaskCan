@@ -9,14 +9,13 @@ import com.example.n8tech.taskcan.Views.SignInActivity;
 
 import com.robotium.solo.Solo;
 
-import junit.framework.TestCase;
-
-import org.junit.Test;
-
 /**
- * Created by nbelayne on 3/18/18.
+ * Intent testing for SignInActivity class.
+ *
+ * @see com.example.n8tech.taskcan.Views.SignInActivity
+ * @author CMPUT301W18T06
  */
-
+// TODO Fix solo errors
 public class SignInActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
 

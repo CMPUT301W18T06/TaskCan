@@ -38,7 +38,6 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:11.8.0'
     implementation 'com.google.android.gms:play-services-maps:11.8.0'
     compile 'com.jayway.android.robotium:robotium-solo:5.6.3'
-    compile 'com.jayway.android.robotium:robotium-solo:5.6.3'
     implementation 'com.google.android.gms:play-services-places:11.8.0'
     compile 'me.relex:circleindicator:1.2.2@aar'
     implementation 'org.elasticsearch:elasticsearch:1.2.4'

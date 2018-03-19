@@ -27,8 +27,10 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 /**
- * Created by cbinns on 2/22/2018.
- * Edited by msquigle on 2/23/2018.
+ * Unit testing for User class.
+ *
+ * @see User
+ * @author CMPUT301W18T06
  */
 
 public class UserTest {

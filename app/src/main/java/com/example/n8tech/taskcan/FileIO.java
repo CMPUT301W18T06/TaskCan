@@ -35,7 +35,9 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 
 /**
- * Created by cbinns on 2/22/2018.
+ * FileIO handles JSON file storage.
+ *
+ * @author CMPUT301W18T06
  */
 
 public class FileIO {

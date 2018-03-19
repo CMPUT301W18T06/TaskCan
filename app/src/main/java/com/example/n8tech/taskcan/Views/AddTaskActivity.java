@@ -48,6 +48,17 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+/**
+ * AddTaskActivity handles the creation of a new task made by the current user.
+ * It takes in the following inputs from the user:
+ * <ul><li>task name</li>
+ * <li>task description</li>
+ * <li>maximum bid on task</li>
+ * <li>category</li></ul>
+ * It adds a new task to user's My Tasks list.
+ *
+ * @author CMPUT301W18T06
+ */
 
 public class AddTaskActivity extends ActivityHeader {
     private Spinner categorySpinner;

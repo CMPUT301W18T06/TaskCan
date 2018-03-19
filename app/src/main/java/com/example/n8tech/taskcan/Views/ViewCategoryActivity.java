@@ -23,6 +23,14 @@ import android.os.Bundle;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.R;
 
+/**
+ * ViewCategoryActivity allows the user to select task categories
+ * and browse tasks within those categories. This is accessible from SearchActivity.
+ *
+ * @see SearchActivity
+ * @author CMPUT301W18T06
+ */
+
 public class ViewCategoryActivity extends ActivityHeader {
 
     @Override

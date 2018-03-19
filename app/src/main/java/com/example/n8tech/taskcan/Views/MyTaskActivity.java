@@ -47,7 +47,11 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * MyTaskActivity displays the list of tasks made by the current user.
+ *
+ * @author CMPUT301W18T06
+ */
 public class MyTaskActivity extends ActivityHeader {
 
     private TaskList myTaskList = new TaskList();

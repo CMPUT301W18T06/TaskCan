@@ -38,7 +38,18 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
-
+/**
+ * EditTaskActivity allows for changes to be made to task details.
+ * It takes in the following inputs from the user:
+ * <ul><li>task name</li>
+ * <li>task description</li>
+ * <li> task status </li>
+ * <li>maximum bid on task</li>
+ * <li>category</li></ul>
+ * It updates any changes to the task's details.
+ *
+ * @author CMPUT301W18T06
+ */
 public class EditTaskActivity extends ActivityHeader  {
     private Spinner categorySpinner;
     private Spinner taskStatusSpinner;

@@ -19,10 +19,11 @@ import com.google.gson.Gson;
 
 
 /**
- * Header that initializes the Application Bar and Navigation Drawer
+ * ActivityHeader initializes the Application Bar and Navigation Drawer
  * for Activities which require their functionality.
+ *
+ * @author CMPUT301W18T06
  */
-
 //TODO: refactor class name to something that makes more sense in english because EditProfileActivity is NOT a ActivityHeader
 public abstract class ActivityHeader extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;

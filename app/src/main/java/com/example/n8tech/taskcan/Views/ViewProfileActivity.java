@@ -38,6 +38,11 @@ import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * ViewProfileActivity displays the profile details of a user.
+ *
+ * @author CMPUT301W18T06
+ */
 public class ViewProfileActivity extends ActivityHeader {
 
     private TextView displayName;

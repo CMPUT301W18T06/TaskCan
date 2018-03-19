@@ -31,6 +31,17 @@ import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
 import com.example.n8tech.taskcan.Models.User;
 
+/**
+ * SignInActivity handles user log in which sets the current user.
+ * It takes in the following inputs from the user:
+ * <ul><li>username</li><
+ * li>password</li></ul>
+ * It also allows for the user to create an account through the Sign Up button.
+ * A valid user account is needed to use the app.
+ *
+ * @see SignUpActivity
+ * @author CMPUT301W18T06
+ */
 public class SignInActivity extends Activity {
 
     private static final String ERR_MSG = "Your email or password is incorrect.\nIf you don't remember your password... well that sucks!";

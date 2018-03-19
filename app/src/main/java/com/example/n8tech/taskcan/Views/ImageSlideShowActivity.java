@@ -30,6 +30,13 @@ import java.util.List;
 
 import me.relex.circleindicator.CircleIndicator;
 
+/**
+ * ImageSlideShowActivity handles the implementation of an image slider
+ * used for photos related to tasks.
+ *
+ * @author CMPUT301W18T06
+ */
+
 public class ImageSlideShowActivity extends AppCompatActivity {
     private static final String IMAGES_KEY = "ImageSlideShowActivity_IMAGES";
     private int[] images;

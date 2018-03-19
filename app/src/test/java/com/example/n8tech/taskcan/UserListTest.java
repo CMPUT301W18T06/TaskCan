@@ -11,7 +11,10 @@ import java.util.Iterator;
 import static org.junit.Assert.*;
 
 /**
- * Created by nbelayne on 3/19/18.
+ * Unit testing for UserList class.
+ *
+ * @see UserList
+ * @author CMPUT301W18T06
  */
 
 public class UserListTest {
@@ -59,7 +62,6 @@ public class UserListTest {
     @Test
     // ensure you can remove Users from UserList and not Users that aren't in the UserList
     public void removeUserFromUserList(){
-        int exceptionCatcher = 0;
         User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
         User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
         User user3 = new User("Nathan", "nathan@n8tech.com", "ilovealan", "780-750-5600");
@@ -90,7 +92,7 @@ public class UserListTest {
     }
 
     @Test
-    // ensure Users are retrieved from BidList in correct order
+    // ensure Users are retrieved from UserList in correct order
     public void getUserFromUserList(){
         int exceptionCatcher = 0;
         User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
@@ -142,7 +144,6 @@ public class UserListTest {
     @Test
     // ensures that the getSize() method returns the correct size
     public void getSizeOfUserList() {
-        int exceptionCatcher = 0;
         User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
         User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
         User user3 = new User("Nathan", "nathan@n8tech.com", "ilovealan", "780-750-5600");
