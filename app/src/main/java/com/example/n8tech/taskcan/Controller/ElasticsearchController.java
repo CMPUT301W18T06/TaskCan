@@ -255,7 +255,7 @@ public class ElasticsearchController {
             TaskList taskList = new TaskList();
 
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            searchSourceBuilder.query(QueryBuilders.matchQuery("taskTitle", search_params[0]));
+            searchSourceBuilder.query(QueryBuilders.termQuery("description", search_params[0]));
 
             Search search = new Search.Builder(searchSourceBuilder.toString())
                     .addIndex("cmput301w18t06")

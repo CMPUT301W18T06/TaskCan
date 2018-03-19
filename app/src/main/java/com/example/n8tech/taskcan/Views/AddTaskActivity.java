@@ -91,7 +91,7 @@ public class AddTaskActivity extends ActivityHeader {
         super.onCreate(savedInstanceState);
         this.images = new ImageList();
         this.currentUser = CurrentUserSingleton.getUser();
-        Log.i("current user", currentUser.getUsername());
+        //Log.i("current user", currentUser.getUsername());
 
         findViewsByIdAndSetContent();
 
@@ -344,7 +344,9 @@ public class AddTaskActivity extends ActivityHeader {
 
     public void viewImagesOnClick(View view) {
         Intent i = new Intent(AddTaskActivity.this, EditImageSlideShowActivity.class);
-        i.putParcelableArrayListExtra(this.IMAGES_KEY, this.images.getImages());
+        Bundle b = new Bundle();
+        b.putParcelableArrayList(this.IMAGES_KEY, this.images.getImages());
+        i.putExtras(b);
         startActivityForResult(i, this.EDIT_IMAGES_REQUEST_CODE);
     }
 }
