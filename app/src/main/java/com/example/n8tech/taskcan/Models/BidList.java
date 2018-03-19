@@ -40,6 +40,21 @@ public class BidList implements Iterable<Bid> {
     }
 
     /**
+     * @param bid the bid to be removed
+     * @throws IllegalArgumentException If bidder does not exist on the list.
+     */
+    public void removeBid(Bid bid){
+        User bidder = bid.getBidder();
+        if (this.bidderExists(bidder)) {
+            int i = indexOfBidContaining(bidder);
+            this.bids.remove(i);
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    /**
      * @param i integer representing BidList index
      * @return bid with the corresponding index
      */

@@ -76,7 +76,7 @@ public class TaskTest{
          * Ensures that when a task with minimal information is added that all other fields are assigned correctly.
          */
         User user1 = new User("Joe", "7355608", "joe@n8tech.com", "123-456-7890");
-        Task task1 = new Task("Walk my dog", "Around the block", "user1", "Category1");
+        Task task1 = new Task("Walk my dog", "Walk dog around the block", user1.getUsername(), "1345679", "Category1");
 
         assertEquals(task1.getProvider(), null);
         assertEquals(task1.getMaximumBid(),-1, 0.00);

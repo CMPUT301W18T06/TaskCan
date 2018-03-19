@@ -85,7 +85,7 @@
                             android:id="@+id/my_task_activity_list_bid_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="32dp"
+                            android:layout_marginRight="16dp"
                             android:layout_marginTop="88dp"
                             android:text="@string/my_task_activity_current_bid"
                             android:textSize="24sp"
@@ -96,7 +96,7 @@
                             android:id="@+id/my_task_activity_list_titles"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="32dp"
+                            android:layout_marginLeft="16dp"
                             android:layout_marginTop="88dp"
                             android:text="@string/my_task_activity_task"
                             android:textSize="24sp"
@@ -127,8 +127,7 @@
                             android:id="@+id/my_task_activity_list_bid_title2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="32dp"
-                            android:layout_marginRight="32dp"
+                            android:layout_marginRight="16dp"
                             android:layout_marginTop="88dp"
                             android:text="@string/my_task_activity_current_bid"
                             android:textSize="24sp"
@@ -139,7 +138,7 @@
                             android:id="@+id/my_task_activity_list_titles2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="32dp"
+                            android:layout_marginStart="16dp"
                             android:layout_marginTop="88dp"
                             android:text="@string/my_task_activity_task"
                             android:textSize="24sp"
@@ -151,14 +150,13 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginBottom="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="64dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="124dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.51" />
+                            app:layout_constraintTop_toTopOf="parent" />
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
@@ -171,8 +169,7 @@
                             android:id="@+id/my_task_activity_list_bid_title3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="32dp"
-                            android:layout_marginRight="32dp"
+                            android:layout_marginRight="16dp"
                             android:layout_marginTop="88dp"
                             android:text="@string/my_task_activity_current_bid"
                             android:textSize="24sp"
@@ -183,7 +180,7 @@
                             android:id="@+id/my_task_activity_list_titles3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="32dp"
+                            android:layout_marginStart="16dp"
                             android:layout_marginTop="88dp"
                             android:text="@string/my_task_activity_task"
                             android:textSize="24sp"
@@ -195,14 +192,13 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginBottom="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="64dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="124dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.51" />
+                            app:layout_constraintTop_toTopOf="parent" />
                     </android.support.constraint.ConstraintLayout>
                 </FrameLayout>
             </android.support.constraint.ConstraintLayout>
