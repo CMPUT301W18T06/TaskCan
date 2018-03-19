@@ -79,7 +79,6 @@ public class AddTaskActivityTest extends ActivityInstrumentationTestCase2 {
         solo.enterText((EditText) solo.getView(R.id.add_task_activity_name_edit_text), "Task name");
         solo.enterText((EditText) solo.getView(R.id.add_task_activity_task_description_edit_text), "This is what the task does.");
         solo.enterText((EditText) solo.getView(R.id.add_task_activity_money_edit_text), "0.50");
-        solo.enterText((EditText) solo.getView(R.id.add_task_activity_status_edit_text), "Requested");
         View view1 = solo.getView("add_task_activity_category_spinner");
         solo.clickOnView(view1);
         solo.scrollToTop();

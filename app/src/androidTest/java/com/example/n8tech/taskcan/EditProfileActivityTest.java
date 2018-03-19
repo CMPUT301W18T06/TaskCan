@@ -38,7 +38,6 @@ public class EditProfileActivityTest extends ActivityInstrumentationTestCase2{
 
     public void testEditProfilePage(){
         solo.assertCurrentActivity("Wrong activity", EditProfileActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.edit_profile_username_display), "john123");
         solo.enterText((EditText) solo.getView(R.id.edit_profile_name_display), "John");
         solo.enterText((EditText) solo.getView(R.id.edit_profile_email_display), "john@n8tech.com");
         solo.enterText((EditText) solo.getView(R.id.edit_profile_phone_display), "780-555-5555");
