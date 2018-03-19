@@ -35,7 +35,6 @@ import me.relex.circleindicator.CircleIndicator;
  */
 
 public class EditImageSlideShowActivity extends AppCompatActivity {
-    private static final String IMAGES_KEY = "ImageSlideShowActivity_IMAGES";
     private int[] images;
     private ArrayList<Integer> slides;
     private ViewPager mPager;
@@ -44,7 +43,7 @@ public class EditImageSlideShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_image_slide_show);
-        this.images = getIntent().getIntArrayExtra(IMAGES_KEY);
+        this.images = getIntent().getIntArrayExtra(AddTaskActivity.IMAGES_KEY);
         this.initialialSlideShow();
     }
 
