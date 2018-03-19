@@ -23,10 +23,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by cbinns on 2/22/2018.
- * Edited by msquigle on 2/23/2018.
+ * Unit testing for Bid class.
+ *
+ * @see Bid
+ * @author CMPUT301W18T06
  */
-
 public class BidTest {
 
     public BidTest() {

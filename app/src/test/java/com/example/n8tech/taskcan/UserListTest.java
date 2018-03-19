@@ -11,7 +11,10 @@ import java.util.Iterator;
 import static org.junit.Assert.*;
 
 /**
- * Created by nbelayne on 3/19/18.
+ * Unit testing for UserList class.
+ *
+ * @see UserList
+ * @author CMPUT301W18T06
  */
 
 public class UserListTest {

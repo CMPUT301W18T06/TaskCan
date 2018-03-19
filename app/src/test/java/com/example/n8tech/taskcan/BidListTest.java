@@ -12,7 +12,10 @@ import java.util.Iterator;
 import static org.junit.Assert.*;
 
 /**
- * Created by nbelayne on 3/18/18.
+ * Unit testing for BidList class.
+ *
+ * @see BidList
+ * @author CMPUT301W18T06
  */
 
 public class BidListTest {
