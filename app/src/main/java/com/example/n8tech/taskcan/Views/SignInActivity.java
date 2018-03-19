@@ -55,7 +55,7 @@ public class SignInActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        this.username = findViewById(R.id.username_field);
+        this.username = findViewById(R.id.name_field);
         this.password = findViewById(R.id.password_field);
     }
 

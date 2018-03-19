@@ -37,7 +37,7 @@ public class SignInActivityTest extends ActivityInstrumentationTestCase2 {
 
     public void testSignInPage(){
         solo.assertCurrentActivity("Wrong activity", SignInActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.username_field), "admin");
+        solo.enterText((EditText) solo.getView(R.id.name_field), "admin");
         solo.enterText((EditText) solo.getView(R.id.password_field), "admin");
         solo.clickOnButton("Sign In");
 

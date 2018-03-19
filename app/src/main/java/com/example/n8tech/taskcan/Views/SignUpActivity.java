@@ -60,7 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         this.cacheList = this.fileIO.loadFromFile(getApplicationContext());
 
-        this.usernameText = findViewById(R.id.name_field);
+        this.usernameText = findViewById(R.id.username_field);
         this.emailText = findViewById(R.id.email_field);
         this.passwordText = findViewById(R.id.password_field);
         this.phoneNumberText = findViewById(R.id.phone_field);
