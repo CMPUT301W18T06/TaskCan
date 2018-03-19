@@ -30,8 +30,7 @@ public class SignUpActivityTest extends ActivityInstrumentationTestCase2 {
     public void testStart() throws Exception {
         Activity activity = getActivity();
     }
-
-    @Override
+    
     public void setUp() throws Exception {
         super.setUp();
         Instrumentation instrument = getInstrumentation();
@@ -65,6 +64,7 @@ public class SignUpActivityTest extends ActivityInstrumentationTestCase2 {
         solo.enterText((EditText) solo.getView(R.id.phone_field), "780-987-6542");
         solo.clickOnButton("Register");
         assertTrue(solo.waitForActivity("SearchActivity"));
+
     }
 
     @Override
