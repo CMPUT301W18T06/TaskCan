@@ -95,9 +95,9 @@ public class EditProfileActivity extends ActivityHeader {
         newEmail = email.getText().toString();
         newPhoneNumber = phoneNumber.getText().toString();
 
-        if (newDisplayName.length() < 3 || !StringUtils.isAlphaSpace(newDisplayName)){
+        if (newDisplayName.length() < 1 || !StringUtils.isAlphaSpace(newDisplayName)){
             valid = Boolean.FALSE;
-            Toast.makeText(EditProfileActivity.this, "Name must be more than 3 characters", Toast.LENGTH_LONG).show();
+            Toast.makeText(EditProfileActivity.this, "Please enter valid name", Toast.LENGTH_LONG).show();
         }
 
         if (!checkContactValidity()){

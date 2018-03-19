@@ -79,7 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
         String password = this.passwordText.getText().toString();
         String contact = this.phoneNumberText.getText().toString();
 
-        if (name.length() < 3 || !StringUtils.isAlphaSpace(name)) {
+        if (name.length() < 1 || !StringUtils.isAlphaSpace(name)) {
             usernameValid = false;
         }
 

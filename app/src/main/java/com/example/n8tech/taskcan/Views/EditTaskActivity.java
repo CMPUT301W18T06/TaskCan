@@ -26,9 +26,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.n8tech.taskcan.Controller.ElasticsearchController;
+import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
+import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -61,8 +64,11 @@ public class EditTaskActivity extends ActivityHeader  {
     private User currentUser;
     private ArrayAdapter<CharSequence> categorySpinnerAdapter;
     private ArrayAdapter<CharSequence> statusSpinnerAdapter;
+    private FileIO fileIO = new FileIO();
     int PLACE_PICKER_REQUEST = 5;
+    private int currentTaskIndex;
     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
 
 
     @Override
@@ -72,20 +78,15 @@ public class EditTaskActivity extends ActivityHeader  {
         this.currentUser= CurrentUserSingleton.getUser();
         Log.i("current user", currentUser.getUsername());
 
-        findViewsByIdAndSetContent();
 
-
-        // get info from intent
-        Intent detailsIntent = getIntent();
-        Bundle bundle= detailsIntent.getExtras();
-        taskId = (String) bundle.get("task id");
 
         // TODO implement Elastic search here/load from file to get task information then set the editTexts
-        // task =
         //
-
-
-
+        //
+        Bundle extras = getIntent().getExtras();
+        currentTaskIndex = extras.getInt("taskIndex");
+        task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);
+        findViewsByIdAndSetContent();
     }
 
     private void setCategorySpinnerContent() {
@@ -95,7 +96,7 @@ public class EditTaskActivity extends ActivityHeader  {
         categorySpinner.setAdapter(categorySpinnerAdapter);
 
         // set spinner category to be shown on activity
-        spinnerPosition = categorySpinnerAdapter.getPosition("Other");       // TODO:  set item to be task.getCategory() when implemented
+        spinnerPosition = categorySpinnerAdapter.getPosition(task.getCategory());
         categorySpinner.setSelection(spinnerPosition);
     }
 
@@ -106,7 +107,7 @@ public class EditTaskActivity extends ActivityHeader  {
         taskStatusSpinner.setAdapter(statusSpinnerAdapter);
 
         // set spinner category to be shown on activity
-        spinnerPosition = statusSpinnerAdapter.getPosition("Requested");       // TODO:  set item to be task.getStatus() when implemented
+        spinnerPosition = statusSpinnerAdapter.getPosition(task.getStatus());
         taskStatusSpinner.setSelection(spinnerPosition);
     }
 
@@ -117,13 +118,10 @@ public class EditTaskActivity extends ActivityHeader  {
         categorySpinner = (Spinner) findViewById(R.id.edit_task_activity_category_spinner);
         taskStatusSpinner = (Spinner) findViewById(R.id.edit_task_activity_status_spinner);
 
-        // TODO get task information here and set editTexts
-        /*
-        maxBidText.setText(task.getMaximumBid());       // set double to string
+        maxBidText.setText(String.valueOf(task.getMaximumBid()));
         taskNameEditText.setText(task.getTaskTitle());
         taskDescriptionEditText.setText(task.getDescription());
 
-        */
         // set category spinner content and set to task's category
         setCategorySpinnerContent();
         setTaskStatusSpinnerContent();
@@ -143,9 +141,7 @@ public class EditTaskActivity extends ActivityHeader  {
     }
 
     public void editLocationButtonClick(View v) {
-        // TODO: should this be a map page and drop a pin or just entering an address and validating that address ???
-        //Intent intent = new Intent(getApplicationContext(), EditTaskMapActivity.class);
-        //startActivity(intent);
+
         try {
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
         } catch (GooglePlayServicesRepairableException e) {
@@ -226,11 +222,48 @@ public class EditTaskActivity extends ActivityHeader  {
 
         if (valid) {
             // TODO update task in user's task list
-            
-            Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+
+
+            ElasticsearchController.UpdateTask updateTask
+                    = new ElasticsearchController.UpdateTask();
+            updateTask.execute(this.task);
+
+            String completed = new String();
+            try {
+                completed = updateTask.get();
+                Log.i("Testing", completed);
+            } catch (Exception e) {
+                Log.i("Error", e.toString());
+            }
+
+            if (completed == "NoNetworkError") {
+                // add task to current user's myTasks list
+                UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
+                cacheList.delUser(this.currentUser);
+                //currentUser.addTask(newTask);
+                currentUser.replaceTaskAtIndex(currentTaskIndex,task);
+
+                ElasticsearchController.UpdateUser updateUser
+                        = new ElasticsearchController.UpdateUser();
+                updateUser.execute(currentUser);
+
+                cacheList.addUser(this.currentUser);
+                this.fileIO.saveInFile(getApplicationContext(), cacheList);
+
+
+                Intent intent = new Intent(v.getContext(), MyTaskActivity.class);
+                intent.putExtra("taskIndex", currentTaskIndex);         // use this if going back to taskDetails
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                v.getContext().startActivity(intent);
+
+            } else {
+                //save for later when connection is there
+            }
+        } else {
+            //Toast invalid
         }
+
 
 
     }

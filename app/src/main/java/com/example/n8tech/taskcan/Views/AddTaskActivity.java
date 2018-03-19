@@ -15,6 +15,7 @@
  */
 
 package com.example.n8tech.taskcan.Views;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -88,10 +89,6 @@ public class AddTaskActivity extends ActivityHeader {
 
         findViewsByIdAndSetContent();
 
-
-        // TODO implement Elastic search post here/save from file to save task information
-        //
-        //
     }
 
 
@@ -235,7 +232,7 @@ public class AddTaskActivity extends ActivityHeader {
 
         newTask.setOwner(currentUser.getUsername());
         newTask.setOwnerId(currentUser.getId());
-
+        newTask.setCurrentBid(-1);
         // TODO:in file here
 
         Log.i("*** name", newTask.getTaskTitle());

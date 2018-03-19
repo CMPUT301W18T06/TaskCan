@@ -22,9 +22,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.n8tech.taskcan.Controller.ElasticsearchController;
+import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
+import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
 
 import org.w3c.dom.Text;
@@ -45,6 +48,9 @@ public class TaskDetailActivity extends ActivityHeader {
     private TextView taskOwnerUsernameText;
     private TextView taskCurrentBidText;
     private TextView taskMaxBidText;
+    private int currentTaskIndex;
+    private FileIO fileIO = new FileIO();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +58,8 @@ public class TaskDetailActivity extends ActivityHeader {
 
         this.currentUser = CurrentUserSingleton.getUser();
 
-        // TODO get task that was clicked and set fields
         Bundle extras = getIntent().getExtras();
-        int currentTaskIndex = extras.getInt("taskIndex");
+        currentTaskIndex = extras.getInt("taskIndex");
         task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);
         findByIdsAndSetTextFields();
 
@@ -71,27 +76,55 @@ public class TaskDetailActivity extends ActivityHeader {
 
         // set based on current task
         taskNameText.setText(task.getTaskTitle());
-        taskDescriptionText.setText(task.getDescription());
+
+        // if empty task description set text to none
+        if (task.getDescription().equals("")){
+            taskDescriptionText.setText("None");
+        } else {
+            taskDescriptionText.setText(task.getDescription());
+        }
+
         taskStatusText.setText(task.getStatus());
         taskCategoryText.setText(task.getCategory());
         taskOwnerUsernameText.setText(currentUser.getUsername());
-        taskCurrentBidText.setText(Double.toString(task.getCurrentBid()));
-        taskMaxBidText.setText(Double.toString(task.getMaximumBid()));
+        if (task.getCurrentBid() == -1){
+            taskCurrentBidText.setText("None");
+        }else{
+            taskCurrentBidText.setText(Double.toString(task.getCurrentBid()));
+        }
+        if (task.getMaximumBid() == -1){
+            taskMaxBidText.setText("None");
+        } else {
+            taskMaxBidText.setText(Double.toString(task.getMaximumBid()));
+
+        }
 
     }
 
 
     public void deleteButtonClick(View v){
         // remove task from currentusers task list and go back to my task activity
+        UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
+        cacheList.delUser(this.currentUser);
         currentUser.removeTask(task);
+
+
+        ElasticsearchController.UpdateUser updateUser
+                = new ElasticsearchController.UpdateUser();
+        updateUser.execute(currentUser);
+
+        cacheList.addUser(this.currentUser);
+        this.fileIO.saveInFile(getApplicationContext(), cacheList);
+
         Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
-    public void editButtonClick(View v){
-        Intent intent = new Intent(getApplicationContext(), EditTaskActivity.class);
-        startActivity(intent);
+    public void editButtonClick(View view){
+        Intent intent = new Intent(view.getContext(), EditTaskActivity.class);
+        intent.putExtra("taskIndex", currentTaskIndex);
+        view.getContext().startActivity(intent);
     }
 
     public void viewBidsButtonClick(View v){
