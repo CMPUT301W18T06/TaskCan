@@ -28,6 +28,7 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
 
+
         <TextView
             android:id="@+id/task_details_activity_name_label"
             android:layout_width="wrap_content"
@@ -143,16 +144,18 @@
 
         <TextView
             android:id="@+id/task_details_activity_task_description_text"
-            android:layout_width="225dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="(task description)"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/task_details_activity_description_label"
-            app:layout_constraintTop_toBottomOf="@+id/task_details_activity_max_bid_text" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/task_details_activity_description_label" />
 
         <TextView
             android:id="@+id/task_details_activity_max_bid_text"
@@ -301,6 +304,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/menu_toolbar"
             app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal" />
+
+
 
     </android.support.constraint.ConstraintLayout>
 
