@@ -15,7 +15,7 @@ import com.robotium.solo.Solo;
 /**
  * Intent testing for EditTaskActivity class.
  *
- * @see EditTaskActivity
+ * @see com.example.n8tech.taskcan.Views.EditTaskActivity
  * @author CMPUT301W18T06
  */
 public class EditTaskActivityTest extends ActivityInstrumentationTestCase2 {

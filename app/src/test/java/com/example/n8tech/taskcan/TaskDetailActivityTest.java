@@ -7,22 +7,22 @@ import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
 
-import com.example.n8tech.taskcan.Views.MyTaskActivity;
+import com.example.n8tech.taskcan.Views.TaskDetailActivity;
 
 import com.robotium.solo.Solo;
 
 
 /**
- * Intent testing for MyTaskActivity class.
+ * Intent testing for TaskDetailActivity class.
  *
- * @see com.example.n8tech.taskcan.Views.MyTaskActivity
+ * @see com.example.n8tech.taskcan.Views.TaskDetailActivity
  * @author CMPUT301W18T06
  */
-public class MyTaskActivityTest extends ActivityInstrumentationTestCase2 {
+public class TaskDetailActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
 
-    public MyTaskActivityTest() {
-        super(com.example.n8tech.taskcan.Views.MyBidActivity.class);
+    public TaskDetailActivityTest() {
+        super(com.example.n8tech.taskcan.Views.TaskDetailActivity.class);
     }
 
     public void testStart() throws Exception {
@@ -37,7 +37,7 @@ public class MyTaskActivityTest extends ActivityInstrumentationTestCase2 {
         solo = new Solo(instrument, activity);
     }
 
-    public void testMyTasksPage(){
+    public void testTaskDetailsPage(){
         // TODO write test cases
     }
 
@@ -45,5 +45,4 @@ public class MyTaskActivityTest extends ActivityInstrumentationTestCase2 {
     public void tearDown() throws Exception{
         solo.finishOpenedActivities();
     }
-
 }

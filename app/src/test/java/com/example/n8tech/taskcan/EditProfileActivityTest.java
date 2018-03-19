@@ -13,7 +13,7 @@ import com.robotium.solo.Solo;
 /**
  * Intent testing for EditProfileActivity class.
  *
- * @see EditProfileActivity
+ * @see com.example.n8tech.taskcan.Views.EditProfileActivity
  * @author CMPUT301W18T06
  */
 public class EditProfileActivityTest extends ActivityInstrumentationTestCase2{

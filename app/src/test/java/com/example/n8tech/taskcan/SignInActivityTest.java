@@ -12,7 +12,7 @@ import com.robotium.solo.Solo;
 /**
  * Intent testing for SignInActivity class.
  *
- * @see SignInActivity
+ * @see com.example.n8tech.taskcan.Views.SignInActivity
  * @author CMPUT301W18T06
  */
 // TODO Fix solo errors

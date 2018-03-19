@@ -15,7 +15,7 @@ import com.robotium.solo.Solo;
 /**
  * Intent testing for MyBidActivity class.
  *
- * @see MyBidActivity
+ * @see com.example.n8tech.taskcan.Views.MyBidActivity
  * @author CMPUT301W18T06
  */
 public class MyBidActivityTest extends ActivityInstrumentationTestCase2 {

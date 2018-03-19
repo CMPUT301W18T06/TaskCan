@@ -15,7 +15,7 @@ import com.robotium.solo.Solo;
 /**
  * Intent testing for AddTaskActivity class.
  *
- * @see AddTaskActivity
+ * @see com.example.n8tech.taskcan.Views.AddTaskActivity
  * @author CMPUT301W18T06
  */
 public class AddTaskActivityTest extends ActivityInstrumentationTestCase2 {
