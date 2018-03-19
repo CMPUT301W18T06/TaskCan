@@ -311,19 +311,11 @@ public class AddTaskActivity extends ActivityHeader {
                 e.printStackTrace();
             }
             Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+            Image image = new Image(bitmap);
             // check img size
             if (this.sizeOf(bitmap) < R.integer.IMAGE_MAX_BYTE_SIZE) {
-                // bitmap to int[]
-                int x = bitmap.getWidth();
-                int y = bitmap.getHeight();
-                int[] image = new int[x * y];
-                bitmap.getPixels(image, 0, x, 0, 0, x, y);
-                Image image_array = new Image();
-                for (int i = 0; i < image.length; i++)
-                    image_array.setImagePixel(image[i]);
                 // store
-                images.addImage(image_array);
-
+                images.addImage(image);
                 Toast.makeText(AddTaskActivity.this, "Image added successfully!",
                         Toast.LENGTH_LONG).show();
             }
@@ -347,7 +339,7 @@ public class AddTaskActivity extends ActivityHeader {
 
     public void viewImagesOnClick(View view) {
         Intent i = new Intent(AddTaskActivity.this, EditImageSlideShowActivity.class);
-        i.putExtra(this.IMAGES_KEY, this.images.getImages());
+        i.putParcelableArrayListExtra(this.IMAGES_KEY, this.images.getImages());
         startActivityForResult(i, this.EDIT_IMAGES_REQUEST_CODE);
     }
 }
