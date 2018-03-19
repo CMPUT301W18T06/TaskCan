@@ -160,13 +160,13 @@ public class AddTaskActivity extends ActivityHeader {
                 dialog.cancel();
             }
         });
-        builder.setNegativeButton(negative, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePicture, 1);
-            }
-        });
+//        builder.setNegativeButton(negative, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(takePicture, 1);
+//            }
+//        });
         builder.create().show();
     }
 
@@ -343,11 +343,17 @@ public class AddTaskActivity extends ActivityHeader {
     }
 
     public void viewImagesOnClick(View view) {
-        Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
-        Bundle b = new Bundle();
-        b.putParcelableArrayList(this.IMAGES_KEY, this.images.getImages());
-        i.putExtras(b);
-        startActivityForResult(i, this.EDIT_IMAGES_REQUEST_CODE);
-        view.getContext().startActivity(i);
+        if (this.images.getSize() == 0) {
+            Toast.makeText(AddTaskActivity.this, "No images to show! Please add image!",
+                    Toast.LENGTH_LONG).show();
+        }
+        else {
+            Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
+            Bundle b = new Bundle();
+            b.putParcelableArrayList(this.IMAGES_KEY, this.images.getImages());
+            i.putExtras(b);
+            startActivityForResult(i, this.EDIT_IMAGES_REQUEST_CODE);
+            view.getContext().startActivity(i);
+        }
     }
 }
