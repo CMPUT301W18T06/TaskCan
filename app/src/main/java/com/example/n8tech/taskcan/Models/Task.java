@@ -160,19 +160,24 @@ public class Task {
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        if(this.status == "Completed"){
+            this.status = status == "Completed" ? "Completed" : this.status;
+        }
+        else{
+            this.status = status;
+        }
     }
 
     public String getStatus() {
-        if (this.getTaskCompleted()) {
-            this.status = "Done";
+        if (this.getTaskCompleted() || this.status.equals("Completed")) {
+            this.status = "Completed";
 
         }
-        else if (this.providerUsername != null) {
+        else if (this.providerUsername != null || this.status.equals("Assigned")) {
             this.status = "Assigned";
 
         }
-        else if (this.bidList.getSize() == 0) {
+        else if (this.bidList.getSize() == 0 || this.status.equals("Requested")) {
             this.status = "Requested";
         }
         else if (this.bidList.getSize() > 0) {
@@ -209,21 +214,31 @@ public class Task {
         this.location = location;
     }
 
-    public void updateTask(){
-        // TODO: check if status has changed, update bid list if one was accepted, etc
-    }
-
     public String toString() {
 
         return this.taskTitle + "\n" + this.description;
     }
 
+    public void addBidder(Bid bid) {
+        if(this.getStatus().equals("Assigned") || this.getStatus().equals("Completed")){}
+        else{
+            this.bidList.addBid(bid);
+        }
+    }
+
+    public void cancelBidder(User user) {
+        if (this.bidList.bidderExists(user)) {
+            int i = this.bidList.indexOfBidContaining(user);
+            Bid cancelBid = this.bidList.getBid(i);
+            this.bidList.removeBid(cancelBid);
+        }
+    }
+
+    public void updateTask(){
+        // TODO: check if status has changed, update bid list if one was accepted, etc
+    }
+
     //TODO: this point on, not really sure what is going on with the below methods, waiting for more clarification
-
-    public void addBidder(Bid bid) {this.bidList.addBid(bid); }
-
     public void updateBidder(User user, double bid) {}
-
-    public void cancelBidder(User user) {}
 
 }
