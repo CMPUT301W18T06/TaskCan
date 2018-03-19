@@ -16,11 +16,17 @@ import java.util.ArrayList;
 
 public class Image implements Parcelable {
     private Bitmap image;
-
+    private int[] image_array;
     /**
      * Creates an instance of Image, creating a new ArrayList.
      */
-    public Image(Bitmap bitmap) { this.image = bitmap; }
+    public Image(Bitmap bitmap) {
+        this.image = bitmap;
+        int x = bitmap.getWidth();
+        int y = bitmap.getHeight();
+        this.image_array = new int[x * y];
+        bitmap.getPixels(this.image_array, 0, x, 0, 0, x, y);
+    }
 
     protected Image(Parcel in) {
         this.image = in.readParcelable(Bitmap.class.getClassLoader());
@@ -41,6 +47,10 @@ public class Image implements Parcelable {
     /** @param image an ArrayList of integers */
     public void setImage(Bitmap image) {
         this.image = image;
+        int x = this.image.getWidth();
+        int y = this.image.getHeight();
+        this.image_array = new int[x * y];
+        this.image.getPixels(this.image_array, 0, x, 0, 0, x, y);
     }
 
     /** @return an ArrayList of integers representing pixel values */

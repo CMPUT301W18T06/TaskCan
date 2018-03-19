@@ -45,6 +45,7 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -78,7 +79,7 @@ public class AddTaskActivity extends ActivityHeader {
     private TextView taskStatusText;
     private int spinnerPosition;
     private User currentUser;
-    private Place location;
+    private LatLng location;
     private ArrayAdapter<CharSequence> categorySpinnerAdapter;
     private ImageList images;
     private FileIO fileIO = new FileIO();
@@ -159,13 +160,13 @@ public class AddTaskActivity extends ActivityHeader {
                 dialog.cancel();
             }
         });
-        builder.setNegativeButton(negative, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePicture, 1);
-            }
-        });
+//        builder.setNegativeButton(negative, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(takePicture, 1);
+//            }
+//        });
         builder.create().show();
     }
 
@@ -330,8 +331,8 @@ public class AddTaskActivity extends ActivityHeader {
             }
         } else if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
-                this.location = PlacePicker.getPlace(this, imageReturnedIntent);
-                String toastMsg = String.format("Place: %s", this.location.getName());
+                this.location = PlacePicker.getPlace(this, imageReturnedIntent).getLatLng();
+                String toastMsg = String.format("Place: %s", PlacePicker.getPlace(this, imageReturnedIntent).getName());
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
             }
         }
@@ -342,11 +343,17 @@ public class AddTaskActivity extends ActivityHeader {
     }
 
     public void viewImagesOnClick(View view) {
-        Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
-        Bundle b = new Bundle();
-        b.putParcelableArrayList(this.IMAGES_KEY, this.images.getImages());
-        i.putExtras(b);
-        startActivityForResult(i, this.EDIT_IMAGES_REQUEST_CODE);
-        view.getContext().startActivity(i);
+        if (this.images.getSize() == 0) {
+            Toast.makeText(AddTaskActivity.this, "No images to show! Please add image!",
+                    Toast.LENGTH_LONG).show();
+        }
+        else {
+            Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
+            Bundle b = new Bundle();
+            b.putParcelableArrayList(this.IMAGES_KEY, this.images.getImages());
+            i.putExtras(b);
+            startActivityForResult(i, this.EDIT_IMAGES_REQUEST_CODE);
+            view.getContext().startActivity(i);
+        }
     }
 }
