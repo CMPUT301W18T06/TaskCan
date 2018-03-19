@@ -1,9 +1,7 @@
 package com.example.n8tech.taskcan;
 
-import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.TaskList;
-import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.Models.User;
 
 import org.junit.Test;
@@ -180,7 +178,7 @@ public class TaskListTest {
     }
 
     @Test
-    //
+    // ensure that tasks can be replaced in a TaskList
     public void replaceTask(){
         int exceptionCatcher = 0;
         User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
@@ -240,7 +238,6 @@ public class TaskListTest {
     @Test
     // ensures that the getSize() method returns the correct size
     public void getSizeOfTaskList() {
-        int exceptionCatcher = 0;
         User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
         User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
         User user3 = new User("Nathan", "nathan@n8tech.com", "ilovealan", "780-750-5600");
