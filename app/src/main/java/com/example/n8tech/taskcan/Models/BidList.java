@@ -26,6 +26,17 @@ public class BidList implements Iterable<Bid> {
         }
     }
 
+    public void removeBid(Bid bid){
+        User bidder = bid.getBidder();
+        if (this.bidderExists(bidder)) {
+            int i = indexOfBidContaining(bidder);
+            this.bids.remove(i);
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
+    }
+
     public Bid getBid(int i) {
         return this.bids.get(i);
     }
