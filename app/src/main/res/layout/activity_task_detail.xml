@@ -211,7 +211,7 @@
             android:id="@+id/task_details_activity_location_button"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/gradient"
@@ -219,7 +219,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/task_details_activity_view_images_button"
+            app:layout_constraintBottom_toTopOf="@+id/task_details_activity_view_bids_button"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/task_details_activity_category_text" />
 
@@ -227,6 +227,7 @@
             android:id="@+id/task_details_activity_view_images_button"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/gradient"
@@ -234,6 +235,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/task_details_activity_view_bids_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/task_details_activity_category_text" />
 
