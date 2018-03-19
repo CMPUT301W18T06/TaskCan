@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.Models.User;
-import com.example.n8tech.taskcan.Models.UserList
+import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.Views.SignUpActivity;
 
 import com.robotium.solo.Solo;

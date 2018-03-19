@@ -19,9 +19,12 @@ package com.example.n8tech.taskcan.Views;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.n8tech.taskcan.Controller.SearchResultRecyclerAdapter;
 import com.example.n8tech.taskcan.Controller.TaskViewRecyclerAdapter;
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
@@ -34,11 +37,34 @@ import com.example.n8tech.taskcan.R;
 public class ResultActivity extends ActivityHeader {
     private TaskList resultTaskList = new TaskList();
     private User currentUser;
-    private TaskViewRecyclerAdapter mAdapter;
+    private SearchResultRecyclerAdapter mAdapter;
+    private TaskList myTaskList = new TaskList();
+    private RecyclerView ResultRecyclerView;
+    private RecyclerView.LayoutManager ResultLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        ResultRecyclerView = findViewById(R.id.activity_result_result_recyclerview);
+
+        this.currentUser = CurrentUserSingleton.getUser();
+        this.myTaskList = this.currentUser.getMyTaskList();
+
+        ResultRecyclerView.setHasFixedSize(true);
+
+        ResultLayoutManager = new LinearLayoutManager(this);
+
+        ResultRecyclerView.setLayoutManager(ResultLayoutManager);
+
+        mAdapter = new SearchResultRecyclerAdapter(myTaskList);
+        ResultRecyclerView.setAdapter(mAdapter);
+
     }
 
     @Override

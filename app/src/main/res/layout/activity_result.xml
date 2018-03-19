@@ -51,8 +51,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
 
-        <ListView
-            android:id="@+id/activity_result_result_list"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_result_result_recyclerview"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
