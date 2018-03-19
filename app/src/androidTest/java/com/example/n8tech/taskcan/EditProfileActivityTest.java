@@ -43,7 +43,7 @@ public class EditProfileActivityTest extends ActivityInstrumentationTestCase2{
         solo.enterText((EditText) solo.getView(R.id.edit_profile_email_display), "john@n8tech.com");
         solo.enterText((EditText) solo.getView(R.id.edit_profile_phone_display), "780-555-5555");
         solo.clickOnButton("Save");
-        assertTrue(solo.waitForActivity("MyTaskActivity"));
+        assertTrue(solo.waitForActivity("ViewProfileActivity"));
     }
 
     @Override
