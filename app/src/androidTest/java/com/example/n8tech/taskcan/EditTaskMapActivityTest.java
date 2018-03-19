@@ -38,6 +38,7 @@ public class EditTaskMapActivityTest extends ActivityInstrumentationTestCase2 {
 
     public void testEditTaskMapPage(){
         // TODO write test cases
+        // location services not implemented yet
     }
 
     @Override

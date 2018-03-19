@@ -38,13 +38,11 @@ public class ViewProfileActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testViewProfilePage(){
-        // TODO write test cases
-        solo.assertCurrentActivity("Wrong activity", SignInActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.name_field), "testtest");
-        solo.enterText((EditText) solo.getView(R.id.password_field), "password");
-        solo.clickOnButton("Sign In");
-        assertTrue(solo.waitForActivity("SearchActivity"));
-        //solo.click
+        solo.assertCurrentActivity("Wrong activity", ViewProfileActivity.class);
+        solo.clickOnButton("Edit Profile");
+        assertTrue(solo.waitForActivity("EditProfileActivity"));
+        solo.goBack();
+        assertTrue(solo.waitForActivity("ViewProfileActivity"));
     }
 
     @Override
