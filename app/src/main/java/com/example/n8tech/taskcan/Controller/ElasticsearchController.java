@@ -23,12 +23,15 @@ import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 
 /**
- * Created by m_qui on 3/11/2018.
+ * ElasticsearchController encapsulates all methods and fields related to ElasticSearch implementation.
+ *
+ * @author CMPUT301W18T06
  */
 
 public class ElasticsearchController {
 
     private static JestDroidClient client;
+
 
     public static class AddUser extends AsyncTask<User, Void, String> {
 

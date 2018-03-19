@@ -35,6 +35,16 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.regex.*;
 
+/**
+ * SignUpActivity allows for the user to create an account.
+ * It takes in the following inputs from the user:
+ * <ul><li>username</li>
+ * <li>password</li>
+ * <li>email address</li>
+ * <li>phone number</li></ul>
+ * It creates a unique user profile with the provided details.
+ * A valid account is needed to use the app.
+ */
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText usernameText;

@@ -10,8 +10,11 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 
 /**
- * Created by AlanJ on 2018-03-17.
+ * SlideShowAdapter represents an image slider to be used for photos.
+ *
  * https://www.androidtutorialpoint.com/basics/android-image-slider-tutorial/
+ *
+ * @author CMPUT301W18T06
  */
 
 public class SlideShowAdapter extends PagerAdapter {

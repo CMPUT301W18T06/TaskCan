@@ -33,7 +33,16 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.regex.Pattern;
 
-
+/**
+ * EditProfileActivity allows for changes to be made to user profile details.
+ * It takes in the following inputs from the user:
+ * <ul><li>display name</li>
+ * <li>email address</li>
+ * <li>phone number</li></ul>
+ * It updates any changes to the current user's profile.
+ *
+ * @author CMPUT301W18T06
+ */
 public class EditProfileActivity extends ActivityHeader {
     private User currentUser;
     private UserList cacheList;

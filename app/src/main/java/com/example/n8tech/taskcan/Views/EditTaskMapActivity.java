@@ -34,6 +34,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * EditTaskMapActivity handles Maps implementation related to the geolocation of tasks.
+ *
+ * @author CMPUT301W18T06
+ */
+
 public class EditTaskMapActivity extends ActivityHeader implements OnMapReadyCallback {
 
     private GoogleMap mMap;

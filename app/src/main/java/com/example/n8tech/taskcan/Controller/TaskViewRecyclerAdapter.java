@@ -18,9 +18,14 @@ import com.example.n8tech.taskcan.Views.SearchActivity;
 import com.example.n8tech.taskcan.Views.TaskDetailActivity;
 
 /**
+ * TaskViewRecyclerAdapter represents a suitable view for task lists.
+ *
  * https://developer.android.com/guide/topics/ui/layout/recyclerview.html#java
  * https://www.androidhive.info/2016/01/android-working-with-recycler-view/
+ *
+ * @author CMPUT301W18T06
  */
+
 
 public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecyclerAdapter.ViewHolder> {
     private TaskList taskList;

@@ -22,6 +22,11 @@ import android.os.Bundle;
 
 import com.example.n8tech.taskcan.R;
 
+/** SearchActivity displays results from the current user's task search query.
+ *
+ * @see SearchActivity
+ * @author CMPUT301W18T06
+ */
 public class ResultActivity extends ActivityHeader {
 
     @Override

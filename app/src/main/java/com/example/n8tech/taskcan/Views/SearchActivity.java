@@ -39,7 +39,13 @@ import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-
+/**
+ * SearchActivity allows for the current user to search for requested tasks.
+ * It takes in a text input from the current user in the Search field.
+ * It also allows the user to browse through categories.
+ *
+ * @author CMPUT301W18T06
+ */
 public class SearchActivity extends ActivityHeader {
 
     public static final String SEARCH_MESSAGE = "com.example.n8tech.taskcan.SEARCH_MESSAGE";

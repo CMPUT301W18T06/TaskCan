@@ -29,6 +29,12 @@ import com.example.n8tech.taskcan.R;
 
 import org.w3c.dom.Text;
 
+/**
+ * TaskDetailActivity displays the details of a specific task
+ * and allows for the current user to place a bid.
+ *
+ * @author CMPUT301W18T06
+ */
 public class TaskDetailActivity extends ActivityHeader {
     private User currentUser;
     private Task task;

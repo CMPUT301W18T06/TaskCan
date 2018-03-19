@@ -29,6 +29,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * ViewTaskonMapsActivity implements Maps to display the geolocation of a task.
+ *
+ * @see EditTaskMapActivity
+ * @author CMPUT301W18T06
+ */
 public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReadyCallback {
 
     private GoogleMap mMap;

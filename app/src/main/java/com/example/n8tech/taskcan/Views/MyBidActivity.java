@@ -36,6 +36,12 @@ import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * MyBidActivity displays the list of tasks containing pending
+ * or assigned bids made by the current user.
+ *
+ * @author CMPUT301W18T06
+ */
 public class MyBidActivity extends ActivityHeader {
     private User currentUser;
 
