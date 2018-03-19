@@ -288,7 +288,7 @@ public class Task {
             this.bidList.removeBid(cancelBid);
         }
     }
-    
+
     /**
      * Checks if task status has changed and updates the task details.
      */

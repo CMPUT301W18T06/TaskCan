@@ -22,9 +22,11 @@ import java.util.InvalidPropertiesFormatException;
 import io.searchbox.annotations.JestId;
 
 /**
- * A User is a Task Requester and or Task provider.
- * This class stores profile information and
- * the user's task's information.
+ * A User is a Task Requester and/or Task Provider.
+ * This class stores profile information, user's task's information and related methods.
+ *
+ * @author CMPUT301W18T06
+ * @see TaskList
  */
 
 public class User {

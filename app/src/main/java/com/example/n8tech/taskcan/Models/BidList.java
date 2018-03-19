@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 /**
  * BidList contains an iterable ArrayList of Bid objects as well as
  * methods that check for a specific bidder, return specific bidder indeces
- * as well the lowest bid on the list based on bidAmount.
+ * and the lowest bid on the list based on bid amount.
  *
  * @author CMPUT301W18T06
  * @see Bid
@@ -17,7 +17,7 @@ public class BidList implements Iterable<Bid> {
     private ArrayList<Bid> bids;
 
     /**
-     * Creates an instance of BidList creating a new ArrayList of Bids.
+     * Creates an instance of BidList, creating a new ArrayList of Bids.
      */
     public BidList() {
         this.bids = new ArrayList<Bid>();
@@ -62,9 +62,7 @@ public class BidList implements Iterable<Bid> {
         return this.bids.get(i);
     }
 
-    /**
-     * Creates a BidList iterator.
-     */
+    /** Creates a BidList iterator. */
     public Iterator<Bid> iterator() {
         return new BidsIterator();
     }
