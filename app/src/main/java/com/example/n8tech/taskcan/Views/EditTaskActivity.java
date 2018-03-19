@@ -37,6 +37,7 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Locale;
 
@@ -64,6 +65,8 @@ public class EditTaskActivity extends ActivityHeader  {
     private EditText taskDescriptionEditText;
     private int spinnerPosition;
     private User currentUser;
+    private LatLng newLocation;
+    private LatLng location;
     private ArrayAdapter<CharSequence> categorySpinnerAdapter;
     private ArrayAdapter<CharSequence> statusSpinnerAdapter;
     private FileIO fileIO = new FileIO();
@@ -89,6 +92,8 @@ public class EditTaskActivity extends ActivityHeader  {
         currentTaskIndex = extras.getInt("taskIndex");
         task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);
         findViewsByIdAndSetContent();
+
+        newLocation = task.getLocation();
     }
 
     private void setCategorySpinnerContent() {
@@ -162,8 +167,8 @@ public class EditTaskActivity extends ActivityHeader  {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Place place = PlacePicker.getPlace(this, data);
-                String toastMsg = String.format("Place: %s", place.getName());
+                this.newLocation = PlacePicker.getPlace(this, data).getLatLng();
+                String toastMsg = String.format("Place: %s", PlacePicker.getPlace(this, data).getName());
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
             }
         }
@@ -176,7 +181,6 @@ public class EditTaskActivity extends ActivityHeader  {
         String maximumBidString;
         String category;
         String taskStatus;
-        String location;            // TODO how to store location?
         boolean valid = Boolean.TRUE;
 
 
@@ -215,8 +219,7 @@ public class EditTaskActivity extends ActivityHeader  {
             task.setMaximumBid(-1);
         }
 
-        // TODO location validity testing
-        //newTask.setLocation(?);
+        task.setLocation(newLocation);
 
         Log.i("*** name", task.getTaskTitle());
         Log.i("*** desc", task.getDescription());
