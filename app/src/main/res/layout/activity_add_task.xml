@@ -151,7 +151,6 @@
                         android:id="@+id/add_task_activity_add_photos_button"
                         android:layout_width="160dp"
                         android:layout_height="47dp"
-                        android:layout_marginEnd="8dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:background="@drawable/gradient"
@@ -160,7 +159,6 @@
                         android:textAppearance="@style/TextAppearance.AppCompat"
                         android:textColor="@color/colorWhite"
                         android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/add_task_activity_view_images_button"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/add_task_activity_category_spinner" />
 
