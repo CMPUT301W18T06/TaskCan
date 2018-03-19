@@ -109,12 +109,14 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         if (profileNameValid && usernameValid && emailValid && passwordValid && phoneNumberValid) {
-            //
+
+            Log.i("Testing", "in here");
             contact = contact.replace("-", "");
             contact = contact.replace(".", "");
             contact = contact.substring(0, 3) + "-" + contact.substring(3, 6) + "-" + contact.substring(6, contact.length());
-
+            Log.i("Testing", profileName);
             User newUser = new User(profileName, username, email, password, contact);
+            Log.i("Testing", newUser.getProfileName());
 
             ElasticsearchController.AddUser addUser
                     = new ElasticsearchController.AddUser();
@@ -167,9 +169,10 @@ public class SignUpActivity extends AppCompatActivity {
 
     private boolean checkUsernameValidity(String username) {
 
-        if(username.length() < 8 || username.length() > 50) {
+        if(username.length() < 8 || username.length() > 50 || !StringUtils.isAlphanumeric(username)) {
             return false;
         }
+
         //Check if email is already taken
         ElasticsearchController.SearchUser searchUser
                 = new ElasticsearchController.SearchUser();
