@@ -32,6 +32,8 @@ import com.example.n8tech.taskcan.R;
 
 import org.w3c.dom.Text;
 
+import java.util.Locale;
+
 /**
  * TaskDetailActivity displays the details of a specific task
  * and allows for the current user to place a bid.
@@ -87,18 +89,18 @@ public class TaskDetailActivity extends ActivityHeader {
         taskStatusText.setText(task.getStatus());
         taskCategoryText.setText(task.getCategory());
         taskOwnerUsernameText.setText(currentUser.getUsername());
+
         if (task.getCurrentBid() == -1){
             taskCurrentBidText.setText("None");
         }else{
-            taskCurrentBidText.setText(Double.toString(task.getCurrentBid()));
+            taskCurrentBidText.setText(String.format(Locale.CANADA,"%.2f", task.getCurrentBid()));
         }
+
         if (task.getMaximumBid() == -1){
             taskMaxBidText.setText("None");
         } else {
-            taskMaxBidText.setText(Double.toString(task.getMaximumBid()));
-
+            taskMaxBidText.setText(String.format(Locale.CANADA,"%.2f", task.getMaximumBid()));
         }
-
     }
 
 

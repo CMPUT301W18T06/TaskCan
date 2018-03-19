@@ -38,6 +38,8 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
+import java.util.Locale;
+
 /**
  * EditTaskActivity allows for changes to be made to task details.
  * It takes in the following inputs from the user:
@@ -118,7 +120,13 @@ public class EditTaskActivity extends ActivityHeader  {
         categorySpinner = (Spinner) findViewById(R.id.edit_task_activity_category_spinner);
         taskStatusSpinner = (Spinner) findViewById(R.id.edit_task_activity_status_spinner);
 
-        maxBidText.setText(String.valueOf(task.getMaximumBid()));
+        if (task.getMaximumBid() == -1){
+            maxBidText.setText("");
+        }else{
+            maxBidText.setText(String.format(Locale.CANADA,"%.2f", task.getMaximumBid()));
+
+        }
+
         taskNameEditText.setText(task.getTaskTitle());
         taskDescriptionEditText.setText(task.getDescription());
 

@@ -49,6 +49,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * AddTaskActivity handles the creation of a new task made by the current user.
@@ -107,7 +108,9 @@ public class AddTaskActivity extends ActivityHeader {
 
         taskNameEditText.setText("");
         taskDescriptionEditText.setText("");
-        taskStatusText.setText("Requested");            // TODO set to task.getStatus()
+        taskStatusText.setText("Requested");
+        maxBidText.setText("");
+
 
         // set category spinner content and set to task's category
         SetCategorySpinnerContent("Other");
@@ -168,9 +171,6 @@ public class AddTaskActivity extends ActivityHeader {
 
     // https://developers.google.com/places/android-api/placepicker
     public void editLocationButtonClick(View v) {
-        // TODO: should this be a map page and drop a pin or just entering an address and validating that address ???
-        //Intent intent = new Intent(getApplicationContext(), EditTaskMapActivity.class);
-        //startActivity(intent);
         try {
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
         } catch (GooglePlayServicesRepairableException e) {
@@ -211,16 +211,6 @@ public class AddTaskActivity extends ActivityHeader {
 
         taskDescription = taskDescriptionEditText.getText().toString();
         newTask.setDescription(taskDescription);
-
-        /*
-        if (taskDescription.length() < 300) {
-            // valid
-            newTask.setDescription(taskDescription);
-        } else {
-            Toast.makeText(AddTaskActivity.this, "Description must be less than 300 characters", Toast.LENGTH_LONG).show();
-            valid = Boolean.FALSE;
-        }*/
-
         newTask.setStatus(taskStatus);
 
         category = categorySpinner.getSelectedItem().toString();
@@ -228,13 +218,14 @@ public class AddTaskActivity extends ActivityHeader {
 
         maximumBidString = maxBidText.getText().toString();
 
-        if ((!maximumBidString.isEmpty())
-                && ((!maximumBidString.contains(".")) || (maximumBidString.indexOf(".") + 3 >= maximumBidString.length()))){
-
+        if (maximumBidString.equals("")){
+            newTask.setMaximumBid(-1);
+        }
+        else if ((!maximumBidString.contains(".")) || (maximumBidString.indexOf(".") + 3 >= maximumBidString.length())){
             maximumBid = Double.parseDouble(maximumBidString);
-
+            newTask.setMaximumBid(maximumBid);
         } else {
-            Toast.makeText(AddTaskActivity.this, "Please enter CAD in form $x.xx", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddTaskActivity.this, "Please enter valid CAD", Toast.LENGTH_LONG).show();
             valid = Boolean.FALSE;
         }
 
@@ -246,6 +237,7 @@ public class AddTaskActivity extends ActivityHeader {
             newTask.setMaximumBid(-1);
         }
         */
+
         // TODO location validity testing
         newTask.setLocation(this.location);
 
