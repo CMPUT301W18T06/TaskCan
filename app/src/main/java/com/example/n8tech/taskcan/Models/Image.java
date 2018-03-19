@@ -20,9 +20,7 @@ public class Image implements Parcelable {
     /**
      * Creates an instance of Image, creating a new ArrayList.
      */
-    public Image(Bitmap bitmap) {
-        this.image = bitmap;
-    }
+    public Image(Bitmap bitmap) { this.image = bitmap; }
 
     protected Image(Parcel in) {
         this.image = in.readParcelable(Bitmap.class.getClassLoader());
