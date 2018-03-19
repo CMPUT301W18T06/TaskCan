@@ -74,6 +74,7 @@ public class AddTaskActivityTest extends ActivityInstrumentationTestCase2 {
         }
     }
 
+    // intent testing for TaskDetailActivity
     public void testTaskDetailsPage(){
         solo.assertCurrentActivity("Wrong activity", AddTaskActivity.class);
         solo.enterText((EditText) solo.getView(R.id.add_task_activity_name_edit_text), "Task name");
@@ -87,8 +88,22 @@ public class AddTaskActivityTest extends ActivityInstrumentationTestCase2 {
         solo.clickOnButton("Save");
         assertTrue(solo.waitForActivity("MyTaskActivity"));
 
+        solo.clickInList(0);
+        assertTrue(solo.searchText("Task name"));
+        assertTrue(solo.waitForActivity("TaskDetailActivity"));
+
         solo.clickOnButton("Edit");
-        assertTrue(solo.waitForActivity("ViewProfileActivity"));
+        assertTrue(solo.waitForActivity("EditTaskActivity"));
+
+        solo.clickOnButton("View Location");
+        assertTrue(solo.waitForActivity("ViewTaskOnMapsActivity"));
+        solo.goBack();
+
+        solo.clickOnButton("Delete");
+        assertTrue(solo.waitForActivity("MyTaskActivity"));
+        assertFalse(solo.searchText("Task name"));
+
+
 
     }
 
@@ -103,6 +118,8 @@ public class AddTaskActivityTest extends ActivityInstrumentationTestCase2 {
         solo.clickOnView(solo.getView(TextView.class, 1));
         solo.clickOnButton("Cancel");
         assertTrue(solo.waitForActivity("ViewProfileActivity"));
+
+
     }
 
     @Override

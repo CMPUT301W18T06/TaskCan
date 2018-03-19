@@ -37,7 +37,11 @@ public class ViewProfileActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testViewProfilePage(){
-        // TODO write test cases
+        solo.assertCurrentActivity("Wrong activity", ViewProfileActivity.class);
+        solo.clickOnButton("Edit Profile");
+        assertTrue(solo.waitForActivity("EditProfileActivity"));
+        solo.goBack();
+        assertTrue(solo.waitForActivity("ViewProfileActivity"));
     }
 
     @Override

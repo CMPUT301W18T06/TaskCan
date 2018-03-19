@@ -16,7 +16,6 @@ import com.robotium.solo.Solo;
  * @see com.example.n8tech.taskcan.Views.ViewTaskOnMapsActivity
  * @author CMPUT301W18T06
  */
-// TODO Fix solo errors
 public class ViewTaskOnMapsActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
 
@@ -38,6 +37,7 @@ public class ViewTaskOnMapsActivityTest extends ActivityInstrumentationTestCase2
 
     public void testViewTaskOnMapsPage(){
         // TODO write test cases
+        // geolocation not yet implemented
     }
 
     @Override

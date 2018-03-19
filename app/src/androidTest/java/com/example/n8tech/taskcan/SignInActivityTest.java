@@ -23,16 +23,15 @@ public class SignInActivityTest extends ActivityInstrumentationTestCase2 {
         super(com.example.n8tech.taskcan.Views.SignInActivity.class);
     }
 
-//    public void testStart() throws Exception {
-//        Activity activity = getActivity();
-//    }
+    public void testStart() throws Exception {
+        Activity activity = getActivity();
+   }
 
     public void setUp() throws Exception {
-//        super.setUp();
-//        Instrumentation instrument = getInstrumentation();
-//        Activity activity = getActivity();
-//        solo = new Solo(instrument, activity);
-        solo = new Solo(getInstrumentation(), getActivity());
+        super.setUp();
+        Instrumentation instrument = getInstrumentation();
+        Activity activity = getActivity();
+        solo = new Solo(instrument, activity);
     }
 
     public void testSignInPage(){
