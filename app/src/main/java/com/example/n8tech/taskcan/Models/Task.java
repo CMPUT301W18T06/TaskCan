@@ -151,7 +151,7 @@ public class Task {
     /** @return task provider ID */
     public String getProviderId() { return this.providerId; }
 
-    /** @param providerID user ID of the task provider */
+    /** @param providerId user ID of the task provider */
     public void setProviderId(String providerId) { this.providerId = providerId; }
 
     /** @return maximum bid placed on the task */
