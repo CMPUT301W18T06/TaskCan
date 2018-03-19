@@ -37,6 +37,10 @@ public class ImageList implements Iterable<Image>{
         this.images.set(position, image);
     }
 
+    public void setImages(ArrayList<Image> images) {
+        this.images = images;
+    }
+
     /** @return position integer representing Image position in the list */
     public Image getImage(int position) {
         return this.images.get(position);

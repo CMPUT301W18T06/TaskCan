@@ -21,6 +21,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.n8tech.taskcan.Controller.SlideShowAdapter;
+import com.example.n8tech.taskcan.Models.Image;
+import com.example.n8tech.taskcan.Models.ImageList;
 import com.example.n8tech.taskcan.R;
 
 import java.util.ArrayList;
@@ -36,22 +38,18 @@ import me.relex.circleindicator.CircleIndicator;
 
 public class ViewImageSlideShowActivity extends AppCompatActivity {
     private static final String IMAGES_KEY = "ImageSlideShowActivity_IMAGES";
-    private int[] images;
-    private ArrayList<Integer> slides;
+    private ImageList slides;
     private ViewPager mPager;
     private int currentPage = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_image_slide_show);
-        this.images = getIntent().getIntArrayExtra(IMAGES_KEY);
+        this.slides.setImages(getIntent().<Image>getParcelableArrayListExtra(IMAGES_KEY));
         this.initialialSlideShow();
     }
 
     private void initialialSlideShow() {
-        for (int i = 0; i < images.length; i++) {
-            this.slides.add(images[i]);
-        }
         mPager = findViewById(R.id.pager);
         mPager.setAdapter(new SlideShowAdapter(ViewImageSlideShowActivity.this, slides));
         CircleIndicator indicator = findViewById(R.id.indicator);
@@ -59,7 +57,7 @@ public class ViewImageSlideShowActivity extends AppCompatActivity {
 
         new Runnable() {
             public void run() {
-                if (currentPage == images.length) {
+                if (currentPage == slides.getSize()) {
                     currentPage = 0;
                 }
                 mPager.setCurrentItem(currentPage++, true);

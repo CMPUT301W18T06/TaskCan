@@ -37,6 +37,7 @@ public class SearchActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testSearchPage(){
+        I DID THIS ON MY MAC
         // TODO write test cases
         solo.assertCurrentActivity("Wrong activity", SearchActivity.class);
         solo.enterText((EditText) solo.getView(R.id.name_field), "testtest");

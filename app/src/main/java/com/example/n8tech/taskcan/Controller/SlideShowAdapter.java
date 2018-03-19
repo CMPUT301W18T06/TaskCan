@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.n8tech.taskcan.Models.ImageList;
+import com.example.n8tech.taskcan.R;
+
 import java.util.ArrayList;
 
 /**
@@ -18,25 +21,37 @@ import java.util.ArrayList;
  */
 
 public class SlideShowAdapter extends PagerAdapter {
-    private ArrayList<Integer> slides;
+    private ImageList images;
     private LayoutInflater inflater;
     private Context context;
 
     public SlideShowAdapter(Context context) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
-        this.slides = new ArrayList<>();
+        this.images = new ImageList();
     }
 
-    public SlideShowAdapter(Context context, ArrayList<Integer> slides) {
+    public SlideShowAdapter(Context context, ImageList images) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
-        this.slides = slides;
+        this.images = images;
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup view, int position) {
+        View myImageLayout = this.inflater.inflate(R.layout.slide, view, false);
+        ImageView myImage = (ImageView) myImageLayout
+                .findViewById(R.id.image);
+//        myImage.setImageURI(slides.get(position));
+        myImage.setImageBitmap(this.images.getImage(position).getImage());
+//        myImage.setImageResource(slides.get(position));
+        view.addView(myImageLayout, 0);
+        return myImageLayout;
     }
 
     @Override
     public int getCount() {
-        return this.slides.size();
+        return this.images.getSize();
     }
 
     @Override
