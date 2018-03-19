@@ -70,17 +70,6 @@ public class SignInActivity extends Activity {
         String usernameText = this.username.getText().toString();
         String passwordText = this.password.getText().toString();
 
-        if(usernameText.equals("admin") && passwordText.equals("admin")) {
-            //Admin entry remove eventually
-            User admin = new User("admin", "admin", "admin@n8tech.com", "admin", "7801234567");
-
-            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-            startActivity(intent);
-            CurrentUserSingleton.setUser(admin);
-
-            return;
-        }
-
         Boolean offlineValid = false;
         Boolean onlineValid = false;
         User offlineUser = null;

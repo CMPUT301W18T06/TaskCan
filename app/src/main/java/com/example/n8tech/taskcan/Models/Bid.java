@@ -54,7 +54,7 @@ public class Bid {
         this.bidAmount = bidAmount;
     }
 
-    /** @return bidUsername */
+    /** @return bidUsername username of the bidder */
     public String getBidUsername() {
         return this.bidUsername;
     }

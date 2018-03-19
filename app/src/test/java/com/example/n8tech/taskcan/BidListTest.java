@@ -28,23 +28,23 @@ public class BidListTest {
     // ensure you can add Bids to BidList using both Bid constructors &  every bid needs a defined User
     public void addBidToBidList(){
         int exceptionCatcher = 0;
-        User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
-        User user3 = new User("Nathan", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro@n8tech.com", "iloveschool", "780-123-0000");
-        User user7 = new User("Jenny", "jenny@n8tech.com", "iloveshopping", "781-113-1001");
-        Bid bid1 = new Bid(user1, 1.00);
-        Bid bid2 = new Bid(user2, 12.00);
-        Bid bid3 = new Bid(user3, 14.80);
-        Bid bid4 = new Bid(user4, 17.68);
-        Bid bid5 = new Bid(user5, 159.47);
+        User user1 = new User("Joe", "joe123",  "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan","alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user3 = new User("Nathan","nathan23", "nathan@n8tech.com", "ilovealan", "780-750-5600");
+        User user4 = new User("Matt","matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex","alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro123","caro@n8tech.com", "iloveschool", "780-123-0000");
+        User user7 = new User("Jenny", "jenny123","jenny@n8tech.com", "iloveshopping", "781-113-1001");
+        Bid bid1 = new Bid(user1.getUsername(), "1",  1.00);
+        Bid bid2 = new Bid(user2.getUsername(), "2",12.00);
+        Bid bid3 = new Bid(user3.getUsername(), "3",14.80);
+        Bid bid4 = new Bid(user4.getUsername(), "4", 17.68);
+        Bid bid5 = new Bid(user5.getUsername(), "5",159.47);
         Bid bid6 = new Bid();
-        bid6.setBidder(user6);
+        bid6.setBidUsername(user6.getUsername());
         Bid bid7 = new Bid();
         bid7.setBidAmount(100.00);
-        bid7.setBidder(user7);
+        bid7.setBidUsername(user7.getUsername());
         Bid bid8 = new Bid();
         bid8.setBidAmount(300.00);
         BidList newList = new BidList();
@@ -85,18 +85,18 @@ public class BidListTest {
     // ensure you can remove Bids from BidList and not Bids that aren't in the BidList
     public void removeBidFromBidList(){
         int exceptionCatcher = 0;
-        User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
-        User user3 = new User("Nathan", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro@n8tech.com", "iloveschool", "780-123-0000");
-        Bid bid1 = new Bid(user1, 1.00);
-        Bid bid2 = new Bid(user2, 12.00);
-        Bid bid3 = new Bid(user3, 14.80);
-        Bid bid4 = new Bid(user4, 17.68);
-        Bid bid5 = new Bid(user5, 159.47);
-        Bid bid6 = new Bid(user6, 0.05);
+        User user1 = new User("Joe", "joe123",  "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan","alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user3 = new User("Nathan","nathan23", "nathan@n8tech.com", "ilovealan", "780-750-5600");
+        User user4 = new User("Matt","matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex","alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro123","caro@n8tech.com", "iloveschool", "780-123-0000");
+        Bid bid1 = new Bid(user1.getUsername(), "1", 1.00);
+        Bid bid2 = new Bid(user2.getUsername(),"2", 12.00);
+        Bid bid3 = new Bid(user3.getUsername(),"3", 14.80);
+        Bid bid4 = new Bid(user4.getUsername(),"4", 17.68);
+        Bid bid5 = new Bid(user5.getUsername(),"5", 159.47);
+        Bid bid6 = new Bid(user6.getUsername(),"6", 0.05);
         BidList newList = new BidList();
         newList.addBid(bid1);
         newList.addBid(bid2);
@@ -124,18 +124,18 @@ public class BidListTest {
     // ensure Bid's are retrieved from BidList in correct order
     public void getBidFromBidList(){
         int exceptionCatcher = 0;
-        User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
-        User user3 = new User("Nathan", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro@n8tech.com", "iloveschool", "780-123-0000");
-        Bid bid1 = new Bid(user1, 1.00);
-        Bid bid2 = new Bid(user2, 12.00);
-        Bid bid3 = new Bid(user3, 14.80);
-        Bid bid4 = new Bid(user4, 17.68);
-        Bid bid5 = new Bid(user5, 159.47);
-        Bid bid6 = new Bid(user6, 0.05);
+        User user1 = new User("Joe", "joe123",  "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan","alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user3 = new User("Nathan","nathan23", "nathan@n8tech.com", "ilovealan", "780-750-5600");
+        User user4 = new User("Matt","matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex","alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro123","caro@n8tech.com", "iloveschool", "780-123-0000");
+        Bid bid1 = new Bid(user1.getUsername(), "1", 1.00);
+        Bid bid2 = new Bid(user2.getUsername(),"2", 12.00);
+        Bid bid3 = new Bid(user3.getUsername(),"3", 14.80);
+        Bid bid4 = new Bid(user4.getUsername(),"4", 17.68);
+        Bid bid5 = new Bid(user5.getUsername(),"5", 159.47);
+        Bid bid6 = new Bid(user6.getUsername(),"6", 0.05);
         BidList newList = new BidList();
         newList.addBid(bid1);
         newList.addBid(bid3);
@@ -172,18 +172,18 @@ public class BidListTest {
     // ensures that the getSize() method returns the correct size
     public void getSizeOfBidList() {
         int exceptionCatcher = 0;
-        User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
-        User user3 = new User("Nathan", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro@n8tech.com", "iloveschool", "780-123-0000");
-        Bid bid1 = new Bid(user1, 1.00);
-        Bid bid2 = new Bid(user2, 12.00);
-        Bid bid3 = new Bid(user3, 14.80);
-        Bid bid4 = new Bid(user4, 17.68);
-        Bid bid5 = new Bid(user5, 159.47);
-        Bid bid6 = new Bid(user6, 0.05);
+        User user1 = new User("Joe", "joe123",  "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan","alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user3 = new User("Nathan","nathan23", "nathan@n8tech.com", "ilovealan", "780-750-5600");
+        User user4 = new User("Matt","matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex","alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro123","caro@n8tech.com", "iloveschool", "780-123-0000");
+        Bid bid1 = new Bid(user1.getUsername(), "1", 1.00);
+        Bid bid2 = new Bid(user2.getUsername(),"2", 12.00);
+        Bid bid3 = new Bid(user3.getUsername(),"3", 14.80);
+        Bid bid4 = new Bid(user4.getUsername(),"4", 17.68);
+        Bid bid5 = new Bid(user5.getUsername(),"5", 159.47);
+        Bid bid6 = new Bid(user6.getUsername(),"6", 0.05);
         BidList newList = new BidList();
         newList.addBid(bid1);
         newList.addBid(bid2);
@@ -213,20 +213,22 @@ public class BidListTest {
     @Test
     // ensure getLowestBid() method can extract the correct lowest bid
     public void getLowestBidFromBidList () {
-        User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
-        User user3 = new User("Nathan", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro@n8tech.com", "iloveschool", "780-123-0000");
-        User user7 = new User("Jenny", "jenny@n8tech.com", "iloveshopping", "781-113-1001");
-        Bid bid1 = new Bid(user1, 1.00);
-        Bid bid2 = new Bid(user2, 22.00);
-        Bid bid3 = new Bid(user3, 14.80);
-        Bid bid4 = new Bid(user4, 17.68);
-        Bid bid5 = new Bid(user5, 159.47);
-        Bid bid6 = new Bid(user6, 300.00);
-        Bid bid7 = new Bid(user7, 0.10);
+        User user1 = new User("Joe", "joe123",  "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan","alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user3 = new User("Nathan","nathan23", "nathan@n8tech.com", "ilovealan", "780-750-5600");
+        User user4 = new User("Matt","matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex","alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro123","caro@n8tech.com", "iloveschool", "780-123-0000");
+        User user7 = new User("Jenny", "jenny123","jenny@n8tech.com", "iloveshopping", "781-113-1001");
+
+        Bid bid1 = new Bid(user1.getUsername(), "1", 1.00);
+        Bid bid2 = new Bid(user2.getUsername(),"2", 12.00);
+        Bid bid3 = new Bid(user3.getUsername(),"3", 14.80);
+        Bid bid4 = new Bid(user4.getUsername(),"4", 17.68);
+        Bid bid5 = new Bid(user5.getUsername(),"5", 159.47);
+        Bid bid6 = new Bid(user6.getUsername(),"6", 0.05);
+        Bid bid7 = new Bid(user7.getUsername(), "7", 0.10);
+
         BidList newList = new BidList();
         newList.addBid(bid1);
         newList.addBid(bid2);
@@ -247,18 +249,18 @@ public class BidListTest {
     @Test
     // ensure Iterator works
     public void testIterator(){
-        User user1 = new User("Joe", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan@n8tech.com", "ilovenate", "780-980-5623");
-        User user3 = new User("Nathan", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro@n8tech.com", "iloveschool", "780-123-0000");
-        Bid bid1 = new Bid(user1, 1.00);
-        Bid bid2 = new Bid(user2, 22.00);
-        Bid bid3 = new Bid(user3, 14.80);
-        Bid bid4 = new Bid(user4, 17.68);
-        Bid bid5 = new Bid(user5, 159.47);
-        Bid bid6 = new Bid(user6, 300.00);
+        User user1 = new User("Joe", "joe123",  "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan","alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user3 = new User("Nathan","nathan23", "nathan@n8tech.com", "ilovealan", "780-750-5600");
+        User user4 = new User("Matt","matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex","alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro123","caro@n8tech.com", "iloveschool", "780-123-0000");
+        Bid bid1 = new Bid(user1.getUsername(), "1", 1.00);
+        Bid bid2 = new Bid(user2.getUsername(),"2", 12.00);
+        Bid bid3 = new Bid(user3.getUsername(),"3", 14.80);
+        Bid bid4 = new Bid(user4.getUsername(),"4", 17.68);
+        Bid bid5 = new Bid(user5.getUsername(),"5", 159.47);
+        Bid bid6 = new Bid(user6.getUsername(),"6", 0.05);
         BidList newList = new BidList();
         newList.addBid(bid1);
         newList.addBid(bid2);
