@@ -43,6 +43,7 @@ public class Task {
     private String category;
     private BidList bidList;
     private Place location;            // TODO change to geolocation variable
+    private ImageList imageList;
     private boolean taskCompleted;
     private String status;
 
@@ -59,6 +60,7 @@ public class Task {
         this.category = "Other";
         this.bidList = new BidList();
         this.location = null;
+        this.imageList = null;
         this.taskCompleted = false;
         this.status = "Requested";
     }
@@ -85,6 +87,7 @@ public class Task {
         this.category = category;
         this.bidList = new BidList();
         this.location = null;
+        this.imageList = null;
         this.taskCompleted = false;     // ie requested
         this.status = "Requested";
 
@@ -234,6 +237,14 @@ public class Task {
     /**  @param location location of the task */
     public void setLocation(Place location) {
         this.location = location;
+    }
+
+    public ImageList getImageList() { return this.imageList; }
+
+    public void setImageList(ImageList imageList) { this.imageList = imageList; }
+
+    public void addImage(Image image) {
+        this.imageList.addImage(image);
     }
 
     /** @return task name and description string */

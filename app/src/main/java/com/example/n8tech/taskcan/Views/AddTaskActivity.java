@@ -240,7 +240,7 @@ public class AddTaskActivity extends ActivityHeader {
 
         // TODO location validity testing
         newTask.setLocation(this.location);
-
+        newTask.setImageList(this.images);
         newTask.setOwnerUsername(currentUser.getUsername());
         newTask.setOwnerId(currentUser.getId());
         newTask.setCurrentBid(-1);
@@ -335,7 +335,6 @@ public class AddTaskActivity extends ActivityHeader {
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
             }
         }
-
     }
 
     private int sizeOf(Bitmap bitmap) {
