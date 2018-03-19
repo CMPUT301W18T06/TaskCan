@@ -1,6 +1,7 @@
 package com.example.n8tech.taskcan.Controller;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +32,8 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
 
         public ViewHolder(View view) {
             super(view);
-            taskTitle = view.findViewById(R.id.task_view_title);
-            taskBid = view.findViewById(R.id.task_view_current_bid);
+            taskTitle = (TextView) view.findViewById(R.id.task_view_title);
+            taskBid = (TextView) view.findViewById(R.id.task_view_current_bid);
         }
     }
 
@@ -46,7 +47,7 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
     public TaskViewRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
         // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
+        View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.task_view_list, parent, false);
 
         ViewHolder vh = new ViewHolder(v);
@@ -67,6 +68,7 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
+        Log.i("TestingAdapter", String.valueOf(taskList.getSize()));
         return taskList.getSize();
     }
 }
