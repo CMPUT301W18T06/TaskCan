@@ -129,7 +129,7 @@ public class ElasticsearchController {
             UserList userList = new UserList();
 
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            searchSourceBuilder.query(QueryBuilders.matchQuery("email", search_params[0]));
+            searchSourceBuilder.query(QueryBuilders.matchQuery("username", search_params[0]));
 
             Search search = new Search.Builder(searchSourceBuilder.toString())
                             .addIndex("cmput301w18t06")

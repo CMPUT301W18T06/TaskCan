@@ -70,8 +70,10 @@ public class Bid {
         }
     }
 
+    /** @return bid ID */
     public String getBidId() { return this.bidId; }
 
+    /** @param bidID bid ID */
     public void setBidId(String bidId) {
         if (this.bidId == null) {
             this.bidId = bidId;

@@ -64,7 +64,7 @@ import java.util.ArrayList;
 
 public class AddTaskActivity extends ActivityHeader {
     public final static String IMAGES_KEY = "AddTaskActivity_IMAGESKEY";
-    private final Integer EDIT_IMAGES_REQUEST_CODE = 0;
+    public final static Integer EDIT_IMAGES_REQUEST_CODE = 0;
 
     private Spinner categorySpinner;
     private Task newTask;
@@ -333,7 +333,7 @@ public class AddTaskActivity extends ActivityHeader {
                 bitmap.getPixels(image, 0, x, 0, 0, x, y);
                 Image image_array = new Image();
                 for (int i = 0; i < image.length; i++)
-                    image_array.setImagePixel(i, image[i]);
+                    image_array.setImagePixel(image[i]);
                 // store
                 images.addImage(image_array);
 

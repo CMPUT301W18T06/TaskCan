@@ -148,8 +148,10 @@ public class Task {
         this.status = "Assigned";
     }
 
+    /** @return task provider ID */
     public String getProviderId() { return this.providerId; }
 
+    /** @param providerId user ID of the task provider */
     public void setProviderId(String providerId) { this.providerId = providerId; }
 
     /** @return maximum bid placed on the task */
