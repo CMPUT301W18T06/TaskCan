@@ -61,6 +61,12 @@ public class BidList implements Iterable<Bid> {
      */
     public int getBidIndex(Bid bid) { return this.bids.indexOf(bid); }
 
+    /**
+     * Takes a user ID as a parameter and returns the bid index.
+     * Returns error code if bidder does not exist in the bid list.
+     * @param userId user ID
+     * @return integer representing the index of the user's bid
+     */
     public int getBidUserIndex(String userId) {
         for (Bid bid : this.bids) {
             if(bid.getBidId() == userId) {

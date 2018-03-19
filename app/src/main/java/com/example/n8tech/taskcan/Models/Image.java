@@ -4,11 +4,17 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
- * Created by ahuang on 2018-03-19.
+ * Image contains an ArrayList of integers representing p
+ *
+ * @author CMPUT301W18T06
  */
 
 public class Image {
     private ArrayList<Integer> image;
+
+    /**
+     *
+     */
     public Image() {
         this.image = new ArrayList<>();
     }
