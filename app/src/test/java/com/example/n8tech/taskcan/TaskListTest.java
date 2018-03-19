@@ -28,13 +28,13 @@ public class TaskListTest {
     // ensure you can add Task to TaskList
     public void addTaskToTaskList(){
         int exceptionCatcher = 0;
-        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user1 = new User("Joe", "joe12345", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan", "alan12345", "alan@n8tech.com", "ilovenate", "780-980-5623");
         User user3 = new User("Nathan", "nathan123", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro123", "caro@n8tech.com", "iloveschool", "780-123-0000");
-        User user7 = new User("Jenny", "jenny123","jenny@n8tech.com", "iloveshopping", "781-113-1001");
+        User user4 = new User("Matt", "matt12345", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex", "alex12345", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro12345", "caro@n8tech.com", "iloveschool", "780-123-0000");
+        User user7 = new User("Jenny", "jenny12345","jenny@n8tech.com", "iloveshopping", "781-113-1001");
         Task task1 = new Task("Walk the dog", "Walk dog around the corner", user1.getUsername(), "6543210", "Pets");
         Task task2 = new Task("Vaccuum my bedroom", "Vaccuum tough to get spots", user2.getUsername(), "1596874", "Housework");
         Task task3 = new Task("Cut the grass", "Mow my lawn", user3.getUsername(), "7536548", "Outdoors");
@@ -71,13 +71,13 @@ public class TaskListTest {
     // ensure you can remove Tasks from TaskList and not Tasks that aren't in the TaskList
     public void removeTaskFromTaskList(){
         int exceptionCatcher = 0;
-        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user1 = new User("Joe", "joe12345", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan", "alan12345", "alan@n8tech.com", "ilovenate", "780-980-5623");
         User user3 = new User("Nathan", "nathan123", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro123", "caro@n8tech.com", "iloveschool", "780-123-0000");
-        User user7 = new User("Jenny", "jenny123","jenny@n8tech.com", "iloveshopping", "781-113-1001");
+        User user4 = new User("Matt", "matt12345", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex", "alex12345", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro12345", "caro@n8tech.com", "iloveschool", "780-123-0000");
+        User user7 = new User("Jenny", "jenny12345","jenny@n8tech.com", "iloveshopping", "781-113-1001");
         Task task1 = new Task("Walk the dog", "Walk dog around the corner", user1.getUsername(), "6543210", "Pets");
         Task task2 = new Task("Vaccuum my bedroom", "Vaccuum tough to get spots", user2.getUsername(), "1596874", "Housework");
         Task task3 = new Task("Cut the grass", "Mow my lawn", user3.getUsername(), "7536548", "Outdoors");
@@ -124,13 +124,13 @@ public class TaskListTest {
     // ensure Tasks are retrieved from TaskList in correct order
     public void getTaskFromTaskList(){
         int exceptionCatcher = 0;
-        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user1 = new User("Joe", "joe12345", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan", "alan12345", "alan@n8tech.com", "ilovenate", "780-980-5623");
         User user3 = new User("Nathan", "nathan123", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro123", "caro@n8tech.com", "iloveschool", "780-123-0000");
-        User user7 = new User("Jenny", "jenny123","jenny@n8tech.com", "iloveshopping", "781-113-1001");
+        User user4 = new User("Matt", "matt12345", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex", "alex12345", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro12345", "caro@n8tech.com", "iloveschool", "780-123-0000");
+        User user7 = new User("Jenny", "jenny12345","jenny@n8tech.com", "iloveshopping", "781-113-1001");
         Task task1 = new Task("Walk the dog", "Walk dog around the corner", user1.getUsername(), "6543210", "Pets");
         Task task2 = new Task("Vaccuum my bedroom", "Vaccuum tough to get spots", user2.getUsername(), "1596874", "Housework");
         Task task3 = new Task("Cut the grass", "Mow my lawn", user3.getUsername(), "7536548", "Outdoors");
@@ -181,13 +181,13 @@ public class TaskListTest {
     // ensure that tasks can be replaced in a TaskList
     public void replaceTask(){
         int exceptionCatcher = 0;
-        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user1 = new User("Joe", "joe12345", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan", "alan12345", "alan@n8tech.com", "ilovenate", "780-980-5623");
         User user3 = new User("Nathan", "nathan123", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro123", "caro@n8tech.com", "iloveschool", "780-123-0000");
-        User user7 = new User("Jenny", "jenny123","jenny@n8tech.com", "iloveshopping", "781-113-1001");
+        User user4 = new User("Matt", "matt12345", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex", "alex12345", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro12345", "caro@n8tech.com", "iloveschool", "780-123-0000");
+        User user7 = new User("Jenny", "jenny12345","jenny@n8tech.com", "iloveshopping", "781-113-1001");
         Task task1 = new Task("Walk the dog", "Walk dog around the corner", user1.getUsername(), "6543210", "Pets");
         Task task2 = new Task("Vaccuum my bedroom", "Vaccuum tough to get spots", user2.getUsername(), "1596874", "Housework");
         Task task3 = new Task("Cut the grass", "Mow my lawn", user3.getUsername(), "7536548", "Outdoors");
@@ -238,12 +238,12 @@ public class TaskListTest {
     @Test
     // ensures that the getSize() method returns the correct size
     public void getSizeOfTaskList() {
-        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user1 = new User("Joe", "joe12345", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan", "alan12345", "alan@n8tech.com", "ilovenate", "780-980-5623");
         User user3 = new User("Nathan", "nathan123", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro123", "caro@n8tech.com", "iloveschool", "780-123-0000");
+        User user4 = new User("Matt", "matt12345", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex", "alex12345", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro12345", "caro@n8tech.com", "iloveschool", "780-123-0000");
         Task task1 = new Task("Walk the dog", "Walk dog around the corner", user1.getUsername(), "6543210", "Pets");
         Task task2 = new Task("Vaccuum my bedroom", "Vaccuum tough to get spots", user2.getUsername(), "1596874", "Housework");
         Task task3 = new Task("Cut the grass", "Mow my lawn", user3.getUsername(), "7536548", "Outdoors");
@@ -271,12 +271,12 @@ public class TaskListTest {
     @Test
     // ensure Iterator works
     public void testIterator(){
-        User user1 = new User("Joe", "joe123", "joe@n8tech.com", "7355608", "123-456-7890");
-        User user2 = new User("Alan", "alan123", "alan@n8tech.com", "ilovenate", "780-980-5623");
+        User user1 = new User("Joe", "joe12345", "joe@n8tech.com", "7355608", "123-456-7890");
+        User user2 = new User("Alan", "alan12345", "alan@n8tech.com", "ilovenate", "780-980-5623");
         User user3 = new User("Nathan", "nathan123", "nathan@n8tech.com", "ilovealan", "780-750-5600");
-        User user4 = new User("Matt", "matt123", "matt@n8tech.com", "ilovefood", "783-126-8623");
-        User user5 = new User("Alex", "alex123", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
-        User user6 = new User("Caro", "caro123", "caro@n8tech.com", "iloveschool", "780-123-0000");
+        User user4 = new User("Matt", "matt12345", "matt@n8tech.com", "ilovefood", "783-126-8623");
+        User user5 = new User("Alex", "alex12345", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
+        User user6 = new User("Caro", "caro12345", "caro@n8tech.com", "iloveschool", "780-123-0000");
         Task task1 = new Task("Walk the dog", "Walk dog around the corner", user1.getUsername(), "6543210", "Pets");
         Task task2 = new Task("Vaccuum my bedroom", "Vaccuum tough to get spots", user2.getUsername(), "1596874", "Housework");
         Task task3 = new Task("Cut the grass", "Mow my lawn", user3.getUsername(), "7536548", "Outdoors");

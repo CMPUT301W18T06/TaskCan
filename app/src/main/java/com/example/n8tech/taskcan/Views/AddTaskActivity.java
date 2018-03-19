@@ -240,7 +240,7 @@ public class AddTaskActivity extends ActivityHeader {
 
         // TODO location validity testing
         newTask.setLocation(this.location);
-
+        newTask.setImageList(this.images);
         newTask.setOwnerUsername(currentUser.getUsername());
         newTask.setOwnerId(currentUser.getId());
         newTask.setCurrentBid(-1);
@@ -335,7 +335,6 @@ public class AddTaskActivity extends ActivityHeader {
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
             }
         }
-
     }
 
     private int sizeOf(Bitmap bitmap) {
@@ -343,10 +342,11 @@ public class AddTaskActivity extends ActivityHeader {
     }
 
     public void viewImagesOnClick(View view) {
-        Intent i = new Intent(AddTaskActivity.this, EditImageSlideShowActivity.class);
+        Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
         Bundle b = new Bundle();
         b.putParcelableArrayList(this.IMAGES_KEY, this.images.getImages());
         i.putExtras(b);
         startActivityForResult(i, this.EDIT_IMAGES_REQUEST_CODE);
+        view.getContext().startActivity(i);
     }
 }

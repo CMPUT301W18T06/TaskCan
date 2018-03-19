@@ -19,7 +19,11 @@ package com.example.n8tech.taskcan.Views;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 
+import com.example.n8tech.taskcan.Controller.TaskViewRecyclerAdapter;
+import com.example.n8tech.taskcan.Models.TaskList;
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 
 /** SearchActivity displays results from the current user's task search query.
@@ -28,11 +32,13 @@ import com.example.n8tech.taskcan.R;
  * @author CMPUT301W18T06
  */
 public class ResultActivity extends ActivityHeader {
+    private TaskList resultTaskList = new TaskList();
+    private User currentUser;
+    private TaskViewRecyclerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
