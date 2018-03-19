@@ -16,7 +16,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/entry_field"
         android:ems="10"
-        android:hint="@string/prompt_email"
+        android:hint="@string/prompt_username"
         android:inputType="textEmailAddress"
         android:paddingBottom="11dp"
         android:paddingLeft="8dp"

@@ -49,6 +49,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * AddTaskActivity handles the creation of a new task made by the current user.
@@ -107,7 +108,9 @@ public class AddTaskActivity extends ActivityHeader {
 
         taskNameEditText.setText("");
         taskDescriptionEditText.setText("");
-        taskStatusText.setText("Requested");            // TODO set to task.getStatus()
+        taskStatusText.setText("Requested");
+        maxBidText.setText("");
+
 
         // set category spinner content and set to task's category
         SetCategorySpinnerContent("Other");
@@ -168,9 +171,6 @@ public class AddTaskActivity extends ActivityHeader {
 
     // https://developers.google.com/places/android-api/placepicker
     public void editLocationButtonClick(View v) {
-        // TODO: should this be a map page and drop a pin or just entering an address and validating that address ???
-        //Intent intent = new Intent(getApplicationContext(), EditTaskMapActivity.class);
-        //startActivity(intent);
         try {
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
         } catch (GooglePlayServicesRepairableException e) {
@@ -210,14 +210,7 @@ public class AddTaskActivity extends ActivityHeader {
 
 
         taskDescription = taskDescriptionEditText.getText().toString();
-        if (taskDescription.length() < 300) {
-            // valid
-            newTask.setDescription(taskDescription);
-        } else {
-            Toast.makeText(AddTaskActivity.this, "Description must be less than 300 characters", Toast.LENGTH_LONG).show();
-            valid = Boolean.FALSE;
-        }
-
+        newTask.setDescription(taskDescription);
         newTask.setStatus(taskStatus);
 
         category = categorySpinner.getSelectedItem().toString();
@@ -225,12 +218,25 @@ public class AddTaskActivity extends ActivityHeader {
 
         maximumBidString = maxBidText.getText().toString();
 
+        if (maximumBidString.equals("")){
+            newTask.setMaximumBid(-1);
+        }
+        else if ((!maximumBidString.contains(".")) || (maximumBidString.indexOf(".") + 3 >= maximumBidString.length())){
+            maximumBid = Double.parseDouble(maximumBidString);
+            newTask.setMaximumBid(maximumBid);
+        } else {
+            Toast.makeText(AddTaskActivity.this, "Please enter valid CAD", Toast.LENGTH_LONG).show();
+            valid = Boolean.FALSE;
+        }
+
+        /*
         if (!maximumBidString.equals("")) {
             maximumBid = Double.parseDouble(maximumBidString);
             newTask.setMaximumBid(Math.round(maximumBid * 100.0) / 100.0);                      // round to 2 decimal places
         } else {
             newTask.setMaximumBid(-1);
         }
+        */
 
         // TODO location validity testing
         newTask.setLocation(this.location);
@@ -244,8 +250,7 @@ public class AddTaskActivity extends ActivityHeader {
         Log.i("*** desc", newTask.getDescription());
         Log.i("*** maximum bid", Double.toString(newTask.getMaximumBid()));
         Log.i("*** category", newTask.getCategory());
-        //Async task, Id not set by this point, causes crash
-        //Log.i("*** task uuid", newTask.getId());
+
 
         if (valid) {
 

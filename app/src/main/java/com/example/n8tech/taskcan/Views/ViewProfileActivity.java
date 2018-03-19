@@ -17,26 +17,16 @@
 package com.example.n8tech.taskcan.Views;
 
 import android.content.Intent;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 /**
  * ViewProfileActivity displays the profile details of a user.
@@ -45,7 +35,8 @@ import com.google.gson.reflect.TypeToken;
  */
 public class ViewProfileActivity extends ActivityHeader {
 
-    private TextView displayName;
+    private TextView username;
+    private TextView profileName;
     private TextView email;
     private TextView contactInformation;
 
@@ -83,10 +74,15 @@ public class ViewProfileActivity extends ActivityHeader {
 
         Log.i("Testing", currentUser.getEmail());
 
-        displayName = findViewById(R.id.view_profile_name_display);
-        displayName.setText(currentUser.getUsername());
+        profileName = findViewById(R.id.view_profile_name_display);
+        profileName.setText(currentUser.getProfileName());
+
+        username = findViewById(R.id.view_profile_username_display);
+        username.setText(currentUser.getUsername());
+
         email = findViewById(R.id.view_profile_email_display);
         email.setText(currentUser.getEmail());
+
         contactInformation = findViewById(R.id.view_profile_phone_display);
         contactInformation.setText(currentUser.getPhoneNumber());
     }
