@@ -238,7 +238,7 @@ public class EditTaskActivity extends ActivityHeader  {
                 Log.i("Error", e.toString());
             }
 
-            if (completed == "NoNetworkError") {
+            if (completed.equals("NoNetworkError")) {
                 // add task to current user's myTasks list
                 UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
                 cacheList.delUser(this.currentUser);
