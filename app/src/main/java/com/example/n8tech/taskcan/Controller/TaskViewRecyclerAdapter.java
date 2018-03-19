@@ -65,7 +65,15 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
         // - replace the contents of the view with that element
         final Task currentTask = taskList.getTaskAtIndex(position);
         holder.taskTitle.setText(currentTask.getTaskTitle());
-        holder.taskBid.setText(String.valueOf(currentTask.getMaximumBid()));
+
+        // if a current bid set to that, else set to "None"
+        String currentBidText;
+        if (currentTask.getCurrentBid() == -1){
+            currentBidText = "None";
+        }else{
+            currentBidText = String.valueOf(currentTask.getCurrentBid());
+        }
+        holder.taskBid.setText(currentBidText);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
