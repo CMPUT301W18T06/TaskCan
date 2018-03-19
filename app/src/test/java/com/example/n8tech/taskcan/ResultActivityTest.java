@@ -1,7 +1,5 @@
 package com.example.n8tech.taskcan;
 
-import android.test.ActivityInstrumentationTestCase2;
-
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
@@ -19,6 +17,7 @@ import com.robotium.solo.Solo;
  * @see com.example.n8tech.taskcan.Views.SearchActivity
  * @author CMPUT301W18T06
  */
+// TODO Fix solo errors
 public class ResultActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
 

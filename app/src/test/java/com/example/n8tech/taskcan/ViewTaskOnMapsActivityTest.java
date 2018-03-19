@@ -5,23 +5,23 @@ import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
 
-import com.example.n8tech.taskcan.Views.TaskDetailActivity;
+import com.example.n8tech.taskcan.Views.ViewTaskOnMapsActivity;
 
 import com.robotium.solo.Solo;
 
 
 /**
- * Intent testing for TaskDetailActivity class.
+ * Intent testing for ViewTaskOnMapsActivity class.
  *
- * @see com.example.n8tech.taskcan.Views.TaskDetailActivity
+ * @see com.example.n8tech.taskcan.Views.ViewTaskOnMapsActivity
  * @author CMPUT301W18T06
  */
 // TODO Fix solo errors
-public class TaskDetailActivityTest extends ActivityInstrumentationTestCase2 {
+public class ViewTaskOnMapsActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
 
-    public TaskDetailActivityTest() {
-        super(com.example.n8tech.taskcan.Views.TaskDetailActivity.class);
+    public ViewTaskOnMapsActivityTest() {
+        super(com.example.n8tech.taskcan.Views.ViewTaskOnMapsActivity.class);
     }
 
     public void testStart() throws Exception {
@@ -36,7 +36,7 @@ public class TaskDetailActivityTest extends ActivityInstrumentationTestCase2 {
         solo = new Solo(instrument, activity);
     }
 
-    public void testTaskDetailsPage(){
+    public void testViewTaskOnMapsPage(){
         // TODO write test cases
     }
 
