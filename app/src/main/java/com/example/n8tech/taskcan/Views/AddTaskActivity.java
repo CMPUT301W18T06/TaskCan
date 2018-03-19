@@ -35,6 +35,8 @@ import android.widget.Toast;
 import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
+import com.example.n8tech.taskcan.Models.Image;
+import com.example.n8tech.taskcan.Models.ImageList;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Models.UserList;
@@ -61,6 +63,8 @@ import java.util.ArrayList;
  */
 
 public class AddTaskActivity extends ActivityHeader {
+    private final String IMAGES_KEY = "AddTaskActivity_IMAGESKEY";
+
     private Spinner categorySpinner;
     private Task newTask;
     private String taskId;
@@ -74,7 +78,7 @@ public class AddTaskActivity extends ActivityHeader {
     private User currentUser;
     private Place location;
     private ArrayAdapter<CharSequence> categorySpinnerAdapter;
-    private ArrayList<ArrayList<Integer>> images;
+    private ImageList images;
     private FileIO fileIO = new FileIO();
     int PLACE_PICKER_REQUEST = 5;
     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
@@ -83,7 +87,7 @@ public class AddTaskActivity extends ActivityHeader {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.images = new ArrayList<ArrayList<Integer>>();
+        this.images = new ImageList();
         this.currentUser = CurrentUserSingleton.getUser();
         Log.i("current user", currentUser.getUsername());
 
@@ -230,7 +234,7 @@ public class AddTaskActivity extends ActivityHeader {
         // TODO location validity testing
         newTask.setLocation(this.location);
 
-        newTask.setOwner(currentUser.getUsername());
+        newTask.setOwnerUsername(currentUser.getUsername());
         newTask.setOwnerId(currentUser.getId());
         newTask.setCurrentBid(-1);
         // TODO:in file here
@@ -313,11 +317,11 @@ public class AddTaskActivity extends ActivityHeader {
                 int y = bitmap.getHeight();
                 int[] image = new int[x * y];
                 bitmap.getPixels(image, 0, x, 0, 0, x, y);
-                ArrayList<Integer> image_array = new ArrayList<>();
+                Image image_array = new Image();
                 for (int i = 0; i < image.length; i++)
-                    image_array.add(image[i]);
+                    image_array.setImagePixel(i, image[i]);
                 // store
-                images.add(image_array);
+                images.addImage(image_array);
 
                 Toast.makeText(AddTaskActivity.this, "Image added successfully!",
                         Toast.LENGTH_LONG).show();
@@ -338,5 +342,10 @@ public class AddTaskActivity extends ActivityHeader {
 
     private int sizeOf(Bitmap bitmap) {
         return bitmap.getRowBytes() * bitmap.getHeight();
+    }
+
+    public void viewImagesOnClick(View view) {
+        Intent i = new Intent(AddTaskActivity.this, EditImageSlideShowActivity.class);
+//        i.putExtra(this.IMAGES_KEY, this.images);
     }
 }

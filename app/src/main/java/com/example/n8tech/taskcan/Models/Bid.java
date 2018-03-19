@@ -26,41 +26,56 @@ package com.example.n8tech.taskcan.Models;
  */
 
 public class Bid {
-    private User bidder;
+    private String bidUsername;
+    private String bidId;
     private double bidAmount;
 
     /** Empty constructor used for method signatures */
     public Bid(){
-        this.bidder = new User();
-        this.bidAmount = 0;
+        this.bidUsername = null;
+        this.bidId = null;
+        this.bidAmount = -1;
     }
 
     /**
      * Creates an instance of bid that sets the bidder and the bid amount
-     * @param bidder stores the user information of the task provider that has made the bid
+     * @param bidUsername stores the user information of the task provider that has made the bid
+     * @param bidId stores the user id
      * @param bidAmount the bid amount set by the bidder
      * @throws IllegalArgumentException If bidAmount is less than 0.01
      */
-    public Bid(User bidder, double bidAmount) {
-        this.bidder = bidder;
+    public Bid(String bidUsername, String bidId, double bidAmount) {
+        this.bidUsername = bidUsername;
+        this.bidId = bidId;
+
         if (bidAmount < 0.01){
             throw new IllegalArgumentException();
         }
         this.bidAmount = bidAmount;
     }
 
-    /** @return bidder */
-    public User getBidder() {
-        return this.bidder;
+    /** @return bidUsername */
+    public String getBidUsername() {
+        return this.bidUsername;
     }
 
     /**
      * Sets the bidder only when not previously set; bidder is then immutable when set
-     * @param bidder task provider that has made the bid
+     * @param bidUsername task provider that has made the bid
      */
     // https://stackoverflow.com/questions/14146182/how-to-create-a-variable-that-can-be-set-only-once-but-isnt-final-in-java
-    public void setBidder(User bidder) {
-        this.bidder = this.bidder.getUsername() == null ? bidder : this.bidder;
+    public void setBidUsername(String bidUsername) {
+        if (this.bidUsername == null) {
+            this.bidUsername = bidUsername;
+        }
+    }
+
+    public String getBidId() { return this.bidId; }
+
+    public void setBidId(String bidId) {
+        if (this.bidId == null) {
+            this.bidId = bidId;
+        }
     }
 
     /** @return bidAmount */
