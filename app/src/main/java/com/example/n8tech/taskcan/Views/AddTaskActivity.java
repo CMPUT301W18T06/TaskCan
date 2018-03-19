@@ -91,7 +91,7 @@ public class AddTaskActivity extends ActivityHeader {
         super.onCreate(savedInstanceState);
         this.images = new ImageList();
         this.currentUser = CurrentUserSingleton.getUser();
-        Log.i("current user", currentUser.getUsername());
+        //Log.i("current user", currentUser.getUsername());
 
         findViewsByIdAndSetContent();
 
