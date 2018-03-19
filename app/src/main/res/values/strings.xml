@@ -33,10 +33,11 @@
     <string name="title_activity_username">Email</string>
     <string name="title_activity_password">Password</string>
 
-    <string name="sign_up_activity_name">Name*</string>
-    <string name="sign_up_activity_email">Email*</string>
-    <string name="sign_up_activity_password">Password*</string>
-    <string name="sign_up_activity_phone">Phone Number*</string>
+    <string name="sign_up_activity_name">Name *</string>
+    <string name="sign_up_activity_username">Username *</string>
+    <string name="sign_up_activity_email">Email *</string>
+    <string name="sign_up_activity_password">Password *</string>
+    <string name="sign_up_activity_phone">Phone Number *</string>
     <string name="sign_up_activity_register">Register</string>
 
     <string name="search_activity_search_hint">Search For Tasks</string>

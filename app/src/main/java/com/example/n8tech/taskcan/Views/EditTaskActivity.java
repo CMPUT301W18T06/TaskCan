@@ -210,19 +210,13 @@ public class EditTaskActivity extends ActivityHeader  {
         // TODO location validity testing
         //newTask.setLocation(?);
 
-        // TODO set task owner to current user's uuid?
-
-        // TODO: save task in elastic search or in file here
-
         Log.i("*** name", task.getTaskTitle());
         Log.i("*** desc", task.getDescription());
         Log.i("*** maximum bid",Double.toString(task.getMaximumBid()));
         Log.i("*** category",task.getCategory());
-        Log.i("*** task uuid",task.getId());
 
         if (valid) {
             // TODO update task in user's task list
-
 
             ElasticsearchController.UpdateTask updateTask
                     = new ElasticsearchController.UpdateTask();

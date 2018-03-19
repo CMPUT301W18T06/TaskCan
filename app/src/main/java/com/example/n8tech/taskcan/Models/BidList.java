@@ -29,14 +29,12 @@ public class BidList implements Iterable<Bid> {
      * @param bid Bid to be added to the BidList
      */
     public void addBid(Bid bid) {
-        User bidder = bid.getBidder();
-        if (this.bidderExists(bidder)) {
-            int i = indexOfBidContaining(bidder);
-            this.bids.set(i, bid);
-        }
-        else {
-            this.bids.add(bid);
-        }
+        this.bids.add(bid);
+    }
+
+    public void updateBid(Bid bid, int i) {
+        this.bids.remove(i);
+        this.bids.add(bid);
     }
 
     /**
@@ -44,14 +42,7 @@ public class BidList implements Iterable<Bid> {
      * @throws IllegalArgumentException If bidder does not exist on the list.
      */
     public void removeBid(Bid bid){
-        User bidder = bid.getBidder();
-        if (this.bidderExists(bidder)) {
-            int i = indexOfBidContaining(bidder);
-            this.bids.remove(i);
-        }
-        else {
-            throw new IllegalArgumentException();
-        }
+        this.bids.remove(bid);
     }
 
     /**
@@ -62,40 +53,21 @@ public class BidList implements Iterable<Bid> {
         return this.bids.get(i);
     }
 
-    /** Creates a BidList iterator. */
-    public Iterator<Bid> iterator() {
-        return new BidsIterator();
-    }
-
-    /**
-     * Checks if the bidder has made a bid on the list.
-     * @param bidder task provider that has created a bid
-     * @return true if bidder exists on the list, otherwise false
-     */
-    public Boolean bidderExists(User bidder) {
-        for (Bid b : this.bids) {
-            if(b.getBidder().getEmail().equals(bidder.getEmail()))
-                return true;
-            else if(bidder.getEmail().equals(null))
-                break;
-        }
-        return false;
-    }
-
     /**
      * Returns the index of a bid on the list made by the bidder.
-     * @param bidder task provider that has created a bid
+     * @param bid task provider that has created a bid
      * @return i BidList index
      * @throws NoSuchElementException If bidder does not exist in the BidList.
      */
-    public int indexOfBidContaining(User bidder) {
-        for (int i = 0; i < this.getSize(); i++) {
-            if(getBid(i).getBidder().getEmail().equals(bidder.getEmail()))
-                return i;
-            else if(bidder.getEmail().equals(null))
-                break;
+    public int getBidIndex(Bid bid) { return this.bids.indexOf(bid); }
+
+    public int getBidUserIndex(String userId) {
+        for (Bid bid : this.bids) {
+            if(bid.getBidId() == userId) {
+                return this.bids.indexOf(bid);
+            }
         }
-        throw new NoSuchElementException();
+        return -1;
     }
 
     /** @return integer representing list size */
@@ -115,6 +87,11 @@ public class BidList implements Iterable<Bid> {
                 lowestBidIndex = currentBidIndex;
         }
         return this.bids.get(lowestBidIndex);
+    }
+
+    /** Creates a BidList iterator. */
+    public Iterator<Bid> iterator() {
+        return new BidsIterator();
     }
 
     /**

@@ -235,7 +235,7 @@ public class AddTaskActivity extends ActivityHeader {
         // TODO location validity testing
         newTask.setLocation(this.location);
 
-        newTask.setOwner(currentUser.getUsername());
+        newTask.setOwnerUsername(currentUser.getUsername());
         newTask.setOwnerId(currentUser.getId());
         newTask.setCurrentBid(-1);
         // TODO:in file here
