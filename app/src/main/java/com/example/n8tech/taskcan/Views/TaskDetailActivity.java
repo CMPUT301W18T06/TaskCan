@@ -126,6 +126,10 @@ public class TaskDetailActivity extends ActivityHeader {
         startActivity(intent);
     }
 
+    public void viewImagesButtonClick(View v){
+
+    }
+
     @Override
     protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
         if (!this.getClass().equals(nextClass)) {
