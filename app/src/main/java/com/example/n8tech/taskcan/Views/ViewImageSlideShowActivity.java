@@ -16,7 +16,6 @@
 
 package com.example.n8tech.taskcan.Views;
 
-import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,19 +24,17 @@ import com.example.n8tech.taskcan.Controller.SlideShowAdapter;
 import com.example.n8tech.taskcan.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import me.relex.circleindicator.CircleIndicator;
 
 /**
- * ImageSlideShowActivity handles the implementation of an image slider
+ * ViewImageSlideShowActivity handles the implementation of an image slider
  * used for photos related to tasks.
  *
  * @author CMPUT301W18T06
  */
 
-public class ImageSlideShowActivity extends AppCompatActivity {
+public class ViewImageSlideShowActivity extends AppCompatActivity {
     private static final String IMAGES_KEY = "ImageSlideShowActivity_IMAGES";
     private int[] images;
     private ArrayList<Integer> slides;
@@ -46,7 +43,7 @@ public class ImageSlideShowActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_slide_show);
+        setContentView(R.layout.activity_view_image_slide_show);
         this.images = getIntent().getIntArrayExtra(IMAGES_KEY);
         this.initialialSlideShow();
     }
@@ -56,7 +53,7 @@ public class ImageSlideShowActivity extends AppCompatActivity {
             this.slides.add(images[i]);
         }
         mPager = findViewById(R.id.pager);
-        mPager.setAdapter(new SlideShowAdapter(ImageSlideShowActivity.this, slides));
+        mPager.setAdapter(new SlideShowAdapter(ViewImageSlideShowActivity.this, slides));
         CircleIndicator indicator = findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
 
