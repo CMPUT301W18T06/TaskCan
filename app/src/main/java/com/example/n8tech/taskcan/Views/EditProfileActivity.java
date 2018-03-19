@@ -23,11 +23,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.n8tech.taskcan.Controller.ElasticsearchController;
+import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.regex.Pattern;
 
 
 public class EditProfileActivity extends ActivityHeader {
@@ -41,6 +45,7 @@ public class EditProfileActivity extends ActivityHeader {
     private String newDisplayName;
     private String newEmail;
     private String newPhoneNumber;
+    private FileIO fileIO = new FileIO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,16 +96,30 @@ public class EditProfileActivity extends ActivityHeader {
             Toast.makeText(EditProfileActivity.this, "Please enter valid phone number", Toast.LENGTH_LONG).show();
         }
 
-        if (!checkEmailValidity(newEmail)){
+        if (!newEmail.equals(currentUser.getEmail()) && !checkEmailValidity(newEmail)){
             valid = Boolean.FALSE;
             Toast.makeText(EditProfileActivity.this, "Please enter valid email address", Toast.LENGTH_LONG).show();
         }
 
         if (valid){
+            cacheList = fileIO.loadFromFile(getApplicationContext());
+            cacheList.delUser(currentUser);
+
+            newPhoneNumber = newPhoneNumber.replace("-", "");
+            newPhoneNumber = newPhoneNumber.replace(".", "");
+            newPhoneNumber = newPhoneNumber.substring(0, 3) + "-" + newPhoneNumber.substring(3, 6) + "-"
+                    + newPhoneNumber.substring(6, newPhoneNumber.length());
+
             currentUser.setEmail(newEmail);
             currentUser.setPhoneNumber(newPhoneNumber);
             currentUser.setUsername(newDisplayName);
+
             // TODO save with elastic search / in file
+            cacheList.addUser(currentUser);
+
+            ElasticsearchController.UpdateUser updateUser
+                    = new ElasticsearchController.UpdateUser();
+            updateUser.execute(currentUser);
 
             Intent intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -123,61 +142,36 @@ public class EditProfileActivity extends ActivityHeader {
     }
 
     private boolean checkEmailValidity(String email) {
-        /*
-         * Will eventually check with ElasticSearch if email is already taken.
-         */
+        // regex checking if email is valid email
+        boolean isProperEmail = Pattern.compile("^[a-z0-9]+[@][a-z0-9]+[.][a-z0-9]{2,}").matcher(email).matches();
 
-        int atIndex = email.indexOf("@");
-        int dotIndex = email.lastIndexOf(".");
-
-
-
-        if (atIndex == -1) {
-            return Boolean.FALSE;
-        }
-        if (dotIndex == -1) {
-            return Boolean.FALSE;
-        }
-        if (dotIndex == (email.length()-1)){
-            // no chars after dot
-            return Boolean.FALSE;
-        }
-        if ((atIndex - dotIndex) > 0){
-            // "@" comes after last "." in email
-            return Boolean.FALSE;
+        if (!isProperEmail){
+            return false;
         }
 
+        //Check if email is already taken
+        ElasticsearchController.SearchUser searchUser
+                = new ElasticsearchController.SearchUser();
+        searchUser.execute(email);
 
-        //TODO elastic search checking ? not sure how this works @Q
-        /*
-        for(User user : cacheList) {
-            if(user.getEmail().equals(email)){
-                return false;
-            }
-        }
-
-        ElasticsearchController.GetUser getUser
-                = new ElasticsearchController.GetUser();
-        getUser.execute("email", email);
-
-        ArrayList<User> userList = new ArrayList<>();
+        UserList userList = new UserList();
 
         try {
-            userList = getUser.get();
+            userList = searchUser.get();
         } catch (Exception e) {
             Log.i("Error", "Couldn't load users from server");
+            return false;
         }
 
         for(User user : userList) {
             Log.i("testing", user.getId() + user.getEmail());
-            if(user.getEmail() == email) {
+            if(user.getEmail().equals(email)) {
                 return false;
             }
-
-        }*/
-
+        }
         return true;
     }
+
 
     /*@Override
     public void onBackPressed() {

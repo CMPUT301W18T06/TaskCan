@@ -45,7 +45,6 @@ public class SearchActivity extends ActivityHeader {
     public static final String SEARCH_MESSAGE = "com.example.n8tech.taskcan.SEARCH_MESSAGE";
     private EditText searchField;
     private User currentUser;
-    //private CurrentUserSingleton currentUserSingleton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
