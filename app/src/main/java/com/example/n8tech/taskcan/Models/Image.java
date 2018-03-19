@@ -15,6 +15,9 @@ public class Image {
     public void setImagePixel(int position, int value) {
         this.image.set(position, value);
     }
+    public void setImagePixel(int value) {
+        this.image.add(value);
+    }
     public void setImage(ArrayList<Integer> image) {
         this.image = image;
     }

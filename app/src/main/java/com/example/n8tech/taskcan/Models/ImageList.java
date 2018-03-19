@@ -30,6 +30,9 @@ public class ImageList implements Iterable<Image>{
     public ArrayList<Image> getImages() {
         return this.images;
     }
+    public Integer getSize() {
+        return this.images.size();
+    }
 
     @NonNull
     @Override
