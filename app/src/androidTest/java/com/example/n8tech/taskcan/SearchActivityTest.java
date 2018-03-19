@@ -38,6 +38,14 @@ public class SearchActivityTest extends ActivityInstrumentationTestCase2 {
 
     public void testSearchPage(){
         // TODO write test cases
+        solo.assertCurrentActivity("Wrong activity", SearchActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.name_field), "testtest");
+        solo.enterText((EditText) solo.getView(R.id.password_field), "password");
+        solo.clickOnButton("Search");
+        solo.clickOnButton("Browse Categories");
+        solo.clickOnButton("Maps");
+
+        assertTrue(solo.waitForActivity("SearchActivity"));
     }
 
     @Override
