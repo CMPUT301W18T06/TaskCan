@@ -86,7 +86,8 @@
             android:label="@string/title_activity_task_map" />
         <activity android:name=".Views.AddTaskActivity" />
         <activity android:name=".Views.ViewBidsActivity" />
-        <activity android:name=".Views.EditImageSlideActivity"></activity>
+        <activity android:name=".Views.EditImageSlideActivity" />
+        <activity android:name=".Views.ViewImageSlideActivity"></activity>
     </application>
 
 </manifest>

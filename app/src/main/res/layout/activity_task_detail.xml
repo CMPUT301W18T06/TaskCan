@@ -232,6 +232,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/gradient"
+            android:onClick="viewImagesButtonClick"
             android:text="View Images"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/colorWhite"
