@@ -16,8 +16,6 @@
 
 package com.example.n8tech.taskcan.Views;
 
-
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,50 +24,36 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.apache.commons.lang3.StringUtils;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 import java.util.regex.*;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private static final String CACHE_FILE = "cache.sav";
     private EditText usernameText;
-    private EditText profileNameText;
     private EditText emailText;
     private EditText passwordText;
     private EditText phoneNumberText;
     private UserList cacheList;
+    private FileIO fileIO = new FileIO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        loadFromFile();
+        this.cacheList = this.fileIO.loadFromFile(getApplicationContext());
 
         this.usernameText = findViewById(R.id.name_field);
         this.emailText = findViewById(R.id.email_field);
         this.passwordText = findViewById(R.id.password_field);
         this.phoneNumberText = findViewById(R.id.phone_field);
-
     }
 
     public void registerButtonClick(View v) {
@@ -91,9 +75,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         //Remove at some point, just to help with keeping things clean.
         if (name.equals("clearCache();")) {
-            //cacheList = new ArrayList<User>();
             this.cacheList = new UserList();
-            saveInFile();
+            this.fileIO.saveInFile(getApplicationContext(),this.cacheList);
         }
 
         if (!checkEmailValidity(email)) {
@@ -116,14 +99,11 @@ public class SignUpActivity extends AppCompatActivity {
 
             User newUser = new User(name, email, password, contact);
 
-            // set singleton
-            CurrentUserSingleton.setUser(newUser);
-
             ElasticsearchController.AddUser addUser
                     = new ElasticsearchController.AddUser();
             addUser.execute(newUser);
 
-            String completed = "";
+            String completed = new String();
             try {
                 completed = addUser.get();
                 Log.i("Testing", completed);
@@ -132,15 +112,14 @@ public class SignUpActivity extends AppCompatActivity {
             }
 
             if(completed == "NoNetworkError") {
-                //Completed without error, need a few different tests to add once ES is working as expected
-                //Log.i("testing", newUser.getId());
-                cacheList.addUser(newUser);
-                saveInFile();
+
+                this.cacheList.addUser(newUser);
+                this.fileIO.saveInFile(getApplicationContext(),this.cacheList);
 
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                 CurrentUserSingleton.setUser(newUser);
-
                 startActivity(intent);
+
             } else {
                 String errMsg = "Cannot connect to the network currently.\nPlease try again later";
                 Toast toast = Toast.makeText(getApplicationContext(), errMsg, Toast.LENGTH_SHORT);
@@ -170,27 +149,18 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean checkEmailValidity(String email) {
-        /*
-         * Will eventually check with ElasticSearch if email is already taken.
-         */
         // regex checking if email is valid email
         boolean isProperEmail = Pattern.compile("^[a-z0-9]+[@][a-z0-9]+[.][a-z0-9]{2,}").matcher(email).matches();
 
-        if (isProperEmail == false){
+        if (!isProperEmail){
             return false;
         }
 
-        for(User user : cacheList) {
-            if(user.getEmail().equals(email)){
-                return false;
-            }
-        }
-
+        //Check if email is already taken
         ElasticsearchController.SearchUser searchUser
                 = new ElasticsearchController.SearchUser();
         searchUser.execute(email);
 
-        //ArrayList<User> userList = new ArrayList<>();
         UserList userList = new UserList();
 
         try {
@@ -201,11 +171,10 @@ public class SignUpActivity extends AppCompatActivity {
 
         for(User user : userList) {
             Log.i("testing", user.getId() + user.getEmail());
-            if(user.getEmail() == email) {
+            if(user.getEmail().equals(email)) {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -218,49 +187,5 @@ public class SignUpActivity extends AppCompatActivity {
             return false;
         }
         return true;
-    }
-
-    private void loadFromFile() {
-        //Load a given JSON file
-
-        try {
-            FileInputStream fis = openFileInput(CACHE_FILE);
-            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-
-            Gson gson = new Gson();
-
-            // Taken https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
-            // 2018-01-23
-            Type listType = new TypeToken<UserList>(){}.getType();
-            this.cacheList = gson.fromJson(in, listType);
-
-        } catch (FileNotFoundException e) {
-            //cacheList = new ArrayList<User>();
-            this.cacheList = new UserList();
-            Log.i("No File", "Created New File");
-        } catch (IOException e) {
-            throw new RuntimeException();
-        }
-    }
-
-    private void saveInFile() {
-        //Save SubList to a JSON file
-
-        try {
-            FileOutputStream fos = openFileOutput(this.CACHE_FILE,
-                    Context.MODE_PRIVATE);
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
-
-            Gson gson = new Gson();
-            gson.toJson(cacheList, out);
-            out.flush();
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
-        }
     }
 }

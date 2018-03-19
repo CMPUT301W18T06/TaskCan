@@ -75,6 +75,7 @@ public class SignInActivity extends Activity {
         User offlineUser = null;
         User onlineUser = null;
 
+        //Check the cache if user exists.
         for (User user : this.cacheList) {
             //Remove once we have set things logins we can remember
 
@@ -89,6 +90,12 @@ public class SignInActivity extends Activity {
             }
         }
 
+        /*
+         * Connects to the server and finds all users that have
+         * the beginning string for the email at minimum
+         * Then checks if the password and email match
+         * and marks valid to begin using the app.
+         */
         ElasticsearchController.SearchUser searchUser
                 = new ElasticsearchController.SearchUser();
         searchUser.execute(usernameText);
@@ -111,6 +118,7 @@ public class SignInActivity extends Activity {
             }
         }
 
+        //Change behaviour dependent on which users were valid
         if(onlineValid && offlineValid) {
 
             CurrentUserSingleton.setUser(onlineUser);
