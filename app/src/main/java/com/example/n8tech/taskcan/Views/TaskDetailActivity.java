@@ -60,14 +60,17 @@ public class TaskDetailActivity extends ActivityHeader {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         this.currentUser = CurrentUserSingleton.getUser();
 
         Bundle extras = getIntent().getExtras();
         currentTaskIndex = extras.getInt("taskIndex");
         task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);
         findByIdsAndSetTextFields();
-
     }
 
     public void findByIdsAndSetTextFields() {
@@ -165,7 +168,7 @@ public class TaskDetailActivity extends ActivityHeader {
                     Toast.LENGTH_LONG).show();
         }
         else {
-            Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
+            Intent i = new Intent(getApplicationContext(), ViewImageSlideActivity.class);
             Bundle b = new Bundle();
             b.putParcelableArrayList(this.IMAGES_KEY, this.task.getImageList().getImages());
             i.putExtras(b);

@@ -16,20 +16,48 @@ import java.util.ArrayList;
 
 public class Image implements Parcelable {
     private Bitmap image;
+    private int x;
+    private int y;
+
     private int[] image_array;
     /**
      * Creates an instance of Image, creating a new ArrayList.
      */
     public Image(Bitmap bitmap) {
         this.image = bitmap;
-        int x = bitmap.getWidth();
-        int y = bitmap.getHeight();
-        this.image_array = new int[x * y];
-        bitmap.getPixels(this.image_array, 0, x, 0, 0, x, y);
+        this.x = bitmap.getWidth();
+        this.y = bitmap.getHeight();
+        this.image_array = new int[this.x * this.y];
+        bitmap.getPixels(this.image_array, 0, this.x, 0, 0, this.x, this.y);
     }
 
+    public Image(int[] image_array, int x, int y) {
+        this.image_array = image_array;
+        this.x = x;
+        this.y = y;
+        this.image = Bitmap.createBitmap(x, y, Bitmap.Config.ARGB_8888);
+        this.image.setPixels(image_array, 0, x, 0, 0, x, y);
+    }
+
+
     protected Image(Parcel in) {
-        this.image = in.readParcelable(Bitmap.class.getClassLoader());
+        image = in.readParcelable(Bitmap.class.getClassLoader());
+        x = in.readInt();
+        y = in.readInt();
+        image_array = in.createIntArray();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(image, flags);
+        dest.writeInt(x);
+        dest.writeInt(y);
+        dest.writeIntArray(image_array);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Image> CREATOR = new Creator<Image>() {
@@ -44,27 +72,11 @@ public class Image implements Parcelable {
         }
     };
 
-    /** @param image an ArrayList of integers */
-    public void setImage(Bitmap image) {
-        this.image = image;
-        int x = this.image.getWidth();
-        int y = this.image.getHeight();
-        this.image_array = new int[x * y];
-        this.image.getPixels(this.image_array, 0, x, 0, 0, x, y);
-    }
-
     /** @return an ArrayList of integers representing pixel values */
-    public Bitmap getImage() {
+    public Bitmap getImageBitmap() {
         return this.image;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+    public int[] getImageArray() { return this.image_array; }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeParcelable(image, i);
-    }
 }

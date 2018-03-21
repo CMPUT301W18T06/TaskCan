@@ -42,7 +42,7 @@ public class SlideShowAdapter extends PagerAdapter {
         View myImageLayout = this.inflater.inflate(R.layout.slide, view, false);
         ImageView myImage = (ImageView) myImageLayout
                 .findViewById(R.id.slide);
-        myImage.setImageBitmap(this.images.getImage(position).getImage());
+        myImage.setImageBitmap(this.images.getImage(position).getImageBitmap());
         view.addView(myImageLayout, 0);
         return myImageLayout;
     }
