@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.example.n8tech.taskcan.Controller.CategoryGridViewAdapter;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.R;
 
@@ -48,25 +49,10 @@ public class ViewCategoryActivity extends ActivityHeader {
 
 
         this.initializeCategoryContents();
-        this.categoryGridviewItemClick();
-
     }
 
     private void initializeCategoryContents() {
-        ArrayList<String> categories = new ArrayList<>();
-        categories.addAll(Arrays.asList(getResources().getStringArray(R.array.categories_array)));
-
-
-    }
-
-    private void categoryGridviewItemClick() {
-        this.categoryGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-                Toast.makeText(ViewCategoryActivity.this, "" + position,
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+        this.categoryGridview.setAdapter(new CategoryGridViewAdapter(this));
     }
 
     @Override
