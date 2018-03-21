@@ -1,27 +1,28 @@
 package com.example.n8tech.taskcan.Controller;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.n8tech.taskcan.R;
-import com.example.n8tech.taskcan.Views.ViewCategoryActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
  * Created by AlanJ on 2018-03-21.
+ * http://www.viralandroid.com/2016/04/android-gridview-with-image-and-text.html
  */
 
 public class CategoryGridViewAdapter extends BaseAdapter {
     Context mContext;
     ArrayList<String> mCategories;
+
     public CategoryGridViewAdapter(Context context) {
         this.mContext = context;
 
@@ -46,16 +47,23 @@ public class CategoryGridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Button button;
+
+        View categoryGridView;
+        LayoutInflater inflater = (LayoutInflater) mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
         if (convertView == null) {
-            button = new Button(this.mContext);
-            button.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            categoryGridView = inflater.inflate(R.layout.category_grid_layout, null);
+            TextView textViewAndroid = categoryGridView.findViewById(R.id.category_gridview_text);
+            ImageView imageViewAndroid = categoryGridView.findViewById(R.id.category_gridview_image);
+            textViewAndroid.setText(this.mCategories.get(position));
+            imageViewAndroid.setImageResource(gridViewImageId[position]);
         } else {
-            button = (Button) convertView;
+            categoryGridView = convertView;
         }
-        button.setText(this.mCategories.get(position));
-        this.buttonClick(button, position);
-        return button;
+
+        return categoryGridView;
     }
 
     private void buttonClick(View v, final int position) {
@@ -67,4 +75,11 @@ public class CategoryGridViewAdapter extends BaseAdapter {
             }
         });
     }
+
+    int[] gridViewImageId = {
+            R.drawable.ic_build_24dp, R.drawable.ic_local_shipping_24dp, R.drawable.ic_pets_24dp, R.drawable.ic_person_24dp,
+            R.drawable.ic_landscape_24dp, R.drawable.ic_car_24dp, R.drawable.ic_local_dining_24dp, R.drawable.ic_create_24dp,
+            R.drawable.ic_more_horiz_24dp,
+
+    };
 }
