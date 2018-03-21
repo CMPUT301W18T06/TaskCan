@@ -13,7 +13,10 @@ public class NotificationContent {
     private CharSequence description;
 
     public NotificationContent(Context c, String channelID, String title, String description) {
-        
+        this.context = c;
+        this.channelID = channelID;
+        this.title = title;
+        this.description = description;
     }
 
     public Context getContext() {

@@ -1,5 +1,6 @@
 package com.example.n8tech.taskcan.Controller;
 
+import android.app.Notification;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.n8tech.taskcan.Models.NotificationContent;
 import com.example.n8tech.taskcan.R;
 
 import java.util.ArrayList;
@@ -62,11 +64,11 @@ public class CategoryGridViewAdapter extends BaseAdapter {
         } else {
             categoryGridView = convertView;
         }
-
+        this.categoryGridViewClick(categoryGridView, position);
         return categoryGridView;
     }
 
-    private void buttonClick(View v, final int position) {
+    private void categoryGridViewClick(View v, final int position) {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
