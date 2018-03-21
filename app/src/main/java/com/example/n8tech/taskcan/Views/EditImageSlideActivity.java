@@ -1,8 +1,10 @@
 package com.example.n8tech.taskcan.Views;
 
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.n8tech.taskcan.Controller.SlideShowAdapter;
 import com.example.n8tech.taskcan.Models.Image;
@@ -15,6 +17,7 @@ public class EditImageSlideActivity extends AppCompatActivity {
     public final static String IMAGES_KEY = "EditImageSlideActivity_IMAGESKEY";
     private ImageList slides;
     private ViewPager mPager;
+    private SlideShowAdapter adapter;
     private int currentPage = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +28,9 @@ public class EditImageSlideActivity extends AppCompatActivity {
         this.initialialSlideShow();
     }
     private void initialialSlideShow() {
-        mPager = findViewById(R.id.pager);
-        mPager.setAdapter(new SlideShowAdapter(getApplicationContext(), slides));
+        this.mPager = findViewById(R.id.pager);
+        this.adapter = new SlideShowAdapter(getApplicationContext(), slides);
+        this.mPager.setAdapter(this.adapter);
         CircleIndicator indicator = findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
 
@@ -38,5 +42,10 @@ public class EditImageSlideActivity extends AppCompatActivity {
                 mPager.setCurrentItem(currentPage++, true);
             }
         };
+    }
+
+    public void deleteButtonClick(View view) {
+        this.slides.removeImage(this.currentPage);
+        this.adapter.notifyDataSetChanged();
     }
 }

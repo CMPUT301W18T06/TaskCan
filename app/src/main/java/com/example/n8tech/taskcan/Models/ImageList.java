@@ -53,6 +53,9 @@ public class ImageList implements Iterable<Image>{
     public Integer getSize() {
         return this.images.size();
     }
+    public void removeImage(int position) {
+        this.images.remove(position);
+    }
 
     @NonNull
     @Override
