@@ -283,4 +283,8 @@ public class EditTaskActivity extends ActivityHeader  {
     protected String getActivityTitle() {
         return "Edit Task";
     }
+
+    public void viewImagesOnClick(View view) {
+
+    }
 }

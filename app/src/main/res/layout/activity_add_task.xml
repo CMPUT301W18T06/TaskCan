@@ -172,7 +172,7 @@
                         android:layout_marginTop="16dp"
                         android:background="@drawable/gradient"
                         android:onClick="viewImagesOnClick"
-                        android:text="View Images"
+                        android:text="@string/view_edit_images_button"
                         android:textAppearance="@style/TextAppearance.AppCompat"
                         android:textColor="@color/colorWhite"
                         android:textSize="18sp"
