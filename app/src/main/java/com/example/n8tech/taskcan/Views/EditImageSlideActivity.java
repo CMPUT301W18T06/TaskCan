@@ -12,6 +12,7 @@ import com.example.n8tech.taskcan.R;
 import me.relex.circleindicator.CircleIndicator;
 
 public class EditImageSlideActivity extends AppCompatActivity {
+    public final static String IMAGES_KEY = "EditImageSlideActivity_IMAGESKEY";
     private ImageList slides;
     private ViewPager mPager;
     private int currentPage = 0;
@@ -20,7 +21,7 @@ public class EditImageSlideActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_image_slide);
         this.slides = new ImageList();
-        this.slides.setImages(getIntent().getExtras().<Image>getParcelableArrayList(AddTaskActivity.IMAGES_KEY));
+        this.slides.setImages(getIntent().getExtras().<Image>getParcelableArrayList(IMAGES_KEY));
         this.initialialSlideShow();
     }
     private void initialialSlideShow() {

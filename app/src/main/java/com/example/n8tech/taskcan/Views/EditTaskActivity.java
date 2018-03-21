@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
+import com.example.n8tech.taskcan.Models.Image;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Models.UserList;
@@ -54,6 +55,8 @@ import java.util.Locale;
  * @author CMPUT301W18T06
  */
 public class EditTaskActivity extends ActivityHeader  {
+    public final static Integer EDIT_IMAGES_REQUEST_CODE = 0;
+
     private Spinner categorySpinner;
     private Spinner taskStatusSpinner;
     private Task task;
@@ -285,6 +288,19 @@ public class EditTaskActivity extends ActivityHeader  {
     }
 
     public void viewImagesOnClick(View view) {
-
+        if (this.task.getImageList().getSize() == 0) {
+            Toast.makeText(getApplicationContext(), "No images to show! Please add image!",
+                    Toast.LENGTH_LONG).show();
+        }
+        else {
+            Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
+            Bundle b = new Bundle();
+            for (Image image : this.task.getImageList().getImages()) {
+                image.recreateRecycledBitmap();
+            }
+            b.putParcelableArrayList(EditImageSlideActivity.IMAGES_KEY, this.task.getImageList().getImages());
+            i.putExtras(b);
+            startActivityForResult(i, EDIT_IMAGES_REQUEST_CODE);
+        }
     }
 }

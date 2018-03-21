@@ -65,7 +65,6 @@ import java.util.Locale;
  */
 
 public class AddTaskActivity extends ActivityHeader {
-    public final static String IMAGES_KEY = "AddTaskActivity_IMAGESKEY";
     public final static Integer EDIT_IMAGES_REQUEST_CODE = 0;
 
     private Spinner categorySpinner;
@@ -350,9 +349,9 @@ public class AddTaskActivity extends ActivityHeader {
         else {
             Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
             Bundle b = new Bundle();
-            b.putParcelableArrayList(this.IMAGES_KEY, this.images.getImages());
+            b.putParcelableArrayList(EditImageSlideActivity.IMAGES_KEY, this.images.getImages());
             i.putExtras(b);
-            startActivityForResult(i, this.EDIT_IMAGES_REQUEST_CODE);
+            startActivityForResult(i, EDIT_IMAGES_REQUEST_CODE);
         }
     }
 }
