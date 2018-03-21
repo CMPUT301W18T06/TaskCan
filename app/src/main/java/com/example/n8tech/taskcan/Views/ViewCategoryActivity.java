@@ -27,6 +27,9 @@ import android.widget.Toast;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.R;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * ViewCategoryActivity allows the user to select task categories
  * and browse tasks within those categories. This is accessible from SearchActivity.
@@ -36,23 +39,34 @@ import com.example.n8tech.taskcan.R;
  */
 
 public class ViewCategoryActivity extends ActivityHeader {
-
+    GridView categoryGridview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        GridView categoryGridview = (GridView) findViewById(R.id.activity_view_category_grid);
-        //categoryGridview.setAdapter(new Adapter(this));
+        this.categoryGridview = findViewById(R.id.activity_view_category_grid);
 
-        categoryGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        this.initializeCategoryContents();
+        this.categoryGridviewItemClick();
+
+    }
+
+    private void initializeCategoryContents() {
+        ArrayList<String> categories = new ArrayList<>();
+        categories.addAll(Arrays.asList(getResources().getStringArray(R.array.categories_array)));
+
+
+    }
+
+    private void categoryGridviewItemClick() {
+        this.categoryGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 Toast.makeText(ViewCategoryActivity.this, "" + position,
                         Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     @Override
