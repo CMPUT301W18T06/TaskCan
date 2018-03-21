@@ -41,4 +41,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-places:11.8.0'
     compile 'me.relex:circleindicator:1.2.2@aar'
     implementation 'org.elasticsearch:elasticsearch:1.2.4'
+    implementation "com.android.support:support-compat:26.1.0"
 }
