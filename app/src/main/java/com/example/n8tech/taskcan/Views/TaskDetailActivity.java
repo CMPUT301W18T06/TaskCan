@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
+import com.example.n8tech.taskcan.Models.Image;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Models.UserList;
@@ -170,6 +171,9 @@ public class TaskDetailActivity extends ActivityHeader {
         else {
             Intent i = new Intent(getApplicationContext(), ViewImageSlideActivity.class);
             Bundle b = new Bundle();
+            for (Image image : this.task.getImageList().getImages()) {
+                image.recreateRecycledBitmap();
+            }
             b.putParcelableArrayList(this.IMAGES_KEY, this.task.getImageList().getImages());
             i.putExtras(b);
             startActivity(i);

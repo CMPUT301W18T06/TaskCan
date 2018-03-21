@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 public class Image implements Parcelable {
     private Bitmap image;
-    private int x;
-    private int y;
+    private int width;
+    private int height;
 
     private int[] image_array;
     /**
@@ -25,33 +25,38 @@ public class Image implements Parcelable {
      */
     public Image(Bitmap bitmap) {
         this.image = bitmap;
-        this.x = bitmap.getWidth();
-        this.y = bitmap.getHeight();
-        this.image_array = new int[this.x * this.y];
-        bitmap.getPixels(this.image_array, 0, this.x, 0, 0, this.x, this.y);
+        this.width = bitmap.getWidth();
+        this.height = bitmap.getHeight();
+        this.image_array = new int[this.width * this.height];
+        bitmap.getPixels(this.image_array, 0, this.width, 0, 0, this.width, this.height);
     }
 
     public Image(int[] image_array, int x, int y) {
         this.image_array = image_array;
-        this.x = x;
-        this.y = y;
+        this.width = x;
+        this.height = y;
         this.image = Bitmap.createBitmap(x, y, Bitmap.Config.ARGB_8888);
         this.image.setPixels(image_array, 0, x, 0, 0, x, y);
+    }
+
+    public void recreateRecycledBitmap() {
+        this.image = Bitmap.createBitmap(this.width, this.height, Bitmap.Config.ARGB_8888);
+        this.image.setPixels(this.image_array, 0, this.width, 0, 0, width, height);
     }
 
 
     protected Image(Parcel in) {
         image = in.readParcelable(Bitmap.class.getClassLoader());
-        x = in.readInt();
-        y = in.readInt();
+        width = in.readInt();
+        height = in.readInt();
         image_array = in.createIntArray();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(image, flags);
-        dest.writeInt(x);
-        dest.writeInt(y);
+        dest.writeInt(width);
+        dest.writeInt(height);
         dest.writeIntArray(image_array);
     }
 
