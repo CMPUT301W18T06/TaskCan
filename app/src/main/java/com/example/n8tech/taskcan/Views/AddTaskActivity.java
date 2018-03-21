@@ -66,6 +66,12 @@ import java.util.Locale;
 
 public class AddTaskActivity extends ActivityHeader {
     public final static Integer EDIT_IMAGES_REQUEST_CODE = 0;
+    private final static String RESULT_CODE = "ADDTASKACTIVITY_IMAGE_RESULT_CODE";
+
+    final Integer GALLERY_ADD_IMAGE = 0;
+    final Integer CAMERA_ADD_IMAGE = 1;
+    final Integer EDIT_IMAGE = 2;
+    final int PLACE_PICKER_REQUEST = 3;
 
     private Spinner categorySpinner;
     private Task newTask;
@@ -82,7 +88,6 @@ public class AddTaskActivity extends ActivityHeader {
     private ArrayAdapter<CharSequence> categorySpinnerAdapter;
     private ImageList images;
     private FileIO fileIO = new FileIO();
-    int PLACE_PICKER_REQUEST = 5;
     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
 
@@ -304,35 +309,42 @@ public class AddTaskActivity extends ActivityHeader {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        if ((requestCode == 0 || requestCode == 1) && resultCode == RESULT_OK) {
-            // get image
-            Uri selectedImage = imageReturnedIntent.getData();
-            InputStream imageStream = null;
-            try {
-                imageStream = getContentResolver().openInputStream(selectedImage);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+    protected void onActivityResult(int requestCode, int resultCode, Intent returnedIntent) {
+        super.onActivityResult(requestCode, resultCode, returnedIntent);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == this.CAMERA_ADD_IMAGE || requestCode == this.GALLERY_ADD_IMAGE) {
+                // get image
+                Uri selectedImage = returnedIntent.getData();
+                InputStream imageStream = null;
+                try {
+                    imageStream = getContentResolver().openInputStream(selectedImage);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+                Image image = new Image(bitmap);
+                // check img size
+                if (this.sizeOf(bitmap) < R.integer.IMAGE_MAX_BYTE_SIZE) {
+                    // store
+                    images.addImage(image);
+                    Toast.makeText(AddTaskActivity.this, "Image added successfully!",
+                            Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(AddTaskActivity.this, "Image size too large! (<65536bytes)",
+                            Toast.LENGTH_LONG).show();
+                }
             }
-            Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
-            Image image = new Image(bitmap);
-            // check img size
-            if (this.sizeOf(bitmap) < R.integer.IMAGE_MAX_BYTE_SIZE) {
-                // store
-                images.addImage(image);
-                Toast.makeText(AddTaskActivity.this, "Image added successfully!",
-                        Toast.LENGTH_LONG).show();
+            else if (requestCode == this.PLACE_PICKER_REQUEST) {
+                this.location = PlacePicker.getPlace(this, returnedIntent).getLatLng();
+                String toastMsg = String.format("Place: %s", PlacePicker.getPlace(this, returnedIntent).getName());
+                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+            }
+            else if (requestCode == this.EDIT_IMAGE) {
+                this.images.setImages(returnedIntent.getExtras().<Image>getParcelableArrayList(RESULT_CODE));
             }
             else {
-                Toast.makeText(AddTaskActivity.this, "Image size too large! (<65536bytes)",
-                        Toast.LENGTH_LONG).show();
-            }
-        } else if (requestCode == PLACE_PICKER_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                this.location = PlacePicker.getPlace(this, imageReturnedIntent).getLatLng();
-                String toastMsg = String.format("Place: %s", PlacePicker.getPlace(this, imageReturnedIntent).getName());
-                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+                throw new IllegalStateException();
             }
         }
     }
@@ -350,6 +362,7 @@ public class AddTaskActivity extends ActivityHeader {
             Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
             Bundle b = new Bundle();
             b.putParcelableArrayList(EditImageSlideActivity.IMAGES_KEY, this.images.getImages());
+            b.putString(EditImageSlideActivity.RESULT_KEY, RESULT_CODE);
             i.putExtras(b);
             startActivityForResult(i, EDIT_IMAGES_REQUEST_CODE);
         }
