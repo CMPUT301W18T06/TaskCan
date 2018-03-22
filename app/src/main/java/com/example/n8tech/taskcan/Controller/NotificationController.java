@@ -12,6 +12,12 @@ import com.example.n8tech.taskcan.R;
 
 /**
  * Created by AlanJ on 2018-03-21.
+ *
+ * example of usage:
+ NotificationContent content = new NotificationContent(v.getContext(), NotificationController.ANDROID_CHANNEL_ID,
+ "Category Chosen", "You have chosen: " + position);
+ NotificationController controller = new NotificationController(content);
+ controller.alert(1);
  */
 
 public class NotificationController {
@@ -63,5 +69,9 @@ public class NotificationController {
 
     public Notification build() {
         return this.nBuilder.build();
+    }
+
+    public void alert(int notificationID) {
+        this.nManager.notify(notificationID, this.build());
     }
 }

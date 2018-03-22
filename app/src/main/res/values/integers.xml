@@ -5,4 +5,8 @@
 
 
     <integer name="IMAGE_MAX_BYTE_SIZE">65536</integer>
+
+    <integer name="NEW_BID_NOTIFICATION">0</integer>
+    <integer name="BID_ACCEPTED_NOTIFICATION">1</integer>
+    <integer name="BID_DENIED_NOTIFICATION">2</integer>
 </resources>
