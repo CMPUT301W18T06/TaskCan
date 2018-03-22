@@ -56,13 +56,13 @@ public class ViewTaskActivity extends ActivityHeader{
     }
 
     public void findByIdsAndSetTextFields() {
-        taskNameText = (TextView) findViewById(R.id.task_details_activity_name_text);
-        taskDescriptionText = (TextView) findViewById(R.id.task_details_activity_task_description_text);
-        taskStatusText = (TextView) findViewById(R.id.task_details_activity_status_text);
-        taskCategoryText= (TextView) findViewById(R.id.task_details_activity_category_text);
-        taskOwnerUsernameText = (TextView) findViewById(R.id.task_details_activity_requester_username_text);
-        taskCurrentBidText = (TextView) findViewById(R.id.task_details_activity_current_bid_text);
-        taskMaxBidText = (TextView) findViewById(R.id.task_details_activity_max_bid_text);
+        taskNameText = findViewById(R.id.task_view_activity_name_text);
+        taskDescriptionText = findViewById(R.id.task_view_activity_task_description_text);
+        taskStatusText = findViewById(R.id.task_view_activity_status_text);
+        taskCategoryText= findViewById(R.id.task_view_activity_category_text);
+        taskOwnerUsernameText = findViewById(R.id.task_view_activity_requester_username_text);
+        taskCurrentBidText = findViewById(R.id.task_view_activity_current_bid_text);
+        taskMaxBidText = findViewById(R.id.task_view_activity_max_bid_text);
 
         // set based on current task
         taskNameText.setText(task.getTaskTitle());
@@ -89,53 +89,6 @@ public class ViewTaskActivity extends ActivityHeader{
         } else {
             taskMaxBidText.setText(String.format(Locale.CANADA,"%.2f", task.getMaximumBid()));
         }
-    }
-
-
-    public void deleteButtonClick(View v){
-
-        ElasticsearchController.DeleteTask deleteTask
-                = new ElasticsearchController.DeleteTask();
-        deleteTask.execute(this.task);
-
-        String completed = new String();
-        try {
-            completed = deleteTask.get();
-            Log.i("Testing", completed);
-        } catch (Exception e) {
-            Log.i("Error", e.toString());
-        }
-
-        if(completed.equals("NoNetworkError")) {
-            // remove task from currentusers task list and go back to my task activity
-            UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
-            cacheList.delUser(this.currentUser);
-            currentUser.removeTask(task);
-
-            ElasticsearchController.UpdateUser updateUser
-                    = new ElasticsearchController.UpdateUser();
-            updateUser.execute(currentUser);
-
-            cacheList.addUser(this.currentUser);
-            this.fileIO.saveInFile(getApplicationContext(), cacheList);
-
-            Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        } else {
-            //add offline functionality
-        }
-    }
-
-    public void editButtonClick(View view){
-        Intent intent = new Intent(view.getContext(), EditTaskActivity.class);
-        intent.putExtra("taskIndex", currentTaskIndex);
-        view.getContext().startActivity(intent);
-    }
-
-    public void viewBidsButtonClick(View v){
-        Intent intent = new Intent(getApplicationContext(), ViewBidsActivity.class);
-        startActivity(intent);
     }
 
     public void taskDetailLocationButtonClick(View v) {
@@ -176,7 +129,7 @@ public class ViewTaskActivity extends ActivityHeader{
 
     @Override
     protected int getLayoutResourceId() {
-        return R.layout.activity_task_detail;
+        return R.layout.activity_view_task;
     }
 
     @Override

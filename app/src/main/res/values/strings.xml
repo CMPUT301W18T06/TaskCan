@@ -70,6 +70,9 @@
     <string name="add_task_activity_location_button">Add Location</string>
     <string name="view_edit_images_button">View/Edit Images</string>
 
+    <string name="view_task_activity_bid_field">($) My Bid</string>
+    <string name="view_task_activity_bid_button">Confirm Bid</string>
+
     <string-array name="categories_array">
         <item>Home Maintenance</item>
         <item>Delivery Services</item>
