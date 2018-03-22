@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
+import com.example.n8tech.taskcan.Services.NotificationService;
 import com.google.gson.Gson;
 
 
@@ -39,6 +40,13 @@ public abstract class ActivityHeader extends AppCompatActivity {
 
         this.initializeToolBar();
         this.initializeNavagation();
+
+        this.initializeNotificationServices();
+    }
+
+    private void initializeNotificationServices() {
+        Intent intent = new Intent(this, NotificationService.class);
+        startService(intent);
     }
 
     private void initializeNavagation() {
