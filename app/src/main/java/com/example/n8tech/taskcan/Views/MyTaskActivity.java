@@ -59,10 +59,6 @@ public class MyTaskActivity extends ActivityHeader {
     private RecyclerView RequestedRecyclerView;
     private RecyclerView AssignedRecyclerView;
     private RecyclerView ArchivedRecyclerView;
-    private TaskViewRecyclerAdapter mAdapter;
-    private RecyclerView.LayoutManager RequestedLayoutManager;
-    private RecyclerView.LayoutManager AssignedLayoutManager;
-    private RecyclerView.LayoutManager ArchivedLayoutManager;
 
 
     @Override
@@ -102,15 +98,15 @@ public class MyTaskActivity extends ActivityHeader {
         ArchivedRecyclerView.setHasFixedSize(true);
 
         // TODO potentially change to use one layout manager instead which is set based on the active tab
-        RequestedLayoutManager = new LinearLayoutManager(this);
-        AssignedLayoutManager = new LinearLayoutManager(this);
-        ArchivedLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager requestedLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager assignedLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager archivedLayoutManager = new LinearLayoutManager(this);
 
-        RequestedRecyclerView.setLayoutManager(RequestedLayoutManager);
-        AssignedRecyclerView.setLayoutManager(AssignedLayoutManager);
-        ArchivedRecyclerView.setLayoutManager(ArchivedLayoutManager);
+        RequestedRecyclerView.setLayoutManager(requestedLayoutManager);
+        AssignedRecyclerView.setLayoutManager(assignedLayoutManager);
+        ArchivedRecyclerView.setLayoutManager(archivedLayoutManager);
 
-        mAdapter = new TaskViewRecyclerAdapter(myTaskList);
+        TaskViewRecyclerAdapter mAdapter = new TaskViewRecyclerAdapter(myTaskList);
         RequestedRecyclerView.setAdapter(mAdapter);
         AssignedRecyclerView.setAdapter(mAdapter);
         ArchivedRecyclerView.setAdapter(mAdapter);

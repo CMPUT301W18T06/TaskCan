@@ -158,9 +158,14 @@ public class TaskDetailActivity extends ActivityHeader {
     }
 
     public void taskDetailLocationButtonClick(View v) {
-        Intent intent = new Intent(getApplicationContext(), ViewTaskOnMapsActivity.class);
-        intent.putExtra("taskIndex", currentTaskIndex);
-        v.getContext().startActivity(intent);
+        if (task.getLocation() == null) {
+            Toast.makeText(getApplicationContext(), "No location specified!",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Intent intent = new Intent(getApplicationContext(), ViewTaskOnMapsActivity.class);
+            intent.putExtra("taskIndex", currentTaskIndex);
+            v.getContext().startActivity(intent);
+        }
     }
 
     public void viewImagesButtonClick(View v){
