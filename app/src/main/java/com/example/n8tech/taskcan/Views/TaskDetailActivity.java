@@ -68,6 +68,7 @@ public class TaskDetailActivity extends ActivityHeader {
         super.onStart();
         this.currentUser = CurrentUserSingleton.getUser();
 
+        // TODO this needs to get the task via id, not index in current user's tasklist
         Bundle extras = getIntent().getExtras();
         currentTaskIndex = extras.getInt("taskIndex");
         task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);

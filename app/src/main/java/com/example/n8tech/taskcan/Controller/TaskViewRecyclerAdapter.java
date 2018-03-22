@@ -82,8 +82,8 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
             holder.taskBidderName.setText("Currently no bids.");
             currentBidText = "None";
         }else{
-            holder.taskBidderName.setText(currentTask.getTaskTitle());
-            currentBidText = String.valueOf("NAME OF LOWEST BIDDER GOES HERE");
+            holder.taskBidderName.setText("NAME OF LOWEST BIDDER GOES HERE");
+            currentBidText = String.valueOf(currentTask.getCurrentBid());
         }
         holder.taskBid.setText(currentBidText);
 
