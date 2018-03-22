@@ -110,8 +110,10 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
 
         if (task.getLocation() != null) {
             LatLng taskMarker = task.getLocation();
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(taskMarker, 10.0f));
+            mMap.addMarker(new MarkerOptions().position(taskMarker).title(task.getTaskTitle()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(taskMarker, 12.0f));
         } else {
+            // TODO in the case that we just opened the map, go to current position and mark tasks in 5km radius
             LatLng taskMarker = task.getLocation();
         }
     }
