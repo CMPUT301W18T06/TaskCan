@@ -36,12 +36,16 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView taskTitle;
+        public TextView taskBidderName;
+        public TextView taskStatus;
         public TextView taskBid;
 
         public ViewHolder(View view) {
             super(view);
-            taskTitle = (TextView) view.findViewById(R.id.task_view_title);
-            taskBid = (TextView) view.findViewById(R.id.task_view_current_bid);
+            taskTitle = view.findViewById(R.id.task_view_title);
+            taskBidderName = view.findViewById(R.id.task_view_bidder_name);
+            taskStatus = view.findViewById(R.id.task_view_status);
+            taskBid = view.findViewById(R.id.task_view_current_bid);
         }
     }
 
@@ -70,13 +74,16 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
         // - replace the contents of the view with that element
         final Task currentTask = taskList.getTaskAtIndex(position);
         holder.taskTitle.setText(currentTask.getTaskTitle());
+        holder.taskStatus.setText(currentTask.getStatus());
 
         // if a current bid set to that, else set to "None"
         String currentBidText;
         if (currentTask.getCurrentBid() == -1){
+            holder.taskBidderName.setText("Currently no bids.");
             currentBidText = "None";
         }else{
-            currentBidText = String.valueOf(currentTask.getCurrentBid());
+            holder.taskBidderName.setText(currentTask.getTaskTitle());
+            currentBidText = String.valueOf("NAME OF LOWEST BIDDER GOES HERE");
         }
         holder.taskBid.setText(currentBidText);
 
