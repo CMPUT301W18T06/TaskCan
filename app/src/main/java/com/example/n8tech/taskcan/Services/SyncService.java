@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.Nullable;
 
+import com.example.n8tech.taskcan.Controller.NetworkConnectionController;
 import com.example.n8tech.taskcan.Views.SyncDialogActivity;
 
 /**
@@ -17,14 +18,10 @@ public class SyncService extends IntentService {
     public static final String SYNC_SERVICE_NUM_OF_SYNC = "SYNC_SERVICE_NUM_OF_SYNC";
 
     private boolean connectionStatus;
-    private ConnectivityManager connManager;
-    private NetworkInfo mWifi;
     public SyncService() {
         super("SyncService");
-        this.connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        this.mWifi = this.connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
-        this.connectionStatus = this.mWifi.isConnected();
+        this.connectionStatus = NetworkConnectionController.isConnected(this);
     }
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -43,7 +40,7 @@ public class SyncService extends IntentService {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (this.mWifi.isConnected() && !this.connectionStatus) {
+            if (NetworkConnectionController.isConnected(this) && !this.connectionStatus) {
                 this.connectionStatus = true;
                 if (this.existsUnSyncedData())
                     this.launchDialogActivity();
