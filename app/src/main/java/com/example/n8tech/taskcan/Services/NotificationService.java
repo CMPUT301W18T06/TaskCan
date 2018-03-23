@@ -29,6 +29,13 @@ public class NotificationService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         while(true) {
+            //  put to sleep to make sure the android device does not donote
+            //  all of its resources here
+            try {
+                Thread.sleep(30000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             if(this.haveNewBids()) {
                 NotificationContent content = new NotificationContent(getApplicationContext(), NotificationController.ANDROID_CHANNEL_ID,
                         this.TITLE, this.description);
