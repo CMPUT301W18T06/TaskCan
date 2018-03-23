@@ -24,12 +24,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.n8tech.taskcan.Controller.NetworkConnectionController;
 import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
 import com.example.n8tech.taskcan.Models.User;
+
+import javax.xml.datatype.Duration;
 
 /**
  * SignInActivity handles user log in which sets the current user.
@@ -149,7 +152,11 @@ public class SignInActivity extends Activity {
     }
 
     public void signUpButtonClick(View v) {
-        Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-        startActivity(intent);
+        if (NetworkConnectionController.isConnected(this)) {
+            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Please Connect To A Network!", Toast.LENGTH_LONG).show();
+        }
     }
 }
