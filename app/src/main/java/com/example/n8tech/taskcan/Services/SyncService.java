@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.example.n8tech.taskcan.SyncDialogActivity;
@@ -45,13 +46,22 @@ public class SyncService extends IntentService {
             }
             if (this.mWifi.isConnected() && !this.connectionStatus) {
                 this.connectionStatus = true;
-                // https://stackoverflow.com/questions/3606596/android-start-activity-from-service
-                Intent dialogIntent = new Intent(this, SyncDialogActivity.class);
-                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(dialogIntent);
+                if (this.existsUnSyncedData())
+                    this.launchDialogActivity();
             } else {
                 this.connectionStatus = false;
             }
         }
+    }
+
+    private boolean existsUnSyncedData() {
+        return false;
+    }
+
+    private void launchDialogActivity() {
+        // https://stackoverflow.com/questions/3606596/android-start-activity-from-service
+        Intent dialogIntent = new Intent(this, SyncDialogActivity.class);
+        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(dialogIntent);
     }
 }

@@ -32,8 +32,7 @@ public class SyncDialogActivity extends AppCompatActivity {
     }
 
     public void loadExtras() {
-        this.numOfSyncs = getIntent().getExtras().getInt(SyncService.SYNC_SERVICE_NUM_OF_SYNC);
-        this.incrementer = MAX_PROGRESS / this.numOfSyncs;
+        // check number of unsynced files;
     }
 
     private void progressAction() {
