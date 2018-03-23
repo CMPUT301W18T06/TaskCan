@@ -40,7 +40,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <android.support.constraint.ConstraintLayout
@@ -54,8 +54,13 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
+                        android:background="@drawable/entry_field"
                         android:hint="Task Name *"
                         android:maxLength="30"
+                        android:paddingBottom="4dp"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -67,9 +72,14 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:inputType="textMultiLine"
+                        android:background="@drawable/entry_field"
                         android:hint="Task Description"
+                        android:inputType="textMultiLine"
                         android:maxLength="300"
+                        android:paddingBottom="4dp"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/add_task_activity_name_edit_text" />
@@ -113,13 +123,18 @@
 
                     <EditText
                         android:id="@+id/add_task_activity_money_edit_text"
-                        android:layout_width="184dp"
-                        android:layout_height="42dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="64dp"
                         android:layout_marginTop="8dp"
+                        android:background="@drawable/entry_field"
                         android:ems="10"
                         android:inputType="numberDecimal"
+                        android:paddingBottom="4dp"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="4dp"
                         android:textIsSelectable="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/add_task_activity_max_bid_text"
