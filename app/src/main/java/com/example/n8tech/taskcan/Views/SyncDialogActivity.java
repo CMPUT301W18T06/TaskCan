@@ -1,4 +1,4 @@
-package com.example.n8tech.taskcan;
+package com.example.n8tech.taskcan.Views;
 
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.n8tech.taskcan.R;
 import com.example.n8tech.taskcan.Services.SyncService;
 
 // https://www.mkyong.com/android/android-progress-bar-example/

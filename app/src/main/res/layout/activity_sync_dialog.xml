@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.n8tech.taskcan.SyncDialogActivity"
+    tools:context="com.example.n8tech.taskcan.Views.SyncDialogActivity"
     android:excludeFromRecents="true">
 
     <ProgressBar

@@ -5,10 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.example.n8tech.taskcan.SyncDialogActivity;
+import com.example.n8tech.taskcan.Views.SyncDialogActivity;
 
 /**
  * Created by AlanJ on 2018-03-23.

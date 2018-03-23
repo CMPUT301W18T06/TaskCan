@@ -16,6 +16,7 @@ import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.example.n8tech.taskcan.Services.NotificationService;
+import com.example.n8tech.taskcan.Services.SyncService;
 import com.google.gson.Gson;
 
 
@@ -41,10 +42,16 @@ public abstract class ActivityHeader extends AppCompatActivity {
         this.initializeToolBar();
         this.initializeNavagation();
 
-        this.initializeNotificationServices();
+        this.initializeNotificationService();
+        this.initializeSyncService();
     }
 
-    private void initializeNotificationServices() {
+    private void initializeSyncService() {
+        Intent intent = new Intent(this, SyncService.class);
+        startService(intent);
+    }
+
+    private void initializeNotificationService() {
         Intent intent = new Intent(this, NotificationService.class);
         startService(intent);
     }

@@ -96,7 +96,7 @@
         <activity android:name=".Views.EditImageSlideActivity" />
         <activity android:name=".Views.ViewImageSlideActivity" />
         <activity
-            android:name=".SyncDialogActivity"
+            android:name=".Views.SyncDialogActivity"
             android:theme="@style/Animation.AppCompat.Dialog">
         </activity>
     </application>
