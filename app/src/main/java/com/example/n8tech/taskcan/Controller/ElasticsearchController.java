@@ -30,10 +30,14 @@ import io.searchbox.core.Search;
  */
 
 public class ElasticsearchController {
+    private static String ELASTIC_SEARCH_NAME = "cmput301w18t06";
+    private static String NETWORK_ERROR = "NetworkError";
+    private static String ACCESS_ERROR = "AccessError";
+    private static String NO_NETWORK_ERROR = "NoNetworkError";
 
     private static JestDroidClient client;
 
-
+    // if no internet connectivity, then this class should NOT  be reached
     public static class AddUser extends AsyncTask<User, Void, String> {
 
         @Override
@@ -71,25 +75,9 @@ public class ElasticsearchController {
             verifySettings();
 
             for (User user : users){
-
-                Index index = new Index.Builder(user).index("cmput301w18t06").type("user").id(user.getId()).build();
-
-                try {
-                    DocumentResult result = client.execute(index);
-
-                    if(result.isSucceeded()) {
-                        user.setId(result.getId());
-                    }
-                    else {
-                        Log.i("Error", "Elasticsearch was not able to add the user");
-                    }
-                } catch (Exception e) {
-                    Log.i("Error", "The application failed to build and add the user");
-                    return "NetworkError";
-
-                }
+                user.setId(update("user", user, user.getId()));
             }
-            return "NoNetworkError";
+            return NO_NETWORK_ERROR;
         }
 
     }
@@ -221,25 +209,9 @@ public class ElasticsearchController {
             verifySettings();
 
             for (Task task : tasks){
-                Index index = new Index.Builder(task).index("cmput301w18t06").type("task").id(task.getId()).build();
-
-                try {
-                    DocumentResult result = client.execute(index);
-
-                    Log.i("Testing", result.getJsonString());
-                    if(result.isSucceeded()) {
-                        task.setId(result.getId());
-                    }
-                    else {
-                        Log.i("Error", "Elasticsearch was not able to add the task");
-                    }
-                } catch (Exception e) {
-                    Log.i("Error", "The application failed to build and add the task");
-                    return "NetworkError";
-
-                }
+                task.setId(update("task", task, task.getId()));
             }
-            return "NoNetworkError";
+            return NO_NETWORK_ERROR;
         }
 
     }
@@ -371,6 +343,28 @@ public class ElasticsearchController {
             }
 
             return taskList;
+        }
+    }
+
+
+    public static <T> String update(String content, T object, String objectID) {
+        Index index = new Index.Builder(object).index(ELASTIC_SEARCH_NAME).type(content).id(objectID).build();
+
+        try {
+            DocumentResult result = client.execute(index);
+
+            Log.i("Testing", result.getJsonString());
+            if(result.isSucceeded()) {
+                return result.getId();
+            }
+            else {
+                Log.i("Error", "Elasticsearch was not able to update");
+                return ACCESS_ERROR;
+            }
+        } catch (Exception e) {
+            Log.i("Error", "The application failed to build and update");
+            return NETWORK_ERROR;
+
         }
     }
 
