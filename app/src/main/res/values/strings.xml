@@ -68,6 +68,7 @@
 
     <string name="edit_profile_activity_save_button">Save</string>
     <string name="add_task_activity_location_button">Add Location</string>
+    <string name="add_task_activity_max_bid">($)</string>
     <string name="view_edit_images_button">View/Edit Images</string>
 
     <string name="view_task_activity_bid_field">($) My Bid</string>

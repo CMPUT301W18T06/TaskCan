@@ -27,214 +27,216 @@
             app:layout_constraintStart_toStartOf="parent"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
-        <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <EditText
+            android:id="@+id/edit_task_activity_name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/entry_field"
+            android:hint="Task Name *"
+            android:maxLength="30"
+            android:paddingBottom="8dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/menu_toolbar">
+            app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
+
+        <EditText
+            android:id="@+id/edit_task_activity_task_description_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/entry_field"
+            android:hint="Task Description"
+            android:inputType="textMultiLine"
+            android:maxLength="300"
+            android:paddingBottom="4dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="4dp"
+            android:gravity="top"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_money_edit_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_name_edit_text" />
+
+        <TextView
+            android:id="@+id/edit_task_activity_max_bid_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:text="Maximum Bid (CAD):"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_status_text"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/edit_task_activity_status_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:text="Task Status: "
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_category_text"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/edit_task_activity_status_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_category_spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edit_task_activity_status_text" />
+
+        <EditText
+            android:id="@+id/edit_task_activity_money_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="32dp"
+            android:background="@drawable/entry_field"
+            android:ems="10"
+            android:hint="@string/add_task_activity_max_bid"
+            android:inputType="numberDecimal"
+            android:paddingBottom="4dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:paddingTop="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_status_spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edit_task_activity_max_bid_text" />
+
+        <TextView
+            android:id="@+id/edit_task_activity_category_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:text="Category: "
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_add_photos_button"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/edit_task_activity_category_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_view_images_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edit_task_activity_category_text" />
+
+        <Button
+            android:id="@+id/edit_task_activity_add_photos_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/gradient"
+            android:onClick="addPhotosButtonClick"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="Add Images"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_save_button"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        <Button
+            android:id="@+id/edit_task_activity_view_images_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/gradient"
+            android:onClick="viewImagesOnClick"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="@string/view_edit_images_button"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_save_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+        <Button
+            android:id="@+id/edit_task_activity_location_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/gradient"
+            android:onClick="editLocationButtonClick"
+            android:text="Edit Location"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_save_button"
+            app:layout_constraintEnd_toStartOf="@+id/edit_task_activity_view_images_button"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edit_task_activity_add_photos_button" />
 
-                    <EditText
-                        android:id="@+id/edit_task_activity_name_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:hint="Task Name *"
-                        android:maxLength="30"
-                        android:paddingBottom="4dp"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:paddingTop="4dp"
-                        android:background="@drawable/entry_field"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/edit_task_activity_save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/gradient"
+            android:onClick="saveButtonClick"
+            android:text="Save"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_cancel_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-                    <EditText
-                        android:id="@+id/edit_task_activity_task_description_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:inputType="textMultiLine"
-                        android:hint="Task Description"
-                        android:maxLength="300"
-                        android:paddingBottom="4dp"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:paddingTop="4dp"
-                        android:background="@drawable/entry_field"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_name_edit_text" />
-
-                    <TextView
-                        android:id="@+id/edit_task_activity_max_bid_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:text="Maximum Bid (CAD):"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_task_description_edit_text" />
-
-                    <TextView
-                        android:id="@+id/edit_task_activity_status_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:text="Task Status: "
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/edit_task_activity_status_spinner"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_money_edit_text" />
-
-                    <Spinner
-                        android:id="@+id/edit_task_activity_status_spinner"
-                        android:layout_width="202dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_money_edit_text" />
-
-                    <EditText
-                        android:id="@+id/edit_task_activity_money_edit_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="64dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/entry_field"
-                        android:ems="10"
-                        android:inputType="numberDecimal"
-                        android:paddingBottom="4dp"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:paddingTop="4dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/edit_task_activity_max_bid_text"
-                        app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_task_description_edit_text" />
-
-                    <TextView
-                        android:id="@+id/edit_task_activity_category_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:text="Category: "
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toStartOf="@+id/edit_task_activity_category_spinner"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_status_spinner" />
-
-                    <Spinner
-                        android:id="@+id/edit_task_activity_category_spinner"
-                        android:layout_width="202dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_status_spinner" />
-
-                    <Button
-                        android:id="@+id/edit_task_activity_add_photos_button"
-                        android:layout_width="160dp"
-                        android:layout_height="47dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@drawable/gradient"
-                        android:onClick="addPhotosButtonClick"
-                        android:text="Add Images"
-                        android:textAppearance="@style/TextAppearance.AppCompat"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_category_spinner" />
-
-
-                    <Button
-                        android:id="@+id/edit_task_activity_view_images_button"
-                        android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@drawable/gradient"
-                        android:onClick="viewImagesOnClick"
-                        android:text="@string/view_edit_images_button"
-                        android:textAppearance="@style/TextAppearance.AppCompat"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_category_spinner" />
-
-                    <Button
-                        android:id="@+id/edit_task_activity_location_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/gradient"
-                        android:onClick="editLocationButtonClick"
-                        android:text="Edit Location"
-                        android:textAppearance="@style/TextAppearance.AppCompat"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_add_photos_button" />
-
-                    <Button
-                        android:id="@+id/edit_task_activity_save_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/gradient"
-                        android:onClick="saveButtonClick"
-                        android:text="Save"
-                        android:textAppearance="@style/TextAppearance.AppCompat"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_location_button" />
-
-                </android.support.constraint.ConstraintLayout>
-
-
-            </LinearLayout>
-        </ScrollView>
-
+        <Button
+            android:id="@+id/edit_task_activity_cancel_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/gradient"
+            android:onClick="cancelButtonClick"
+            android:text="Cancel"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 

@@ -152,6 +152,12 @@ public class EditTaskActivity extends ActivityHeader  {
         }
     }
 
+    public void cancelButtonClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
+        startActivity(intent);
+
+    }
+
     public void addPhotosButtonClick(View v) {
 
     }
