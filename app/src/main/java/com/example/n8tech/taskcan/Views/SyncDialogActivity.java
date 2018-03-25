@@ -26,7 +26,7 @@ public class SyncDialogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sync_dialog);
         this.setFinishOnTouchOutside(false);
-        this.progressBar = findViewById(R.id.progressBar);
+        this.progressBar = findViewById(R.id.syncProgress);
         this.loadExtras();
         this.resetProgressBarWidth();
         this.progressAction();

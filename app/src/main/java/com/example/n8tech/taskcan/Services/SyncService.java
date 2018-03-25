@@ -21,7 +21,8 @@ public class SyncService extends IntentService {
     public SyncService() {
         super("SyncService");
 
-        this.connectionStatus = NetworkConnectionController.isConnected(this);
+        // Causes java.lang.NullPointerException
+        // this.connectionStatus = NetworkConnectionController.isConnected(this);
     }
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
