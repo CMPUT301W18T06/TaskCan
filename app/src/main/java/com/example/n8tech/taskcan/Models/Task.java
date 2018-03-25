@@ -191,7 +191,6 @@ public class Task {
     /** @param status task status of completion */
     public void setStatus(String status) {
         if(this.status.intern() == "Done"){
-            this.status = status;
             this.status = status.intern() == "Done" ? "Done" : this.status;
         }
         else{
