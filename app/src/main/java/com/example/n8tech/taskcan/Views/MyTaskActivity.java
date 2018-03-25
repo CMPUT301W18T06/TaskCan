@@ -56,6 +56,7 @@ public class MyTaskActivity extends ActivityHeader {
 
     private TaskList myTaskList = new TaskList();
     private User currentUser;
+    private TabHost mTabHost;
     private RecyclerView RequestedRecyclerView;
     private RecyclerView AssignedRecyclerView;
     private RecyclerView ArchivedRecyclerView;
@@ -65,7 +66,7 @@ public class MyTaskActivity extends ActivityHeader {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TabHost mTabHost = findViewById(R.id.tabHost);
+        mTabHost = findViewById(R.id.tabHost);
         mTabHost.setup();
         mTabHost.addTab(mTabHost.newTabSpec("requestedTaskTab").setIndicator("Requested", null).setContent(R.id.requested));
         mTabHost.addTab(mTabHost.newTabSpec("assignedTaskTab").setIndicator("Assigned", null).setContent(R.id.assigned));
@@ -90,8 +91,16 @@ public class MyTaskActivity extends ActivityHeader {
     protected void onStart() {
         super.onStart();
 
-        this.currentUser = CurrentUserSingleton.getUser();
-        this.myTaskList = this.currentUser.getMyTaskList();
+        mTabHost.setCurrentTab(0);
+
+        currentUser = CurrentUserSingleton.getUser();
+        myTaskList = new TaskList();
+
+        for (Task task : currentUser.getMyTaskList()) {
+            if (task.getStatus().intern() == "Requested") {
+                myTaskList.addTask(task);
+            }
+        }
 
         RequestedRecyclerView.setHasFixedSize(true);
         AssignedRecyclerView.setHasFixedSize(true);
@@ -106,13 +115,53 @@ public class MyTaskActivity extends ActivityHeader {
         AssignedRecyclerView.setLayoutManager(assignedLayoutManager);
         ArchivedRecyclerView.setLayoutManager(archivedLayoutManager);
 
-        TaskViewRecyclerAdapter mAdapter = new TaskViewRecyclerAdapter(myTaskList);
+        final TaskViewRecyclerAdapter mAdapter = new TaskViewRecyclerAdapter(myTaskList);
         RequestedRecyclerView.setAdapter(mAdapter);
         AssignedRecyclerView.setAdapter(mAdapter);
         ArchivedRecyclerView.setAdapter(mAdapter);
 
-        Log.i("Testing", String.valueOf(this.myTaskList.getSize()));
-        mAdapter.notifyDataSetChanged();
+        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener(){
+
+            @Override
+            public void onTabChanged(String tabId) {
+                int selectedTab = mTabHost.getCurrentTab();
+
+                switch (selectedTab) {
+                    case 0 :
+                        myTaskList.clear();
+
+                        for (Task task : currentUser.getMyTaskList()) {
+                            if (task.getStatus().intern() == "Requested") {
+                                myTaskList.addTask(task);
+                            }
+                        }
+                        mAdapter.refresh(myTaskList);
+                        break;
+
+                    case 1 :
+                        myTaskList.clear();
+
+                        for (Task task : currentUser.getMyTaskList()) {
+                            if (task.getStatus().intern() == "Assigned") {
+                                myTaskList.addTask(task);
+                            }
+                        }
+                        mAdapter.refresh(myTaskList);
+                        break;
+
+                    case 2 :
+                        myTaskList.clear();
+
+                        for (Task task : currentUser.getMyTaskList()) {
+                            if (task.getStatus().intern() == "Done") {
+                                myTaskList.addTask(task);
+                            }
+                        }
+                        mAdapter.refresh(myTaskList);
+                        break;
+                }
+            }
+        });
 
         // Log.i("Testing", this.currentUser.getEmail());
     }

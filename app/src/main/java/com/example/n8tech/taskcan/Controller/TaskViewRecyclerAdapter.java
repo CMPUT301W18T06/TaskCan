@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.TaskList;
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.example.n8tech.taskcan.Views.AddTaskActivity;
 import com.example.n8tech.taskcan.Views.MyTaskActivity;
@@ -29,6 +31,7 @@ import com.example.n8tech.taskcan.Views.TaskDetailActivity;
 
 public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecyclerAdapter.ViewHolder> {
     private TaskList taskList;
+    private User currentUser;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -90,9 +93,12 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int positionInTaskList;
+                currentUser = CurrentUserSingleton.getUser();
+                positionInTaskList = currentUser.getMyTaskList().getIndexOfTask(currentTask);
                 Log.i("TestingAdapterClick", String.valueOf(position));
                 Intent intent = new Intent(view.getContext(), TaskDetailActivity.class);
-                intent.putExtra("taskIndex", position);
+                intent.putExtra("taskIndex", positionInTaskList);
                 view.getContext().startActivity(intent);
             }
         });
@@ -104,6 +110,11 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
     public int getItemCount() {
         Log.i("TestingAdapter", String.valueOf(taskList.getSize()));
         return taskList.getSize();
+    }
+
+    public void refresh(TaskList newTaskList) {
+        this.taskList = newTaskList.copy();
+        this.notifyDataSetChanged();
     }
 }
 

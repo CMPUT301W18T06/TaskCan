@@ -64,6 +64,18 @@ public class TaskList implements Iterable<Task> {
         return new TasksIterator();
     }
 
+    /** Clears the TaskList. */
+    public void clear() { this.taskList.clear(); }
+
+    /** Returns a copy of the current TaskList */
+    public TaskList copy() {
+        TaskList newTaskList = new TaskList();
+        for (Task task : taskList){
+            newTaskList.addTask(task);
+        }
+        return newTaskList;
+    }
+
     /**
      * Iterator object over TaskList.
      * @throws UnsupportedOperationException If remove() method is called.

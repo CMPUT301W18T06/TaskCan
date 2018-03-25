@@ -228,6 +228,7 @@ public class EditTaskActivity extends ActivityHeader  {
         Log.i("*** desc", task.getDescription());
         Log.i("*** maximum bid",Double.toString(task.getMaximumBid()));
         Log.i("*** category",task.getCategory());
+        Log.i("*** status",task.getStatus());
 
         if (valid) {
             // TODO update task in user's task list
