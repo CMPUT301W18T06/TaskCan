@@ -32,14 +32,14 @@ public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<SearchResu
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView taskTitle;
-        public TextView taskBidderName;
+        public TextView taskOwnerName;
         public TextView taskStatus;
         public TextView taskBid;
 
         public ViewHolder(View view) {
             super(view);
             taskTitle = view.findViewById(R.id.task_view_title);
-            taskBidderName = view.findViewById(R.id.task_view_bidder_name);
+            taskOwnerName = view.findViewById(R.id.task_view_bidder_name);
             taskStatus = view.findViewById(R.id.task_view_status);
             taskBid = view.findViewById(R.id.task_view_current_bid);
         }
@@ -74,14 +74,15 @@ public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<SearchResu
 
         // if a current bid set to that, else set to "None"
         String currentBidText;
-        if (currentTask.getCurrentBid() == -1){
-            holder.taskBidderName.setText("Currently no bids.");
-            currentBidText = "None";
-        }else{
-            holder.taskBidderName.setText("NAME OF LOWEST BIDDER GOES HERE");
-            currentBidText = String.valueOf(currentTask.getCurrentBid());
+        holder.taskOwnerName.setText(currentTask.getOwnerUsername());
+        currentBidText = String.valueOf(currentTask.getCurrentBid());
+
+        if(currentBidText.equals("-1.0")) {
+            holder.taskBid.setText("No Bids");
         }
-        holder.taskBid.setText(currentBidText);
+        else {
+            holder.taskBid.setText(currentBidText);
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

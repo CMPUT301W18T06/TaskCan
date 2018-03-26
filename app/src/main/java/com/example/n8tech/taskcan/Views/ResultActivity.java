@@ -74,7 +74,7 @@ public class ResultActivity extends ActivityHeader {
 
             ElasticsearchController.SearchTask searchTask
                     = new ElasticsearchController.SearchTask();
-            searchTask.execute(searchQuery, this.currentUser.getId());
+            searchTask.execute(searchQuery);
 
             try {
                 resultTaskList = searchTask.get();
@@ -87,7 +87,7 @@ public class ResultActivity extends ActivityHeader {
 
             ElasticsearchController.SearchCategoryTask searchCategoryTask
                     = new ElasticsearchController.SearchCategoryTask();
-            searchCategoryTask.execute(searchQuery, this.currentUser.getId());
+            searchCategoryTask.execute(searchQuery);
 
             try {
                 resultTaskList = searchCategoryTask.get();

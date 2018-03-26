@@ -292,11 +292,9 @@ public class ElasticsearchController {
                 if(result.isSucceeded()) {
                     tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
                     for (Task task : tempList) {
-                        if(task.getOwnerId() != search_params[1]) {
-                            if(task.getDescription().contains(search_params[0]) || task.getTaskTitle().contains(search_params[0])) {
-                                taskList.addTask(task);
-                                Log.i("testing: ", task.getId());
-                            }
+                        if(task.getDescription().contains(search_params[0]) || task.getTaskTitle().contains(search_params[0])) {
+                            taskList.addTask(task);
+                            Log.i("testing: ", task.getId());
                         }
                     }
                 }
@@ -336,9 +334,7 @@ public class ElasticsearchController {
                 if(result.isSucceeded()) {
                     tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
                     for (Task task : tempList) {
-                        if(task.getOwnerId() != search_params[1]) {
-                            taskList.addTask(task);
-                        }
+                        taskList.addTask(task);
                     }
                 }
                 else {
