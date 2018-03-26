@@ -21,7 +21,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
+import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.Controller.SearchResultRecyclerAdapter;
 import com.example.n8tech.taskcan.Controller.TaskViewRecyclerAdapter;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
@@ -35,6 +37,7 @@ import com.example.n8tech.taskcan.R;
  * @author CMPUT301W18T06
  */
 public class ResultActivity extends ActivityHeader {
+    public static final String SEARCH_MESSAGE = "com.example.n8tech.taskcan.SEARCH_MESSAGE";
     private TaskList resultTaskList = new TaskList();
     private User currentUser;
     private SearchResultRecyclerAdapter mAdapter;
@@ -56,14 +59,27 @@ public class ResultActivity extends ActivityHeader {
         this.currentUser = CurrentUserSingleton.getUser();
         this.myTaskList = this.currentUser.getMyTaskList();
 
+        Intent i = getIntent();
+        String searchQuery = i.getStringExtra(SEARCH_MESSAGE);
+        ElasticsearchController.SearchTask searchTask
+                = new ElasticsearchController.SearchTask();
+        searchTask.execute(searchQuery, this.currentUser.getId());
+
+        try {
+            resultTaskList = searchTask.get();
+        } catch (Exception e) {
+            Log.i("Error", String.valueOf(e));
+        }
+
         ResultRecyclerView.setHasFixedSize(true);
 
         ResultLayoutManager = new LinearLayoutManager(this);
 
         ResultRecyclerView.setLayoutManager(ResultLayoutManager);
 
-        mAdapter = new SearchResultRecyclerAdapter(myTaskList);
+        mAdapter = new SearchResultRecyclerAdapter(resultTaskList);
         ResultRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
 
     }
 

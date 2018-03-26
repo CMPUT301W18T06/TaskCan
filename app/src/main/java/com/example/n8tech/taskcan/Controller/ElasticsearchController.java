@@ -279,7 +279,7 @@ public class ElasticsearchController {
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.matchQuery("description", search_params[0]));
 
-            Search search = new Search.Builder(searchSourceBuilder.toString())
+            Search search = new Search.Builder("")
                     .addIndex("cmput301w18t06")
                     .addType("task")
                     .build();
@@ -292,7 +292,15 @@ public class ElasticsearchController {
                 if(result.isSucceeded()) {
                     tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
                     for (Task task : tempList) {
-                        taskList.addTask(task);
+                        if(task.getOwnerId() != search_params[1]) {
+                            if(task.getDescription().contains(search_params[0]) || task.getTaskTitle().contains(search_params[0])) {
+                                taskList.addTask(task);
+                                Log.i("testing: ", task.getId());
+                            }
+
+                        }
+
+                        Log.i("testing: ", task.getId());
                     }
                 }
                 else {
