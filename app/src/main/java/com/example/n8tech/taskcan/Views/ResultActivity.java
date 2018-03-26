@@ -31,6 +31,8 @@ import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 
+import org.elasticsearch.ElasticsearchIllegalStateException;
+
 /** SearchActivity displays results from the current user's task search query.
  *
  * @see SearchActivity
@@ -60,15 +62,39 @@ public class ResultActivity extends ActivityHeader {
         this.myTaskList = this.currentUser.getMyTaskList();
 
         Intent i = getIntent();
-        String searchQuery = i.getStringExtra(SEARCH_MESSAGE);
-        ElasticsearchController.SearchTask searchTask
-                = new ElasticsearchController.SearchTask();
-        searchTask.execute(searchQuery, this.currentUser.getId());
+        String searchMsg = i.getStringExtra(SEARCH_MESSAGE);
+        int index = searchMsg.indexOf("$");
+        String searchQuery = searchMsg.substring(0, index);
+        String searchOption = searchMsg.substring(index+1);
+        int option = Integer.parseInt(searchOption);
+        Log.i("Testing", searchQuery);
+        Log.i("tsting: ", String.valueOf(option));
 
-        try {
-            resultTaskList = searchTask.get();
-        } catch (Exception e) {
-            Log.i("Error", String.valueOf(e));
+        if(option == 0) {
+
+            ElasticsearchController.SearchTask searchTask
+                    = new ElasticsearchController.SearchTask();
+            searchTask.execute(searchQuery, this.currentUser.getId());
+
+            try {
+                resultTaskList = searchTask.get();
+            } catch (Exception e) {
+                Log.i("Error", String.valueOf(e));
+            }
+        }
+
+        else if(option == 1) {
+
+            ElasticsearchController.SearchCategoryTask searchCategoryTask
+                    = new ElasticsearchController.SearchCategoryTask();
+            searchCategoryTask.execute(searchQuery, this.currentUser.getId());
+
+            try {
+                resultTaskList = searchCategoryTask.get();
+            } catch (Exception e) {
+                Log.i("Error", String.valueOf(e));
+            }
+
         }
 
         ResultRecyclerView.setHasFixedSize(true);

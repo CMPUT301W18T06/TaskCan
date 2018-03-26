@@ -297,10 +297,7 @@ public class ElasticsearchController {
                                 taskList.addTask(task);
                                 Log.i("testing: ", task.getId());
                             }
-
                         }
-
-                        Log.i("testing: ", task.getId());
                     }
                 }
                 else {
@@ -339,7 +336,9 @@ public class ElasticsearchController {
                 if(result.isSucceeded()) {
                     tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
                     for (Task task : tempList) {
-                        taskList.addTask(task);
+                        if(task.getOwnerId() != search_params[1]) {
+                            taskList.addTask(task);
+                        }
                     }
                 }
                 else {

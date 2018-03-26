@@ -82,7 +82,7 @@ public class SearchActivity extends ActivityHeader {
     public void searchButtonClick(View v) {
         String searchText = this.searchField.getText().toString();
         Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-        intent.putExtra(SEARCH_MESSAGE, searchText);
+        intent.putExtra(SEARCH_MESSAGE, searchText + "$0");
         startActivity(intent);
     }
 
