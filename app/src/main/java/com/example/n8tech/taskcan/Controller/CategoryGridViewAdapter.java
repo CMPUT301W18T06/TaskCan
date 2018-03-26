@@ -2,6 +2,7 @@ package com.example.n8tech.taskcan.Controller;
 
 import android.app.Notification;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 
 import com.example.n8tech.taskcan.Models.NotificationContent;
 import com.example.n8tech.taskcan.R;
+import com.example.n8tech.taskcan.Views.ResultActivity;
+import com.example.n8tech.taskcan.Views.TaskDetailActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +25,7 @@ import java.util.Arrays;
  */
 
 public class CategoryGridViewAdapter extends BaseAdapter {
+    public static final String SEARCH_MESSAGE = "com.example.n8tech.taskcan.SEARCH_MESSAGE";
     Context mContext;
     ArrayList<String> mCategories;
 
@@ -74,6 +78,10 @@ public class CategoryGridViewAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Toast.makeText(mContext, String.valueOf(position),
                         Toast.LENGTH_LONG).show();
+                String searchQuery = mCategories.get(position);
+                Intent intent = new Intent(v.getContext(), ResultActivity.class);
+                intent.putExtra(SEARCH_MESSAGE, searchQuery + "$1");
+                v.getContext().startActivity(intent);
             }
         });
     }
