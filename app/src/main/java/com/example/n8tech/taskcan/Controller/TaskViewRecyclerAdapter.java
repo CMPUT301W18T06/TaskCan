@@ -82,7 +82,7 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
         // if a current bid set to that, else set to "None"
         String currentBidText;
         if (currentTask.getCurrentBid() == -1){
-            holder.taskBidderName.setText("Currently no bids.");
+            holder.taskBidderName.setText("No Bids");
             currentBidText = "None";
         }else{
             holder.taskBidderName.setText("NAME OF LOWEST BIDDER GOES HERE");

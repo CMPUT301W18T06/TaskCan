@@ -77,8 +77,8 @@ public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<SearchResu
         holder.taskOwnerName.setText(currentTask.getOwnerUsername());
         currentBidText = String.valueOf(currentTask.getCurrentBid());
 
-        if(currentBidText.equals("-1.0")) {
-            holder.taskBid.setText("No Bids");
+        if(currentTask.getCurrentBid() == -1) {
+            holder.taskBid.setText("None");
         }
         else {
             holder.taskBid.setText(currentBidText);
