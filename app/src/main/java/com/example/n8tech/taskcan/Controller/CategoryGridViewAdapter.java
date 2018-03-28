@@ -87,9 +87,9 @@ public class CategoryGridViewAdapter extends BaseAdapter {
     }
 
     int[] gridViewImageId = {
-            R.drawable.ic_build_24dp, R.drawable.ic_local_shipping_24dp, R.drawable.ic_pets_24dp, R.drawable.ic_person_24dp,
-            R.drawable.ic_landscape_24dp, R.drawable.ic_car_24dp, R.drawable.ic_local_dining_24dp, R.drawable.ic_create_24dp,
-            R.drawable.ic_more_horiz_24dp, R.drawable.ic_more_horiz_24dp,
+            R.drawable.ic_build_24dp, R.drawable.ic_local_shipping_24dp, R.drawable.ic_pets_24dp, R.drawable.ic_videogame_asset_24dp,
+            R.drawable.ic_person_24dp, R.drawable.ic_landscape_24dp, R.drawable.ic_car_24dp, R.drawable.ic_local_dining_24dp,
+            R.drawable.ic_create_24dp, R.drawable.ic_more_horiz_24dp,
 
     };
 }
