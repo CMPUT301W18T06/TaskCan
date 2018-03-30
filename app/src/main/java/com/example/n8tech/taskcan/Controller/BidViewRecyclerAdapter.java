@@ -101,5 +101,10 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
         Log.i("TestingAdapter", String.valueOf(taskList.getSize()));
         return taskList.getSize();
     }
+
+    public void refresh(TaskList newTaskList) {
+        this.taskList = newTaskList.copy();
+        this.notifyDataSetChanged();
+    }
 }
 

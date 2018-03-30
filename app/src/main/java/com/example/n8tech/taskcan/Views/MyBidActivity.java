@@ -29,12 +29,16 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TabHost;
 
 import com.example.n8tech.taskcan.Controller.BidViewRecyclerAdapter;
 import com.example.n8tech.taskcan.Controller.TaskViewRecyclerAdapter;
+import com.example.n8tech.taskcan.Models.Bid;
+import com.example.n8tech.taskcan.Models.BidList;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
+import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
@@ -49,7 +53,9 @@ import com.google.gson.reflect.TypeToken;
  */
 public class MyBidActivity extends ActivityHeader {
     private User currentUser;
+    private TabHost mTabHost;
     private TaskList myTaskList = new TaskList();
+    private BidList myBidList = new BidList();
     private RecyclerView PendingRecyclerView;
     private RecyclerView AssignedRecyclerView;
 
@@ -57,7 +63,7 @@ public class MyBidActivity extends ActivityHeader {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TabHost mTabHost = findViewById(R.id.tabHost);
+        mTabHost = findViewById(R.id.tabHost);
         mTabHost.setup();
         mTabHost.addTab(mTabHost.newTabSpec("pendingBidTab").setIndicator("Pending", null).setContent(R.id.pending));
         mTabHost.addTab(mTabHost.newTabSpec("assignedBidTab").setIndicator("Assigned", null).setContent(R.id.assigned));
@@ -79,13 +85,24 @@ public class MyBidActivity extends ActivityHeader {
     protected void onStart() {
         super.onStart();
 
+        mTabHost.setCurrentTab(0);
+
         this.currentUser = CurrentUserSingleton.getUser();
+
+        // TODO get a list of tasks user has bid on
+        // add tasks that the user has bid on into a tasklist
+        for (Task task : currentUser.getBidTaskList()){
+            if (task.getStatus().intern() == "Bidded" || task.getStatus().intern() == "Assigned"){
+                this.myTaskList.addTask(task);
+            }
+        }
 
         if(currentUser.getEmail() != null) {
             Log.i("Testing", currentUser.getEmail());
         }
 
-        this.myTaskList = this.currentUser.getMyTaskList(); // TODO get a list of tasks user has bid on
+        PendingRecyclerView.setHasFixedSize(true);
+        AssignedRecyclerView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager pendingLayoutManager = new LinearLayoutManager(this);
         RecyclerView.LayoutManager assignedLayoutManager = new LinearLayoutManager(this);
@@ -93,18 +110,55 @@ public class MyBidActivity extends ActivityHeader {
         PendingRecyclerView.setLayoutManager(pendingLayoutManager);
         AssignedRecyclerView.setLayoutManager(assignedLayoutManager);
 
-        BidViewRecyclerAdapter mAdapter = new BidViewRecyclerAdapter(myTaskList);
+        final BidViewRecyclerAdapter mAdapter = new BidViewRecyclerAdapter(myTaskList);
         PendingRecyclerView.setAdapter(mAdapter);
         AssignedRecyclerView.setAdapter(mAdapter);
+
+        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener(){
+
+            @Override
+            public void onTabChanged(String tabId) {
+                int selectedTab = mTabHost.getCurrentTab();
+
+                switch (selectedTab) {
+                    case 0 :
+                        myTaskList.clear();
+
+                        for (Task task : currentUser.getBidTaskList()){
+                            if (task.getStatus().intern() == "Bidded" || task.getStatus().intern() == "Assigned"){
+                                myTaskList.addTask(task);
+                            }
+                        }
+                        mAdapter.refresh(myTaskList);
+                        break;
+
+                    case 1 :
+                        myTaskList.clear();
+
+                        for (Task task : currentUser.getBidTaskList()){
+                            if (task.getStatus().intern() == "Assigned" && task.getProviderUsername().intern() == currentUser.getUsername()){
+                                myTaskList.addTask(task);
+                            }
+                        }
+                        mAdapter.refresh(myTaskList);
+                        break;
+                }
+            }
+        });
 
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+        Intent intent = new Intent(MyBidActivity.this, SearchActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void newBidButtonClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), AddBidActivity.class);
         startActivity(intent);
     }
 
