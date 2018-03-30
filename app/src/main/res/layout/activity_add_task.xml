@@ -125,18 +125,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/add_task_activity_max_bid_text" />
 
-        <TextView
-            android:id="@+id/add_task_activity_category_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="16dp"
-            android:text="Category: "
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/add_task_activity_add_photos_button"
-            app:layout_constraintLeft_toLeftOf="parent" />
-
         <Spinner
             android:id="@+id/add_task_activity_category_spinner"
             android:layout_width="0dp"
@@ -148,6 +136,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toEndOf="@+id/add_task_activity_category_text" />
+
+        <TextView
+            android:id="@+id/add_task_activity_category_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:text="Category: "
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/add_task_activity_add_photos_button"
+            app:layout_constraintLeft_toLeftOf="parent" />
 
         <Button
             android:id="@+id/add_task_activity_add_photos_button"

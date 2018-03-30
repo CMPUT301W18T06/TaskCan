@@ -157,11 +157,6 @@ public class MyBidActivity extends ActivityHeader {
         startActivity(intent);
     }
 
-    public void newBidButtonClick(View v) {
-        Intent intent = new Intent(getApplicationContext(), AddBidActivity.class);
-        startActivity(intent);
-    }
-
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_my_bid;
