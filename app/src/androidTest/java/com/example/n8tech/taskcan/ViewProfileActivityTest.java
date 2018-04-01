@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import com.example.n8tech.taskcan.Views.SignInActivity;
 import com.example.n8tech.taskcan.Views.ViewProfileActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.robotium.solo.Solo;
 
