@@ -38,8 +38,15 @@ public class TaskList implements Iterable<Task> {
      * @param task task in the task list
      * @return integer representing the index of the task in the list
      */
-    public int getIndexOfTask(Task task){
-        return this.taskList.indexOf(task);
+    public int getIndexOfTask(Task task)
+    {
+        int index = -1;
+        for(Task myTask : this.taskList) {
+            if(myTask.getId().equals(task.getId())) {
+                index = this.taskList.indexOf(myTask);
+            }
+        }
+        return index;
     }
 
     /**

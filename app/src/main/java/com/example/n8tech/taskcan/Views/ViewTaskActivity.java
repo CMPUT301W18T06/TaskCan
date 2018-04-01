@@ -13,7 +13,10 @@ import com.example.n8tech.taskcan.Models.Image;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.Locale;
 
 /**
@@ -48,9 +51,11 @@ public class ViewTaskActivity extends ActivityHeader{
 
         // TODO this needs to get the task via id, not index in current user's tasklist
         // TODO not one of the current user's tasks. need to look up task uuid via elastic search.
-        Bundle extras = getIntent().getExtras();
-        currentTaskIndex = extras.getInt("taskIndex");
-        task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);           // change this to the right task from the search
+        Type taskType = new TypeToken<Task>(){}.getType();
+        Intent intent = getIntent();
+        Gson gson = new Gson();
+
+        task = gson.fromJson(intent.getStringExtra("currentTask"), taskType);         // change this to the right task from the search
         findByIdsAndSetTextFields();
     }
 

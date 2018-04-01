@@ -8,10 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.TaskList;
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
+import com.example.n8tech.taskcan.Views.SignInActivity;
 import com.example.n8tech.taskcan.Views.TaskDetailActivity;
+import com.example.n8tech.taskcan.Views.ViewTaskActivity;
+import com.google.gson.Gson;
 
 /**
  * TaskViewRecyclerAdapter represents a suitable view for task lists.
@@ -25,6 +30,7 @@ import com.example.n8tech.taskcan.Views.TaskDetailActivity;
 
 public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<SearchResultRecyclerAdapter.ViewHolder> {
     private TaskList taskList;
+    public User currentUser = CurrentUserSingleton.getUser();
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -35,6 +41,7 @@ public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<SearchResu
         public TextView taskOwnerName;
         public TextView taskStatus;
         public TextView taskBid;
+
 
         public ViewHolder(View view) {
             super(view);
@@ -87,10 +94,20 @@ public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<SearchResu
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(currentUser.getId().equals(currentTask.getOwnerId())) {
+                    Intent intent = new Intent(view.getContext(), TaskDetailActivity.class);
+                    Log.i("Index being passed", String.valueOf(currentUser.getMyTaskList().getIndexOfTask(currentTask)));
+                    intent.putExtra("taskIndex", currentUser.getMyTaskList().getIndexOfTask(currentTask));
+                    view.getContext().startActivity(intent);
+                } else {
+                    Intent intent = new Intent(view.getContext(), ViewTaskActivity.class);
+                    Gson gson = new Gson();
+                    intent.putExtra("currentTask", gson.toJson(currentTask));
+                    view.getContext().startActivity(intent);
+                }
                 Log.i("TestingAdapterClick", String.valueOf(position));
-                Intent intent = new Intent(view.getContext(), TaskDetailActivity.class);
-                intent.putExtra("taskIndex", position);
-                view.getContext().startActivity(intent);
+
             }
         });
 

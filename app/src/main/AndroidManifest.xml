@@ -67,6 +67,9 @@
             android:name=".Views.TaskDetailActivity"
             android:exported="true" />
         <activity
+            android:name=".Views.ViewTaskActivity"
+            android:exported="true" />
+        <activity
             android:name=".Views.EditTaskActivity"
             android:exported="true" />
         <activity
