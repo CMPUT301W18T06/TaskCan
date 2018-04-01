@@ -76,8 +76,8 @@ public class CategoryGridViewAdapter extends BaseAdapter {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, String.valueOf(position),
-                        Toast.LENGTH_LONG).show();
+                //Toast.makeText(mContext, String.valueOf(position),
+                //        Toast.LENGTH_LONG).show();
                 String searchQuery = mCategories.get(position);
                 Intent intent = new Intent(v.getContext(), ResultActivity.class);
                 intent.putExtra(SEARCH_MESSAGE, searchQuery + "$1");

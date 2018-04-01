@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:text="Requester:"
             android:textColor="@android:color/white"
             android:textColorHighlight="@android:color/white"
@@ -65,7 +65,7 @@
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/task_view_activity_username_label" />
+            app:layout_constraintTop_toBottomOf="@+id/task_view_activity_requester_username_button" />
 
         <TextView
             android:id="@+id/task_view_activity_name_text"
@@ -78,15 +78,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
 
-        <TextView
-            android:id="@+id/task_view_activity_requester_username_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/task_view_activity_requester_username_button"
+            android:layout_width="143dp"
+            android:layout_height="28dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:background="@drawable/gradient"
+            android:onClick="requesterUsernameButtonClick"
             android:text="(requester username)"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/colorWhite"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/task_view_activity_username_label"
             app:layout_constraintTop_toBottomOf="@+id/task_view_activity_name_text" />
 
         <TextView
@@ -98,7 +104,7 @@
             android:text="(current bid)"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/task_view_activity_requester_username_text" />
+            app:layout_constraintTop_toBottomOf="@+id/task_view_activity_requester_username_button" />
 
 
         <TextView
@@ -134,7 +140,7 @@
             android:textColor="@android:color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/task_view_activity_current_bid_label" />
+            app:layout_constraintTop_toBottomOf="@+id/task_view_activity_current_bid_text" />
 
         <TextView
             android:id="@+id/task_view_activity_task_description_text"
@@ -189,7 +195,7 @@
             android:textColor="@android:color/white"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/task_view_activity_status_label" />
+            app:layout_constraintTop_toBottomOf="@+id/task_view_activity_status_text" />
 
         <TextView
             android:id="@+id/task_view_activity_category_text"

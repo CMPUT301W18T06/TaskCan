@@ -108,6 +108,7 @@ public class ElasticsearchController {
             return user;
         }
     }
+
     public static class DeleteUser extends AsyncTask<User, Void, String> {
 
         @Override

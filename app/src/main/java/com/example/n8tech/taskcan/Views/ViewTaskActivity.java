@@ -2,18 +2,16 @@ package com.example.n8tech.taskcan.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Image;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
-import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
 
 import java.util.Locale;
@@ -31,7 +29,7 @@ public class ViewTaskActivity extends ActivityHeader{
     private TextView taskDescriptionText;
     private TextView taskStatusText;
     private TextView taskCategoryText;
-    private TextView taskOwnerUsernameText;
+    private Button taskOwnerUsernameButton;
     private TextView taskCurrentBidText;
     private TextView taskMaxBidText;
     private int currentTaskIndex;
@@ -49,20 +47,22 @@ public class ViewTaskActivity extends ActivityHeader{
         this.currentUser = CurrentUserSingleton.getUser();
 
         // TODO this needs to get the task via id, not index in current user's tasklist
+        // TODO not one of the current user's tasks. need to look up task uuid via elastic search.
         Bundle extras = getIntent().getExtras();
         currentTaskIndex = extras.getInt("taskIndex");
-        task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);
+        task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);           // change this to the right task from the search
         findByIdsAndSetTextFields();
     }
 
     public void findByIdsAndSetTextFields() {
-        taskNameText = findViewById(R.id.task_view_activity_name_text);
-        taskDescriptionText = findViewById(R.id.task_view_activity_task_description_text);
-        taskStatusText = findViewById(R.id.task_view_activity_status_text);
-        taskCategoryText= findViewById(R.id.task_view_activity_category_text);
-        taskOwnerUsernameText = findViewById(R.id.task_view_activity_requester_username_text);
-        taskCurrentBidText = findViewById(R.id.task_view_activity_current_bid_text);
-        taskMaxBidText = findViewById(R.id.task_view_activity_max_bid_text);
+        taskNameText = (TextView) findViewById(R.id.task_view_activity_name_text);
+        taskDescriptionText = (TextView) findViewById(R.id.task_view_activity_task_description_text);
+        taskStatusText = (TextView) findViewById(R.id.task_view_activity_status_text);
+        taskCategoryText= (TextView) findViewById(R.id.task_view_activity_category_text);
+        taskOwnerUsernameButton = (Button) findViewById(R.id.task_view_activity_requester_username_button);
+        taskCurrentBidText = (TextView) findViewById(R.id.task_view_activity_current_bid_text);
+        taskMaxBidText = (TextView) findViewById(R.id.task_view_activity_max_bid_text);
+
 
         // set based on current task
         taskNameText.setText(task.getTaskTitle());
@@ -76,7 +76,7 @@ public class ViewTaskActivity extends ActivityHeader{
 
         taskStatusText.setText(task.getStatus());
         taskCategoryText.setText(task.getCategory());
-        taskOwnerUsernameText.setText(currentUser.getUsername());
+        taskOwnerUsernameButton.setText(task.getOwnerUsername());
 
         if (task.getCurrentBid() == -1){
             taskCurrentBidText.setText("None");
@@ -118,6 +118,13 @@ public class ViewTaskActivity extends ActivityHeader{
             startActivity(i);
         }
     }
+
+    public void requesterUsernameButtonClick(View v){
+        Intent intent = new Intent(getApplicationContext(), ViewOtherUserProfileActivity.class);
+        intent.putExtra("userId", task.getOwnerId());
+        v.getContext().startActivity(intent);
+    }
+
 
     @Override
     protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
