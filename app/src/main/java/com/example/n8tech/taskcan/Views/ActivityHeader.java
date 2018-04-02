@@ -1,6 +1,5 @@
 package com.example.n8tech.taskcan.Views;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,15 +8,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.MenuItem;
 
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
-import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.example.n8tech.taskcan.Services.NotificationService;
 import com.example.n8tech.taskcan.Services.SyncService;
-import com.google.gson.Gson;
 
 
 /**
@@ -40,7 +36,7 @@ public abstract class ActivityHeader extends AppCompatActivity {
         this.mDrawerLayout = findViewById(R.id.drawer_layout);
 
         this.initializeToolBar();
-        this.initializeNavagation();
+        this.initializeNavigation();
 
         this.initializeNotificationService();
         this.initializeSyncService();
@@ -56,7 +52,7 @@ public abstract class ActivityHeader extends AppCompatActivity {
         startService(intent);
     }
 
-    private void initializeNavagation() {
+    private void initializeNavigation() {
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -77,6 +73,10 @@ public abstract class ActivityHeader extends AppCompatActivity {
                             }
                             case R.id.nav_menu_my_profile: {
                                 navigationView_itemOnClick(ViewProfileActivity.class);
+                                break;
+                            }
+                            case R.id.nav_menu_sync: {
+                                // manual sync
                                 break;
                             }
                             case R.id.nav_menu_sign_out: {

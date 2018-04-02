@@ -23,6 +23,7 @@
     <string name="navigation_drawer_my_tasks">My Tasks</string>
     <string name="navigation_drawer_my_bids">My Bids</string>
     <string name="navigation_drawer_my_profile">My Profile</string>
+    <string name="navigation_drawer_sync">Synchronize</string>
     <string name="navigation_drawer_sign_out">Sign Out</string>
 
     <string name="action_settings">Settings</string>

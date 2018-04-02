@@ -18,6 +18,10 @@
             android:icon="@drawable/ic_person_24dp"
             android:title="@string/navigation_drawer_my_profile" />
         <item
+            android:id="@+id/nav_menu_sync"
+            android:icon="@drawable/ic_sync_24dp"
+            android:title="@string/navigation_drawer_sync" />
+        <item
             android:id="@+id/nav_menu_sign_out"
             android:icon="@drawable/ic_exit_24dp"
             android:title="@string/navigation_drawer_sign_out" />
