@@ -22,9 +22,12 @@ import android.location.Location;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Task;
+import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -55,6 +58,8 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
     private int currentTaskIndex;
     private static final int LOCATION_REQUEST_CODE = 101;
     private FusedLocationProviderClient mFusedLocationClient;
+    private LatLng currentLocation;
+    private TaskList resultTaskList;
 
 
     @Override
@@ -125,6 +130,9 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(taskMarker, 12.0f));
         } else {
             // TODO in the case that we just opened the map, go to current position and mark tasks in 5km radius
+            //TaskList resultTaskList = new TaskList();
+            final String searchQuery = "";
+
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
                     PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
                     android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -138,11 +146,25 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
                 public void onSuccess(Location location) {
                     // Got last known location. In some rare situations this can be null.
                     if (location != null) {
+                        currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 14.0f));
+                    }
+
+                    ElasticsearchController.SearchLocation searchLocation
+                            = new ElasticsearchController.SearchLocation(currentLocation);
+                    searchLocation.execute(searchQuery);
+
+                    try {
+                        resultTaskList = searchLocation.get();
+                        for (Task task : resultTaskList){
+                            LatLng taskMarker = task.getLocation();
+                            mMap.addMarker(new MarkerOptions().position(taskMarker).title(task.getTaskTitle()));
+                        }
+                    } catch (Exception e) {
+                        Log.i("Error", String.valueOf(e));
                     }
                 }
             });
-
         }
     }
 }
