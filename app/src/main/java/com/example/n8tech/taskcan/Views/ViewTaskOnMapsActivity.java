@@ -38,11 +38,16 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.gson.Gson;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.elasticsearch.common.mvel2.util.NullType;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ViewTaskonMapsActivity implements Maps to display the geolocation of a task.
@@ -56,10 +61,12 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
     private Task task;
     private User currentUser;
     private int currentTaskIndex;
+    private Task currentTask;
     private static final int LOCATION_REQUEST_CODE = 101;
     private FusedLocationProviderClient mFusedLocationClient;
     private LatLng currentLocation;
     private TaskList resultTaskList;
+    private Map<Marker, Task> markerMap = new HashMap<Marker, Task>();
 
 
     @Override
@@ -124,6 +131,7 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+
         if (task.getLocation() != null) {
             LatLng taskMarker = task.getLocation();
             mMap.addMarker(new MarkerOptions().position(taskMarker).title(task.getTaskTitle()));
@@ -158,11 +166,32 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
                         resultTaskList = searchLocation.get();
                         for (Task task : resultTaskList){
                             LatLng taskMarker = task.getLocation();
-                            mMap.addMarker(new MarkerOptions().position(taskMarker).title(task.getTaskTitle()));
+                            Marker marker = mMap.addMarker(new MarkerOptions().position(taskMarker).title(task.getTaskTitle()));
+                            markerMap.put(marker, task);
                         }
                     } catch (Exception e) {
                         Log.i("Error", String.valueOf(e));
                     }
+
+                    mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+                        @Override
+                        public void onInfoWindowClick(Marker currentMarker) {
+                            // TODO Auto-generated method stub
+                            currentTask = markerMap.get(currentMarker);
+                            if(currentUser.getId().equals(currentTask.getOwnerId())) {
+                                Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
+                                Log.i("Index being passed", String.valueOf(currentUser.getMyTaskList().getIndexOfTask(currentTask)));
+                                intent.putExtra("taskIndex", currentUser.getMyTaskList().getIndexOfTask(currentTask));
+                                startActivity(intent);
+                            } else {
+                                Intent intent = new Intent(getApplicationContext(), ViewTaskActivity.class);
+                                Gson gson = new Gson();
+                                intent.putExtra("currentTask", gson.toJson(currentTask));
+                                startActivity(intent);
+                            }
+                        }
+                    });
                 }
             });
         }
