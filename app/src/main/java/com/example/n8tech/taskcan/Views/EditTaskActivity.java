@@ -251,10 +251,13 @@ public class EditTaskActivity extends ActivityHeader  {
                 Log.i("Error", e.toString());
             }
 
+            UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
+            cacheList.delUser(this.currentUser);
+            cacheList.addUser(this.currentUser);
+            this.fileIO.saveInFile(getApplicationContext(), cacheList);
+
             if (completed.equals("NoNetworkError")) {
                 // add task to current user's myTasks list
-                UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
-                cacheList.delUser(this.currentUser);
                 //currentUser.addTask(newTask);
                 currentUser.replaceTaskAtIndex(currentTaskIndex,task);
 
@@ -262,8 +265,6 @@ public class EditTaskActivity extends ActivityHeader  {
                         = new ElasticsearchController.UpdateUser();
                 updateUser.execute(currentUser);
 
-                cacheList.addUser(this.currentUser);
-                this.fileIO.saveInFile(getApplicationContext(), cacheList);
 
 
                 Intent intent = new Intent(v.getContext(), MyTaskActivity.class);

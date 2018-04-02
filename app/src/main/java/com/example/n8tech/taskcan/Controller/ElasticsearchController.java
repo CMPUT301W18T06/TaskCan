@@ -37,7 +37,6 @@ public class ElasticsearchController {
 
     private static JestDroidClient client;
 
-    // if no internet connectivity, then this class should NOT  be reached
     public static class AddUser extends AsyncTask<User, Void, String> {
 
         @Override

@@ -271,18 +271,19 @@ public class AddTaskActivity extends ActivityHeader {
                 Log.i("Error", e.toString());
             }
 
+            UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
+            cacheList.delUser(this.currentUser);
+            cacheList.addUser(this.currentUser);
+            this.fileIO.saveInFile(getApplicationContext(), cacheList);
+
             if (completed == "NoNetworkError") {
                 // add task to current user's myTasks list
-                UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
-                cacheList.delUser(this.currentUser);
+
                 currentUser.addTask(newTask);
 
                 ElasticsearchController.UpdateUser updateUser
                         = new ElasticsearchController.UpdateUser();
                 updateUser.execute(currentUser);
-
-                cacheList.addUser(this.currentUser);
-                this.fileIO.saveInFile(getApplicationContext(), cacheList);
 
                 Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
