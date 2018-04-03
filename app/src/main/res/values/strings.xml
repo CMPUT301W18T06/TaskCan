@@ -93,6 +93,10 @@
         <item>Assigned</item>
         <item>Done</item>
     </string-array>
+    <string name="view_bids_bids">Bids</string>
+    <string name="view_bids_action">Action</string>
+    <string name="view_bids_accept_button">Accept</string>
+    <string name="view_bids_decline_button">Decline</string>
 
 
 </resources>

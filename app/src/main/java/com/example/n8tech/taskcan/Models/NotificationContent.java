@@ -3,7 +3,9 @@ package com.example.n8tech.taskcan.Models;
 import android.content.Context;
 
 /**
- * Created by AlanJ on 2018-03-21.
+ * Notification Content stores notification details: context, channel ID, title, and description.
+ *
+ * @author CMPUT301W18T06
  */
 
 public class NotificationContent {

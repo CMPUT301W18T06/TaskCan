@@ -155,6 +155,7 @@ public class TaskDetailActivity extends ActivityHeader {
 
     public void viewBidsButtonClick(View v){
         Intent intent = new Intent(getApplicationContext(), ViewBidsActivity.class);
+        intent.putExtra("taskIndex", currentTaskIndex);
         startActivity(intent);
     }
 
