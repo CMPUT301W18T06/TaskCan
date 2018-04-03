@@ -122,7 +122,7 @@ public class SignInActivity extends Activity {
         }
 
         //Change behaviour dependent on which users were valid
-        if(onlineValid && offlineValid) {
+        if(onlineValid) {
 
             CurrentUserSingleton.setUser(onlineUser);
             Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
@@ -130,21 +130,15 @@ public class SignInActivity extends Activity {
 
             return;
 
-        } else if (onlineValid && !offlineValid) {
+        } else if (offlineValid) {
 
             //Need to check if cache has the email somewhere and delete it
-            if(offlineUser != null) { this.cacheList.delUser(offlineUser); }
-            this.cacheList.addUser(onlineUser);
-            fileIO.saveInFile(getApplicationContext(),this.cacheList);
-
-            CurrentUserSingleton.setUser(onlineUser);
+            CurrentUserSingleton.setUser(offlineUser);
             Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
             startActivity(intent);
 
             return;
-        } else if(!onlineValid && offlineValid) {
-            //Add offline functionality
-            //Check if connected to the network
+
         }
 
         Toast toast = Toast.makeText(getApplicationContext(), this.ERR_MSG, Toast.LENGTH_SHORT);
