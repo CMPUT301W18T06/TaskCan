@@ -65,12 +65,6 @@ public class ViewBidsActivity extends ActivityHeader {
 
     }
 
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(ViewBidsActivity.this, TaskDetailActivity.class);
-        // TODO: fix this
-        startActivity(intent);
-    }
 
     @Override
     protected int getLayoutResourceId() {

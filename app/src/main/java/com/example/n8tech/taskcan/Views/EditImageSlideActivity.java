@@ -55,6 +55,7 @@ public class EditImageSlideActivity extends AppCompatActivity {
         };
     }
 
+    // TODO always deletes the first image
     public void deleteButtonClick(View view) {
         this.slides.removeImage(this.currentPage);
         this.adapter.notifyDataSetChanged();

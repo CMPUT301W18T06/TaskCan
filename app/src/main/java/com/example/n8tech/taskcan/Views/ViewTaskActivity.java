@@ -154,7 +154,8 @@ public class ViewTaskActivity extends ActivityHeader{
         bidAmountText = (EditText) findViewById(R.id.task_view_activity_bid_amount);
         newBidAmount = Double.parseDouble(bidAmountText.getText().toString());
 
-        if(newBidAmount > task.getMaximumBid()){
+
+        if(newBidAmount > task.getMaximumBid() && task.getMaximumBid()!= -1) {
             Toast.makeText(getApplicationContext(), "Your bid amount is greater than the" +
                     " maximum bid amount", Toast.LENGTH_LONG).show();
             return;
