@@ -347,6 +347,7 @@ public class ElasticsearchController {
                             Location.distanceBetween(this.currentLocation.latitude, this.currentLocation.longitude,
                                     task.getLocation().latitude, task.getLocation().longitude,
                                     distResults);
+                            Log.i("dist: ", String.valueOf(distResults[0]));
                             if (distResults[0] <= 5000){
                                 taskList.addTask(task);
                             }

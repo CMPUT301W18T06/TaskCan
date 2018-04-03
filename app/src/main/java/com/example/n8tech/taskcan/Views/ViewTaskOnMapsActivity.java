@@ -135,7 +135,7 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
         if (task.getLocation() != null) {
             LatLng taskMarker = task.getLocation();
             mMap.addMarker(new MarkerOptions().position(taskMarker).title(task.getTaskTitle()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(taskMarker, 12.0f));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(taskMarker, 13.0f));
         } else {
             // TODO in the case that we just opened the map, go to current position and mark tasks in 5km radius
             //TaskList resultTaskList = new TaskList();
@@ -155,7 +155,7 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
                     // Got last known location. In some rare situations this can be null.
                     if (location != null) {
                         currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 14.0f));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13.0f));
                     }
 
                     ElasticsearchController.SearchLocation searchLocation

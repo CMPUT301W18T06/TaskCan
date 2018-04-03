@@ -65,7 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
         this.usernameText = findViewById(R.id.username_field);
         this.emailText = findViewById(R.id.email_field);
         this.passwordText = findViewById(R.id.password_field);
-        this.phoneNumberText = findViewById(R.id.phone_field);
+        this.phoneNumberText = findViewById(R.id.task_view_activity_bid_amount);
     }
 
     public void registerButtonClick(View v) {
