@@ -8,10 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.n8tech.taskcan.Models.Bid;
+import com.example.n8tech.taskcan.Models.BidList;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.R;
 import com.example.n8tech.taskcan.Views.TaskDetailActivity;
+
+import java.util.Locale;
 
 /**
  * TaskViewRecyclerAdapter represents a suitable view for task lists.
@@ -68,6 +72,7 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
     public void onBindViewHolder(ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+        BidList currentBidList;
         final Task currentTask = taskList.getTaskAtIndex(position);
         holder.taskTitle.setText(currentTask.getTaskTitle());
         holder.taskStatus.setText(currentTask.getStatus());
@@ -78,8 +83,13 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
             holder.taskBidderName.setText("No Bids");
             currentBidText = "None";
         }else{
-            holder.taskBidderName.setText("NAME OF LOWEST BIDDER GOES HERE");
-            currentBidText = String.valueOf(currentTask.getCurrentBid());
+            currentBidList = currentTask.getBidList();
+            for (Bid bid : currentBidList){
+                if (bid.getBidAmount() == currentTask.getCurrentBid()){
+                    holder.taskBidderName.setText(bid.getBidUsername());
+                }
+            }
+            currentBidText = String.format(Locale.CANADA,"$%.2f", currentTask.getCurrentBid());
         }
         holder.taskBid.setText(currentBidText);
 

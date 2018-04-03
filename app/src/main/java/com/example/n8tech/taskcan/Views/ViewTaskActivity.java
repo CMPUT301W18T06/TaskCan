@@ -93,13 +93,13 @@ public class ViewTaskActivity extends ActivityHeader{
         if (task.getCurrentBid() == -1){
             taskCurrentBidText.setText("None");
         }else{
-            taskCurrentBidText.setText(String.format(Locale.CANADA,"%.2f", task.getCurrentBid()));
+            taskCurrentBidText.setText(String.format(Locale.CANADA,"$%.2f", task.getCurrentBid()));
         }
 
         if (task.getMaximumBid() == -1){
             taskMaxBidText.setText("None");
         } else {
-            taskMaxBidText.setText(String.format(Locale.CANADA,"%.2f", task.getMaximumBid()));
+            taskMaxBidText.setText(String.format(Locale.CANADA,"$%.2f", task.getMaximumBid()));
         }
     }
 
@@ -137,14 +137,22 @@ public class ViewTaskActivity extends ActivityHeader{
         v.getContext().startActivity(intent);
     }
 
+    //TODO: JAVADOCS FOR THIS NEW METHOD
+    public boolean bidAmountExists(double newBidAmount){
+        for (Bid bid : task.getBidList()){
+            if (bid.getBidAmount() == newBidAmount){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void confirmBidButton(View v){
         Bid bid = new Bid();
-        double BidAmount, newBidAmount;
-        DecimalFormat DollarAmount = new DecimalFormat("#.##");
+        double newBidAmount;
 
         bidAmountText = (EditText) findViewById(R.id.task_view_activity_bid_amount);
-        BidAmount = Double.parseDouble(bidAmountText.getText().toString());
-        newBidAmount = Double.valueOf(DollarAmount.format(BidAmount));
+        newBidAmount = Double.parseDouble(bidAmountText.getText().toString());
 
         if(newBidAmount > task.getMaximumBid()){
             Toast.makeText(getApplicationContext(), "Your bid amount is greater than the" +
@@ -154,7 +162,11 @@ public class ViewTaskActivity extends ActivityHeader{
         else if (newBidAmount < 0.01){
             Toast.makeText(getApplicationContext(), "Your bid amount is less than the" +
                     " minimum requires bid amount", Toast.LENGTH_LONG).show();
-
+            return;
+        }
+        else if (bidAmountExists(newBidAmount)){
+            Toast.makeText(getApplicationContext(), "Your bid amount already exists. Please" +
+                    " choose another bid amount", Toast.LENGTH_LONG).show();
             return;
         }
         else{
@@ -167,7 +179,7 @@ public class ViewTaskActivity extends ActivityHeader{
         if (task.getStatus().intern() == "Requested"){
             task.setStatus("Bidded");
         }
-        
+
         if(newBidAmount < task.getCurrentBid() || task.getCurrentBid() == -1){
             task.setCurrentBid(newBidAmount);
         }
