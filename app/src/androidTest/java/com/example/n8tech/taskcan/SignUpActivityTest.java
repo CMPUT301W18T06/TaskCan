@@ -61,7 +61,7 @@ public class SignUpActivityTest extends ActivityInstrumentationTestCase2 {
         solo.enterText((EditText) solo.getView(R.id.username_field), "userName");
         solo.enterText((EditText) solo.getView(R.id.email_field), "user@n8tech.com");
         solo.enterText((EditText) solo.getView(R.id.password_field), "Password");
-        solo.enterText((EditText) solo.getView(R.id.phone_field), "780-987-6542");
+        solo.enterText((EditText) solo.getView(R.id.task_view_activity_bid_amount), "780-987-6542");
         solo.clickOnButton("Register");
         assertTrue(solo.waitForActivity("SearchActivity"));
 

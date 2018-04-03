@@ -10,6 +10,8 @@ package com.example.n8tech.taskcan.Models;
 public class CurrentUserSingleton {
     private static CurrentUserSingleton instance = new CurrentUserSingleton();
     private static User currentUser = null;
+    private static ImageList imageList = new ImageList();
+
 
     /** @return the CurrentUserSingleton associated with the user signed in. */
     public static CurrentUserSingleton getInstance() {
@@ -40,5 +42,11 @@ public class CurrentUserSingleton {
         currentUser = null;
     }
 
+    public static ImageList getImageList() {
+        return imageList;
+    }
 
+    public static void setImageList(ImageList imageList) {
+        CurrentUserSingleton.imageList = imageList;
+    }
 }

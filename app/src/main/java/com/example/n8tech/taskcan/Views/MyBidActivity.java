@@ -92,7 +92,7 @@ public class MyBidActivity extends ActivityHeader {
         // TODO get a list of tasks user has bid on
         // add tasks that the user has bid on into a tasklist
         for (Task task : currentUser.getBidTaskList()){
-            if (task.getStatus().intern() == "Bidded" || task.getStatus().intern() == "Assigned"){
+            if (task.getStatus().equals("Bidded") || task.getStatus().equals("Assigned")){
                 this.myTaskList.addTask(task);
             }
         }

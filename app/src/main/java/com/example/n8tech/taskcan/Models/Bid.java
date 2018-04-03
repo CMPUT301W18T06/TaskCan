@@ -96,6 +96,6 @@ public class Bid {
                 throw new IllegalArgumentException();
             }
         }
-        this.bidAmount = this.bidAmount == 0 ? bidAmount : this.bidAmount;
+        this.bidAmount = this.bidAmount == -1 ? bidAmount : this.bidAmount;
     }
 }

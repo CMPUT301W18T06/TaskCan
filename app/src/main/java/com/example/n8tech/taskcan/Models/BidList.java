@@ -28,9 +28,7 @@ public class BidList implements Iterable<Bid> {
      * If a bid exists with the same bidder, the bid is updated with the new bid amount.
      * @param bid Bid to be added to the BidList
      */
-    public void addBid(Bid bid) {
-        this.bids.add(bid);
-    }
+    public void addBid(Bid bid) { this.bids.add(bid); }
 
     public void updateBid(Bid bid, int i) {
         this.bids.remove(i);
