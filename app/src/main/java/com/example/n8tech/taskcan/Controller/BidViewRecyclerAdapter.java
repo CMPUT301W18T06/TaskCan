@@ -10,10 +10,13 @@ import android.widget.TextView;
 
 import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.BidList;
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.TaskList;
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.example.n8tech.taskcan.Views.TaskDetailActivity;
+import com.example.n8tech.taskcan.Views.ViewTaskActivity;
 
 import java.util.Locale;
 
@@ -29,6 +32,7 @@ import java.util.Locale;
 
 public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecyclerAdapter.ViewHolder> {
     private TaskList taskList;
+    private User currentUser;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -87,6 +91,7 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
             for (Bid bid : currentBidList){
                 if (bid.getBidAmount() == currentTask.getCurrentBid()){
                     holder.taskBidderName.setText(bid.getBidUsername());
+                    break;
                 }
             }
             currentBidText = String.format(Locale.CANADA,"$%.2f", currentTask.getCurrentBid());
@@ -96,8 +101,11 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int positionInTaskList;
+                currentUser = CurrentUserSingleton.getUser();
+                positionInTaskList = currentUser.getBidTaskList().getIndexOfTask(currentTask);
                 Log.i("TestingAdapterClick", String.valueOf(position));
-                Intent intent = new Intent(view.getContext(), TaskDetailActivity.class);
+                Intent intent = new Intent(view.getContext(), ViewTaskActivity.class);
                 intent.putExtra("taskIndex", position);
                 view.getContext().startActivity(intent);
             }
