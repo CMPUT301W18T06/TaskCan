@@ -97,6 +97,7 @@ public class ViewOtherUserProfileActivity extends ActivityHeader {
         contactInformation.setText(user.getPhoneNumber());
     }
 
+    /*
     @Override
     public void onBackPressed() {
         // TODO make sure all the task info is still there in viewtaskActivity?
@@ -105,7 +106,7 @@ public class ViewOtherUserProfileActivity extends ActivityHeader {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-    }
+    }*/
 
     @Override
     protected int getLayoutResourceId() {
