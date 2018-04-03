@@ -1,5 +1,6 @@
 package com.example.n8tech.taskcan.Controller;
 
+import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -7,6 +8,7 @@ import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Models.UserList;
+import com.google.android.gms.maps.model.LatLng;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
@@ -37,7 +39,6 @@ public class ElasticsearchController {
 
     private static JestDroidClient client;
 
-    // if no internet connectivity, then this class should NOT  be reached
     public static class AddUser extends AsyncTask<User, Void, String> {
 
         @Override
@@ -296,6 +297,60 @@ public class ElasticsearchController {
                         if(task.getDescription().contains(search_params[0]) || task.getTaskTitle().contains(search_params[0])) {
                             taskList.addTask(task);
                             Log.i("testing: ", task.getId());
+                        }
+                    }
+                }
+                else {
+                    Log.i("Error", "The search query has failed");
+                }
+            } catch (Exception e) {
+                //When no connection this occurs
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return taskList;
+        }
+    }
+
+    public static class SearchLocation extends AsyncTask<String, Void, TaskList> {
+
+        private LatLng currentLocation;
+
+        public SearchLocation(LatLng location){
+            this.currentLocation = location;
+        }
+
+        @Override
+        protected TaskList doInBackground(String... search_params) {
+            verifySettings();
+            ArrayList<Task> tempList = new ArrayList<Task>();
+            TaskList taskList = new TaskList();
+            float[] distResults = new float[1];
+
+            SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+            searchSourceBuilder.query(QueryBuilders.matchQuery("description", search_params[0]));
+
+            Search search = new Search.Builder("")
+                    .addIndex("cmput301w18t06")
+                    .addType("task")
+                    .build();
+
+            JestResult result;
+
+            try {
+                result = client.execute(search);
+
+                if(result.isSucceeded()) {
+                    tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
+                    for (Task task : tempList) {
+                        if (task.getLocation() != null){
+                            Location.distanceBetween(this.currentLocation.latitude, this.currentLocation.longitude,
+                                    task.getLocation().latitude, task.getLocation().longitude,
+                                    distResults);
+                            Log.i("dist: ", String.valueOf(distResults[0]));
+                            if (distResults[0] <= 5000){
+                                taskList.addTask(task);
+                            }
                         }
                     }
                 }

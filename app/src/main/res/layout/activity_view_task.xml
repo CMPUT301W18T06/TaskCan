@@ -158,7 +158,7 @@
             android:text="(task description)"
             android:textColor="@color/colorWhite"
             android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/phone_field"
+            app:layout_constraintBottom_toTopOf="@+id/task_view_activity_bid_amount"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/task_view_activity_description_label" />
@@ -233,7 +233,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/gradient"
-            android:onClick="taskDetailLocationButtonClick"
+            android:onClick="confirmBidButton"
             android:text="@string/view_task_activity_bid_button"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/colorWhite"
@@ -243,7 +243,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/phone_field"
+            android:id="@+id/task_view_activity_bid_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"

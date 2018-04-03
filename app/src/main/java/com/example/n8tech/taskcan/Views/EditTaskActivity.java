@@ -16,7 +16,12 @@
 
 package com.example.n8tech.taskcan.Views;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +35,7 @@ import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Image;
+import com.example.n8tech.taskcan.Models.ImageList;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Models.UserList;
@@ -40,7 +46,10 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Locale;
+
 
 /**
  * EditTaskActivity allows for changes to be made to task details.
@@ -56,6 +65,11 @@ import java.util.Locale;
  */
 public class EditTaskActivity extends ActivityHeader  {
     public final static Integer EDIT_IMAGES_REQUEST_CODE = 0;
+    private final static String RESULT_CODE = "EDITTASKACTIVITY_IMAGE_RESULT_CODE";
+
+    final Integer GALLERY_ADD_IMAGE = 0;
+    final Integer CAMERA_ADD_IMAGE = 1;
+    final Integer EDIT_IMAGE = 2;
 
     private Spinner categorySpinner;
     private Spinner taskStatusSpinner;
@@ -75,28 +89,24 @@ public class EditTaskActivity extends ActivityHeader  {
     private FileIO fileIO = new FileIO();
     int PLACE_PICKER_REQUEST = 5;
     private int currentTaskIndex;
+    private ImageList imageList;
+
     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.currentUser= CurrentUserSingleton.getUser();
+        this.currentUser = CurrentUserSingleton.getUser();
         Log.i("current user", currentUser.getUsername());
 
-
-
-        // TODO implement Elastic search here/load from file to get task information then set the editTexts
-        //
-        //
         Bundle extras = getIntent().getExtras();
         currentTaskIndex = extras.getInt("taskIndex");
         task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);
         findViewsByIdAndSetContent();
 
         newLocation = task.getLocation();
+        imageList = task.getImageList();
     }
 
     private void setCategorySpinnerContent() {
@@ -132,7 +142,6 @@ public class EditTaskActivity extends ActivityHeader  {
             maxBidText.setText("");
         }else{
             maxBidText.setText(String.format(Locale.CANADA,"%.2f", task.getMaximumBid()));
-
         }
 
         taskNameEditText.setText(task.getTaskTitle());
@@ -141,7 +150,6 @@ public class EditTaskActivity extends ActivityHeader  {
         // set category spinner content and set to task's category
         setCategorySpinnerContent();
         setTaskStatusSpinnerContent();
-
     }
 
     @Override
@@ -155,11 +163,38 @@ public class EditTaskActivity extends ActivityHeader  {
     public void cancelButtonClick(View v) {
         Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
         startActivity(intent);
-
     }
 
+    // https://stackoverflow.com/questions/4671428/how-can-i-add-a-third-button-to-an-android-alert-dialog
     public void addPhotosButtonClick(View v) {
-
+        String title = "Add Photo";
+        String message = "Pick from gallery or take new photo?";
+        String positive = "Gallery", neutral = "Cancel", negative = "Camera";
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(positive, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto, 0);
+            }
+        });
+        builder.setNeutralButton(neutral, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+//        builder.setNegativeButton(negative, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(takePicture, 1);
+//            }
+//        });
+        builder.create().show();
     }
 
     public void editLocationButtonClick(View v) {
@@ -173,16 +208,6 @@ public class EditTaskActivity extends ActivityHeader  {
         }
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PLACE_PICKER_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                this.newLocation = PlacePicker.getPlace(this, data).getLatLng();
-                String toastMsg = String.format("Place: %s", PlacePicker.getPlace(this, data).getName());
-                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
     public void saveButtonClick(View v) {
         String taskName;
         String taskDescription;
@@ -192,8 +217,6 @@ public class EditTaskActivity extends ActivityHeader  {
         String taskStatus;
         boolean valid = Boolean.TRUE;
 
-
-
         taskName = taskNameEditText.getText().toString();
         if (taskName.length() < 30 && !taskName.equals("")){
             // task name is valid, set task name
@@ -202,7 +225,6 @@ public class EditTaskActivity extends ActivityHeader  {
             Toast.makeText(EditTaskActivity.this, "Name must be between 0 and 30 characters", Toast.LENGTH_LONG).show();
             valid = Boolean.FALSE;
         }
-
 
         taskDescription = taskDescriptionEditText.getText().toString();
         if (taskDescription.length() < 300 ){
@@ -251,10 +273,13 @@ public class EditTaskActivity extends ActivityHeader  {
                 Log.i("Error", e.toString());
             }
 
+            UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
+            cacheList.delUser(this.currentUser);
+            cacheList.addUser(this.currentUser);
+            this.fileIO.saveInFile(getApplicationContext(), cacheList);
+
             if (completed.equals("NoNetworkError")) {
                 // add task to current user's myTasks list
-                UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
-                cacheList.delUser(this.currentUser);
                 //currentUser.addTask(newTask);
                 currentUser.replaceTaskAtIndex(currentTaskIndex,task);
 
@@ -262,15 +287,14 @@ public class EditTaskActivity extends ActivityHeader  {
                         = new ElasticsearchController.UpdateUser();
                 updateUser.execute(currentUser);
 
-                cacheList.addUser(this.currentUser);
-                this.fileIO.saveInFile(getApplicationContext(), cacheList);
 
+                //Intent intent = new Intent(v.getContext(), TaskDetailActivity.class);
+                //intent.putExtra("taskIndex", currentTaskIndex);         // use this if going back to taskDetails
 
-                Intent intent = new Intent(v.getContext(), MyTaskActivity.class);
-                intent.putExtra("taskIndex", currentTaskIndex);         // use this if going back to taskDetails
+                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                //v.getContext().startActivity(intent);
+                finish();
 
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                v.getContext().startActivity(intent);
 
             } else {
                 //save for later when connection is there
@@ -278,9 +302,6 @@ public class EditTaskActivity extends ActivityHeader  {
         } else {
             //Toast invalid
         }
-
-
-
     }
 
 
@@ -294,6 +315,53 @@ public class EditTaskActivity extends ActivityHeader  {
         return "Edit Task";
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent returnedIntent) {
+        super.onActivityResult(requestCode, resultCode, returnedIntent);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == this.CAMERA_ADD_IMAGE || requestCode == this.GALLERY_ADD_IMAGE) {
+                // get image
+                Uri selectedImage = returnedIntent.getData();
+                InputStream imageStream = null;
+                try {
+                    imageStream = getContentResolver().openInputStream(selectedImage);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+                Image image = new Image(bitmap);
+                // check img size
+                if (this.sizeOf(bitmap) < R.integer.IMAGE_MAX_BYTE_SIZE) {
+                    // store
+                    imageList.addImage(image);
+
+                    Toast.makeText(EditTaskActivity.this, "Image added successfully!",
+                            Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(EditTaskActivity.this, "Image size too large! (<65536bytes)",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+            else if (requestCode == this.PLACE_PICKER_REQUEST) {
+                this.location = PlacePicker.getPlace(this, returnedIntent).getLatLng();
+                String toastMsg = String.format("Place: %s", PlacePicker.getPlace(this, returnedIntent).getName());
+                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+            }
+            else if (requestCode == this.EDIT_IMAGE) {
+                this.imageList.setImages(returnedIntent.getExtras().<Image>getParcelableArrayList(RESULT_CODE));
+            }
+            else {
+                throw new IllegalStateException();
+            }
+        }
+    }
+
+    private int sizeOf(Bitmap bitmap) {
+        return bitmap.getRowBytes() * bitmap.getHeight();
+    }
+
+
     public void viewImagesOnClick(View view) {
         if (this.task.getImageList().getSize() == 0) {
             Toast.makeText(getApplicationContext(), "No images to show! Please add image!",
@@ -302,11 +370,17 @@ public class EditTaskActivity extends ActivityHeader  {
         else {
             Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
             Bundle b = new Bundle();
+            /*
             for (Image image : this.task.getImageList().getImages()) {
                 image.recreateRecycledBitmap();
-            }
-            b.putParcelableArrayList(EditImageSlideActivity.IMAGES_KEY, this.task.getImageList().getImages());
+            }*/
+            //b.putParcelableArrayList(EditImageSlideActivity.IMAGES_KEY, this.task.getImageList().getImages());
+
+            b.putString(EditImageSlideActivity.RESULT_KEY, RESULT_CODE);
             i.putExtras(b);
+
+            // send image list by putting it in current user singleton
+            CurrentUserSingleton.setImageList(this.task.getImageList());
             startActivityForResult(i, EDIT_IMAGES_REQUEST_CODE);
         }
     }

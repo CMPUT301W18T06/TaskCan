@@ -23,6 +23,7 @@
     <string name="navigation_drawer_my_tasks">My Tasks</string>
     <string name="navigation_drawer_my_bids">My Bids</string>
     <string name="navigation_drawer_my_profile">My Profile</string>
+    <string name="navigation_drawer_sync">Synchronize</string>
     <string name="navigation_drawer_sign_out">Sign Out</string>
 
     <string name="action_settings">Settings</string>
@@ -92,6 +93,10 @@
         <item>Assigned</item>
         <item>Done</item>
     </string-array>
+    <string name="view_bids_bids">Bids</string>
+    <string name="view_bids_action">Action</string>
+    <string name="view_bids_accept_button">Accept</string>
+    <string name="view_bids_decline_button">Decline</string>
 
 
 </resources>

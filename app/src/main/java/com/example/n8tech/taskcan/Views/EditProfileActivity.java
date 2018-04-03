@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
+import com.example.n8tech.taskcan.Controller.NetworkConnectionController;
 import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.User;
@@ -128,10 +129,17 @@ public class EditProfileActivity extends ActivityHeader {
 
             // TODO save with elastic search / in file
             cacheList.addUser(currentUser);
+            this.fileIO.saveInFile(getApplicationContext(),this.cacheList);
+            
+            if (NetworkConnectionController.isConnected(this)) {
+                ElasticsearchController.UpdateUser updateUser
+                        = new ElasticsearchController.UpdateUser();
+                updateUser.execute(currentUser);
+            }
+            else {
 
-            ElasticsearchController.UpdateUser updateUser
-                    = new ElasticsearchController.UpdateUser();
-            updateUser.execute(currentUser);
+            }
+
 
             Intent intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

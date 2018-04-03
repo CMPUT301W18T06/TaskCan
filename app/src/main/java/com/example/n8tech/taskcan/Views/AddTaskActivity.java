@@ -23,7 +23,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -43,14 +42,11 @@ import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Locale;
 
 /**
  * AddTaskActivity handles the creation of a new task made by the current user.
@@ -86,7 +82,7 @@ public class AddTaskActivity extends ActivityHeader {
     private User currentUser;
     private LatLng location;
     private ArrayAdapter<CharSequence> categorySpinnerAdapter;
-    private ImageList images;
+    private ImageList imageList;
     private FileIO fileIO = new FileIO();
     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
@@ -94,9 +90,8 @@ public class AddTaskActivity extends ActivityHeader {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.images = new ImageList();
+        this.imageList = new ImageList();
         this.currentUser = CurrentUserSingleton.getUser();
-        //Log.i("current user", currentUser.getUsername());
 
         findViewsByIdAndSetContent();
 
@@ -234,21 +229,16 @@ public class AddTaskActivity extends ActivityHeader {
             valid = Boolean.FALSE;
         }
 
-        /*
-        if (!maximumBidString.equals("")) {
-            maximumBid = Double.parseDouble(maximumBidString);
-            newTask.setMaximumBid(Math.round(maximumBid * 100.0) / 100.0);                      // round to 2 decimal places
-        } else {
-            newTask.setMaximumBid(-1);
-        }
-        */
 
-        // TODO location validity testing
+
+        // TODO image saving testing, @Q doing ES stuff
         newTask.setLocation(this.location);
-        newTask.setImageList(this.images);
+        newTask.setImageList(this.imageList);
         newTask.setOwnerUsername(currentUser.getUsername());
         newTask.setOwnerId(currentUser.getId());
         newTask.setCurrentBid(-1);
+
+
         // TODO:in file here
 
         Log.i("*** name", newTask.getTaskTitle());
@@ -271,18 +261,19 @@ public class AddTaskActivity extends ActivityHeader {
                 Log.i("Error", e.toString());
             }
 
+            UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
+            cacheList.delUser(this.currentUser);
+            cacheList.addUser(this.currentUser);
+            this.fileIO.saveInFile(getApplicationContext(), cacheList);
+
             if (completed == "NoNetworkError") {
                 // add task to current user's myTasks list
-                UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
-                cacheList.delUser(this.currentUser);
+
                 currentUser.addTask(newTask);
 
                 ElasticsearchController.UpdateUser updateUser
                         = new ElasticsearchController.UpdateUser();
                 updateUser.execute(currentUser);
-
-                cacheList.addUser(this.currentUser);
-                this.fileIO.saveInFile(getApplicationContext(), cacheList);
 
                 Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -326,7 +317,8 @@ public class AddTaskActivity extends ActivityHeader {
                 // check img size
                 if (this.sizeOf(bitmap) < R.integer.IMAGE_MAX_BYTE_SIZE) {
                     // store
-                    images.addImage(image);
+                    imageList.addImage(image);
+
                     Toast.makeText(AddTaskActivity.this, "Image added successfully!",
                             Toast.LENGTH_LONG).show();
                 }
@@ -341,7 +333,7 @@ public class AddTaskActivity extends ActivityHeader {
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
             }
             else if (requestCode == this.EDIT_IMAGE) {
-                this.images.setImages(returnedIntent.getExtras().<Image>getParcelableArrayList(RESULT_CODE));
+                this.imageList.setImages(returnedIntent.getExtras().<Image>getParcelableArrayList(RESULT_CODE));
             }
             else {
                 throw new IllegalStateException();
@@ -354,16 +346,21 @@ public class AddTaskActivity extends ActivityHeader {
     }
 
     public void viewImagesOnClick(View view) {
-        if (this.images.getSize() == 0) {
-            Toast.makeText(AddTaskActivity.this, "No images to show! Please add image!",
+        if (this.imageList.getSize() == 0) {
+            Toast.makeText(AddTaskActivity.this, "No imageList to show! Please add image!",
                     Toast.LENGTH_LONG).show();
         }
         else {
             Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
+
             Bundle b = new Bundle();
-            b.putParcelableArrayList(EditImageSlideActivity.IMAGES_KEY, this.images.getImages());
+
+            //b.putParcelableArrayList(EditImageSlideActivity.IMAGES_KEY, this.imageList.getImages());
             b.putString(EditImageSlideActivity.RESULT_KEY, RESULT_CODE);
             i.putExtras(b);
+
+            // send image list by putting it in current user singleton
+            CurrentUserSingleton.setImageList(imageList);
             startActivityForResult(i, EDIT_IMAGES_REQUEST_CODE);
         }
     }

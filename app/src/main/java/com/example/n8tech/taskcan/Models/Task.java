@@ -258,7 +258,7 @@ public class Task {
      * @param bid bid to be added to task bid list
      */
     public void addBidder(Bid bid) {
-        if(this.getStatus().equals("Assigned") || this.getStatus().equals("Completed")){}
+        if(this.getStatus().intern() == "Assigned" || this.getStatus().intern() == "Completed"){}
         else{
             this.bidList.addBid(bid);
         }

@@ -75,6 +75,12 @@ public class TaskDetailActivity extends ActivityHeader {
         findByIdsAndSetTextFields();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        findByIdsAndSetTextFields();
+    }
+
     public void findByIdsAndSetTextFields() {
         taskNameText = (TextView) findViewById(R.id.task_details_activity_name_text);
         taskDescriptionText = (TextView) findViewById(R.id.task_details_activity_task_description_text);
@@ -155,6 +161,7 @@ public class TaskDetailActivity extends ActivityHeader {
 
     public void viewBidsButtonClick(View v){
         Intent intent = new Intent(getApplicationContext(), ViewBidsActivity.class);
+        intent.putExtra("taskIndex", currentTaskIndex);
         startActivity(intent);
     }
 
@@ -203,4 +210,6 @@ public class TaskDetailActivity extends ActivityHeader {
     protected String getActivityTitle() {
         return "Task Details";
     }
+
+
 }
