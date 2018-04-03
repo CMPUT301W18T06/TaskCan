@@ -75,6 +75,12 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
         holder.bidUsername.setText(currentBid.getBidUsername());
         holder.bidAmount.setText(String.valueOf(currentBid.getBidAmount()));
 
+        holder.bidUsername.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                // TODO: Username Click
+
+            }
+        });
 
         holder.acceptButton.setOnClickListener(new View.OnClickListener(){
             @Override
