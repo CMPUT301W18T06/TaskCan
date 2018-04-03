@@ -21,6 +21,8 @@ import android.util.Log;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
+
 import io.searchbox.annotations.JestId;
 
 /**
@@ -44,7 +46,7 @@ public class Task {
     private String category;
     private BidList bidList;
     private LatLng location;            // TODO change to geolocation variable
-    private ImageList imageList;
+    private ArrayList<String> imageListId;
     private boolean taskCompleted;
     private String status;
 
@@ -88,7 +90,7 @@ public class Task {
         this.category = category;
         this.bidList = new BidList();
         this.location = null;
-        this.imageList = null;
+        this.imageListId = new ArrayList<>();
         this.taskCompleted = false;     // ie requested
         this.status = "Requested";
 
