@@ -246,6 +246,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/gradient"
+            android:onClick="viewBidsButtonClick"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:text="View Bids"
