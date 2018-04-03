@@ -8,6 +8,29 @@
     tools:context="com.example.n8tech.taskcan.Views.SignUpActivity">
 
     <EditText
+        android:id="@+id/name_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/entry_field"
+        android:ems="10"
+        android:hint="@string/sign_up_activity_name"
+        android:inputType="textEmailAddress"
+        android:paddingBottom="11dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="11dp"
+        android:radius="8dp"
+        android:maxLength="50"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_bar" />
+
+    <EditText
         android:id="@+id/username_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -32,28 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_field" />
 
-    <EditText
-        android:id="@+id/name_field"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/entry_field"
-        android:ems="10"
-        android:hint="@string/sign_up_activity_name"
-        android:inputType="textEmailAddress"
-        android:paddingBottom="11dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="11dp"
-        android:radius="8dp"
-        android:maxLength="50"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_bar" />
+
 
     <EditText
         android:id="@+id/email_field"
