@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.n8tech.taskcan.FileIO;
+import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Image;
 import com.example.n8tech.taskcan.Models.Task;
@@ -35,6 +37,7 @@ public class ViewTaskActivity extends ActivityHeader{
     private Button taskOwnerUsernameButton;
     private TextView taskCurrentBidText;
     private TextView taskMaxBidText;
+    private EditText bidAmountText;
     private int currentTaskIndex;
     private FileIO fileIO = new FileIO();
 
@@ -128,6 +131,39 @@ public class ViewTaskActivity extends ActivityHeader{
         Intent intent = new Intent(getApplicationContext(), ViewOtherUserProfileActivity.class);
         intent.putExtra("userId", task.getOwnerId());
         v.getContext().startActivity(intent);
+    }
+
+    public void confirmBid(View v){
+        Bid bid = new Bid();
+        bidAmountText = (EditText) findViewById(R.id.task_view_activity_bid_amount);
+        double newBidAmount = Double.parseDouble(bidAmountText.getText().toString());
+        if(newBidAmount > task.getMaximumBid()){
+            Toast.makeText(getApplicationContext(), "Your bid amount is greater than the" +
+                    " maximum bid amount", Toast.LENGTH_LONG).show();
+            return;
+        }
+        else if (newBidAmount < 0.01){
+            Toast.makeText(getApplicationContext(), "Your bid amount is less than the" +
+                    " minimum requires bid amount", Toast.LENGTH_LONG).show();
+            return;
+        }
+        else{
+            bid.setBidAmount(newBidAmount);
+        }
+        bid.setBidId(task.getOwnerId());
+        bid.setBidUsername(currentUser.getUsername());
+
+        task.addBidder(bid);
+        if (task.getStatus() == "Requested"){
+            task.setStatus("Bidded");
+        }
+        if(newBidAmount < task.getCurrentBid() || task.getCurrentBid() == -1){
+            task.setCurrentBid(newBidAmount);
+        }
+
+        currentUser.addBidTask(task);
+
+        super.onBackPressed();
     }
 
 

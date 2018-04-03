@@ -116,7 +116,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_field" />
+        app:layout_constraintTop_toBottomOf="@+id/task_view_activity_bid_amount" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -156,7 +156,7 @@
         app:layout_constraintTop_toBottomOf="@+id/email_field" />
 
     <EditText
-        android:id="@+id/phone_field"
+        android:id="@+id/task_view_activity_bid_amount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
