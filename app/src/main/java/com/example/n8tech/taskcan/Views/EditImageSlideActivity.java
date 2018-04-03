@@ -24,6 +24,7 @@ public class EditImageSlideActivity extends AppCompatActivity {
     private SlideShowAdapter adapter;
     private String result_code;
     private int currentPage = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,7 @@ public class EditImageSlideActivity extends AppCompatActivity {
         this.result_code = getIntent().getExtras().getString(RESULT_KEY);
         this.initializeSlideShow();
     }
+
     private void initializeSlideShow() {
         this.mPager = findViewById(R.id.pager);
         this.adapter = new SlideShowAdapter(getApplicationContext(), slides);
@@ -56,14 +58,16 @@ public class EditImageSlideActivity extends AppCompatActivity {
     public void deleteButtonClick(View view) {
         this.slides.removeImage(this.currentPage);
         this.adapter.notifyDataSetChanged();
+        onBackPressed();
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
-        Intent i = new Intent();
-        Bundle b = new Bundle();
+        //Intent i = new Intent();
+        //Bundle b = new Bundle();
         //b.putParcelableArrayList(this.result_code, this.slides.getImages());
         //i.putExtras(b);
-        setResult(Activity.RESULT_OK, i);
-    }
+        //setResult(Activity.RESULT_OK, i);
+
+    }*/
 }

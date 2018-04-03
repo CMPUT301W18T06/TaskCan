@@ -92,7 +92,6 @@ public class AddTaskActivity extends ActivityHeader {
         super.onCreate(savedInstanceState);
         this.imageList = new ImageList();
         this.currentUser = CurrentUserSingleton.getUser();
-        //Log.i("current user", currentUser.getUsername());
 
         findViewsByIdAndSetContent();
 
@@ -230,16 +229,9 @@ public class AddTaskActivity extends ActivityHeader {
             valid = Boolean.FALSE;
         }
 
-        /*
-        if (!maximumBidString.equals("")) {
-            maximumBid = Double.parseDouble(maximumBidString);
-            newTask.setMaximumBid(Math.round(maximumBid * 100.0) / 100.0);                      // round to 2 decimal places
-        } else {
-            newTask.setMaximumBid(-1);
-        }
-        */
 
-        // TODO location validity testing
+
+        // TODO image saving testing, @Q doing ES stuff
         newTask.setLocation(this.location);
         newTask.setImageList(this.imageList);
         newTask.setOwnerUsername(currentUser.getUsername());
