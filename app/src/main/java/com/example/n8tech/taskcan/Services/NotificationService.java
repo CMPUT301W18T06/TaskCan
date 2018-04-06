@@ -5,7 +5,15 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 
 import com.example.n8tech.taskcan.Controller.NotificationController;
+import com.example.n8tech.taskcan.Models.Bid;
+import com.example.n8tech.taskcan.Models.BidList;
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.NotificationContent;
+import com.example.n8tech.taskcan.Models.Task;
+import com.example.n8tech.taskcan.Models.TaskList;
+import com.example.n8tech.taskcan.Models.User;
+
+import java.util.ArrayList;
 
 /**
  * Created by AlanJ on 2018-03-22.
@@ -17,6 +25,8 @@ public class NotificationService extends IntentService {
     public NotificationService() {
         super("NotificationService");
     }
+    private User currentUser = CurrentUserSingleton.getUser();
+    private ArrayList bidListSizes;
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *
@@ -36,6 +46,9 @@ public class NotificationService extends IntentService {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            for (Task task : currentUser.getMyTaskList()){
+                bidListSizes.add(task.getBidList().getSize());
+            }
             if(this.haveNewBids()) {
                 NotificationContent content = new NotificationContent(getApplicationContext(), NotificationController.ANDROID_CHANNEL_ID,
                         this.TITLE, this.description);
@@ -46,11 +59,11 @@ public class NotificationService extends IntentService {
     }
 
     private boolean haveNewBids() {
-        /*
-        * if (have new bids) {
-        *   description = bidder name offers you bid amount for task title
-        * }
-        * */
+        for (Task task : currentUser.getMyTaskList()){
+            if (bidListSizes.get(currentUser.getMyTaskList().getIndexOfTask(task)).equals(task.getBidList().getSize())){
+                return true;
+            }
+        }
         return false;
     }
 }
