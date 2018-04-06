@@ -26,7 +26,8 @@ public class NotificationService extends IntentService {
         super("NotificationService");
     }
     private User currentUser = CurrentUserSingleton.getUser();
-    private ArrayList bidListSizes;
+    private TaskList prevTaskList;
+    private TaskList currentTaskList;
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *
@@ -47,8 +48,9 @@ public class NotificationService extends IntentService {
                 e.printStackTrace();
             }
             for (Task task : currentUser.getMyTaskList()){
-                bidListSizes.add(task.getBidList().getSize());
+                prevTaskList.addTask(task);
             }
+
             if(this.haveNewBids()) {
                 NotificationContent content = new NotificationContent(getApplicationContext(), NotificationController.ANDROID_CHANNEL_ID,
                         this.TITLE, this.description);
@@ -59,8 +61,13 @@ public class NotificationService extends IntentService {
     }
 
     private boolean haveNewBids() {
-        for (Task task : currentUser.getMyTaskList()){
-            if (bidListSizes.get(currentUser.getMyTaskList().getIndexOfTask(task)).equals(task.getBidList().getSize())){
+        currentTaskList = currentUser.getMyTaskList();
+        for (Task task : currentTaskList){
+            if (task.getBidList().equals(prevTaskList.getTaskAtIndex(currentTaskList.getIndexOfTask(task)).getBidList()) != true){
+                String taskTitle = task.getTaskTitle();
+                String newBidder = task.getBidList().getBid(task.getBidList().getSize()).getBidUsername();
+                String newBidAmount = String.valueOf(task.getBidList().getBid(task.getBidList().getSize()).getBidAmount());
+                description = newBidder + " offers you $" + newBidAmount + " for " + taskTitle + ".";
                 return true;
             }
         }
