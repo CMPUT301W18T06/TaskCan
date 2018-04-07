@@ -42,10 +42,12 @@ public class CurrentUserSingleton {
         currentUser = null;
     }
 
+    /** @return ImageList of user's images */
     public static ImageList getImageList() {
         return imageList;
     }
 
+    /** @param imageList ImageList of user's images */
     public static void setImageList(ImageList imageList) {
         CurrentUserSingleton.imageList = imageList;
     }

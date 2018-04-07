@@ -13,4 +13,12 @@ import static org.junit.Assert.*;
  */
 
 public class ImageTest {
+    public ImageTest(){
+
+    }
+
+    @Test
+    public void testRecreateRecycledBitmap(){
+
+    }
 }
