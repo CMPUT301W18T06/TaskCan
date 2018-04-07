@@ -46,10 +46,11 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
 
         public ViewHolder(View view) {
             super(view);
-            bidUsername = view.findViewById(R.id.bid_list_user);
-            bidAmount = view.findViewById(R.id.bid_list_amount);
-            acceptButton = view.findViewById(R.id.accept_button);
-            declineButton = view.findViewById(R.id.decline_button);
+            bidUsername = (TextView) view.findViewById(R.id.bid_list_user);
+            bidAmount = (TextView) view.findViewById(R.id.bid_list_amount);
+            acceptButton = (Button) view.findViewById(R.id.accept_button);
+            declineButton = (Button) view.findViewById(R.id.decline_button);
+            cancelButton = (Button) view.findViewById(R.id.cancel_button);
         }
     }
 
@@ -62,6 +63,7 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
     public Bid getAcceptedBid(){
         return this.acceptedBid;
     }
+
 
     // Create new views (invoked by the layout manager)
     @Override
@@ -78,12 +80,15 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
     // Replace the contents of a view (invoked by the layout manager)
     // onClick from https://stackoverflow.com/questions/24471109/recyclerview-onclick
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         final Bid currentBid = bidList.getBid(position);
         holder.bidUsername.setText(currentBid.getBidUsername());
         holder.bidAmount.setText(String.valueOf(currentBid.getBidAmount()));
+        holder.cancelButton.setVisibility(View.VISIBLE);
+        holder.acceptButton.setVisibility(View.VISIBLE);
+
 
         holder.bidUsername.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
@@ -96,25 +101,29 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
             @Override
             public void onClick(View v) {
                 // TODO: Accept button click
-                // delete all but the current position
+                // Hide all bids but the current position
                 acceptedBid = bidList.getBid(position);
 
                 BidList newBidList = new BidList();
+                BidList oldBidList = new BidList();
                 newBidList.addBid(acceptedBid);
-                bidList = newBidList;
 
-                // add accepted bid back to list
-                //bidList.addBid(acceptedBid);
+                // keep a record of previous bids in case the user cancels.
+                oldBidList = bidList;
+
+                // display only accepted bid
+                bidList = newBidList;
+                holder.acceptButton.setVisibility(View.GONE);
+                notifyDataSetChanged();
+
 
                 // TODO make accepted & decline bid invisible, make a cancel button visible
 
-                //holder.button.setVisibility(View.INVISIBLE);
-                notifyDataSetChanged();
-
                 //finish();            // TODO stop this activity, goes back to details
             }
-        });
 
+        });
+        holder.acceptButton.setVisibility(View.INVISIBLE);
 
         holder.declineButton.setOnClickListener(new View.OnClickListener(){
             @Override
