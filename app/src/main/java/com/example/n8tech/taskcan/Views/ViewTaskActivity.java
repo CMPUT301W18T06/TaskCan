@@ -2,6 +2,7 @@ package com.example.n8tech.taskcan.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -149,8 +150,12 @@ public class ViewTaskActivity extends ActivityHeader{
 
     public void confirmBidButton(View v){
         Bid bid = new Bid();
+        User resultUser = new User();
+        Task oldTask = new Task();
         double newBidAmount;
+        int taskIndex;
 
+        oldTask = this.task;
         bidAmountText = (EditText) findViewById(R.id.task_view_activity_bid_amount);
         newBidAmount = Double.parseDouble(bidAmountText.getText().toString());
 
@@ -173,7 +178,7 @@ public class ViewTaskActivity extends ActivityHeader{
         else{
             bid.setBidAmount(newBidAmount);
         }
-        bid.setBidId(task.getOwnerId());
+        bid.setBidId(currentUser.getId());
         bid.setBidUsername(currentUser.getUsername());
 
         task.addBidder(bid);
@@ -194,6 +199,22 @@ public class ViewTaskActivity extends ActivityHeader{
         ElasticsearchController.UpdateUser updateUser
                 = new ElasticsearchController.UpdateUser();
         updateUser.execute(currentUser);
+
+        ElasticsearchController.GetUser getUser
+                = new ElasticsearchController.GetUser();
+        getUser.execute(this.task.getOwnerId());
+
+        try {
+            resultUser = getUser.get();
+        } catch (Exception e) {
+            Log.i("Error", String.valueOf(e));
+        }
+        taskIndex = resultUser.getMyTaskList().getIndexOfTask(oldTask);
+        resultUser.replaceTaskAtIndex(taskIndex, this.task);
+
+        ElasticsearchController.UpdateUser updateUser2
+                = new ElasticsearchController.UpdateUser();
+        updateUser2.execute(resultUser);
 
         super.onBackPressed();
     }

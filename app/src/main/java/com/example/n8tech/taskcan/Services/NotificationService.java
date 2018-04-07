@@ -26,7 +26,7 @@ public class NotificationService extends IntentService {
         super("NotificationService");
     }
     private User currentUser = CurrentUserSingleton.getUser();
-    private TaskList prevTaskList;
+    private TaskList prevTaskList = new TaskList();
     private TaskList currentTaskList;
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
