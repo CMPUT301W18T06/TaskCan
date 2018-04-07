@@ -28,14 +28,17 @@ import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Image;
+import com.example.n8tech.taskcan.Models.ImageList;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
+import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
 
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 /**
  * TaskDetailActivity displays the details of a specific task
@@ -171,25 +174,34 @@ public class TaskDetailActivity extends ActivityHeader {
                     Toast.LENGTH_LONG).show();
         } else {
             Intent intent = new Intent(getApplicationContext(), ViewTaskOnMapsActivity.class);
-            intent.putExtra("taskIndex", currentTaskIndex);
+            Gson gson = new Gson();
+            intent.putExtra("currentTask", gson.toJson(task));
             v.getContext().startActivity(intent);
         }
     }
 
     public void viewImagesButtonClick(View v){
-        if (this.task.getImageList().getSize() == 0) {
-            Toast.makeText(getApplicationContext(), "No images to show! Please add image!",
-                    Toast.LENGTH_LONG).show();
-        }
-        else {
-            Intent i = new Intent(getApplicationContext(), ViewImageSlideActivity.class);
-            Bundle b = new Bundle();
-            for (Image image : this.task.getImageList().getImages()) {
-                image.recreateRecycledBitmap();
+        ImageList il = new ImageList();
+        try {
+            if (this.task.getImageListId().size() == 0) {
+                Toast.makeText(getApplicationContext(), "No images to show! Please add image!",
+                        Toast.LENGTH_LONG).show();
             }
-            b.putParcelableArrayList(this.IMAGES_KEY, this.task.getImageList().getImages());
-            i.putExtras(b);
-            startActivity(i);
+            else {
+                Intent i = new Intent(getApplicationContext(), ViewImageSlideActivity.class);
+                Bundle b = new Bundle();
+                for (Image image : this.task.getImageList().getImages()) {
+                    image.recreateRecycledBitmap();
+                    il.addImage(image);
+                }
+                b.putParcelableArrayList(this.IMAGES_KEY, il.getImages());
+                i.putExtras(b);
+                startActivity(i);
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

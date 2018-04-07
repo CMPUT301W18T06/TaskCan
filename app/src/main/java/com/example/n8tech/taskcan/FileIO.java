@@ -64,8 +64,6 @@ public class FileIO {
 
             cacheList = new UserList();
             Log.i("No File", "Created New File");
-        } catch (IOException e) {
-            throw new RuntimeException();
         }
 
         return cacheList;

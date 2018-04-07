@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.example.n8tech.taskcan.Controller.TaskBidsViewRecyclerAdapter;
 import com.example.n8tech.taskcan.Models.Bid;
@@ -37,22 +38,18 @@ public class ViewBidsActivity extends ActivityHeader {
         task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);
 
         recyclerView = findViewById(R.id.ViewBidsRecyclerView);
-    }
 
-    @Override
-    protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
-        if (!this.getClass().equals(nextClass)) {
-            Intent i = new Intent(ViewBidsActivity.this, nextClass);
-            startActivity(i);
+        for (Bid bid : task.getBidList()){
+            this.bidList.addBid(bid);
         }
     }
+
+
 
     @Override
     protected void onStart() {
         super.onStart();
-        for (Bid bid : task.getBidList()){
-            this.bidList.addBid(bid);
-        }
+
 
         recyclerView.setHasFixedSize(true);
 
@@ -62,7 +59,6 @@ public class ViewBidsActivity extends ActivityHeader {
 
         final TaskBidsViewRecyclerAdapter mAdapter = new TaskBidsViewRecyclerAdapter(bidList);
         recyclerView.setAdapter(mAdapter);
-
     }
 
 
@@ -74,5 +70,13 @@ public class ViewBidsActivity extends ActivityHeader {
     @Override
     protected String getActivityTitle() {
         return "View Bids";
+    }
+
+    @Override
+    protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
+        if (!this.getClass().equals(nextClass)) {
+            Intent i = new Intent(ViewBidsActivity.this, nextClass);
+            startActivity(i);
+        }
     }
 }

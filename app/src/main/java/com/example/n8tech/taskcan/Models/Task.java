@@ -18,9 +18,12 @@ package com.example.n8tech.taskcan.Models;
 
 import android.util.Log;
 
+import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 import java.util.Arrays;
 
 import io.searchbox.annotations.JestId;
@@ -46,11 +49,9 @@ public class Task {
     private String category;
     private BidList bidList;
     private LatLng location;            // TODO change to geolocation variable
-    private ImageList imageList;
+    private ArrayList<String> imageListId;
     private boolean taskCompleted;
     private String status;
-    private String[] categoriesList = {"Home Maintenance" , "Delivery Services", "Pet Care", "Entertainment", "Personal Assistance",
-            "Landscaping", "Automotive Services", "Culinary Services", "Tutoring","Other"};
 
     @JestId
     private String id;
@@ -65,7 +66,7 @@ public class Task {
         this.category = "Other";
         this.bidList = new BidList();
         this.location = null;
-        this.imageList = null;
+        this.imageListId = new ArrayList<>();
         this.taskCompleted = false;
         this.status = "Requested";
     }
@@ -92,7 +93,7 @@ public class Task {
         this.category = category;
         this.bidList = new BidList();
         this.location = null;
-        this.imageList = null;
+        this.imageListId = new ArrayList<>();
         this.taskCompleted = false;     // ie requested
         this.status = "Requested";
 
@@ -191,9 +192,7 @@ public class Task {
 
     /** @param category the category the task belongs to */
     public void setCategory(String category) {
-        if (Arrays.asList(categoriesList).contains(category)) {
-            this.category = category;
-        }
+        this.category = category;
     }
 
     /** @param status task status of completion */
@@ -249,12 +248,36 @@ public class Task {
         this.location = location;
     }
 
-    public ImageList getImageList() { return this.imageList; }
+    public ArrayList<String> getImageListId() { return this.imageListId; }
 
-    public void setImageList(ImageList imageList) { this.imageList = imageList; }
+    public ImageList getImageList() throws ExecutionException, InterruptedException {
+        ImageList il = new ImageList();
+        ElasticsearchController.GetImage ec = new ElasticsearchController.GetImage();
+        for (String id : this.imageListId) {
+            ec.execute(id);
+            il.addImage(ec.get());
+        }
+        return il;
+    }
+
+    public void setImageListId(ArrayList<String> imageListId) { this.imageListId = imageListId; }
+
+    public void setImageListId(ImageList imageList) throws ExecutionException, InterruptedException {
+        String id;
+        for (Image i : imageList.getImages()) {
+            ElasticsearchController.AddImage ec = new ElasticsearchController.AddImage();
+            if (i.getId() == null) {
+                ec.execute(i);
+                if ((id = ec.get()) != "NetworkError") {
+                    i.setId(id);
+                }
+            }
+            this.imageListId.add(i.getId());
+        }
+    }
 
     public void addImage(Image image) {
-        this.imageList.addImage(image);
+        this.imageListId.add(image.getId());
     }
 
     /** @return task name and description string */

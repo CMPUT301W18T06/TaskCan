@@ -14,6 +14,7 @@ public class NetworkConnectionController {
     public static boolean isConnected(Context context) {
         connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        return mWifi.isConnected();
+//        return mWifi.isConnected();
+        return true;
     }
 }

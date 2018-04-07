@@ -60,7 +60,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Current Bid:"
+            android:text="Lowest Bid:"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
