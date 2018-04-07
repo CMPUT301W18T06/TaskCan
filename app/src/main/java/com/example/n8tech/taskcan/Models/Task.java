@@ -281,6 +281,10 @@ public class Task {
         }
     }
 
+    public void replaceBidAtIndex(int index, Bid bid){
+        this.bidList.replaceAtIndex(index, bid);
+    }
+
     /**
      * Checks if task status has changed and updates the task details.
      */
