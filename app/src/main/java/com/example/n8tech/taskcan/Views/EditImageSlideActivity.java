@@ -52,15 +52,14 @@ public class EditImageSlideActivity extends AppCompatActivity {
                     currentPage = 0;
                 }
                 mPager.setCurrentItem(currentPage++, true);
-                Log.i("slide image","-----------------------" + currentPage.toString());
             }
         };
     }
 
     // TODO always deletes the first image
     public void deleteButtonClick(View view) {
-        Log.i("IMAGE SLIDE ACTIVITY --", this.currentPage.toString());
-        this.slides.removeImage(this.currentPage);
+        Log.i("IMAGE SLIDE ACTIVITY --", String.valueOf(mPager.getCurrentItem()));
+        this.slides.removeImage(mPager.getCurrentItem());
         this.adapter.notifyDataSetChanged();
         onBackPressed();
     }
