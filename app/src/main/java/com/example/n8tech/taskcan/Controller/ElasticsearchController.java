@@ -4,6 +4,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.User;
@@ -294,9 +295,10 @@ public class ElasticsearchController {
                 if(result.isSucceeded()) {
                     tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
                     for (Task task : tempList) {
-                        if(task.getDescription().contains(search_params[0]) || task.getTaskTitle().contains(search_params[0])) {
-                            taskList.addTask(task);
-                            Log.i("testing: ", task.getId());
+                        if (!task.getStatus().equals("Completed")) {
+                            if (task.getDescription().contains(search_params[0]) || task.getTaskTitle().contains(search_params[0])) {
+                                taskList.addTask(task);
+                            }
                         }
                     }
                 }
@@ -350,7 +352,7 @@ public class ElasticsearchController {
                                     task.getLocation().latitude, task.getLocation().longitude,
                                     distResults);
                             Log.i("dist: ", String.valueOf(distResults[0]));
-                            if (distResults[0] <= radius){
+                            if (distResults[0] <= radius && !task.getStatus().equals("Completed")){
                                 taskList.addTask(task);
                             }
                         }
@@ -392,6 +394,7 @@ public class ElasticsearchController {
                 if(result.isSucceeded()) {
                     tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
                     for (Task task : tempList) {
+                        if(!task.getStatus().equals("Completed"))
                         taskList.addTask(task);
                     }
                 }
