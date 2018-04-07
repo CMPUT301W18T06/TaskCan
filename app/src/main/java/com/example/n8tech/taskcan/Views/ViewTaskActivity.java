@@ -112,7 +112,8 @@ public class ViewTaskActivity extends ActivityHeader{
                     Toast.LENGTH_LONG).show();
         } else {
             Intent intent = new Intent(getApplicationContext(), ViewTaskOnMapsActivity.class);
-            intent.putExtra("taskIndex", currentTaskIndex);
+            Gson gson = new Gson();
+            intent.putExtra("currentTask", gson.toJson(task));
             v.getContext().startActivity(intent);
         }
     }

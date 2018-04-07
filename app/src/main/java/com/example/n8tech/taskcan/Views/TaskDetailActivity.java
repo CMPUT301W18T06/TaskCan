@@ -33,6 +33,7 @@ import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
+import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
 
@@ -173,7 +174,8 @@ public class TaskDetailActivity extends ActivityHeader {
                     Toast.LENGTH_LONG).show();
         } else {
             Intent intent = new Intent(getApplicationContext(), ViewTaskOnMapsActivity.class);
-            intent.putExtra("taskIndex", currentTaskIndex);
+            Gson gson = new Gson();
+            intent.putExtra("currentTask", gson.toJson(task));
             v.getContext().startActivity(intent);
         }
     }

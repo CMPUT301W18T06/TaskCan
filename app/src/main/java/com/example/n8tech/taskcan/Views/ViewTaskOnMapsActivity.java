@@ -46,10 +46,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.elasticsearch.common.mvel2.util.NullType;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -100,11 +102,12 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
 
         this.currentUser = CurrentUserSingleton.getUser();
 
-        Bundle extras = getIntent().getExtras();
-        currentTaskIndex = extras.getInt("taskIndex");
-        if (currentTaskIndex != -1) {
-            task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);
-        } else {
+        Type taskType = new TypeToken<Task>(){}.getType();
+        Intent intent = getIntent();
+        Gson gson = new Gson();
+
+        task = gson.fromJson(intent.getStringExtra("currentTask"), taskType);         // change this to the right task from the search
+        if (task == null) {
             task = new Task();
         }
 
@@ -117,15 +120,6 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
             startActivity(i);
         }
     }
-
-    /*@Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }*/
 
     @Override
     protected int getLayoutResourceId() {
