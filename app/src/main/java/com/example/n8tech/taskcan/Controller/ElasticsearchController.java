@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
+import com.example.n8tech.taskcan.Models.Image;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.User;
@@ -408,6 +409,90 @@ public class ElasticsearchController {
             }
 
             return taskList;
+        }
+    }
+
+    public static class AddImage extends AsyncTask<Image, Void, String> {
+
+        @Override
+        protected String doInBackground(Image... images) {
+            verifySettings();
+            String id = "";
+
+            for (Image image : images){
+                id = "";
+
+                Index index = new Index.Builder(image).index("cmput301w18t06").type("image").build();
+
+                try {
+                    DocumentResult result = client.execute(index);
+
+                    if(result.isSucceeded()) {
+                        id = result.getId();
+                    }
+                    else {
+                        Log.i("Error", "Elasticsearch was not able to add the user");
+                    }
+                } catch (Exception e) {
+                    Log.i("Error", "The application failed to build and add the user");
+                    return "NetworkError";
+
+                }
+            }
+            return id;
+        }
+
+    }
+
+    public static class GetImage extends AsyncTask<String, Void, Image> {
+
+        @Override
+        protected Image doInBackground(String... search_params) {
+            verifySettings();
+            Image image = null;
+
+            Get get = new Get.Builder("cmput301w18t06", search_params[0]).type("image").build();
+
+            try {
+                JestResult result = client.execute(get);
+
+                if(result.isSucceeded()) {
+                    image = result.getSourceAsObject(Image.class);
+                }
+                else {
+                    Log.i("Error", "The search query has failed");
+                }
+            } catch (Exception e) {
+                //When no connection this occurs
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return image;
+        }
+    }
+
+    public static class DeleteImage extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... search_params) {
+            verifySettings();
+            for(String id : search_params) {
+
+                Delete del = new Delete.Builder(id).index("cmput301w18t06").type("image").build();
+
+                try {
+                    JestResult result = client.execute(del);
+
+                    if (!result.isSucceeded()) {
+                        Log.i("Error", "The search query has failed");
+                    }
+                } catch (Exception e) {
+                    //When no connection this occurs
+                    Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                    return "NetworkError";
+                }
+            }
+            return "NoNetworkError";
         }
     }
 

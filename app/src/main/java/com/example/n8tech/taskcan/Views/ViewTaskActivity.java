@@ -23,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import static java.lang.Math.round;
 
@@ -116,19 +117,25 @@ public class ViewTaskActivity extends ActivityHeader{
     }
 
     public void viewImagesButtonClick(View v){
-        if (this.task.getImageList().getSize() == 0) {
-            Toast.makeText(getApplicationContext(), "No images to show! Please add image!",
-                    Toast.LENGTH_LONG).show();
-        }
-        else {
-            Intent i = new Intent(getApplicationContext(), ViewImageSlideActivity.class);
-            Bundle b = new Bundle();
-            for (Image image : this.task.getImageList().getImages()) {
-                image.recreateRecycledBitmap();
+        try {
+            if (this.task.getImageList().getSize() == 0) {
+                Toast.makeText(getApplicationContext(), "No images to show! Please add image!",
+                        Toast.LENGTH_LONG).show();
             }
-            b.putParcelableArrayList(this.IMAGES_KEY, this.task.getImageList().getImages());
-            i.putExtras(b);
-            startActivity(i);
+            else {
+                Intent i = new Intent(getApplicationContext(), ViewImageSlideActivity.class);
+                Bundle b = new Bundle();
+                for (Image image : this.task.getImageList().getImages()) {
+                    image.recreateRecycledBitmap();
+                }
+                b.putParcelableArrayList(this.IMAGES_KEY, this.task.getImageList().getImages());
+                i.putExtras(b);
+                startActivity(i);
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

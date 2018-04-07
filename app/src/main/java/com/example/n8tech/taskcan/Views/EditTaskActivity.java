@@ -49,6 +49,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -106,7 +107,15 @@ public class EditTaskActivity extends ActivityHeader  {
         findViewsByIdAndSetContent();
 
         newLocation = task.getLocation();
-        imageList = task.getImageList();
+        try {
+            imageList = task.getImageList();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            Toast.makeText(EditTaskActivity.this, "EcecutionException: Failure to get images", Toast.LENGTH_LONG).show();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Toast.makeText(EditTaskActivity.this, "InterruptedException: Failure to get images", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void setCategorySpinnerContent() {
@@ -363,25 +372,33 @@ public class EditTaskActivity extends ActivityHeader  {
 
 
     public void viewImagesOnClick(View view) {
-        if (this.task.getImageList().getSize() == 0) {
-            Toast.makeText(getApplicationContext(), "No images to show! Please add image!",
-                    Toast.LENGTH_LONG).show();
-        }
-        else {
-            Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
-            Bundle b = new Bundle();
-            /*
-            for (Image image : this.task.getImageList().getImages()) {
-                image.recreateRecycledBitmap();
-            }*/
-            //b.putParcelableArrayList(EditImageSlideActivity.IMAGES_KEY, this.task.getImageList().getImages());
+        try {
+            if (this.task.getImageList().getSize() == 0) {
+                Toast.makeText(getApplicationContext(), "No images to show! Please add image!",
+                        Toast.LENGTH_LONG).show();
+            }
+            else {
+                Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
+                Bundle b = new Bundle();
+                /*
+                for (Image image : this.task.getImageList().getImages()) {
+                    image.recreateRecycledBitmap();
+                }*/
+                //b.putParcelableArrayList(EditImageSlideActivity.IMAGES_KEY, this.task.getImageList().getImages());
 
-            b.putString(EditImageSlideActivity.RESULT_KEY, RESULT_CODE);
-            i.putExtras(b);
+                b.putString(EditImageSlideActivity.RESULT_KEY, RESULT_CODE);
+                i.putExtras(b);
 
-            // send image list by putting it in current user singleton
-            CurrentUserSingleton.setImageList(this.task.getImageList());
-            startActivityForResult(i, EDIT_IMAGES_REQUEST_CODE);
+                // send image list by putting it in current user singleton
+                CurrentUserSingleton.setImageList(this.task.getImageList());
+                startActivityForResult(i, EDIT_IMAGES_REQUEST_CODE);
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            Toast.makeText(EditTaskActivity.this, "EcecutionException: Failure to get images", Toast.LENGTH_LONG).show();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Toast.makeText(EditTaskActivity.this, "InterruptedException: Failure to get images", Toast.LENGTH_LONG).show();
         }
     }
 }
