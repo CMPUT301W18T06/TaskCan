@@ -23,6 +23,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
@@ -62,6 +66,12 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
     private User currentUser;
     private int currentTaskIndex;
     private Task currentTask;
+    private EditText searchRadius;
+    private TextView radiusDescr;
+    private Button refreshRadius;
+    private double radius = 5.0;
+    private String radiusEntry;
+    private final String searchQuery = "";
     private static final int LOCATION_REQUEST_CODE = 101;
     private FusedLocationProviderClient mFusedLocationClient;
     private LatLng currentLocation;
@@ -78,6 +88,15 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
         mapFragment.getMapAsync(this);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        searchRadius = findViewById(R.id.view_task_map_radius_entry);
+        searchRadius.setVisibility(View.INVISIBLE);
+
+        radiusDescr = findViewById(R.id.view_task_on_map_radius_descr);
+        radiusDescr.setVisibility(View.INVISIBLE);
+
+        refreshRadius = findViewById(R.id.view_task_on_map_refresh_button);
+        refreshRadius.setVisibility(View.INVISIBLE);
 
         this.currentUser = CurrentUserSingleton.getUser();
 
@@ -137,9 +156,8 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
             mMap.addMarker(new MarkerOptions().position(taskMarker).title(task.getTaskTitle()));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(taskMarker, 13.0f));
         } else {
-            // TODO in the case that we just opened the map, go to current position and mark tasks in 5km radius
+            // in the case that we just opened the map, go to current position and mark tasks in 5km radius
             //TaskList resultTaskList = new TaskList();
-            final String searchQuery = "";
 
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
                     PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
@@ -156,10 +174,14 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
                     if (location != null) {
                         currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13.0f));
+
+                        searchRadius.setVisibility(View.VISIBLE);
+                        radiusDescr.setVisibility(View.VISIBLE);
+                        refreshRadius.setVisibility(View.VISIBLE);
                     }
 
                     ElasticsearchController.SearchLocation searchLocation
-                            = new ElasticsearchController.SearchLocation(currentLocation);
+                            = new ElasticsearchController.SearchLocation(currentLocation, radius * 1000);
                     searchLocation.execute(searchQuery);
 
                     try {
@@ -192,6 +214,57 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
                             }
                         }
                     });
+                }
+            });
+        }
+    }
+
+    public void viewMapRefreshClick(View v) {
+        radiusEntry = searchRadius.getText().toString();
+
+        if (!radiusEntry.isEmpty()){
+            try
+            {
+                radius = Double.parseDouble(radiusEntry);
+            } catch (Exception e1) {
+                // not double
+                e1.printStackTrace();
+            }
+
+            mMap.clear();
+
+            ElasticsearchController.SearchLocation searchLocation
+                    = new ElasticsearchController.SearchLocation(currentLocation, radius * 1000);
+            searchLocation.execute(searchQuery);
+
+            try {
+                resultTaskList = searchLocation.get();
+                for (Task task : resultTaskList){
+                    LatLng taskMarker = task.getLocation();
+                    Marker marker = mMap.addMarker(new MarkerOptions().position(taskMarker).title(task.getTaskTitle()));
+                    markerMap.put(marker, task);
+                }
+            } catch (Exception e) {
+                Log.i("Error", String.valueOf(e));
+            }
+
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+                @Override
+                public void onInfoWindowClick(Marker currentMarker) {
+                    // TODO Auto-generated method stub
+                    currentTask = markerMap.get(currentMarker);
+                    if(currentUser.getId().equals(currentTask.getOwnerId())) {
+                        Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
+                        Log.i("Index being passed", String.valueOf(currentUser.getMyTaskList().getIndexOfTask(currentTask)));
+                        intent.putExtra("taskIndex", currentUser.getMyTaskList().getIndexOfTask(currentTask));
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(), ViewTaskActivity.class);
+                        Gson gson = new Gson();
+                        intent.putExtra("currentTask", gson.toJson(currentTask));
+                        startActivity(intent);
+                    }
                 }
             });
         }

@@ -75,6 +75,10 @@
     <string name="view_task_activity_bid_field">($) My Bid</string>
     <string name="view_task_activity_bid_button">Confirm Bid</string>
 
+    <string name="view_task_on_map_radius">Search Radius (km):</string>
+    <string name="view_task_on_map_radius_default">5.00</string>
+    <string name="view_task_on_map_refresh_button">Refresh</string>
+
     <string-array name="categories_array">
         <item>Home Maintenance</item>
         <item>Delivery Services</item>
