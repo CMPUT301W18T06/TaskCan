@@ -60,7 +60,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Current Bid:"
+            android:text="Lowest Bid:"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -83,6 +83,7 @@
             android:layout_width="143dp"
             android:layout_height="28dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/gradient"
             android:onClick="requesterUsernameButtonClick"
@@ -91,6 +92,7 @@
             android:textColor="@color/colorWhite"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/task_view_activity_username_label"
             app:layout_constraintTop_toBottomOf="@+id/task_view_activity_name_text" />
 
         <TextView
@@ -111,13 +113,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
             android:text="Maximum Bid:"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/task_view_activity_bid_amount"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/task_view_activity_task_description_text" />
+            app:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
             android:id="@+id/task_view_activity_description_label"
@@ -145,7 +145,8 @@
         <TextView
             android:id="@+id/task_view_activity_task_description_text"
             android:layout_width="0dp"
-            android:layout_height="117dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
@@ -157,6 +158,7 @@
             android:text="(task description)"
             android:textColor="@color/colorWhite"
             android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/task_view_activity_max_bid_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/task_view_activity_description_label" />
@@ -167,12 +169,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp"
             android:text="(maximum bid)"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/task_view_activity_bid_amount"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/task_view_activity_task_description_text" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/task_view_activity_status_text"
