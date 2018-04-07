@@ -32,25 +32,25 @@
             android:id="@+id/task_details_activity_name_label"
             android:layout_width="wrap_content"
             android:layout_height="23dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Task Name:"
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/task_details_image_thumbnail"
             app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
 
         <TextView
             android:id="@+id/task_details_activity_username_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="Requester:"
             android:textColor="@android:color/white"
             android:textColorHighlight="@android:color/white"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/task_details_image_thumbnail"
             app:layout_constraintTop_toBottomOf="@+id/task_details_activity_name_text" />
 
         <TextView
@@ -58,13 +58,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="Lowest Bid:"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/task_details_image_thumbnail"
             app:layout_constraintTop_toBottomOf="@+id/task_details_activity_requester_username_text" />
 
         <TextView
@@ -105,12 +105,12 @@
             android:id="@+id/task_details_activity_max_bid_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="Maximum Bid:"
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/task_details_image_thumbnail"
             app:layout_constraintTop_toBottomOf="@+id/task_details_activity_current_bid_text" />
 
         <TextView
@@ -129,12 +129,12 @@
             android:id="@+id/task_details_activity_status_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="Status:"
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/task_details_image_thumbnail"
             app:layout_constraintTop_toBottomOf="@+id/task_details_activity_max_bid_label" />
 
         <TextView
@@ -185,12 +185,12 @@
             android:id="@+id/task_details_activity_category_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="Category:"
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/task_details_image_thumbnail"
             app:layout_constraintTop_toBottomOf="@+id/task_details_activity_status_label" />
 
         <TextView
@@ -298,7 +298,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/task_details_image_thumbnail"
             android:layout_width="128dp"
             android:layout_height="128dp"
             android:layout_marginStart="16dp"

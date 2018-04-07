@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class ViewTaskActivity extends ActivityHeader{
     private TextView taskCurrentBidText;
     private TextView taskMaxBidText;
     private EditText bidAmountText;
+    private ImageView taskThumbnail;
     private int currentTaskIndex;
     private FileIO fileIO = new FileIO();
 
@@ -77,6 +79,7 @@ public class ViewTaskActivity extends ActivityHeader{
         taskOwnerUsernameButton = (Button) findViewById(R.id.task_view_activity_requester_username_button);
         taskCurrentBidText = (TextView) findViewById(R.id.task_view_activity_current_bid_text);
         taskMaxBidText = (TextView) findViewById(R.id.task_view_activity_max_bid_text);
+        taskThumbnail = findViewById(R.id.task_view_activity_image_thumbnail);
 
 
         // set based on current task
@@ -104,6 +107,12 @@ public class ViewTaskActivity extends ActivityHeader{
         } else {
             taskMaxBidText.setText(String.format(Locale.CANADA,"$%.2f", task.getMaximumBid()));
         }
+
+        try {
+            taskThumbnail.setImageBitmap(task.getImageList().getImage(0).getImageBitmap());
+        } catch (Exception e){
+            Log.i("ThumbnailError", "Could not load image");
+        }
     }
 
     public void taskDetailLocationButtonClick(View v) {
@@ -112,7 +121,8 @@ public class ViewTaskActivity extends ActivityHeader{
                     Toast.LENGTH_LONG).show();
         } else {
             Intent intent = new Intent(getApplicationContext(), ViewTaskOnMapsActivity.class);
-            intent.putExtra("taskIndex", currentTaskIndex);
+            Gson gson = new Gson();
+            intent.putExtra("currentTask", gson.toJson(task));
             v.getContext().startActivity(intent);
         }
     }
@@ -236,7 +246,9 @@ public class ViewTaskActivity extends ActivityHeader{
                 = new ElasticsearchController.UpdateUser();
         updateUser2.execute(resultUser);
 
-        super.onBackPressed();
+        Intent seeBids = new Intent(getApplicationContext(), MyBidActivity.class);
+        startActivity(seeBids);
+        //super.onBackPressed();
     }
 
 

@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
+import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
 
@@ -56,6 +58,7 @@ public class TaskDetailActivity extends ActivityHeader {
     private TextView taskOwnerUsernameText;
     private TextView taskCurrentBidText;
     private TextView taskMaxBidText;
+    private ImageView taskThumbnail;
     private int currentTaskIndex;
     private FileIO fileIO = new FileIO();
 
@@ -91,6 +94,7 @@ public class TaskDetailActivity extends ActivityHeader {
         taskOwnerUsernameText = (TextView) findViewById(R.id.task_details_activity_requester_username_text);
         taskCurrentBidText = (TextView) findViewById(R.id.task_details_activity_current_bid_text);
         taskMaxBidText = (TextView) findViewById(R.id.task_details_activity_max_bid_text);
+        taskThumbnail = findViewById(R.id.task_details_image_thumbnail);
 
         // set based on current task
         taskNameText.setText(task.getTaskTitle());
@@ -116,6 +120,12 @@ public class TaskDetailActivity extends ActivityHeader {
             taskMaxBidText.setText("None");
         } else {
             taskMaxBidText.setText(String.format(Locale.CANADA,"%.2f", task.getMaximumBid()));
+        }
+
+        try {
+            taskThumbnail.setImageBitmap(task.getImageList().getImage(0).getImageBitmap());
+        } catch (Exception e){
+            Log.i("ThumbnailError", "Could not load image");
         }
     }
 
@@ -173,7 +183,8 @@ public class TaskDetailActivity extends ActivityHeader {
                     Toast.LENGTH_LONG).show();
         } else {
             Intent intent = new Intent(getApplicationContext(), ViewTaskOnMapsActivity.class);
-            intent.putExtra("taskIndex", currentTaskIndex);
+            Gson gson = new Gson();
+            intent.putExtra("currentTask", gson.toJson(task));
             v.getContext().startActivity(intent);
         }
     }
