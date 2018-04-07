@@ -97,7 +97,7 @@ public class MyTaskActivity extends ActivityHeader {
         myTaskList = new TaskList();
 
         for (Task task : currentUser.getMyTaskList()) {
-            if (task.getStatus().intern() == "Requested") {
+            if (task.getStatus().intern() == "Requested" || task.getStatus().intern() == "Bidded") {
                 myTaskList.addTask(task);
             }
         }
