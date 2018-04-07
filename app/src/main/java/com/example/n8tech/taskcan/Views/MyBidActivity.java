@@ -88,11 +88,12 @@ public class MyBidActivity extends ActivityHeader {
         mTabHost.setCurrentTab(0);
 
         this.currentUser = CurrentUserSingleton.getUser();
+        myTaskList = new TaskList();
 
         // TODO get a list of tasks user has bid on
         // add tasks that the user has bid on into a tasklist
         for (Task task : currentUser.getBidTaskList()){
-            if (task.getStatus().equals("Bidded") || task.getStatus().equals("Assigned")){
+            if (task.getStatus().intern() == ("Bidded") || task.getStatus().intern() == ("Assigned")){
                 this.myTaskList.addTask(task);
             }
         }
