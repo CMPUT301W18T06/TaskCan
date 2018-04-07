@@ -19,6 +19,8 @@ import com.example.n8tech.taskcan.Views.TaskDetailActivity;
 import com.example.n8tech.taskcan.Views.ViewTaskActivity;
 import com.google.gson.Gson;
 
+import java.util.Locale;
+
 /**
  * TaskViewRecyclerAdapter represents a suitable view for task lists.
  *
@@ -85,7 +87,7 @@ public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<SearchResu
         // if a current bid set to that, else set to "None"
         String currentBidText;
         holder.taskOwnerName.setText(currentTask.getOwnerUsername());
-        currentBidText = String.valueOf(currentTask.getCurrentBid());
+        currentBidText = String.format(Locale.CANADA,"$%.2f", currentTask.getCurrentBid());
 
         if(currentTask.getCurrentBid() == -1) {
             holder.taskBid.setText("None");
