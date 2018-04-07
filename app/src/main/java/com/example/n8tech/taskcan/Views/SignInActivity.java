@@ -60,6 +60,40 @@ public class SignInActivity extends Activity {
 
         this.username = findViewById(R.id.name_field);
         this.password = findViewById(R.id.password_field);
+
+        Intent i = getIntent();
+
+        Log.i("testing", String.valueOf(i.getFlags()));
+
+        if(!String.valueOf(i.getFlags()).equals(String.valueOf(268468224))) {
+            this.cacheList = this.fileIO.loadFromFile(getApplicationContext());
+            int size = this.cacheList.getSize();
+            if (size != 0) {
+                User user = this.cacheList.getUser(size - 1);
+                ElasticsearchController.GetUser getUser
+                        = new ElasticsearchController.GetUser();
+                getUser.execute(user.getId());
+                User onlineUser = null;
+                try {
+                    onlineUser = getUser.get();
+                } catch (Exception e) {
+                    Log.i("Error", String.valueOf(e));
+                }
+                if (onlineUser == null) {
+                    CurrentUserSingleton.setUser(user);
+                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                    startActivity(intent);
+                    return;
+                } else {
+                    if (onlineUser.getPassword().equals(user.getPassword())) {
+                        CurrentUserSingleton.setUser(onlineUser);
+                        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                        startActivity(intent);
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     @Override
