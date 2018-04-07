@@ -81,8 +81,8 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
     public void onBindViewHolder(ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        BidList currentBidList;
         final Task currentTask = taskList.getTaskAtIndex(position);
+        final BidList currentBidList = currentTask.getBidList();
         holder.taskTitle.setText(currentTask.getTaskTitle());
         holder.taskStatus.setText(currentTask.getStatus());
 
@@ -92,12 +92,12 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
             holder.taskBidderName.setText("No Bids");
             currentBidText = "None";
         }else{
-            currentBidList = currentTask.getBidList();
             for (Bid bid: currentBidList){
                 if (bid.getBidAmount() == currentTask.getCurrentBid()){
                     holder.taskBidderName.setText(bid.getBidUsername());
                     break;
                 }
+                holder.taskBidderName.setText(bid.getBidUsername());
             }
             currentBidText = String.format(Locale.CANADA,"$%.2f", currentTask.getCurrentBid());
         }

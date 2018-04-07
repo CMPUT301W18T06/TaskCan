@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground"
+    android:background="@drawable/result_rectangle"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical" >
@@ -43,6 +43,7 @@
         android:layout_marginTop="2dp"
         android:textColor="@color/colorWhite"
         android:textSize="18sp"
+        android:paddingBottom="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_view_bidder_name" />
 

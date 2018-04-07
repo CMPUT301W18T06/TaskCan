@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.Bid;
+import com.example.n8tech.taskcan.Models.BidList;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Image;
 import com.example.n8tech.taskcan.Models.Task;
@@ -23,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import static java.lang.Math.round;
 
@@ -116,19 +118,25 @@ public class ViewTaskActivity extends ActivityHeader{
     }
 
     public void viewImagesButtonClick(View v){
-        if (this.task.getImageList().getSize() == 0) {
-            Toast.makeText(getApplicationContext(), "No images to show! Please add image!",
-                    Toast.LENGTH_LONG).show();
-        }
-        else {
-            Intent i = new Intent(getApplicationContext(), ViewImageSlideActivity.class);
-            Bundle b = new Bundle();
-            for (Image image : this.task.getImageList().getImages()) {
-                image.recreateRecycledBitmap();
+        try {
+            if (this.task.getImageList().getSize() == 0) {
+                Toast.makeText(getApplicationContext(), "No images to show! Please add image!",
+                        Toast.LENGTH_LONG).show();
             }
-            b.putParcelableArrayList(this.IMAGES_KEY, this.task.getImageList().getImages());
-            i.putExtras(b);
-            startActivity(i);
+            else {
+                Intent i = new Intent(getApplicationContext(), ViewImageSlideActivity.class);
+                Bundle b = new Bundle();
+                for (Image image : this.task.getImageList().getImages()) {
+                    image.recreateRecycledBitmap();
+                }
+                b.putParcelableArrayList(this.IMAGES_KEY, this.task.getImageList().getImages());
+                i.putExtras(b);
+                startActivity(i);
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -152,8 +160,10 @@ public class ViewTaskActivity extends ActivityHeader{
         Bid bid = new Bid();
         User resultUser = new User();
         Task oldTask = new Task();
+        BidList taskBidList = new BidList();
         double newBidAmount;
-        int taskIndex;
+        int taskIndex, bidIndex;
+        Boolean newBid = true;
 
         oldTask = this.task;
         bidAmountText = (EditText) findViewById(R.id.task_view_activity_bid_amount);
@@ -180,8 +190,18 @@ public class ViewTaskActivity extends ActivityHeader{
         }
         bid.setBidId(currentUser.getId());
         bid.setBidUsername(currentUser.getUsername());
-
-        task.addBidder(bid);
+        taskBidList = task.getBidList();
+        for(Bid bids : taskBidList){
+            if (bids.getBidUsername().intern() == currentUser.getUsername().intern()){
+                bidIndex = taskBidList.getBidIndex(bids);
+                task.replaceBidAtIndex(bidIndex, bid);
+                newBid = false;
+                break;
+            }
+        }
+        if (newBid){
+            task.addBidder(bid);
+        }
         if (task.getStatus().intern() == "Requested"){
             task.setStatus("Bidded");
         }

@@ -47,6 +47,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.concurrent.ExecutionException;
 
 /**
  * AddTaskActivity handles the creation of a new task made by the current user.
@@ -233,7 +234,15 @@ public class AddTaskActivity extends ActivityHeader {
 
         // TODO image saving testing, @Q doing ES stuff
         newTask.setLocation(this.location);
-        newTask.setImageList(this.imageList);
+        try {
+            newTask.setImageListId(this.imageList);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            Toast.makeText(AddTaskActivity.this, "EcecutionException: Failure to set images", Toast.LENGTH_LONG).show();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Toast.makeText(AddTaskActivity.this, "InterruptedException: Failure to set images", Toast.LENGTH_LONG).show();
+        }
         newTask.setOwnerUsername(currentUser.getUsername());
         newTask.setOwnerId(currentUser.getId());
         newTask.setCurrentBid(-1);
@@ -262,14 +271,15 @@ public class AddTaskActivity extends ActivityHeader {
             }
 
             UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
-            cacheList.delUser(this.currentUser);
-            cacheList.addUser(this.currentUser);
-            this.fileIO.saveInFile(getApplicationContext(), cacheList);
 
             if (completed == "NoNetworkError") {
                 // add task to current user's myTasks list
 
+                cacheList.delUser(this.currentUser);
                 currentUser.addTask(newTask);
+                cacheList.addUser(this.currentUser);
+
+                this.fileIO.saveInFile(getApplicationContext(), cacheList);
 
                 ElasticsearchController.UpdateUser updateUser
                         = new ElasticsearchController.UpdateUser();

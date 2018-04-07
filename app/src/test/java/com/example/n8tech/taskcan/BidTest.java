@@ -41,11 +41,11 @@ public class BidTest {
         Bid bid1 = new Bid();
         bid1.setBidUsername(user1.getUsername());
         bid1.setBidAmount(12.21);
-        assertEquals(bid1.getBidUsername(), user1);
+        assertEquals(bid1.getBidUsername(), user1.getUsername());
         assertEquals(bid1.getBidAmount(), 12.21, 0.00);
         User user2 = new User("Alan", "alan12345", "alan@n8tech.com", "ilovenate", "780-980-5623");
         Bid bid2 = new Bid(user2.getUsername(), "2", 150.00);
-        assertEquals(bid2.getBidUsername(), user2);
+        assertEquals(bid2.getBidUsername(), user2.getUsername());
         assertEquals(bid2.getBidAmount(), 150.00, 0.00);
     }
 
@@ -57,9 +57,9 @@ public class BidTest {
         User user2 = new User("Alan", "alan12345", "alan@n8tech.com", "ilovenate", "780-980-5623");
         Bid bid2 = new Bid(user2.getUsername(), "2", 150.00);
         bid1.setBidUsername(user2.getUsername());
-        assertEquals(bid1.getBidUsername(), user1);
+        assertEquals(bid1.getBidUsername(), user1.getUsername());
         bid2.setBidUsername(user1.getUsername());
-        assertEquals(bid2.getBidUsername(), user2);
+        assertEquals(bid2.getBidUsername(), user2.getUsername());
     }
 
     @Test
