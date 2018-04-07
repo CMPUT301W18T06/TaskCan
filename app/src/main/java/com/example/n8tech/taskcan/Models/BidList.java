@@ -74,6 +74,10 @@ public class BidList implements Iterable<Bid> {
         return -1;
     }
 
+    public void replaceAtIndex(int index, Bid bid){
+        this.bids.set(index, bid);
+    }
+
     /** @return integer representing list size */
     public int getSize() {
         return this.bids.size();
