@@ -125,12 +125,15 @@ public class SignInActivity extends Activity {
 
                 onlineUser = user;
                 onlineValid = true;
-
             }
         }
 
         //Change behaviour dependent on which users were valid
         if(onlineValid) {
+
+            this.cacheList.delUser(onlineUser);
+            this.cacheList.addUser(onlineUser);
+            this.fileIO.saveInFile(getApplicationContext(), this.cacheList);
 
             CurrentUserSingleton.setUser(onlineUser);
             Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
@@ -138,9 +141,12 @@ public class SignInActivity extends Activity {
 
             return;
 
-        } else if (offlineValid) {
+        } else if (offlineValid && !NetworkConnectionController.isConnected(this)) {
 
             //Need to check if cache has the email somewhere and delete it
+            this.cacheList.delUser(offlineUser);
+            this.cacheList.addUser(offlineUser);
+            this.fileIO.saveInFile(getApplicationContext(), this.cacheList);
             CurrentUserSingleton.setUser(offlineUser);
             Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
             startActivity(intent);
