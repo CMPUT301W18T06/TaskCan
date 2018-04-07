@@ -52,8 +52,6 @@ public class Task {
     private ArrayList<String> imageListId;
     private boolean taskCompleted;
     private String status;
-    private String[] categoriesList = {"Home Maintenance" , "Delivery Services", "Pet Care", "Entertainment", "Personal Assistance",
-            "Landscaping", "Automotive Services", "Culinary Services", "Tutoring","Other"};
 
     @JestId
     private String id;
@@ -194,9 +192,7 @@ public class Task {
 
     /** @param category the category the task belongs to */
     public void setCategory(String category) {
-        if (Arrays.asList(categoriesList).contains(category)) {
-            this.category = category;
-        }
+        this.category = category;
     }
 
     /** @param status task status of completion */
