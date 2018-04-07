@@ -283,13 +283,13 @@ public class EditTaskActivity extends ActivityHeader  {
 
             UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
             cacheList.delUser(this.currentUser);
-            cacheList.addUser(this.currentUser);
-            this.fileIO.saveInFile(getApplicationContext(), cacheList);
 
             if (completed.equals("NoNetworkError")) {
                 // add task to current user's myTasks list
                 //currentUser.addTask(newTask);
                 currentUser.replaceTaskAtIndex(currentTaskIndex,task);
+                cacheList.addUser(this.currentUser);
+                this.fileIO.saveInFile(getApplicationContext(), cacheList);
 
                 ElasticsearchController.UpdateUser updateUser
                         = new ElasticsearchController.UpdateUser();
