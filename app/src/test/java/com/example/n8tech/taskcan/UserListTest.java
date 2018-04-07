@@ -70,6 +70,13 @@ public class UserListTest {
         User user6 = new User("Caro", "caro123", "caro@n8tech.com", "iloveschool", "780-123-0000");
         User user7 = new User("Jenny", "jenny123","jenny@n8tech.com", "iloveshopping", "781-113-1001");
         UserList newList = new UserList();
+        user1.setId("1");
+        user2.setId("2");
+        user3.setId("3");
+        user4.setId("4");
+        user5.setId("5");
+        user6.setId("6");
+        user7.setId("7");
         newList.addUser(user1);
         newList.addUser(user2);
         newList.addUser(user3);
@@ -151,6 +158,12 @@ public class UserListTest {
         User user5 = new User("Alex", "alex12345", "alex@n8tech.com", "ilovecomputers", "780-888-5656");
         User user6 = new User("Caro", "caro123", "caro@n8tech.com", "iloveschool", "780-123-0000");
         UserList newList = new UserList();
+        user1.setId("1");
+        user2.setId("2");
+        user3.setId("3");
+        user4.setId("4");
+        user5.setId("5");
+        user6.setId("6");
         newList.addUser(user1);
         newList.addUser(user2);
         newList.addUser(user3);

@@ -47,6 +47,7 @@ public class NotificationService extends IntentService {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
             for (Task task : currentUser.getMyTaskList()){
                 prevTaskList.addTask(task);
             }
@@ -65,8 +66,8 @@ public class NotificationService extends IntentService {
         for (Task task : currentTaskList){
             if (task.getBidList().equals(prevTaskList.getTaskAtIndex(currentTaskList.getIndexOfTask(task)).getBidList()) != true){
                 String taskTitle = task.getTaskTitle();
-                String newBidder = task.getBidList().getBid(task.getBidList().getSize()).getBidUsername();
-                String newBidAmount = String.valueOf(task.getBidList().getBid(task.getBidList().getSize()).getBidAmount());
+                String newBidder = task.getBidList().getBid(task.getBidList().getSize()-1).getBidUsername();
+                String newBidAmount = String.valueOf(task.getBidList().getBid(task.getBidList().getSize()-1).getBidAmount());
                 description = newBidder + " offers you $" + newBidAmount + " for " + taskTitle + ".";
                 return true;
             }

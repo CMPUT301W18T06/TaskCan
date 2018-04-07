@@ -238,6 +238,7 @@ public class Task {
         this.id = id;
     }
 
+
     /** @return location of the task */
     public LatLng getLocation() {
         return this.location;
@@ -289,11 +290,12 @@ public class Task {
      * Checks if task status has changed and updates the task details.
      */
     public void updateTask(){
+
         // TODO: check if status has changed, update bid list if one was accepted, etc
     }
 
-    //TODO: this point on, not really sure what is going on with the below methods, waiting for more clarification
     /**
+     * Updates the bid amount on a previous bid made by the same user.
      * @param user task bidder
      * @param bidAmount amount set on a bid
      */
