@@ -82,7 +82,6 @@ public class EditTaskActivity extends ActivityHeader  {
     private EditText taskDescriptionEditText;
     private int spinnerPosition;
     private User currentUser;
-    private LatLng newLocation;
     private LatLng location;
     private ArrayAdapter<CharSequence> categorySpinnerAdapter;
     private ArrayAdapter<CharSequence> statusSpinnerAdapter;
@@ -105,7 +104,7 @@ public class EditTaskActivity extends ActivityHeader  {
         task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);
         findViewsByIdAndSetContent();
 
-        newLocation = task.getLocation();
+        location = task.getLocation();
         imageList = task.getImageList();
     }
 
@@ -250,7 +249,7 @@ public class EditTaskActivity extends ActivityHeader  {
             task.setMaximumBid(-1);
         }
 
-        task.setLocation(newLocation);
+        task.setLocation(this.location);
 
         Log.i("*** name", task.getTaskTitle());
         Log.i("*** desc", task.getDescription());

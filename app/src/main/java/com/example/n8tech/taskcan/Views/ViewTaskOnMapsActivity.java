@@ -239,6 +239,7 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
 
             try {
                 resultTaskList = searchLocation.get();
+                Log.i("Size", String.valueOf(resultTaskList.getSize()));
                 for (Task task : resultTaskList){
                     LatLng taskMarker = task.getLocation();
                     Marker marker = mMap.addMarker(new MarkerOptions().position(taskMarker).title(task.getTaskTitle()));

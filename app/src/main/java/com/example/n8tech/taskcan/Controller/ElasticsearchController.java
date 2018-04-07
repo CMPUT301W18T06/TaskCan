@@ -365,24 +365,26 @@ public class ElasticsearchController {
                         .addType("task")
                         .build();
 
+
                 try {
                     result = client.execute(search);
 
                     if (result.isSucceeded()) {
                         tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
                         for (Task task : tempList) {
-                            if (task.getLocation() != null){
+                            if (task.getLocation() != null) {
                                 Location.distanceBetween(this.currentLocation.latitude, this.currentLocation.longitude,
                                         task.getLocation().latitude, task.getLocation().longitude,
                                         distResults);
                                 Log.i("dist: ", String.valueOf(distResults[0]));
-                                if (distResults[0] <= radius && !task.getStatus().equals("Completed")){
+                                if (distResults[0] <= radius && !task.getStatus().equals("Completed")) {
                                     taskList.addTask(task);
                                 }
+
+                            } else {
+                                Log.i("Error", "The search query has failed");
                             }
                         }
-                    } else {
-                        Log.i("Error", "The search query has failed");
                     }
                 } catch (Exception e) {
                     //When no connection this occurs
