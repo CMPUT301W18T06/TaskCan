@@ -271,9 +271,7 @@ public class Task {
                     i.setId(id);
                 }
             }
-            else {
-                this.imageListId.add(i.getId());
-            }
+            this.imageListId.add(i.getId());
         }
     }
 
