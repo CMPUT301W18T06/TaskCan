@@ -17,6 +17,8 @@ import com.example.n8tech.taskcan.Views.ViewBidsActivity;
 /**
  * TaskViewRecyclerAdapter represents a suitable view for task lists.
  *
+ * Used in ViewBids activity. Has accept/decline buttons
+ *
  * https://developer.android.com/guide/topics/ui/layout/recyclerview.html#java
  * https://www.androidhive.info/2016/01/android-working-with-recycler-view/
  *
@@ -26,6 +28,9 @@ import com.example.n8tech.taskcan.Views.ViewBidsActivity;
 
 public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsViewRecyclerAdapter.ViewHolder> {
     private BidList bidList;
+    private Bid acceptedBid;
+    private int currentSelectedPosition = RecyclerView.NO_POSITION;
+
 
 
     // Provide a reference to the views for each data item
@@ -33,11 +38,11 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView bidUsername;
+        public TextView bidUsername;            // TODO should be a button
         public TextView bidAmount;
         public Button acceptButton;
         public Button declineButton;
-
+        public Button cancelButton;             // TODO make a cancel button thats invisible until a bid is accepted.
 
         public ViewHolder(View view) {
             super(view);
@@ -53,6 +58,11 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
         this.bidList = myBidList;
     }
 
+    // return the accepted bidder's username
+    public Bid getAcceptedBid(){
+        return this.acceptedBid;
+    }
+
     // Create new views (invoked by the layout manager)
     @Override
     public TaskBidsViewRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
@@ -61,7 +71,7 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.view_bid_list, parent, false);
 
-        ViewHolder vh = new ViewHolder(v);
+        final ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
@@ -86,13 +96,32 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
             @Override
             public void onClick(View v) {
                 // TODO: Accept button click
+                // delete all but the current position
+                acceptedBid = bidList.getBid(position);
+
+                BidList newBidList = new BidList();
+                newBidList.addBid(acceptedBid);
+                bidList = newBidList;
+
+                // add accepted bid back to list
+                //bidList.addBid(acceptedBid);
+
+                // TODO make accepted & decline bid invisible, make a cancel button visible
+
+                //holder.button.setVisibility(View.INVISIBLE);
                 notifyDataSetChanged();
+
+                //finish();            // TODO stop this activity, goes back to details
             }
         });
+
+
         holder.declineButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 bidList.removeBid(bidList.getBid(position));
+                // TODO update elastic search
+                // or just reupload task?
                 notifyDataSetChanged();
             }
         });

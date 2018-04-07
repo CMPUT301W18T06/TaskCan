@@ -89,7 +89,7 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
             currentBidList = currentTask.getBidList();
             for (Bid bid : currentBidList){
                 if (bid.getBidAmount() == currentTask.getCurrentBid()){
-                    holder.taskBidderName.setText(bid.getBidUsername());            // todo fix, displays the current users username
+                    holder.taskBidderName.setText(currentTask.getOwnerUsername());
                     break;
                 }
             }

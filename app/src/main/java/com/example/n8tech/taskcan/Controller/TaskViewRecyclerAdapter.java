@@ -29,6 +29,8 @@ import java.util.Locale;
  * https://developer.android.com/guide/topics/ui/layout/recyclerview.html#java
  * https://www.androidhive.info/2016/01/android-working-with-recycler-view/
  *
+ * Adapter used for MyTaskActivity
+ *
  * @author CMPUT301W18T06
  */
 
@@ -79,8 +81,8 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
     public void onBindViewHolder(ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        BidList currentBidList;
         final Task currentTask = taskList.getTaskAtIndex(position);
+        final BidList currentBidList = currentTask.getBidList();
         holder.taskTitle.setText(currentTask.getTaskTitle());
         holder.taskStatus.setText(currentTask.getStatus());
 
@@ -90,13 +92,22 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
             holder.taskBidderName.setText("No Bids");
             currentBidText = "None";
         }else{
-            currentBidList = currentTask.getBidList();
+            String yo = "hi";
             for (Bid bid: currentBidList){
+                yo = "nancy";
                 if (bid.getBidAmount() == currentTask.getCurrentBid()){
-                    holder.taskBidderName.setText(bid.getBidUsername());
+                    //Log.i("WEMADEIT", String.valueOf(bid.getBidAmount()));
+                    //holder.taskBidderName.setText(bid.getBidUsername());
+                    //holder.taskBidderName.setText("Natty");
+                    //yo = bid.getBidUsername();
+                    yo = "bro";
                     break;
                 }
+                //holder.taskBidderName.setText("Natty");
+                yo = "eden";
+                holder.taskBidderName.setText(bid.getBidUsername());
             }
+            holder.taskBidderName.setText(String.valueOf(currentBidList.getSize()));
             currentBidText = String.format(Locale.CANADA,"$%.2f", currentTask.getCurrentBid());
         }
         holder.taskBid.setText(currentBidText);
