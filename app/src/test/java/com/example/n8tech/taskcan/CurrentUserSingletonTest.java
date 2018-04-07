@@ -7,9 +7,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by nbelayne on 3/19/18.
+ * Unit testing for CurrentUserSingleton class.
+ *
+ * @see CurrentUserSingleton
+ * @author CMPUT301W18T06
  */
-
 public class CurrentUserSingletonTest {
 
     public CurrentUserSingletonTest(){

@@ -4,6 +4,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.User;
@@ -13,16 +14,27 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
+import org.elasticsearch.action.search.MultiSearchRequest;
+import org.elasticsearch.action.search.MultiSearchResponse;
+import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.FieldSortBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Get;
 import io.searchbox.core.Index;
+import io.searchbox.core.MultiSearch;
 import io.searchbox.core.Search;
 
 /**
@@ -277,35 +289,44 @@ public class ElasticsearchController {
             verifySettings();
             ArrayList<Task> tempList = new ArrayList<Task>();
             TaskList taskList = new TaskList();
-
-            SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            searchSourceBuilder.query(QueryBuilders.matchQuery("description", search_params[0]));
-
-            Search search = new Search.Builder("")
-                    .addIndex("cmput301w18t06")
-                    .addType("task")
-                    .build();
-
+            int start = 0;
+            int oldSize = 0;
+            int newSize = -1;
             JestResult result;
 
-            try {
-                result = client.execute(search);
+            while(oldSize != newSize) {
+                oldSize = newSize;
 
-                if(result.isSucceeded()) {
-                    tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
-                    for (Task task : tempList) {
-                        if(task.getDescription().contains(search_params[0]) || task.getTaskTitle().contains(search_params[0])) {
-                            taskList.addTask(task);
-                            Log.i("testing: ", task.getId());
+                SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+                searchSourceBuilder.from(start).size(100);
+
+                Search search = new Search.Builder(searchSourceBuilder.toString())
+                        .addIndex("cmput301w18t06")
+                        .addType("task")
+                        .build();
+
+                try {
+                    result = client.execute(search);
+
+                    if (result.isSucceeded()) {
+                        tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
+                        for (Task task : tempList) {
+                            Log.i("testing", task.getId());
+                            if (!task.getStatus().equals("Completed")) {
+                                if(task.getTaskTitle().contains(search_params[0]) || task.getDescription().contains(search_params[0])) {
+                                    taskList.addTask(task);
+                                }
+                            }
                         }
+                    } else {
+                        Log.i("Error", "The search query has failed");
                     }
+                } catch (Exception e) {
+                    //When no connection this occurs
+                    Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
                 }
-                else {
-                    Log.i("Error", "The search query has failed");
-                }
-            } catch (Exception e) {
-                //When no connection this occurs
-                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                newSize = taskList.getSize();
+                start = start + 100;
             }
 
             return taskList;
@@ -315,9 +336,11 @@ public class ElasticsearchController {
     public static class SearchLocation extends AsyncTask<String, Void, TaskList> {
 
         private LatLng currentLocation;
+        private double radius;
 
-        public SearchLocation(LatLng location){
+        public SearchLocation(LatLng location, double radius){
             this.currentLocation = location;
+            this.radius = radius;
         }
 
         @Override
@@ -326,42 +349,50 @@ public class ElasticsearchController {
             ArrayList<Task> tempList = new ArrayList<Task>();
             TaskList taskList = new TaskList();
             float[] distResults = new float[1];
-
-            SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            searchSourceBuilder.query(QueryBuilders.matchQuery("description", search_params[0]));
-
-            Search search = new Search.Builder("")
-                    .addIndex("cmput301w18t06")
-                    .addType("task")
-                    .build();
-
+            int start = 0;
+            int oldSize = 0;
+            int newSize = -1;
             JestResult result;
 
-            try {
-                result = client.execute(search);
+            while(oldSize != newSize) {
+                oldSize = newSize;
 
-                if(result.isSucceeded()) {
-                    tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
-                    for (Task task : tempList) {
-                        if (task.getLocation() != null){
-                            Location.distanceBetween(this.currentLocation.latitude, this.currentLocation.longitude,
-                                    task.getLocation().latitude, task.getLocation().longitude,
-                                    distResults);
-                            Log.i("dist: ", String.valueOf(distResults[0]));
-                            if (distResults[0] <= 5000){
-                                taskList.addTask(task);
+                SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+                searchSourceBuilder.from(start).size(100);
+
+                Search search = new Search.Builder(searchSourceBuilder.toString())
+                        .addIndex("cmput301w18t06")
+                        .addType("task")
+                        .build();
+
+
+                try {
+                    result = client.execute(search);
+
+                    if (result.isSucceeded()) {
+                        tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
+                        for (Task task : tempList) {
+                            if (task.getLocation() != null) {
+                                Location.distanceBetween(this.currentLocation.latitude, this.currentLocation.longitude,
+                                        task.getLocation().latitude, task.getLocation().longitude,
+                                        distResults);
+                                Log.i("dist: ", String.valueOf(distResults[0]));
+                                if (distResults[0] <= radius && !task.getStatus().equals("Completed")) {
+                                    taskList.addTask(task);
+                                }
+
+                            } else {
+                                Log.i("Error", "The search query has failed");
                             }
                         }
                     }
+                } catch (Exception e) {
+                    //When no connection this occurs
+                    Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
                 }
-                else {
-                    Log.i("Error", "The search query has failed");
-                }
-            } catch (Exception e) {
-                //When no connection this occurs
-                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                newSize = taskList.getSize();
+                start = start + 100;
             }
-
             return taskList;
         }
     }
@@ -373,34 +404,43 @@ public class ElasticsearchController {
             verifySettings();
             ArrayList<Task> tempList = new ArrayList<Task>();
             TaskList taskList = new TaskList();
-
-            SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            searchSourceBuilder.query(QueryBuilders.matchQuery("category", search_params[0]));
-
-            Search search = new Search.Builder(searchSourceBuilder.toString())
-                    .addIndex("cmput301w18t06")
-                    .addType("task")
-                    .build();
-
+            int start = 0;
+            int oldSize = 0;
+            int newSize = -1;
             JestResult result;
 
-            try {
-                result = client.execute(search);
+            while(oldSize != newSize) {
+                oldSize = newSize;
 
-                if(result.isSucceeded()) {
-                    tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
-                    for (Task task : tempList) {
-                        taskList.addTask(task);
+                SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+                searchSourceBuilder.query(QueryBuilders.matchQuery("category", search_params[0]));
+                searchSourceBuilder.from(start).size(100);
+
+                Search search = new Search.Builder(searchSourceBuilder.toString())
+                        .addIndex("cmput301w18t06")
+                        .addType("task")
+                        .build();
+
+                try {
+                    result = client.execute(search);
+
+                    if(result.isSucceeded()) {
+                        tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
+                        for (Task task : tempList) {
+                            if(!task.getStatus().equals("Completed"))
+                                taskList.addTask(task);
+                        }
                     }
+                    else {
+                        Log.i("Error", "The search query has failed");
+                    }
+                } catch (Exception e) {
+                    //When no connection this occurs
+                    Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
                 }
-                else {
-                    Log.i("Error", "The search query has failed");
-                }
-            } catch (Exception e) {
-                //When no connection this occurs
-                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                newSize = taskList.getSize();
+                start = start + 100;
             }
-
             return taskList;
         }
     }

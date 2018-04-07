@@ -60,7 +60,15 @@ public class SignInActivity extends Activity {
 
         this.username = findViewById(R.id.name_field);
         this.password = findViewById(R.id.password_field);
+        this.cacheList = this.fileIO.loadFromFile(getApplicationContext());
+        int size = this.cacheList.getSize();
+        if (size != 0) {
+            User user = this.cacheList.getUser(size - 1);
+            this.username.setText(user.getUsername());
+            this.password.setText(user.getPassword());
+        }
     }
+
 
     @Override
     protected void onStart() {
@@ -117,12 +125,15 @@ public class SignInActivity extends Activity {
 
                 onlineUser = user;
                 onlineValid = true;
-
             }
         }
 
         //Change behaviour dependent on which users were valid
         if(onlineValid) {
+
+            this.cacheList.delUser(onlineUser);
+            this.cacheList.addUser(onlineUser);
+            this.fileIO.saveInFile(getApplicationContext(), this.cacheList);
 
             CurrentUserSingleton.setUser(onlineUser);
             Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
@@ -130,9 +141,12 @@ public class SignInActivity extends Activity {
 
             return;
 
-        } else if (offlineValid) {
+        } else if (offlineValid && !NetworkConnectionController.isConnected(this)) {
 
             //Need to check if cache has the email somewhere and delete it
+            this.cacheList.delUser(offlineUser);
+            this.cacheList.addUser(offlineUser);
+            this.fileIO.saveInFile(getApplicationContext(), this.cacheList);
             CurrentUserSingleton.setUser(offlineUser);
             Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
             startActivity(intent);

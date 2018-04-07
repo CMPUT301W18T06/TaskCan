@@ -39,7 +39,15 @@ public class UserList implements Iterable<User> {
      * @param user the user to be removed from the list
      * @return true if user was removed, otherwise false
      */
-    public Boolean delUser(User user) { return this.userList.remove(user); }
+    public Boolean delUser(User user) {
+        for(User myUser : userList) {
+            if(user.getId().equals(myUser.getId())) {
+                userList.remove(myUser);
+                return true;
+            }
+        }
+        return false;
+    }
 
     /** @return integer representing user list size */
     public int getSize() {

@@ -39,6 +39,56 @@
             app:layout_constraintTop_toBottomOf="@+id/menu_toolbar"
             tools:context="com.example.n8tech.taskcan.Views.TaskMapActivity" />
 
+        <EditText
+            android:id="@+id/view_task_map_radius_entry"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/entry_field"
+            android:ems="10"
+            android:gravity="right"
+            android:inputType="numberDecimal"
+            android:paddingBottom="2dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="2dp"
+            android:text="@string/view_task_on_map_radius_default"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/view_task_on_map_radius_descr"
+            app:layout_constraintTop_toTopOf="@+id/map" />
+
+        <TextView
+            android:id="@+id/view_task_on_map_radius_descr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/display_field"
+            android:paddingBottom="2dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="2dp"
+            android:text="@string/view_task_on_map_radius"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/map" />
+
+        <Button
+            android:id="@+id/view_task_on_map_refresh_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/gradient"
+            android:onClick="viewMapRefreshClick"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:text="@string/view_task_on_map_refresh_button"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_task_on_map_radius_descr" />
+
     </android.support.constraint.ConstraintLayout>
 
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
