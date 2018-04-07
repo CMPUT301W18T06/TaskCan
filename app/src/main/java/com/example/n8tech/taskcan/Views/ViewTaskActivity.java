@@ -185,7 +185,7 @@ public class ViewTaskActivity extends ActivityHeader{
         bid.setBidUsername(currentUser.getUsername());
         taskBidList = task.getBidList();
         for(Bid bids : taskBidList){
-            if (bids.getBidUsername().intern() == currentUser.getUsername()){
+            if (bids.getBidUsername().intern() == currentUser.getUsername().intern()){
                 bidIndex = taskBidList.getBidIndex(bids);
                 task.replaceBidAtIndex(bidIndex, bid);
                 newBid = false;
