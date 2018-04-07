@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
@@ -41,6 +42,7 @@ public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<SearchResu
         public TextView taskOwnerName;
         public TextView taskStatus;
         public TextView taskBid;
+        public ImageView taskThumbnail;
 
 
         public ViewHolder(View view) {
@@ -49,6 +51,7 @@ public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<SearchResu
             taskOwnerName = view.findViewById(R.id.task_view_bidder_name);
             taskStatus = view.findViewById(R.id.task_view_status);
             taskBid = view.findViewById(R.id.task_view_current_bid);
+            taskThumbnail = view.findViewById(R.id.task_view_thumbnail);
         }
     }
 
@@ -89,6 +92,12 @@ public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<SearchResu
         }
         else {
             holder.taskBid.setText(currentBidText);
+        }
+
+        try {
+            holder.taskThumbnail.setImageBitmap(currentTask.getImageList().getImage(0).getImageBitmap());
+        } catch (Exception e){
+            Log.i("ThumbnailError", "Could not load image");
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

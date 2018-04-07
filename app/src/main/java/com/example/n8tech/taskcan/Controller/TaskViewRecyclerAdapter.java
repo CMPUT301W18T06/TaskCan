@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
         public TextView taskBidderName;
         public TextView taskStatus;
         public TextView taskBid;
+        public ImageView taskThumbnail;
 
         public ViewHolder(View view) {
             super(view);
@@ -55,6 +57,7 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
             taskBidderName = view.findViewById(R.id.task_view_bidder_name);
             taskStatus = view.findViewById(R.id.task_view_status);
             taskBid = view.findViewById(R.id.task_view_current_bid);
+            taskThumbnail = view.findViewById(R.id.task_view_thumbnail);
         }
     }
 
@@ -102,6 +105,12 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
             currentBidText = String.format(Locale.CANADA,"$%.2f", currentTask.getCurrentBid());
         }
         holder.taskBid.setText(currentBidText);
+
+        try {
+            holder.taskThumbnail.setImageBitmap(currentTask.getImageList().getImage(0).getImageBitmap());
+        } catch (Exception e){
+            Log.i("ThumbnailError", "Could not load image");
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
