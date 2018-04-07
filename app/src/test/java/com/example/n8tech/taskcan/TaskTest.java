@@ -57,7 +57,7 @@ public class TaskTest{
         task1.setDescription("Around the block");
         task1.setOwnerUsername(user1.getUsername());
         task1.setMaximumBid(20.00);
-        task1.setCategory("Pets");
+        task1.setCategory("Pet Care");
         task1.addBidder(bid1);
         task1.setProviderUsername(user2.getUsername());
         //task1.setLocation("Edmonton");
@@ -67,7 +67,7 @@ public class TaskTest{
         assertEquals(task1.getOwnerUsername(), user1.getUsername());
         assertEquals(task1.getProviderUsername(), user2.getUsername());
         assertEquals(task1.getMaximumBid(), 20.00, 0.00);
-        assertEquals(task1.getCategory(), "Pets");
+        assertEquals(task1.getCategory(), "Pet Care");
         assertEquals(task1.getBidList().getBid(0), bid1);
        // assert(task1.getLocation() == "Edmonton");
     }
@@ -145,17 +145,17 @@ public class TaskTest{
         //Test if cancelling a bidder is done correctly
         assertEquals(task1.getBidList().getSize(), 5);
         for(int i = 0; i < bidList.size(); i++) {
-            assertEquals(task1.getBidList().getBid(i), bidList.get(i));
+            assertEquals(task1.getBidList().getBid(i).getBidId(), bidList.get(i).getBidId());
         }
 
 
         task1.updateBidder(user5, 11.76);
-            bidList.set(3,new Bid(user5.getUsername(), "1", 11.76));
+            bidList.set(3,new Bid(user5.getUsername(), user5.getId(), 11.76));
 
         // Test if updating a bidder is done correctly.
         assertEquals(task1.getBidList().getSize(), 5);
         for(int i = 0; i < bidList.size(); i++) {
-            assertEquals(task1.getBidList().getBid(i), bidList.get(i));
+            assertEquals(task1.getBidList().getBid(i).getBidId(), bidList.get(i).getBidId());
         }
     }
 
@@ -227,7 +227,7 @@ public class TaskTest{
         }
 
         //Test to make sure once a job is completed it's completed.
-        task1.setStatus("Requested");
+        task1.setTaskCompleted(true);
         assertEquals(task1.getStatus(), "Completed");
     }
 
@@ -247,7 +247,7 @@ public class TaskTest{
         task1.setOwnerUsername(user1.getUsername());
         task1.setProviderUsername(user2.getUsername());
         task1.setMaximumBid(20.00);
-        task1.setCategory("Pets");
+        task1.setCategory("Pet Care");
         task1.addBidder(bid1);
         //task1.setLocation("Edmonton");
 
@@ -277,7 +277,7 @@ public class TaskTest{
 
         //Test that the provider can be changed.
         task1.setProviderUsername(user3.getUsername());
-        assertEquals(task1.getProviderUsername(), user3);
+        assertEquals(task1.getProviderUsername(), user3.getUsername());
 
         //Test that the provider can be null.
         task1.setProviderUsername(null);
@@ -292,12 +292,12 @@ public class TaskTest{
         assertEquals(task1.getMaximumBid(), 10.00, 0.00);
 
         //Test that the category can be changed to an allowable option.
-        task1.setCategory("Personal");
-        assertEquals(task1.getCategory(), "Personal");
+        task1.setCategory("Other");
+        assertEquals(task1.getCategory(), "Other");
 
         //Test that the category cannot be set to a non-set category.
         task1.setCategory("asdf");
-        assertEquals(task1.getCategory(), "Personal");
+        assertEquals(task1.getCategory(), "Other");
 
         //Test that the location can be changed.
         //task1.setLocation("Calgary");

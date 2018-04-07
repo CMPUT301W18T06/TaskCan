@@ -21,6 +21,8 @@ import android.util.Log;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.Arrays;
+
 import io.searchbox.annotations.JestId;
 
 /**
@@ -47,6 +49,8 @@ public class Task {
     private ImageList imageList;
     private boolean taskCompleted;
     private String status;
+    private String[] categoriesList = {"Home Maintenance" , "Delivery Services", "Pet Care", "Entertainment", "Personal Assistance",
+            "Landscaping", "Automotive Services", "Culinary Services", "Tutoring","Other"};
 
     @JestId
     private String id;
@@ -113,13 +117,13 @@ public class Task {
      * @param taskTitle name of the task
      */
     public void setTaskTitle(String taskTitle) {
-        this.taskTitle = taskTitle;
+        if (taskTitle != "") {
+            this.taskTitle = taskTitle;
+        }
     }
 
     /** @return task description */
-    public String getDescription() {
-        return this.description;
-    }
+    public String getDescription() { return this.description; }
 
     /**
      * Sets the task description and checks for description length.
@@ -134,7 +138,9 @@ public class Task {
 
     /** @param owner username of the task requester */
     public void setOwnerUsername(String owner) {
-        this.ownerUsername = owner;
+        if (this.ownerUsername == null) {
+            this.ownerUsername = owner;
+        }
     }
 
     /** @return task requester ID */
@@ -185,7 +191,9 @@ public class Task {
 
     /** @param category the category the task belongs to */
     public void setCategory(String category) {
-        this.category = category;
+        if (Arrays.asList(categoriesList).contains(category)) {
+            this.category = category;
+        }
     }
 
     /** @param status task status of completion */
@@ -287,8 +295,15 @@ public class Task {
     //TODO: this point on, not really sure what is going on with the below methods, waiting for more clarification
     /**
      * @param user task bidder
-     * @param bid amount set on a bid
+     * @param bidAmount amount set on a bid
      */
-    public void updateBidder(User user, double bid) {}
+    public void updateBidder(User user, double bidAmount) {
+        if (this.bidList.getBidUserIndex(user.getId()) != -1) {
+            int i = this.bidList.getBidUserIndex(user.getId());
+            Bid bid = this.bidList.getBid(i);
+            bid.setBidAmount(bidAmount);
+            this.bidList.updateBid(bid, i);
+        }
+    }
 
 }
