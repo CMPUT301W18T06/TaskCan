@@ -37,6 +37,7 @@ public class ImageList implements Iterable<Image>{
         this.images.set(position, image);
     }
 
+    /** @param images an ArrayList of Images */
     public void setImages(ArrayList<Image> images) {
         this.images = images;
     }
@@ -51,10 +52,12 @@ public class ImageList implements Iterable<Image>{
         return this.images;
     }
 
+    /** @return integer representing the size of the ArrayList */
     public Integer getSize() {
         return this.images.size();
     }
 
+    /** @param position index of Image object to be removed */
     public void removeImage(int position) {
         this.images.remove(position);
     }

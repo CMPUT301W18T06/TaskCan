@@ -49,6 +49,7 @@ import java.util.List;
 
 /**
  * MyTaskActivity displays the list of tasks made by the current user.
+ * List displays title, username of lowest bidder, status, and current bid.
  *
  * @author CMPUT301W18T06
  */
@@ -97,7 +98,7 @@ public class MyTaskActivity extends ActivityHeader {
         myTaskList = new TaskList();
 
         for (Task task : currentUser.getMyTaskList()) {
-            if (task.getStatus().intern() == "Requested") {
+            if (task.getStatus().intern() == "Requested" || task.getStatus().intern() == "Bidded") {
                 myTaskList.addTask(task);
             }
         }
@@ -187,7 +188,7 @@ public class MyTaskActivity extends ActivityHeader {
 
     @Override
     protected String getActivityTitle() {
-        return "My TaskList";
+        return "My Task List";
     }
 
 }

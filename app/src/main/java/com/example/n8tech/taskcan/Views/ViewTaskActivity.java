@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.Bid;
+import com.example.n8tech.taskcan.Models.BidList;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Image;
 import com.example.n8tech.taskcan.Models.Task;
@@ -159,8 +160,10 @@ public class ViewTaskActivity extends ActivityHeader{
         Bid bid = new Bid();
         User resultUser = new User();
         Task oldTask = new Task();
+        BidList taskBidList = new BidList();
         double newBidAmount;
-        int taskIndex;
+        int taskIndex, bidIndex;
+        Boolean newBid = true;
 
         oldTask = this.task;
         bidAmountText = (EditText) findViewById(R.id.task_view_activity_bid_amount);
@@ -187,8 +190,18 @@ public class ViewTaskActivity extends ActivityHeader{
         }
         bid.setBidId(currentUser.getId());
         bid.setBidUsername(currentUser.getUsername());
-
-        task.addBidder(bid);
+        taskBidList = task.getBidList();
+        for(Bid bids : taskBidList){
+            if (bids.getBidUsername().intern() == currentUser.getUsername()){
+                bidIndex = taskBidList.getBidIndex(bids);
+                task.replaceBidAtIndex(bidIndex, bid);
+                newBid = false;
+                break;
+            }
+        }
+        if (newBid){
+            task.addBidder(bid);
+        }
         if (task.getStatus().intern() == "Requested"){
             task.setStatus("Bidded");
         }

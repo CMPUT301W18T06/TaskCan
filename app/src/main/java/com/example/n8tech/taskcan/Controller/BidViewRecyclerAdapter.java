@@ -10,13 +10,12 @@ import android.widget.TextView;
 
 import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.BidList;
-import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
-import com.example.n8tech.taskcan.Views.TaskDetailActivity;
 import com.example.n8tech.taskcan.Views.ViewTaskActivity;
+import com.google.gson.Gson;
 
 import java.util.Locale;
 
@@ -42,14 +41,14 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
         public TextView taskTitle;
         public TextView taskBidderName;
         public TextView taskStatus;
-        public TextView taskBid;
+        public TextView taskCurrentBid;
 
         public ViewHolder(View view) {
             super(view);
             taskTitle = view.findViewById(R.id.task_view_title);
             taskBidderName = view.findViewById(R.id.task_view_bidder_name);
             taskStatus = view.findViewById(R.id.task_view_status);
-            taskBid = view.findViewById(R.id.task_view_current_bid);
+            taskCurrentBid = view.findViewById(R.id.task_view_current_bid);
         }
     }
 
@@ -90,23 +89,20 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
             currentBidList = currentTask.getBidList();
             for (Bid bid : currentBidList){
                 if (bid.getBidAmount() == currentTask.getCurrentBid()){
-                    holder.taskBidderName.setText(bid.getBidUsername());
+                    holder.taskBidderName.setText(currentTask.getOwnerUsername());
                     break;
                 }
             }
             currentBidText = String.format(Locale.CANADA,"$%.2f", currentTask.getCurrentBid());
         }
-        holder.taskBid.setText(currentBidText);
+        holder.taskCurrentBid.setText(currentBidText);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int positionInTaskList;
-                currentUser = CurrentUserSingleton.getUser();
-                positionInTaskList = currentUser.getBidTaskList().getIndexOfTask(currentTask);
-                Log.i("TestingAdapterClick", String.valueOf(position));
                 Intent intent = new Intent(view.getContext(), ViewTaskActivity.class);
-                intent.putExtra("taskIndex", position);
+                Gson gson = new Gson();
+                intent.putExtra("currentTask", gson.toJson(currentTask));
                 view.getContext().startActivity(intent);
             }
         });

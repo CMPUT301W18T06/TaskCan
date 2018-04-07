@@ -30,6 +30,12 @@ public class BidList implements Iterable<Bid> {
      */
     public void addBid(Bid bid) { this.bids.add(bid); }
 
+    /**
+     * Updates a bid when the bidder creates a new bid on the same task.
+     * Removes the previous bid made by the bidder and creates a new bid with a different bid amount.
+     * @param bid New bid object with updated details
+     * @param i Integer representing bid index of bid to be removed
+     */
     public void updateBid(Bid bid, int i) {
         this.bids.remove(i);
         this.bids.add(bid);
@@ -72,6 +78,10 @@ public class BidList implements Iterable<Bid> {
             }
         }
         return -1;
+    }
+
+    public void replaceAtIndex(int index, Bid bid){
+        this.bids.set(index, bid);
     }
 
     /** @return integer representing list size */
