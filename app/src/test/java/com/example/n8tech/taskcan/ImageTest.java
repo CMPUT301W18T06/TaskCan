@@ -32,6 +32,7 @@ public class ImageTest {
         bitmap.getPixels(image_array, 0, 3, 0, 0, 3, 3);
         Image image2 = new Image(bitmap);
         assertEquals(image1, image2);
+
     }
 
     //TODO: Test images

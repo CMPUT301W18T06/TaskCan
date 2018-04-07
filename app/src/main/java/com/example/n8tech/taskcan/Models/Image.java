@@ -40,20 +40,6 @@ public class Image implements Parcelable {
     }
 
     /**
-     * Creates an instance of Image.
-     * @param image_array Integer array that stores image pixel data values
-     * @param x Integer representing the image width
-     * @param y Integer representing the image height
-     */
-    public Image(int[] image_array, int x, int y) {
-        this.image_array = image_array;
-        this.width = x;
-        this.height = y;
-        this.image = Bitmap.createBitmap(x, y, Bitmap.Config.ARGB_8888);
-        this.image.setPixels(image_array, 0, x, 0, 0, x, y);
-    }
-
-    /**
      * Recreates the bitmap object with pixel values based on image_array.
      */
     public void recreateRecycledBitmap() {
