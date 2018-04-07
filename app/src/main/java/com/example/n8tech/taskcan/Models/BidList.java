@@ -15,6 +15,7 @@ import java.util.NoSuchElementException;
 
 public class BidList implements Iterable<Bid> {
     private ArrayList<Bid> bids;
+    private Bid acceptedBid = null;
 
     /**
      * Creates an instance of BidList, creating a new ArrayList of Bids.
@@ -82,6 +83,20 @@ public class BidList implements Iterable<Bid> {
 
     public void replaceAtIndex(int index, Bid bid){
         this.bids.set(index, bid);
+    }
+
+    public Bid getAcceptedBid() {
+        return acceptedBid;
+    }
+
+    public void setAcceptedBid(Bid acceptedBid) {
+        this.acceptedBid = acceptedBid;
+    }
+
+    // when requester cancels a bid, clear assignee
+    public void clearAcceptedBid(){
+        this.acceptedBid = null;
+
     }
 
     /** @return integer representing list size */
