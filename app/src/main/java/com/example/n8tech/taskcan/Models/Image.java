@@ -6,6 +6,9 @@ import android.os.Parcelable;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.BitSet;
+
+import io.searchbox.annotations.JestId;
 
 /**
  * Image contains a Bitmap object, an array of integers representing pixel values
@@ -21,6 +24,8 @@ public class Image implements Parcelable {
 
     private int[] image_array;
 
+    @JestId
+    private String id;
     /**
      * Creates an instance of Image.
      * Copies the bitmap pixel data values onto image_array.
@@ -125,4 +130,11 @@ public class Image implements Parcelable {
     /** @return Integer array representing image pixel values */
     public int[] getImageArray() { return this.image_array; }
 
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

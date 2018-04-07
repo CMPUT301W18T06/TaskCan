@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.n8tech.taskcan.Controller.SlideShowAdapter;
@@ -23,7 +24,7 @@ public class EditImageSlideActivity extends AppCompatActivity {
     private ViewPager mPager;
     private SlideShowAdapter adapter;
     private String result_code;
-    private int currentPage = 0;
+    private Integer currentPage = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +52,14 @@ public class EditImageSlideActivity extends AppCompatActivity {
                     currentPage = 0;
                 }
                 mPager.setCurrentItem(currentPage++, true);
+                Log.i("slide image","-----------------------" + currentPage.toString());
             }
         };
     }
 
     // TODO always deletes the first image
     public void deleteButtonClick(View view) {
+        Log.i("IMAGE SLIDE ACTIVITY --", this.currentPage.toString());
         this.slides.removeImage(this.currentPage);
         this.adapter.notifyDataSetChanged();
         onBackPressed();

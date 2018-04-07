@@ -92,22 +92,13 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
             holder.taskBidderName.setText("No Bids");
             currentBidText = "None";
         }else{
-            String yo = "hi";
             for (Bid bid: currentBidList){
-                yo = "nancy";
                 if (bid.getBidAmount() == currentTask.getCurrentBid()){
-                    //Log.i("WEMADEIT", String.valueOf(bid.getBidAmount()));
-                    //holder.taskBidderName.setText(bid.getBidUsername());
-                    //holder.taskBidderName.setText("Natty");
-                    //yo = bid.getBidUsername();
-                    yo = "bro";
+                    holder.taskBidderName.setText(bid.getBidUsername());
                     break;
                 }
-                //holder.taskBidderName.setText("Natty");
-                yo = "eden";
                 holder.taskBidderName.setText(bid.getBidUsername());
             }
-            holder.taskBidderName.setText(String.valueOf(currentBidList.getSize()));
             currentBidText = String.format(Locale.CANADA,"$%.2f", currentTask.getCurrentBid());
         }
         holder.taskBid.setText(currentBidText);
