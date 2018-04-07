@@ -255,7 +255,9 @@ public class Task {
         ElasticsearchController.GetImage ec = new ElasticsearchController.GetImage();
         for (String id : this.imageListId) {
             ec.execute(id);
-            il.addImage(ec.get());
+            Image i = ec.get();
+            i.recreateRecycledBitmap();
+            il.addImage(i);
         }
         return il;
     }
