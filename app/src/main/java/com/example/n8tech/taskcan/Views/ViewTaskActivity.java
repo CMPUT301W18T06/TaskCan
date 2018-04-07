@@ -236,7 +236,9 @@ public class ViewTaskActivity extends ActivityHeader{
                 = new ElasticsearchController.UpdateUser();
         updateUser2.execute(resultUser);
 
-        super.onBackPressed();
+        Intent seeBids = new Intent(getApplicationContext(), MyBidActivity.class);
+        startActivity(seeBids);
+        //super.onBackPressed();
     }
 
 
