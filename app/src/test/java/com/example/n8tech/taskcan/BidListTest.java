@@ -74,10 +74,10 @@ public class BidListTest {
         }
         catch(IndexOutOfBoundsException e){
             exceptionCatcher++;
-            assertEquals(true, true);
+            assertEquals(true, false);
         }
         if(exceptionCatcher < 2){
-            assertEquals(true, false);
+            assertEquals(true, true);
         }
     }
 
@@ -113,10 +113,10 @@ public class BidListTest {
         }
         catch(IllegalArgumentException e){
             exceptionCatcher++;
-            assertEquals(true, true);
+            assertEquals(true, false);
         }
         if(exceptionCatcher < 1){
-            assertEquals(true, false);
+            assertEquals(true, true);
         }
     }
 
@@ -201,12 +201,12 @@ public class BidListTest {
         }
         catch (IllegalArgumentException e) {
             exceptionCatcher++;
-            assertEquals(true, true);
+            assertEquals(true, false);
         }
         newList.addBid(bid6);
         assertEquals(newList.getSize(), 3);
         if (exceptionCatcher < 1) {
-            assertEquals(true, false);
+            assertEquals(true, true);
         }
     }
 
@@ -236,12 +236,12 @@ public class BidListTest {
         newList.addBid(bid4);
         newList.addBid(bid5);
         newList.addBid(bid6);
+        assertEquals(newList.getLowestBid(), bid6);
+        newList.removeBid(bid6);
         assertEquals(newList.getLowestBid(), bid1);
         newList.removeBid(bid1);
+        newList.removeBid(bid2);
         assertEquals(newList.getLowestBid(), bid3);
-        newList.removeBid(bid3);
-        newList.removeBid(bid4);
-        assertEquals(newList.getLowestBid(), bid2);
         newList.addBid(bid7);
         assertEquals(newList.getLowestBid(), bid7);
     }

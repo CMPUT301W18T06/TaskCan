@@ -100,12 +100,12 @@ public class TaskTest{
         User user4 = new User("Jill", "jill12345", "5678", "jill@n8tech.com", "932-232-6753");
         User user5 = new User("Tom", "tom12345", "9999", "tom@n8tech.com", "723-999-9999");
         User user6 = new User("Pam", "pam12345", "1212", "pam@n8tech.com", "000-111-2222");
-        Bid bid1 = new Bid(user1.getUsername(), "1", 23.23);
-        Bid bid2 = new Bid(user2.getUsername(), "2", 15.32);
-        Bid bid3 = new Bid(user3.getUsername(), "3", 12.89);
-        Bid bid4 = new Bid(user4.getUsername(), "4", 67.55);
-        Bid bid5 = new Bid(user5.getUsername(), "5", 54.33);
-        Bid bid6 = new Bid(user6.getUsername(), "6", 17.84);
+        Bid bid1 = new Bid(user1.getUsername(), user1.getId(), 23.23);
+        Bid bid2 = new Bid(user2.getUsername(), user2.getId(), 15.32);
+        Bid bid3 = new Bid(user3.getUsername(), user3.getId(), 12.89);
+        Bid bid4 = new Bid(user4.getUsername(), user4.getId(), 67.55);
+        Bid bid5 = new Bid(user5.getUsername(), user5.getId(), 54.33);
+        Bid bid6 = new Bid(user6.getUsername(), user6.getId(), 17.84);
 
         ArrayList<User> userList = new ArrayList<User>();
         userList.add(user1);
@@ -138,7 +138,7 @@ public class TaskTest{
             assertEquals(task1.getBidList().getBid(i), bidList.get(i));
         }
 
-        task1.cancelBidder(user3.getUsername());
+        task1.cancelBidder(user3.getId());
         userList.remove(userList.indexOf(user3));
         bidList.remove(bidList.indexOf(bid3));
 
@@ -148,15 +148,15 @@ public class TaskTest{
             assertEquals(task1.getBidList().getBid(i), bidList.get(i));
         }
 
-        //TODO: updateBidder() has not been implemented yet
-//        task1.updateBidder(user5, 11.76);
-//        bidList.set(3,new Bid(user5, 11.76));
-//
-//        //Test if updating a bidder is done correctly.
-//        assertEquals(task1.getBidList().getSize(), 5);
-//        for(int i = 0; i < bidList.size(); i++) {
-//            assertEquals(task1.getBidList().getBid(i), bidList.get(i));
-//        }
+
+        task1.updateBidder(user5, 11.76);
+            bidList.set(3,new Bid(user5.getUsername(), "1", 11.76));
+
+        // Test if updating a bidder is done correctly.
+        assertEquals(task1.getBidList().getSize(), 5);
+        for(int i = 0; i < bidList.size(); i++) {
+            assertEquals(task1.getBidList().getBid(i), bidList.get(i));
+        }
     }
 
     @Test
