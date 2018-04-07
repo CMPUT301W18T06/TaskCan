@@ -317,9 +317,11 @@ public class ElasticsearchController {
     public static class SearchLocation extends AsyncTask<String, Void, TaskList> {
 
         private LatLng currentLocation;
+        private double radius;
 
-        public SearchLocation(LatLng location){
+        public SearchLocation(LatLng location, double radius){
             this.currentLocation = location;
+            this.radius = radius;
         }
 
         @Override
@@ -349,8 +351,9 @@ public class ElasticsearchController {
                             Location.distanceBetween(this.currentLocation.latitude, this.currentLocation.longitude,
                                     task.getLocation().latitude, task.getLocation().longitude,
                                     distResults);
+                            Log.i("id", task.getId());
                             Log.i("dist: ", String.valueOf(distResults[0]));
-                            if (distResults[0] <= 5000 && !task.getStatus().equals("Completed")){
+                            if (distResults[0] <= radius && !task.getStatus().equals("Completed")){
                                 taskList.addTask(task);
                             }
                         }
