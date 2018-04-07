@@ -17,6 +17,7 @@ import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.example.n8tech.taskcan.Views.TaskDetailActivity;
 import com.example.n8tech.taskcan.Views.ViewTaskActivity;
+import com.google.gson.Gson;
 
 import java.util.Locale;
 
@@ -101,12 +102,9 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int positionInTaskList;
-                currentUser = CurrentUserSingleton.getUser();
-                positionInTaskList = currentUser.getBidTaskList().getIndexOfTask(currentTask);
-                Log.i("TestingAdapterClick", String.valueOf(position));
                 Intent intent = new Intent(view.getContext(), ViewTaskActivity.class);
-                intent.putExtra("taskIndex", position);
+                Gson gson = new Gson();
+                intent.putExtra("currentTask", gson.toJson(currentTask));
                 view.getContext().startActivity(intent);
             }
         });

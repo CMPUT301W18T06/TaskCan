@@ -90,15 +90,6 @@ public class ViewProfileActivity extends ActivityHeader {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(ViewProfileActivity.this, SearchActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_view_profile;
     }
