@@ -82,7 +82,6 @@ public class EditTaskActivity extends ActivityHeader  {
     private EditText taskDescriptionEditText;
     private int spinnerPosition;
     private User currentUser;
-    //private LatLng newLocation;
     private LatLng location;
     private ArrayAdapter<CharSequence> categorySpinnerAdapter;
     private ArrayAdapter<CharSequence> statusSpinnerAdapter;

@@ -10,12 +10,10 @@ import android.widget.TextView;
 
 import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.BidList;
-import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
-import com.example.n8tech.taskcan.Views.TaskDetailActivity;
 import com.example.n8tech.taskcan.Views.ViewTaskActivity;
 import com.google.gson.Gson;
 
@@ -43,14 +41,14 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
         public TextView taskTitle;
         public TextView taskBidderName;
         public TextView taskStatus;
-        public TextView taskBid;
+        public TextView taskCurrentBid;
 
         public ViewHolder(View view) {
             super(view);
             taskTitle = view.findViewById(R.id.task_view_title);
             taskBidderName = view.findViewById(R.id.task_view_bidder_name);
             taskStatus = view.findViewById(R.id.task_view_status);
-            taskBid = view.findViewById(R.id.task_view_current_bid);
+            taskCurrentBid = view.findViewById(R.id.task_view_current_bid);
         }
     }
 
@@ -91,13 +89,13 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
             currentBidList = currentTask.getBidList();
             for (Bid bid : currentBidList){
                 if (bid.getBidAmount() == currentTask.getCurrentBid()){
-                    holder.taskBidderName.setText(bid.getBidUsername());
+                    holder.taskBidderName.setText(bid.getBidUsername());            // todo fix, displays the current users username
                     break;
                 }
             }
             currentBidText = String.format(Locale.CANADA,"$%.2f", currentTask.getCurrentBid());
         }
-        holder.taskBid.setText(currentBidText);
+        holder.taskCurrentBid.setText(currentBidText);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -48,6 +48,7 @@ import com.google.gson.reflect.TypeToken;
 /**
  * MyBidActivity displays the list of tasks containing pending
  * or assigned bids made by the current user.
+ * List shows task title, owner username, status and current bid.
  *
  * @author CMPUT301W18T06
  */
@@ -165,7 +166,7 @@ public class MyBidActivity extends ActivityHeader {
 
     @Override
     protected String getActivityTitle() {
-        return "My BidList";
+        return "My Bid List";
     }
 
 }
