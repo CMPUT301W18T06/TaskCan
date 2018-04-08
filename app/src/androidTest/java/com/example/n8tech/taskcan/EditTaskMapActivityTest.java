@@ -16,7 +16,7 @@ import com.robotium.solo.Solo;
  * @see com.example.n8tech.taskcan.Views.EditTaskMapActivity
  * @author CMPUT301W18T06
  */
-// TODO Fix solo errors
+
 public class EditTaskMapActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
 
@@ -37,6 +37,7 @@ public class EditTaskMapActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testEditTaskMapPage(){
+        solo.assertCurrentActivity("Wrong activity", EditTaskMapActivity.class);
         // TODO write test cases
         // location services not implemented yet
     }

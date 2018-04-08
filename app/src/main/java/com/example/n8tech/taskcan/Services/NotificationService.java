@@ -3,7 +3,9 @@ package com.example.n8tech.taskcan.Services;
 import android.app.IntentService;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
+import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.Controller.NotificationController;
 import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.BidList;
@@ -28,6 +30,7 @@ public class NotificationService extends IntentService {
     private User currentUser = CurrentUserSingleton.getUser();
     private TaskList prevTaskList = new TaskList();
     private TaskList currentTaskList;
+
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *
@@ -46,6 +49,15 @@ public class NotificationService extends IntentService {
                 Thread.sleep(300000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+
+            ElasticsearchController.GetUser getUser = new ElasticsearchController.GetUser();
+            getUser.execute(currentUser.getId());
+            try {
+                currentUser = getUser.get();
+                Log.i("Got user", currentUser.getUsername());
+            } catch (Exception e) {
+                Log.i("Error", String.valueOf(e));
             }
 
             for (Task task : currentUser.getMyTaskList()){
