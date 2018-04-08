@@ -201,16 +201,26 @@ public class ViewTaskActivity extends ActivityHeader{
     public void confirmBidButton(View v){
         Bid bid = new Bid();
         User resultUser = new User();
-        Task oldTask = new Task();
-        BidList taskBidList = new BidList();
+        Task oldTask;
+        BidList taskBidList;
         double newBidAmount;
-        int taskIndex, bidIndex;
+        int taskIndex, bidIndex, taskBidIndex;
         Boolean newBid = true;
+        Boolean newTaskBid = true;
 
-        oldTask = this.task;
+        ElasticsearchController.GetUser getUser
+                = new ElasticsearchController.GetUser();
+        getUser.execute(this.task.getOwnerId());
+
+        try {
+            resultUser = getUser.get();
+        } catch (Exception e) {
+            Log.i("Error", String.valueOf(e));
+        }
+        taskIndex = resultUser.getMyTaskList().getIndexOfTask(task);
+
         bidAmountText = (EditText) findViewById(R.id.task_view_activity_bid_amount);
         newBidAmount = Double.parseDouble(bidAmountText.getText().toString());
-
 
         if(newBidAmount > task.getMaximumBid() && task.getMaximumBid()!= -1) {
             Toast.makeText(getApplicationContext(), "Your bid amount is greater than the" +
@@ -239,7 +249,7 @@ public class ViewTaskActivity extends ActivityHeader{
             if (bids.getBidUsername().intern() == currentUser.getUsername().intern()){
                 bidIndex = taskBidList.getBidIndex(bids);
                 task.replaceBidAtIndex(bidIndex, bid);
-                task.updateCurrentBid();
+                //task.updateCurrentBid();
                 newBid = false;
                 break;
             }
@@ -255,28 +265,47 @@ public class ViewTaskActivity extends ActivityHeader{
             task.setCurrentBid(newBidAmount);
         }
 
+        for(Task tasks : currentUser.getBidTaskList()){
+            if (tasks.getId() == this.task.getId()){
+                taskBidIndex = currentUser.getBidTaskList().getIndexOfTask(tasks);
+                currentUser.replaceTaskBid(taskBidIndex, this.task);
+                newTaskBid = false;
+            }
+        }
+        //ToDo Check if it exists in user before adding and replace if it does
+        if(newTaskBid){
+            currentUser.addBidTask(task);
+        }
+
+//        ElasticsearchController.UpdateTask updateTask
+//                = new ElasticsearchController.UpdateTask();
+//        updateTask.execute(this.task);
+//
+//        currentUser.addBidTask(task);
+//
+//        ElasticsearchController.UpdateUser updateUser
+//                = new ElasticsearchController.UpdateUser();
+//        updateUser.execute(currentUser);
+//
+//        ElasticsearchController.GetUser getUser
+//                = new ElasticsearchController.GetUser();
+//        getUser.execute(this.task.getOwnerId());
+//
+//        try {
+//            resultUser = getUser.get();
+//        } catch (Exception e) {
+//            Log.i("Error", String.valueOf(e));
+//        }
+//        taskIndex = resultUser.getMyTaskList().getIndexOfTask(oldTask);
+        resultUser.replaceTaskAtIndex(taskIndex, this.task);
+
         ElasticsearchController.UpdateTask updateTask
                 = new ElasticsearchController.UpdateTask();
         updateTask.execute(this.task);
 
-        //ToDo Check if it exists in user before adding and replace if it does
-        currentUser.addBidTask(task);
-
         ElasticsearchController.UpdateUser updateUser
                 = new ElasticsearchController.UpdateUser();
         updateUser.execute(currentUser);
-
-        ElasticsearchController.GetUser getUser
-                = new ElasticsearchController.GetUser();
-        getUser.execute(this.task.getOwnerId());
-
-        try {
-            resultUser = getUser.get();
-        } catch (Exception e) {
-            Log.i("Error", String.valueOf(e));
-        }
-        taskIndex = resultUser.getMyTaskList().getIndexOfTask(oldTask);
-        resultUser.replaceTaskAtIndex(taskIndex, this.task);
 
         ElasticsearchController.UpdateUser updateUser2
                 = new ElasticsearchController.UpdateUser();

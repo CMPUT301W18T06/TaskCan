@@ -46,13 +46,12 @@ public class TaskList implements Iterable<Task> {
      */
     public int getIndexOfTask(Task task)
     {
-        int index = -1;
         for(Task myTask : this.taskList) {
             if(myTask.getId().equals(task.getId())) {
-                index = this.taskList.indexOf(myTask);
+                return this.taskList.indexOf(myTask);
             }
         }
-        return index;
+        return -1;
     }
 
     /**
