@@ -80,6 +80,7 @@ public class TaskDetailActivity extends ActivityHeader {
         Gson gson = new Gson();
 
         task = gson.fromJson(intent.getStringExtra("currentTask"), taskType);         // change this to the right task from the search
+        this.currentTaskIndex = this.currentUser.getMyTaskList().getIndexOfTask(task);
         findByIdsAndSetTextFields();
         findByIdsAndSetTextFields();
     }
