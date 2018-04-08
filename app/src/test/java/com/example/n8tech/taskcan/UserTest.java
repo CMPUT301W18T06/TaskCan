@@ -18,6 +18,7 @@ package com.example.n8tech.taskcan;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.example.n8tech.taskcan.Models.BiddedTask;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Views.SignInActivity;
@@ -59,22 +60,22 @@ public class UserTest {
     public void testUserAddBidTask() {
         //Tests that it correctly updates its bid tasks
         User user1 = new User("Joe", "joe12345", "7355608", "joe@n8tech.com", "123-456-7890");
-        Task task1 = new Task();
-        Task task2 = new Task();
+        BiddedTask task1 = new BiddedTask();
+        BiddedTask task2 = new BiddedTask();
 
         user1.addBidTask(task1);
         user1.addBidTask(task2);
-        ArrayList<Task> bidTaskList = new ArrayList<>();
+        ArrayList<BiddedTask> bidTaskList = new ArrayList<>();
         bidTaskList.add(task1);
         bidTaskList.add(task2);
         for (int i = 0; i < bidTaskList.size(); i++){
-            assertEquals(user1.getBidTaskList().getTaskAtIndex(0), bidTaskList.get(0));
+            assertEquals(user1.getBidTaskList().getBiddedTaskAtIndex(0), bidTaskList.get(0));
         }
 
         user1.removeBidTask(task2);
         bidTaskList.remove(1);
         for (int i = 0; i < bidTaskList.size(); i++){
-            assertEquals(user1.getBidTaskList().getTaskAtIndex(i), bidTaskList.get(i));
+            assertEquals(user1.getBidTaskList().getBiddedTaskAtIndex(i), bidTaskList.get(i));
         }
     }
 
@@ -93,7 +94,7 @@ public class UserTest {
         for (int i = 0; i < taskList.size(); i++) {
             assertEquals(user1.getMyTaskList().getTaskAtIndex(i), taskList.get(i));
         }
-        user1.removeBidTask(task2);
+        user1.removeTask(task2);
         taskList.remove(1);
         for (int i = 0; i < taskList.size(); i++) {
             assertEquals(user1.getMyTaskList().getTaskAtIndex(i), taskList.get(i));

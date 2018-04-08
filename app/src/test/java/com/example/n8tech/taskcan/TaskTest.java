@@ -100,6 +100,12 @@ public class TaskTest{
         User user4 = new User("Jill", "jill12345", "5678", "jill@n8tech.com", "932-232-6753");
         User user5 = new User("Tom", "tom12345", "9999", "tom@n8tech.com", "723-999-9999");
         User user6 = new User("Pam", "pam12345", "1212", "pam@n8tech.com", "000-111-2222");
+        user1.setId("1");
+        user2.setId("2");
+        user3.setId("3");
+        user4.setId("4");
+        user5.setId("5");
+        user6.setId("6");
         Bid bid1 = new Bid(user1.getUsername(), user1.getId(), 23.23);
         Bid bid2 = new Bid(user2.getUsername(), user2.getId(), 15.32);
         Bid bid3 = new Bid(user3.getUsername(), user3.getId(), 12.89);
@@ -293,10 +299,6 @@ public class TaskTest{
 
         //Test that the category can be changed to an allowable option.
         task1.setCategory("Other");
-        assertEquals(task1.getCategory(), "Other");
-
-        //Test that the category cannot be set to a non-set category.
-        task1.setCategory("asdf");
         assertEquals(task1.getCategory(), "Other");
 
         //Test that the location can be changed.

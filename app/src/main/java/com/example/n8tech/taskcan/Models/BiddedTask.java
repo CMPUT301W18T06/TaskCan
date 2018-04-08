@@ -101,7 +101,7 @@ public class BiddedTask {
 
     public void setTaskCompleted(boolean taskCompleted) { this.taskCompleted = taskCompleted; }
 
-    public String getStatus() { return this.taskTitle; }
+    public String getStatus() { return this.status; }
 
     public void setStatus(String status) { this.status = status; }
 
