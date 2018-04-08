@@ -282,6 +282,7 @@ public class EditTaskActivity extends ActivityHeader  {
 
         if (valid) {
             // TODO update task in user's task list
+            task.setEditCount(task.getEditCount()+1);
 
             ElasticsearchController.UpdateTask updateTask
                     = new ElasticsearchController.UpdateTask();
