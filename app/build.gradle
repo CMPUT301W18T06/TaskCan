@@ -23,6 +23,8 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+
+    android.defaultConfig.vectorDrawables.useSupportLibrary = true
 }
 
 dependencies {
