@@ -1,5 +1,7 @@
 package com.example.n8tech.taskcan.Models;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -51,6 +53,7 @@ public class BidList implements Iterable<Bid> {
         for(Bid myBid : this.bids) {
             if(myBid.getBidId().equals(bid.getBidId())) {
                 this.bids.remove(myBid);
+                break;
             }
         }
     }
@@ -70,9 +73,12 @@ public class BidList implements Iterable<Bid> {
      * @throws NoSuchElementException If bidder does not exist in the BidList.
      */
     public int getBidIndex(Bid bid) {
-        for(Bid myBid : this.bids) {
-            if(myBid.getBidId().equals(bid.getBidId())) {
-                return this.bids.indexOf(myBid);
+        for(int i = 0; i < this.bids.size(); i++) {
+            Log.i("bidtesting", this.bids.get(i).getBidId());
+            Log.i("bditesting", bid.getBidId());
+            Log.i("iteration", String.valueOf(i));
+            if(this.bids.get(i).getBidId().equals(bid.getBidId())) {
+                return i;
             }
         }
         return -1;
@@ -88,7 +94,7 @@ public class BidList implements Iterable<Bid> {
      */
     public int getBidUserIndex(String userId) {
         for (Bid bid : this.bids) {
-            if(bid.getBidId() == userId) {
+            if(bid.getBidId().equals(userId)) {
                 return this.bids.indexOf(bid);
             }
         }
