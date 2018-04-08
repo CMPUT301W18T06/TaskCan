@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.FileIO;
+import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Image;
 import com.example.n8tech.taskcan.Models.ImageList;
@@ -160,6 +161,25 @@ public class TaskDetailActivity extends ActivityHeader {
 
 
     public void deleteButtonClick(View v){
+
+        //Remove bidders and update them.
+        for(Bid bid : task.getBidList()) {
+            ElasticsearchController.GetUser getUser
+                    = new ElasticsearchController.GetUser();
+            getUser.execute(bid.getBidId());
+
+            User user = new User();
+            try {
+                user = getUser.get();
+            } catch (Exception e) {
+                Log.i("Error", e.toString());
+            }
+
+            user.removeBidTask(task);
+            ElasticsearchController.UpdateUser updateUser
+                    = new ElasticsearchController.UpdateUser();
+            updateUser.execute(user);
+        }
 
         ElasticsearchController.DeleteTask deleteTask
                 = new ElasticsearchController.DeleteTask();
