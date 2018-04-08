@@ -24,7 +24,13 @@ public class TaskList implements Iterable<Task> {
     }
 
     /** @param task the task to be removed */
-    public void removeTask(Task task) {this.taskList.remove(task);}
+    public void removeTask(Task task) {
+        for(Task myTask : this.taskList) {
+            if(task.getId().equals(myTask.getId())) {
+                this.taskList.remove(myTask);
+            }
+        }
+    }
 
     /**
      * @param i integer representing list index

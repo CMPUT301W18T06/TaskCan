@@ -252,8 +252,8 @@ public class Task {
 
     public ImageList getImageList() throws ExecutionException, InterruptedException {
         ImageList il = new ImageList();
-        ElasticsearchController.GetImage ec = new ElasticsearchController.GetImage();
         for (String id : this.imageListId) {
+            ElasticsearchController.GetImage ec = new ElasticsearchController.GetImage();
             ec.execute(id);
             Image i = ec.get();
             i.recreateRecycledBitmap();
@@ -266,6 +266,7 @@ public class Task {
 
     public void setImageListId(ImageList imageList) throws ExecutionException, InterruptedException {
         String id;
+        this.imageListId.clear();
         for (Image i : imageList.getImages()) {
             ElasticsearchController.AddImage ec = new ElasticsearchController.AddImage();
             if (i.getId() == null) {
