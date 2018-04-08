@@ -120,6 +120,8 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                 //acceptedBid = bidList.getBid(position);
 
                 task.setAcceptedBid(bidList.getBid(position));
+                task.setProviderUsername(bidList.getBid(position).getBidUsername());
+                task.setStatus("Assigned");
 
 
                 BidList acceptedBidList = new BidList();
@@ -172,6 +174,14 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
 
                 bidList.clearAcceptedBid();
                 bidList = task.getBidList();
+                task.clearAssignedProvider();
+                task.updateCurrentBid();
+
+                if (task.getBidList().getSize() > 0 ) {
+                    task.setStatus("Bidded");
+                } else {
+                    task.setStatus("Requested");
+                }
 
                 notifyDataSetChanged();
             }

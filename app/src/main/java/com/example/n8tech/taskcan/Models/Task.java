@@ -201,8 +201,8 @@ public class Task {
     public void setStatus(String status) {
         if(this.status.intern() == "Done"){
             this.status = status.intern() == "Done" ? "Done" : this.status;
-        }
-        else{
+        } else {
+
             this.status = status;
         }
     }
@@ -361,5 +361,14 @@ public class Task {
 
     public void setAcceptedBid(Bid acceptedBid) {
         this.acceptedBid = acceptedBid;
+    }
+
+    public void clearAssignedProvider(){
+        this.acceptedBid = null;
+        this.providerId = null;
+        this.providerUsername = null;
+        this.acceptedBidList = null;
+
+        // TODO notify other users here?
     }
 }
