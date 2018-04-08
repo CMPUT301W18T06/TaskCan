@@ -15,6 +15,7 @@ import java.util.NoSuchElementException;
 
 public class BidList implements Iterable<Bid> {
     private ArrayList<Bid> bids;
+    private ArrayList<Bid> acceptedBidList;        // need to be able to display using adapter?
     private Bid acceptedBid = null;
 
     /**
@@ -47,7 +48,11 @@ public class BidList implements Iterable<Bid> {
      * @throws IllegalArgumentException If bidder does not exist on the list.
      */
     public void removeBid(Bid bid){
-        this.bids.remove(bid);
+        for(Bid myBid : this.bids) {
+            if(myBid.getBidId().equals(bid.getBidId())) {
+                this.bids.remove(myBid);
+            }
+        }
     }
 
     /**
@@ -72,6 +77,8 @@ public class BidList implements Iterable<Bid> {
         }
         return -1;
     }
+
+
 
     /**
      * Takes a user ID as a parameter and returns the bid index.
@@ -105,6 +112,8 @@ public class BidList implements Iterable<Bid> {
         this.acceptedBid = null;
 
     }
+
+
 
     /** @return integer representing list size */
     public int getSize() {

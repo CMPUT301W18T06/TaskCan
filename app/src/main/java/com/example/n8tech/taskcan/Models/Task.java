@@ -48,6 +48,8 @@ public class Task {
     private double currentBid;
     private String category;
     private BidList bidList;
+    private BidList acceptedBidList;
+    private Bid acceptedBid = null;
     private LatLng location;            // TODO change to geolocation variable
     private ArrayList<String> imageListId;
     private boolean taskCompleted;
@@ -333,4 +335,19 @@ public class Task {
         }
     }
 
+    public BidList getAcceptedBidList() {
+        return acceptedBidList;
+    }
+
+    public void setAcceptedBidList(BidList acceptedBidList) {
+        this.acceptedBidList = acceptedBidList;
+    }
+
+    public Bid getAcceptedBid() {
+        return acceptedBid;
+    }
+
+    public void setAcceptedBid(Bid acceptedBid) {
+        this.acceptedBid = acceptedBid;
+    }
 }
