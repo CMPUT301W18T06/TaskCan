@@ -21,6 +21,8 @@ import com.example.n8tech.taskcan.Views.AddTaskActivity;
 import com.example.n8tech.taskcan.Views.MyTaskActivity;
 import com.example.n8tech.taskcan.Views.SearchActivity;
 import com.example.n8tech.taskcan.Views.TaskDetailActivity;
+import com.example.n8tech.taskcan.Views.ViewTaskActivity;
+import com.google.gson.Gson;
 
 import java.util.Locale;
 
@@ -115,12 +117,9 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int positionInTaskList;
-                currentUser = CurrentUserSingleton.getUser();
-                positionInTaskList = currentUser.getMyTaskList().getIndexOfTask(currentTask);
-                Log.i("TestingAdapterClick", String.valueOf(position));
                 Intent intent = new Intent(view.getContext(), TaskDetailActivity.class);
-                intent.putExtra("taskIndex", positionInTaskList);
+                Gson gson = new Gson();
+                intent.putExtra("currentTask", gson.toJson(currentTask));
                 view.getContext().startActivity(intent);
             }
         });

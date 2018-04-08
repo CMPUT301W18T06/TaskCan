@@ -45,8 +45,10 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -333,6 +335,19 @@ public class AddTaskActivity extends ActivityHeader {
                             Toast.LENGTH_LONG).show();
                 }
                 else {
+                    int quality = 95;
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    while (quality > 0){
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bos);
+                        byte[] bitmapdata = bos.toByteArray();
+                        Log.i("ImageSize", String.valueOf(bitmapdata));
+                        if (new BigInteger(bitmapdata).intValue() < 65536){
+                            image = new Image(bitmap);
+                            break;
+                        }
+                        quality = quality - 5;
+                    }
+                    imageList.addImage(image);
                     Toast.makeText(AddTaskActivity.this, "Image size too large! (<65536bytes)",
                             Toast.LENGTH_LONG).show();
                 }

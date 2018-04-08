@@ -36,9 +36,11 @@ import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Models.UserList;
 import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Type;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
@@ -74,10 +76,12 @@ public class TaskDetailActivity extends ActivityHeader {
         super.onStart();
         this.currentUser = CurrentUserSingleton.getUser();
 
-        // TODO this needs to get the task via id, not index in current user's tasklist
-        Bundle extras = getIntent().getExtras();
-        currentTaskIndex = extras.getInt("taskIndex");
-        task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);
+        Type taskType = new TypeToken<Task>(){}.getType();
+        Intent intent = getIntent();
+        Gson gson = new Gson();
+
+        task = gson.fromJson(intent.getStringExtra("currentTask"), taskType);         // change this to the right task from the search
+        findByIdsAndSetTextFields();
         findByIdsAndSetTextFields();
     }
 
