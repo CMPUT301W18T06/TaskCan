@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
@@ -17,6 +18,8 @@ import com.example.n8tech.taskcan.Views.SignInActivity;
 import com.example.n8tech.taskcan.Views.TaskDetailActivity;
 import com.example.n8tech.taskcan.Views.ViewTaskActivity;
 import com.google.gson.Gson;
+
+import java.util.Locale;
 
 /**
  * TaskViewRecyclerAdapter represents a suitable view for task lists.
@@ -41,6 +44,7 @@ public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<SearchResu
         public TextView taskOwnerName;
         public TextView taskStatus;
         public TextView taskBid;
+        public ImageView taskThumbnail;
 
 
         public ViewHolder(View view) {
@@ -49,6 +53,7 @@ public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<SearchResu
             taskOwnerName = view.findViewById(R.id.task_view_bidder_name);
             taskStatus = view.findViewById(R.id.task_view_status);
             taskBid = view.findViewById(R.id.task_view_current_bid);
+            taskThumbnail = view.findViewById(R.id.task_view_thumbnail);
         }
     }
 
@@ -82,13 +87,19 @@ public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<SearchResu
         // if a current bid set to that, else set to "None"
         String currentBidText;
         holder.taskOwnerName.setText(currentTask.getOwnerUsername());
-        currentBidText = String.valueOf(currentTask.getCurrentBid());
+        currentBidText = String.format(Locale.CANADA,"$%.2f", currentTask.getCurrentBid());
 
         if(currentTask.getCurrentBid() == -1) {
             holder.taskBid.setText("None");
         }
         else {
             holder.taskBid.setText(currentBidText);
+        }
+
+        try {
+            holder.taskThumbnail.setImageBitmap(currentTask.getImageList().getImage(0).getImageBitmap());
+        } catch (Exception e){
+            Log.i("ThumbnailError", "Could not load image");
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

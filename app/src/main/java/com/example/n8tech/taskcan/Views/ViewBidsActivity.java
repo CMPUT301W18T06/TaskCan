@@ -49,8 +49,6 @@ public class ViewBidsActivity extends ActivityHeader {
     @Override
     protected void onStart() {
         super.onStart();
-
-
         recyclerView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -61,6 +59,12 @@ public class ViewBidsActivity extends ActivityHeader {
         recyclerView.setAdapter(mAdapter);
     }
 
+    /*
+    public void requesterUsernameFromViewBidsButtonClick(View v){
+        Intent intent = new Intent(getApplicationContext(), ViewOtherUserProfileActivity.class);
+        intent.putExtra("userId", task.getOwnerId());
+        v.getContext().startActivity(intent);
+    }*/
 
     @Override
     protected int getLayoutResourceId() {

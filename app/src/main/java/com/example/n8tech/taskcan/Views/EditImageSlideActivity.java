@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.Controller.SlideShowAdapter;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Image;
@@ -64,7 +65,12 @@ public class EditImageSlideActivity extends AppCompatActivity {
 
     // TODO always deletes the first image
     public void deleteButtonClick(View view) {
+        String id;
         Log.i("IMAGE SLIDE ACTIVITY --", String.valueOf(mPager.getCurrentItem()));
+        if ((id = this.slides.getImage(mPager.getCurrentItem()).getId()) != null) {
+            ElasticsearchController.DeleteImage ec = new ElasticsearchController.DeleteImage();
+            ec.execute(id);
+        }
         this.slides.removeImage(mPager.getCurrentItem());
         this.adapter.notifyDataSetChanged();
         onBackPressed();

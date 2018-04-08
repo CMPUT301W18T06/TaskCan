@@ -156,7 +156,11 @@ public class User {
 
     /** @param task task to be removed from My Task Bids */
     public void removeBidTask(Task task) {
-        this.myTaskBids.removeTask(task);
+        for(Task myTask : this.myTaskBids) {
+            if(task.getId().equals(myTask.getId())) {
+                this.myTaskBids.removeTask(myTask);
+            }
+        }
     }
 
     /** @return list of tasks in which the user is a bidder */
