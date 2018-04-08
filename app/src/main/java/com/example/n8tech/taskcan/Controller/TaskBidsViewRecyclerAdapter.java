@@ -169,8 +169,8 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
             @Override
             public void onClick(View v) {
                 // user cancelled the assigned bid, show old bids again
-                // TODO notify users of old bids that this task is active again?
-                // clear accepted bid from task
+                // clears accepted bid from task bid list
+                // TODO notify users of old bids that this task is active again? @Jeanna
 
                 bidList.clearAcceptedBid();
                 bidList = task.getBidList();

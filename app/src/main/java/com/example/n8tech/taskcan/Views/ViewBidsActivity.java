@@ -47,7 +47,6 @@ public class ViewBidsActivity extends ActivityHeader {
         }
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -67,7 +66,7 @@ public class ViewBidsActivity extends ActivityHeader {
         recyclerView.setLayoutManager(layoutManager);
         final TaskBidsViewRecyclerAdapter mAdapter;
 
-        if (task.getAcceptedBid() == null){
+        if (task.getAcceptedBid() == null) {
             // if no bid accepted yet, display all bids history
             mAdapter = new TaskBidsViewRecyclerAdapter(bidList, task);
 

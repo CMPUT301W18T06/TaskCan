@@ -83,8 +83,8 @@ public class MyBidActivity extends ActivityHeader {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
 
         mTabHost.setCurrentTab(0);
 

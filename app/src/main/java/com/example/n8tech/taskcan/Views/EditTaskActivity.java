@@ -128,6 +128,7 @@ public class EditTaskActivity extends ActivityHeader  {
         categorySpinner.setSelection(spinnerPosition);
     }
 
+    /*
     private void setTaskStatusSpinnerContent() {
         statusSpinnerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.task_status_spinner_array, android.R.layout.simple_spinner_item);
@@ -138,6 +139,7 @@ public class EditTaskActivity extends ActivityHeader  {
         spinnerPosition = statusSpinnerAdapter.getPosition(task.getStatus());
         taskStatusSpinner.setSelection(spinnerPosition);
     }
+    */
 
     private void findViewsByIdAndSetContent() {
         maxBidText = (TextView) findViewById(R.id.edit_task_activity_money_edit_text);
@@ -149,7 +151,7 @@ public class EditTaskActivity extends ActivityHeader  {
         if (task.getMaximumBid() == -1){
             maxBidText.setText("");
         }else{
-            maxBidText.setText(String.format(Locale.CANADA,"%.2f", task.getMaximumBid()));
+            maxBidText.setText(String.format(Locale.CANADA,"$%.2f", task.getMaximumBid()));
         }
 
         taskNameEditText.setText(task.getTaskTitle());
@@ -157,7 +159,7 @@ public class EditTaskActivity extends ActivityHeader  {
 
         // set category spinner content and set to task's category
         setCategorySpinnerContent();
-        setTaskStatusSpinnerContent();
+        //setTaskStatusSpinnerContent();
     }
 
     @Override

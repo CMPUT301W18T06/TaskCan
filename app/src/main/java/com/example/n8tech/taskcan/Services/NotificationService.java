@@ -16,6 +16,7 @@ import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.User;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by AlanJ on 2018-03-22.
@@ -46,7 +47,7 @@ public class NotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        User currentUser = CurrentUserSingleton.getUser();
+        currentUser = CurrentUserSingleton.getUser();
         while(true) {
             //  put to sleep to make sure the android device does not donote
             //  all of its resources here
@@ -55,42 +56,61 @@ public class NotificationService extends IntentService {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            prevTaskList = currentUser.getMyTaskList();
+            for (Task task : prevTaskList){
+                ElasticsearchController.GetTask ec = new ElasticsearchController.GetTask();
+                ec.execute(task.getId());
+                try {
+                    Task t = ec.get();
+                    if(this.haveNewBids(t, task)) {
+                        NotificationContent content = new NotificationContent(getApplicationContext(), NotificationController.ANDROID_CHANNEL_ID,
+                                this.TITLE, this.description);
+                        NotificationController controller = new NotificationController(content);
+                        controller.alert(1);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
 
-            for (Task task : currentUser.getMyTaskList()){
-                currentTaskList.addTask(task);
-            }
-
-            if(this.haveNewBids()) {
-                NotificationContent content = new NotificationContent(getApplicationContext(), NotificationController.ANDROID_CHANNEL_ID,
-                        this.TITLE, this.description);
-                NotificationController controller = new NotificationController(content);
-                controller.alert(1);
             }
         }
     }
 
-    private boolean haveNewBids() {
-        prevTaskList = user.getMyTaskList();
-        for (Task task : currentTaskList){
-            prevBidList = prevTaskList.getTaskAtIndex(currentTaskList.getIndexOfTask(task)).getBidList();
-            if (task.getBidList().equals(prevBidList) != true){
-                String taskTitle = task.getTaskTitle();
-                if (task.getBidList().getSize() == prevTaskList.getTaskAtIndex(currentTaskList.getIndexOfTask(task)).getBidList().getSize()){
-                    for (Bid bid : task.getBidList()){
-                        if (bid != prevBidList.getBid(task.getBidList().getBidIndex(bid))){
-                            newBidder = bid.getBidUsername();
-                            newBidAmount = String.valueOf(bid.getBidAmount());
-                        }
-                    }
+    private boolean haveNewBids(Task t1, Task t0) {
+        Boolean match;
+        for (Bid b0 : t0.getBidList()) {
+            match = false;
+            for (Bid b1 : t1.getBidList()) {
+                if (b0.equals(b1)) {
+                    match = true;
                 }
-                else {
-                    newBidder = task.getBidList().getBid(task.getBidList().getSize() - 1).getBidUsername();
-                    newBidAmount = String.valueOf(task.getBidList().getBid(task.getBidList().getSize() - 1).getBidAmount());
-                }
-                description = String.format("%s offers you %s for %s.", newBidder, newBidAmount, taskTitle);
+            }
+            if (!match) {
+                //description = String.format("%s offers you %s for %s.", ???, ???, t1.getTaskTitle());
+                description = "You have a new bid";         // TODO change to ^^ when have info
                 return true;
             }
         }
+//            prevBidList = prevTaskList.getTaskAtIndex(currentTaskList.getIndexOfTask(task)).getBidList();
+//            if (task.getBidList().equals(prevBidList) != true){
+//                String taskTitle = task.getTaskTitle();
+//                if (task.getBidList().getSize() == prevTaskList.getTaskAtIndex(currentTaskList.getIndexOfTask(task)).getBidList().getSize()){
+//                    for (Bid bid : task.getBidList()){
+//                        if (bid != prevBidList.getBid(task.getBidList().getBidIndex(bid))){
+//                            newBidder = bid.getBidUsername();
+//                            newBidAmount = String.valueOf(bid.getBidAmount());
+//                        }
+//                    }
+//                }
+//                else {
+//                    newBidder = task.getBidList().getBid(task.getBidList().getSize() - 1).getBidUsername();
+//                    newBidAmount = String.valueOf(task.getBidList().getBid(task.getBidList().getSize() - 1).getBidAmount());
+//                }
+//                description = String.format("%s offers you %s for %s.", newBidder, newBidAmount, taskTitle);
+//                return true;
+//            }
         return false;
     }
 }
