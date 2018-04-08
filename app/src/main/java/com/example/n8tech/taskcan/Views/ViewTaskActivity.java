@@ -221,7 +221,12 @@ public class ViewTaskActivity extends ActivityHeader{
         Log.i("testing", String.valueOf(ownerIndex));
 
         bidAmountText = (EditText) findViewById(R.id.task_view_activity_bid_amount);
-        newBidAmount = Double.parseDouble(bidAmountText.getText().toString());
+        try {
+            newBidAmount = Double.parseDouble(bidAmountText.getText().toString());
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Please enter a valid number", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         if(newBidAmount > task.getMaximumBid() && task.getMaximumBid()!= -1) {
             Toast.makeText(getApplicationContext(), "Your bid amount is greater than the" +
