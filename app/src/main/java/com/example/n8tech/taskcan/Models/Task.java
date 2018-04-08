@@ -48,6 +48,8 @@ public class Task {
     private double currentBid;
     private String category;
     private BidList bidList;
+    private BidList acceptedBidList;
+    private Bid acceptedBid = null;
     private LatLng location;            // TODO change to geolocation variable
     private ArrayList<String> imageListId;
     private boolean taskCompleted;
@@ -199,8 +201,8 @@ public class Task {
     public void setStatus(String status) {
         if(this.status.intern() == "Done"){
             this.status = status.intern() == "Done" ? "Done" : this.status;
-        }
-        else{
+        } else {
+
             this.status = status;
         }
     }
@@ -345,4 +347,28 @@ public class Task {
         }
     }
 
+    public BidList getAcceptedBidList() {
+        return acceptedBidList;
+    }
+
+    public void setAcceptedBidList(BidList acceptedBidList) {
+        this.acceptedBidList = acceptedBidList;
+    }
+
+    public Bid getAcceptedBid() {
+        return acceptedBid;
+    }
+
+    public void setAcceptedBid(Bid acceptedBid) {
+        this.acceptedBid = acceptedBid;
+    }
+
+    public void clearAssignedProvider(){
+        this.acceptedBid = null;
+        this.providerId = null;
+        this.providerUsername = null;
+        this.acceptedBidList = null;
+
+        // TODO notify other users here?
+    }
 }

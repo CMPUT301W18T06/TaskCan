@@ -5,8 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
+import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.Controller.TaskBidsViewRecyclerAdapter;
 import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.BidList;
@@ -39,32 +41,44 @@ public class ViewBidsActivity extends ActivityHeader {
 
         recyclerView = findViewById(R.id.ViewBidsRecyclerView);
 
+
         for (Bid bid : task.getBidList()){
             this.bidList.addBid(bid);
         }
     }
 
 
-
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         recyclerView.setHasFixedSize(true);
+
+        ElasticsearchController.UpdateTask updateTask
+                = new ElasticsearchController.UpdateTask();
+        updateTask.execute(this.task);
+
+        ElasticsearchController.UpdateUser updateUser
+                = new ElasticsearchController.UpdateUser();
+        updateUser.execute(currentUser);
+
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
+        final TaskBidsViewRecyclerAdapter mAdapter;
 
-        final TaskBidsViewRecyclerAdapter mAdapter = new TaskBidsViewRecyclerAdapter(bidList);
+        if (task.getAcceptedBid() == null){
+            // if no bid accepted yet, display all bids history
+            mAdapter = new TaskBidsViewRecyclerAdapter(bidList, task);
+
+        } else {
+            // if accepted bid, set list to display only the accepted one.
+            Log.i("**accepted bid username", task.getAcceptedBid().getBidUsername());
+            mAdapter = new TaskBidsViewRecyclerAdapter(task.getAcceptedBidList(), task);
+        }
         recyclerView.setAdapter(mAdapter);
     }
 
-    /*
-    public void requesterUsernameFromViewBidsButtonClick(View v){
-        Intent intent = new Intent(getApplicationContext(), ViewOtherUserProfileActivity.class);
-        intent.putExtra("userId", task.getOwnerId());
-        v.getContext().startActivity(intent);
-    }*/
 
     @Override
     protected int getLayoutResourceId() {
