@@ -11,7 +11,13 @@ import android.widget.Toast;
 import com.example.n8tech.taskcan.R;
 import com.example.n8tech.taskcan.Services.SyncService;
 
-// https://www.mkyong.com/android/android-progress-bar-example/
+
+/**
+ * SyncDialogActivity handles offline synchronization for when user adds/edits tasks with
+ * no network connectivity.
+ *
+ * https://www.mkyong.com/android/android-progress-bar-example/
+ */
 public class SyncDialogActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Handler handler;

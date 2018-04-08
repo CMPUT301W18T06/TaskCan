@@ -13,9 +13,16 @@ import com.example.n8tech.taskcan.Controller.SlideShowAdapter;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Image;
 import com.example.n8tech.taskcan.Models.ImageList;
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 
 import me.relex.circleindicator.CircleIndicator;
+
+/**
+ * EditImageSlideActivity displays an image slider for editing task images.
+ *
+ * @author CMPUT301W18T06
+ */
 
 public class EditImageSlideActivity extends AppCompatActivity {
     public final static String IMAGES_KEY = "EditImageSlideActivity_IMAGESKEY";
@@ -26,6 +33,7 @@ public class EditImageSlideActivity extends AppCompatActivity {
     private SlideShowAdapter adapter;
     private String result_code;
     private Integer currentPage = 0;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,7 @@ public class EditImageSlideActivity extends AppCompatActivity {
         //
         //this.slides.setImages(getIntent().getExtras().<Image>getParcelableArrayList(IMAGES_KEY));
         this.slides = CurrentUserSingleton.getImageList();
+        this.user = CurrentUserSingleton.getUser();
 
         this.result_code = getIntent().getExtras().getString(RESULT_KEY);
         this.initializeSlideShow();
@@ -59,11 +68,22 @@ public class EditImageSlideActivity extends AppCompatActivity {
 
     // TODO always deletes the first image
     public void deleteButtonClick(View view) {
+        Boolean removed = false;
         String id;
-        Log.i("IMAGE SLIDE ACTIVITY --", String.valueOf(mPager.getCurrentItem()));
         if ((id = this.slides.getImage(mPager.getCurrentItem()).getId()) != null) {
             ElasticsearchController.DeleteImage ec = new ElasticsearchController.DeleteImage();
             ec.execute(id);
+        }
+        for (int i = 0; i < user.getMyTaskList().getSize(); i++) {
+            for (int j = 0; j < user.getMyTaskList().getTaskAtIndex(i).getImageListId().size(); j++) {
+                if (user.getMyTaskList().getTaskAtIndex(i).getImageListId().get(j).equals(id)) {
+                    user.getMyTaskList().getTaskAtIndex(i).getImageListId().remove(j);
+                    break;
+                }
+            }
+            if (removed) {
+                break;
+            }
         }
         this.slides.removeImage(mPager.getCurrentItem());
         this.adapter.notifyDataSetChanged();
