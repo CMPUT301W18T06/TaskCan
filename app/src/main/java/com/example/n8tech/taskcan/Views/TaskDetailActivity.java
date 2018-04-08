@@ -89,6 +89,7 @@ public class TaskDetailActivity extends ActivityHeader {
     protected void onResume() {
         super.onResume();
         findByIdsAndSetTextFields();
+        this.currentTaskIndex = this.currentUser.getMyTaskList().getIndexOfTask(task);
     }
 
     public void findByIdsAndSetTextFields() {
@@ -218,13 +219,14 @@ public class TaskDetailActivity extends ActivityHeader {
 
     public void editButtonClick(View view){
         Intent intent = new Intent(view.getContext(), EditTaskActivity.class);
-        intent.putExtra("taskIndex", currentTaskIndex);
+        intent.putExtra("taskIndex", this.currentTaskIndex);
         view.getContext().startActivity(intent);
     }
 
     public void viewBidsButtonClick(View v){
         Intent intent = new Intent(getApplicationContext(), ViewBidsActivity.class);
-        intent.putExtra("taskIndex", currentTaskIndex);
+        Log.i("Testing", String.valueOf(this.currentTaskIndex));
+        intent.putExtra("taskIndex", this.currentTaskIndex);
         startActivity(intent);
     }
 
