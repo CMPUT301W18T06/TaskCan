@@ -37,6 +37,7 @@ public class User {
     private String phoneNumber;             //7 numbers
     private TaskList myTaskBids;
     private TaskList myTasks;
+    private Integer editCount;
 
     @JestId
     private String id;
@@ -141,6 +142,10 @@ public class User {
         //if (phoneNumber.length() == 10) this.phoneNumber = phoneNumber;
         //else throw new IllegalArgumentException();
     }
+
+    public Integer getEditCount() { return this.editCount; }
+
+    public void setEditCount(Integer editCount) { this.editCount = editCount; }
 
     /** @param task task the user has made a bid on */
     public void addBidTask(Task task) { this.myTaskBids.addTask(task); }

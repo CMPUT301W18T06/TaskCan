@@ -1,5 +1,7 @@
 package com.example.n8tech.taskcan.Models;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -52,6 +54,7 @@ public class TaskList implements Iterable<Task> {
     {
         for(Task myTask : this.taskList) {
             if(myTask.getId().equals(task.getId())) {
+                Log.i("Testing", "match id");
                 return this.taskList.indexOf(myTask);
             }
         }

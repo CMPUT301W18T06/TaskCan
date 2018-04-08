@@ -175,7 +175,7 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                 bidList.clearAcceptedBid();
                 bidList = task.getBidList();
                 task.clearAssignedProvider();
-                task.updateCurrentBid();
+                //task.updateCurrentBid();
 
                 if (task.getBidList().getSize() > 0 ) {
                     task.setStatus("Bidded");
