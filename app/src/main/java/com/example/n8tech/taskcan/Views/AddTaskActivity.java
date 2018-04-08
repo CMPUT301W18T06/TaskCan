@@ -318,6 +318,7 @@ public class AddTaskActivity extends ActivityHeader {
         if (resultCode == RESULT_OK) {
             if (requestCode == this.CAMERA_ADD_IMAGE || requestCode == this.GALLERY_ADD_IMAGE) {
                 // get image
+                Image image;
                 Uri selectedImage = returnedIntent.getData();
                 InputStream imageStream = null;
                 try {
@@ -326,31 +327,35 @@ public class AddTaskActivity extends ActivityHeader {
                     e.printStackTrace();
                 }
                 Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
-                Image image = new Image(bitmap);
                 // check img size
                 if (this.sizeOf(bitmap) < R.integer.IMAGE_MAX_BYTE_SIZE) {
                     // store
+                    image = new Image(bitmap);
+                    Log.i("ImageSize", String.valueOf(this.sizeOf(bitmap)));
                     imageList.addImage(image);
 
                     Toast.makeText(AddTaskActivity.this, "Image added successfully!",
                             Toast.LENGTH_LONG).show();
                 }
                 else {
-                    int quality = 95;
+                    int quality = 5;
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    byte[] bitmapdata;
                     while (quality > 0){
                         bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bos);
-                        byte[] bitmapdata = bos.toByteArray();
-                        Log.i("ImageSize", String.valueOf(bitmapdata));
-                        if (new BigInteger(bitmapdata).intValue() < 65536){
+                        bitmapdata = bos.toByteArray();
+                        Log.i("ImageSizeInLoop", String.valueOf(new BigInteger(bitmapdata).intValue()));
+                        if (new BigInteger(bitmapdata).intValue() < R.integer.IMAGE_MAX_BYTE_SIZE){
+                            Log.i("ImageSizeInLoop", String.valueOf(new BigInteger(bitmapdata).intValue()));
                             image = new Image(bitmap);
+                            imageList.addImage(image);
                             break;
                         }
                         quality = quality - 5;
                     }
-                    imageList.addImage(image);
                     Toast.makeText(AddTaskActivity.this, "Image size too large! (<65536bytes)",
                             Toast.LENGTH_LONG).show();
+
                 }
             }
             else if (requestCode == this.PLACE_PICKER_REQUEST) {
