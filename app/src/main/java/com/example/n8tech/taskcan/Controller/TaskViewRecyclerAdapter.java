@@ -106,6 +106,14 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
             }
             currentBidText = String.format(Locale.CANADA,"$%.2f", currentTask.getCurrentBid());
         }
+
+        // tests if this is in the assigned screen
+        if (currentTask.getAcceptedBid() != null){
+            // Display the accepted bidder's username
+            holder.taskBidderName.setText(currentTask.getAcceptedBid().getBidUsername());
+            currentBidText = String.format(Locale.CANADA,"$%.2f", currentTask.getAcceptedBid().getBidAmount());
+        }
+
         holder.taskBid.setText(currentBidText);
 
         try {
