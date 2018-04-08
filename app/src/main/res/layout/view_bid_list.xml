@@ -26,7 +26,7 @@
 
     <Button
         android:id="@+id/bid_list_user"
-        android:layout_width="119dp"
+        android:layout_width="135dp"
         android:layout_height="31dp"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="8dp"
@@ -45,12 +45,12 @@
     <Button
         android:id="@+id/accept_button"
         android:layout_width="81dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/gradient"
+        android:background="#0D5A0A"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:text="Accept"
@@ -63,12 +63,12 @@
     <Button
         android:id="@+id/decline_button"
         android:layout_width="81dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="8dp"
-        android:background="@drawable/gradient"
+        android:background="#AD0A0A"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:text="@string/view_bids_decline_button"
@@ -81,19 +81,20 @@
     <Button
         android:id="@+id/cancel_button"
         android:layout_width="81dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/gradient"
+        android:layout_marginEnd="4dp"
+
+        android:background="#AD0A0A"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:text="Cancel"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
