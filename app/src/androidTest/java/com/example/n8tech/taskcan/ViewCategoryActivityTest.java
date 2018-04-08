@@ -36,6 +36,7 @@ public class ViewCategoryActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testViewCategoriesPage(){
+        solo.assertCurrentActivity("Wrong activity", ViewCategoryActivity.class);
         // TODO write test cases
         // categories to be implemented
     }

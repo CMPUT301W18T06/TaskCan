@@ -16,7 +16,6 @@ import com.robotium.solo.Solo;
  * @see com.example.n8tech.taskcan.Views.ViewBidsActivity
  * @author CMPUT301W18T06
  */
-// TODO Fix solo errors
     // bids not implemented yet
 public class ViewBidsActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
@@ -38,6 +37,8 @@ public class ViewBidsActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testViewBidsPage(){
+
+        solo.assertCurrentActivity("Wrong activity", ViewBidsActivity.class);
         // TODO write test cases
     }
 

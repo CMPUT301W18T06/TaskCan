@@ -259,7 +259,15 @@ public class EditTaskActivity extends ActivityHeader  {
         }
 
         task.setLocation(this.location);
-
+        try {
+            task.setImageListId(this.imageList);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            Toast.makeText(EditTaskActivity.this, "EcecutionException: Failure to set images", Toast.LENGTH_LONG).show();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Toast.makeText(EditTaskActivity.this, "InterruptedException: Failure to set images", Toast.LENGTH_LONG).show();
+        }
         Log.i("*** name", task.getTaskTitle());
         Log.i("*** desc", task.getDescription());
         Log.i("*** maximum bid",Double.toString(task.getMaximumBid()));

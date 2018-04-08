@@ -15,7 +15,7 @@ import com.robotium.solo.Solo;
  * @see com.example.n8tech.taskcan.Views.MyTaskActivity
  * @author CMPUT301W18T06
  */
-// TODO Fix solo errors
+
 public class MyTaskActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
 

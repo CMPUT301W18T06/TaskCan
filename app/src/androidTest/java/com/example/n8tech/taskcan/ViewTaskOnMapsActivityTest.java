@@ -36,6 +36,8 @@ public class ViewTaskOnMapsActivityTest extends ActivityInstrumentationTestCase2
     }
 
     public void testViewTaskOnMapsPage(){
+
+        solo.assertCurrentActivity("Wrong activity", ViewTaskOnMapsActivity.class);
         // TODO write test cases
         // geolocation not yet implemented
     }
