@@ -9,6 +9,8 @@ import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.Controller.NotificationController;
 import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.BidList;
+import com.example.n8tech.taskcan.Models.BiddedTask;
+import com.example.n8tech.taskcan.Models.BiddedTaskList;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.NotificationContent;
 import com.example.n8tech.taskcan.Models.Task;
@@ -27,8 +29,12 @@ public class NotificationService extends IntentService {
     private boolean newNotif = false;
     private User currentUser;
     private User user = CurrentUserSingleton.getUser();
-    private TaskList prevTaskList = new TaskList();
+
+    private TaskList prevTaskList;
     private TaskList currentTaskList = new TaskList();
+    private BiddedTaskList prevBiddedTaskList;
+    private BiddedTaskList currentBiddedTaskList = new BiddedTaskList();
+
     private BidList prevBidList;
 
 
@@ -58,11 +64,23 @@ public class NotificationService extends IntentService {
                 e.printStackTrace();
             }
 
+            ElasticsearchController.GetUser getUser = new ElasticsearchController.GetUser();
+            getUser.execute(user.getId());
+            try {
+                currentUser = getUser.get();
+                Log.i("Got user", currentUser.getUsername());
+            } catch (Exception e) {
+                Log.i("Error", String.valueOf(e));
+            }
+
             for (Task task : currentUser.getMyTaskList()){
                 currentTaskList.addTask(task);
             }
-
+            for (BiddedTask task: currentUser.getBidTaskList()){
+                currentBiddedTaskList.addBiddedTask(task);
+            }
             prevTaskList = user.getMyTaskList();
+            prevBiddedTaskList = user.getBidTaskList();
 
             checkUpdates();
 
@@ -71,6 +89,7 @@ public class NotificationService extends IntentService {
                         this.TITLE, this.description);
                 NotificationController controller = new NotificationController(content);
                 controller.alert(1);
+                newNotif = false;
             }
         }
     }
@@ -97,8 +116,10 @@ public class NotificationService extends IntentService {
     }
 
 
-    private boolean haveUpdatedBids() {
+    private void haveUpdatedBids() {
         for (Task task : currentTaskList) {
+            int i = currentTaskList.getIndexOfTask(task);
+            prevBidList = prevTaskList.getTaskAtIndex(i).getBidList();
             if ((task.getBidList().getSize() == prevBidList.getSize()) && (task.getBidList().equals(prevBidList) != true)) {
                 for (Bid bid : task.getBidList()) {
                     if (bid != prevBidList.getBid(task.getBidList().getBidIndex(bid))) {
@@ -114,9 +135,18 @@ public class NotificationService extends IntentService {
         }
     }
 
-
-    private boolean taskStatusChanged() {
-        for Ta
+    private void taskStatusChanged() {
+        for (BiddedTask task : currentBiddedTaskList) {
+            int i = currentBiddedTaskList.getIndexOfBiddedTask(task);
+            if (task.getStatus().equals(prevBiddedTaskList.getBiddedTaskAtIndex(i).getStatus()) != true){
+                if (prevBiddedTaskList.getBiddedTaskAtIndex(i).getStatus() == "Assigned" && task.getStatus() == "Bidded"){
+                    String taskTitle = task.getTaskTitle();
+                    TITLE = "Task Not Completed";
+                    description = String.format("Assigned task '%s' has not been completed and is available for bidding.", taskTitle);
+                    newNotif = true;
+                }
+            }
+        }
 
     }
 }
