@@ -52,10 +52,10 @@ public class TaskList implements Iterable<Task> {
      */
     public int getIndexOfTask(Task task)
     {
-        for(Task myTask : this.taskList) {
-            if(myTask.getId().equals(task.getId())) {
+        for(int i = 0; i < this.taskList.size(); i++) {
+            if(this.taskList.get(i).getId().equals(task.getId())) {
                 Log.i("Testing", "match id");
-                return this.taskList.indexOf(myTask);
+                return i;
             }
         }
         return -1;

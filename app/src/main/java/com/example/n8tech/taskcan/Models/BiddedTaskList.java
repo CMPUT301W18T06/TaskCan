@@ -49,20 +49,19 @@ public class BiddedTaskList implements Iterable<BiddedTask> {
      */
     public int getIndexOfBiddedTask(BiddedTask biddedTask)
     {
-        for(BiddedTask myTask : this.biddedTaskList) {
-            if(myTask.getTaskId().equals(biddedTask.getTaskId())) {
+        for(int i = 0; i < this.biddedTaskList.size(); i++) {
+            if(this.biddedTaskList.get(i).getTaskId().equals(biddedTask.getTaskId())) {
                 Log.i("Testing", "match id");
-                return this.biddedTaskList.indexOf(myTask);
+                return i;
             }
         }
         return -1;
     }
 
     public int getIndexOfBiddedTask(Task task) {
-
-        for(BiddedTask myTask : this.biddedTaskList) {
-            if(myTask.getTaskId().equals(task.getId())) {
-                return this.biddedTaskList.indexOf(myTask);
+        for(int i = 0; i < this.biddedTaskList.size(); i++) {
+            if(this.biddedTaskList.get(i).getTaskId().equals(task.getId())) {
+                return i;
             }
         }
         return -1;
