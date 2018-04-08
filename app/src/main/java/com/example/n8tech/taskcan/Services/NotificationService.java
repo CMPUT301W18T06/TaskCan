@@ -43,7 +43,7 @@ public class NotificationService extends IntentService {
             //  put to sleep to make sure the android device does not donote
             //  all of its resources here
             try {
-                Thread.sleep(300000);
+                Thread.sleep(30000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
