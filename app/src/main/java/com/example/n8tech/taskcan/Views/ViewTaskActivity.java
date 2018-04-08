@@ -230,6 +230,8 @@ public class ViewTaskActivity extends ActivityHeader{
         else{
             bid.setBidAmount(newBidAmount);
         }
+
+        //Get everything and change everything and then at the end use ES to update
         bid.setBidId(currentUser.getId());
         bid.setBidUsername(currentUser.getUsername());
         taskBidList = task.getBidList();
@@ -257,6 +259,7 @@ public class ViewTaskActivity extends ActivityHeader{
                 = new ElasticsearchController.UpdateTask();
         updateTask.execute(this.task);
 
+        //ToDo Check if it exists in user before adding and replace if it does
         currentUser.addBidTask(task);
 
         ElasticsearchController.UpdateUser updateUser
