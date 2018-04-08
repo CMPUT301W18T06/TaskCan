@@ -142,7 +142,7 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                 task.setAcceptedBidList(acceptedBidList);
 
                 // remove the accepted bid from task's bid list
-                task.getBidList().removeBid(task.getAcceptedBid());
+                task.getBidList().removeBid(task.getAcceptedBid());       // dont delete the accepted bid from bid list
                 notifyDataSetChanged();
 
                 holder.acceptButton.setVisibility(View.INVISIBLE);
