@@ -223,7 +223,10 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                 ElasticsearchController.UpdateUser updateUser
                         = new ElasticsearchController.UpdateUser();
                 updateUser.execute(userWithDeletedBid);
-                updateUser.execute(currentUser);
+
+                ElasticsearchController.UpdateUser updateCurrentUser
+                        = new ElasticsearchController.UpdateUser();
+                updateCurrentUser.execute(currentUser);
 
                 notifyDataSetChanged();
             }
@@ -249,11 +252,13 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                     task.setStatus("Requested");
                 }
 
-                notifyDataSetChanged();
 
                 holder.acceptButton.setVisibility(View.VISIBLE);
                 holder.declineButton.setVisibility(View.VISIBLE);
                 holder.cancelButton.setVisibility(View.INVISIBLE);
+
+                notifyDataSetChanged();
+
 
                 // TODO save task in elastic search, and save user?
                 // load every user thats bid in the bid list, and add the task to their my bid list
