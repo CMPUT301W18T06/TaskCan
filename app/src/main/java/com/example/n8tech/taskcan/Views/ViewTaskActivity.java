@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -29,7 +30,9 @@ import java.util.concurrent.ExecutionException;
 import static java.lang.Math.round;
 
 /**
- * Task screen opened when selecting task of another user
+ * ViewTaskActivity shows the task details screen opened when selecting the task of another user.
+ *
+ * @author CMPUT301W18T06
  */
 
 public class ViewTaskActivity extends ActivityHeader{
@@ -45,6 +48,7 @@ public class ViewTaskActivity extends ActivityHeader{
     private TextView taskCurrentBidText;
     private TextView taskMaxBidText;
     private EditText bidAmountText;
+    private ImageView taskThumbnail;
     private int currentTaskIndex;
     private FileIO fileIO = new FileIO();
 
@@ -77,6 +81,7 @@ public class ViewTaskActivity extends ActivityHeader{
         taskOwnerUsernameButton = (Button) findViewById(R.id.task_view_activity_requester_username_button);
         taskCurrentBidText = (TextView) findViewById(R.id.task_view_activity_current_bid_text);
         taskMaxBidText = (TextView) findViewById(R.id.task_view_activity_max_bid_text);
+        taskThumbnail = findViewById(R.id.task_view_activity_image_thumbnail);
 
 
         // set based on current task
@@ -103,6 +108,12 @@ public class ViewTaskActivity extends ActivityHeader{
             taskMaxBidText.setText("None");
         } else {
             taskMaxBidText.setText(String.format(Locale.CANADA,"$%.2f", task.getMaximumBid()));
+        }
+
+        try {
+            taskThumbnail.setImageBitmap(task.getImageList().getImage(0).getImageBitmap());
+        } catch (Exception e){
+            Log.i("ThumbnailError", "Could not load image");
         }
     }
 

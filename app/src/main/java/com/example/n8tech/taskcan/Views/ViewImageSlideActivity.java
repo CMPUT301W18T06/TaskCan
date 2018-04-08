@@ -11,6 +11,10 @@ import com.example.n8tech.taskcan.R;
 
 import me.relex.circleindicator.CircleIndicator;
 
+
+/**
+ * ViewImagesSlideActivity displays an image slider for showing task images.
+ */
 public class ViewImageSlideActivity extends AppCompatActivity {
     private ImageList slides;
     private ViewPager mPager;

@@ -78,8 +78,6 @@ public class ViewOtherUserProfileActivity extends ActivityHeader {
         }
 
 
-        //this.user = CurrentUserSingleton.getUser();          // TODO change to using elastic search to get the requester's profile info
-
         if(user.getEmail() != null) {
             Log.i("Testing", user.getEmail());
         }

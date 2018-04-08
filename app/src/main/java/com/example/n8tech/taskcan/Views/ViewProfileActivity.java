@@ -29,7 +29,7 @@ import com.example.n8tech.taskcan.R;
 import com.google.gson.Gson;
 
 /**
- * ViewProfileActivity displays the profile details of a user.
+ * ViewProfileActivity displays the profile details of the user.
  *
  * @author CMPUT301W18T06
  */
