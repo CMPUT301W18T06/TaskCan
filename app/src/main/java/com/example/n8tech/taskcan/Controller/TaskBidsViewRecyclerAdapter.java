@@ -149,8 +149,6 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                 holder.declineButton.setVisibility(View.INVISIBLE);
                 holder.cancelButton.setVisibility(View.VISIBLE);
 
-                // TODO make accepted & decline bid invisible, make a cancel button visible
-
             }
 
         });
@@ -175,7 +173,7 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                 bidList.clearAcceptedBid();
                 bidList = task.getBidList();
                 task.clearAssignedProvider();
-                //task.updateCurrentBid();
+                //task.updateCurrentBid();          // TODO update the lowest bid if the previously one accepted wasnt the lowest one
 
                 if (task.getBidList().getSize() > 0 ) {
                     task.setStatus("Bidded");
@@ -184,6 +182,11 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                 }
 
                 notifyDataSetChanged();
+
+                holder.acceptButton.setVisibility(View.VISIBLE);
+                holder.declineButton.setVisibility(View.VISIBLE);
+                holder.cancelButton.setVisibility(View.INVISIBLE);
+
             }
         }));
 

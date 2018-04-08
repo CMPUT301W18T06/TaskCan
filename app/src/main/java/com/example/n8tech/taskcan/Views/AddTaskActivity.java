@@ -132,16 +132,14 @@ public class AddTaskActivity extends ActivityHeader {
     }
 
 
-    @Override
-    protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
-        if (!this.getClass().equals(nextClass)) {
-            Intent i = new Intent(AddTaskActivity.this, nextClass);
-            startActivity(i);
-        }
-    }
 
     // https://stackoverflow.com/questions/4671428/how-can-i-add-a-third-button-to-an-android-alert-dialog
     public void addPhotosButtonClick(View v) {
+        if (this.imageList.getSize() == 10){
+            Toast.makeText(AddTaskActivity.this, "Maximum of 10 photos reached for this task", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         String title = "Add Photo";
         String message = "Pick from gallery or take new photo?";
         String positive = "Gallery", neutral = "Cancel", negative = "Camera";
@@ -162,13 +160,7 @@ public class AddTaskActivity extends ActivityHeader {
                 dialog.cancel();
             }
         });
-//        builder.setNegativeButton(negative, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                startActivityForResult(takePicture, 1);
-//            }
-//        });
+
         builder.create().show();
     }
 
@@ -198,7 +190,6 @@ public class AddTaskActivity extends ActivityHeader {
         String taskStatus = "Requested";
         boolean valid = Boolean.TRUE;
 
-
         // get fields and do error checking
         newTask = new Task();
 
@@ -210,7 +201,6 @@ public class AddTaskActivity extends ActivityHeader {
             Toast.makeText(AddTaskActivity.this, "Name must be between 0 and 30 characters", Toast.LENGTH_LONG).show();
             valid = Boolean.FALSE;
         }
-
 
         taskDescription = taskDescriptionEditText.getText().toString();
         newTask.setDescription(taskDescription);
@@ -231,8 +221,6 @@ public class AddTaskActivity extends ActivityHeader {
             Toast.makeText(AddTaskActivity.this, "Please enter valid CAD", Toast.LENGTH_LONG).show();
             valid = Boolean.FALSE;
         }
-
-
 
         // TODO image saving testing, @Q doing ES stuff
         newTask.setLocation(this.location);
@@ -393,6 +381,15 @@ public class AddTaskActivity extends ActivityHeader {
             // send image list by putting it in current user singleton
             CurrentUserSingleton.setImageList(imageList);
             startActivityForResult(i, EDIT_IMAGES_REQUEST_CODE);
+        }
+    }
+
+
+    @Override
+    protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
+        if (!this.getClass().equals(nextClass)) {
+            Intent i = new Intent(AddTaskActivity.this, nextClass);
+            startActivity(i);
         }
     }
 }

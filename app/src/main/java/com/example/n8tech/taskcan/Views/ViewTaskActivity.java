@@ -279,8 +279,11 @@ public class ViewTaskActivity extends ActivityHeader{
                 = new ElasticsearchController.UpdateUser();
         updateOwner.execute(taskOwner);
 
-        Intent seeBids = new Intent(getApplicationContext(), MyBidActivity.class);
-        startActivity(seeBids);
+        //Intent seeBids = new Intent(getApplicationContext(), MyBidActivity.class);
+        //startActivity(seeBids);
+        Toast.makeText(getApplicationContext(), "Bid Made!", Toast.LENGTH_LONG).show();
+        finish();
+
     }
 
 

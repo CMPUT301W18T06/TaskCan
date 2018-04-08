@@ -177,6 +177,10 @@ public class EditTaskActivity extends ActivityHeader  {
 
     // https://stackoverflow.com/questions/4671428/how-can-i-add-a-third-button-to-an-android-alert-dialog
     public void addPhotosButtonClick(View v) {
+        if (this.imageList.getSize() == 10){
+            Toast.makeText(EditTaskActivity.this, "Maximum of 10 photos reached for this task", Toast.LENGTH_LONG).show();
+            return;
+        }
         String title = "Add Photo";
         String message = "Pick from gallery or take new photo?";
         String positive = "Gallery", neutral = "Cancel", negative = "Camera";
