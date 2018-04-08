@@ -6,31 +6,39 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Created by m_qui on 4/8/2018.
+ * BiddedTaskList represents a list of tasks in which the current user has placed a bid.
+ *
+ * @see BiddedTask
+ * @author CMPUT301W18T06
  */
 
 public class BiddedTaskList implements Iterable<BiddedTask> {
     private ArrayList<BiddedTask> biddedTaskList;
 
-    /** Creates a new instance of TaskList, creating a new ArrayList of Tasks. */
+    /** Creates a new instance of BiddedTaskList, creating a new ArrayList of BiddedTasks. */
     public BiddedTaskList() {
         this.biddedTaskList = new ArrayList<BiddedTask>();
     }
 
-    /** @param biddedTask the task to be added */
+    /** @param biddedTask the bidded task to be added */
     public void addBiddedTask(BiddedTask biddedTask) {
         this.biddedTaskList.add(biddedTask);
     }
 
-    /** @param biddedTask the task to be removed */
+    /** @param biddedTask the bidded task to be removed */
     public void removeBiddedTask(BiddedTask biddedTask) {
         for(BiddedTask myTask : this.biddedTaskList) {
             if(biddedTask.getTaskId().equals(myTask.getTaskId())) {
                 this.biddedTaskList.remove(myTask);
+                break;
             }
         }
     }
 
+    /**
+     * @param i integer representing list index to be set
+     * @param t Bidded Task to be set in that index
+     */
     public void setBiddedTaskList(int i, BiddedTask t) {
         this.biddedTaskList.set(i, t);
     }
@@ -44,8 +52,8 @@ public class BiddedTaskList implements Iterable<BiddedTask> {
     }
 
     /**
-     * @param biddedTask task in the task list
-     * @return integer representing the index of the task in the list, -1 if task is not in the list
+     * @param biddedTask bidded task in the bidded task list
+     * @return integer representing the index of the bidded task in the list, -1 if bidded task is not in the list
      */
     public int getIndexOfBiddedTask(BiddedTask biddedTask)
     {
@@ -58,6 +66,10 @@ public class BiddedTaskList implements Iterable<BiddedTask> {
         return -1;
     }
 
+    /**
+     * @param task task in the bidded task list
+     * @return integer representing the index of the task in the list, -1 if task is not in the list
+     */
     public int getIndexOfBiddedTask(Task task) {
         for(int i = 0; i < this.biddedTaskList.size(); i++) {
             if(this.biddedTaskList.get(i).getTaskId().equals(task.getId())) {
@@ -76,23 +88,23 @@ public class BiddedTaskList implements Iterable<BiddedTask> {
         this.biddedTaskList.set(index, biddedTask);
     }
 
-    /** @return size of task list */
+    /** @return size of bidded task list */
     public int getSize() {
         return this.biddedTaskList.size();
     }
 
-    /** @return task list as a string */
+    /** @return bidded task list as a string */
     public String toString() { return this.biddedTaskList.toString(); }
 
-    /** Creates a TaskList iterator. */
+    /** Creates a BiddedTaskList iterator. */
     public Iterator<BiddedTask> iterator() {
         return new TasksIterator();
     }
 
-    /** Clears the TaskList. */
+    /** Clears the BiddedTaskList. */
     public void clear() { this.biddedTaskList.clear(); }
 
-    /** Returns a copy of the current TaskList */
+    /** Returns a copy of the current BiddedTaskList */
     public BiddedTaskList copy() {
         BiddedTaskList newBiddedTaskList = new BiddedTaskList();
         for (BiddedTask biddedTask : biddedTaskList){
@@ -102,7 +114,7 @@ public class BiddedTaskList implements Iterable<BiddedTask> {
     }
 
     /**
-     * Iterator object over TaskList.
+     * Iterator object over BiddedTaskList.
      * @throws UnsupportedOperationException If remove() method is called.
      */
     //https://stackoverflow.com/questions/975383/how-can-i-use-the-java-for-each-loop-with-custom-classes

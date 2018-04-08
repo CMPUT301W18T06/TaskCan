@@ -18,6 +18,7 @@ package com.example.n8tech.taskcan;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.example.n8tech.taskcan.Models.BiddedTask;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Views.SignInActivity;
@@ -59,22 +60,27 @@ public class UserTest {
     public void testUserAddBidTask() {
         //Tests that it correctly updates its bid tasks
         User user1 = new User("Joe", "joe12345", "7355608", "joe@n8tech.com", "123-456-7890");
-        Task task1 = new Task();
-        Task task2 = new Task();
+        BiddedTask biddedTask1 = new BiddedTask();
+        BiddedTask biddedTask2 = new BiddedTask();
+        biddedTask1.setTaskTitle("Task 1");
+        biddedTask2.setTaskTitle("Task 2");
+        biddedTask1.setTaskId("1");
+        biddedTask2.setTaskId("2");
 
-        user1.addBidTask(task1);
-        user1.addBidTask(task2);
-        ArrayList<Task> bidTaskList = new ArrayList<>();
-        bidTaskList.add(task1);
-        bidTaskList.add(task2);
+        user1.addBidTask(biddedTask1);
+        user1.addBidTask(biddedTask2);
+        ArrayList<BiddedTask> bidTaskList = new ArrayList<>();
+        bidTaskList.add(biddedTask1);
+        bidTaskList.add(biddedTask2);
         for (int i = 0; i < bidTaskList.size(); i++){
-            assertEquals(user1.getBidTaskList().getTaskAtIndex(0), bidTaskList.get(0));
+            assertEquals(user1.getBidTaskList().getBiddedTaskAtIndex(i),  bidTaskList.get(i));
         }
 
-        user1.removeBidTask(task2);
+        user1.removeBidTask(biddedTask2);
         bidTaskList.remove(1);
         for (int i = 0; i < bidTaskList.size(); i++){
-            assertEquals(user1.getBidTaskList().getTaskAtIndex(i), bidTaskList.get(i));
+            assertEquals(user1.getBidTaskList().getSize(), bidTaskList.size());
+            assertEquals(user1.getBidTaskList().getBiddedTaskAtIndex(i), bidTaskList.get(i));
         }
     }
 
@@ -87,14 +93,19 @@ public class UserTest {
 
         user1.addTask(task1);
         user1.addTask(task2);
+        task1.setId("1");
+        task2.setId("2");
+
         ArrayList<Task> taskList = new ArrayList<Task>();
         taskList.add(task1);
         taskList.add(task2);
+
         for (int i = 0; i < taskList.size(); i++) {
             assertEquals(user1.getMyTaskList().getTaskAtIndex(i), taskList.get(i));
         }
-        user1.removeBidTask(task2);
         taskList.remove(1);
+        user1.removeTask(task2);
+
         for (int i = 0; i < taskList.size(); i++) {
             assertEquals(user1.getMyTaskList().getTaskAtIndex(i), taskList.get(i));
         }
