@@ -72,10 +72,11 @@ public class NotificationService extends IntentService {
     private boolean haveNewBids() {
         prevTaskList = user.getMyTaskList();
         for (Task task : currentTaskList){
-            prevBidList = prevTaskList.getTaskAtIndex(currentTaskList.getIndexOfTask(task)).getBidList();
+            int i = currentTaskList.getIndexOfTask(task);
+            prevBidList = prevTaskList.getTaskAtIndex(i).getBidList();
             if (task.getBidList().equals(prevBidList) != true){
                 String taskTitle = task.getTaskTitle();
-                if (task.getBidList().getSize() == prevTaskList.getTaskAtIndex(currentTaskList.getIndexOfTask(task)).getBidList().getSize()){
+                if (task.getBidList().getSize() == prevBidList.getSize()){
                     for (Bid bid : task.getBidList()){
                         if (bid != prevBidList.getBid(task.getBidList().getBidIndex(bid))){
                             newBidder = bid.getBidUsername();

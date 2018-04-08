@@ -166,6 +166,10 @@ public class User {
     /** @return list of tasks in which the user is a bidder */
     public TaskList getBidTaskList() { return this.myTaskBids; }
 
+    public void replaceTaskBid(int index, Task task){
+        this.myTaskBids.replaceAtIndex(index, task);
+    }
+
     /** @param task task the user has requested */
     public void addTask(Task task) { this.myTasks.addTask(task); }
 

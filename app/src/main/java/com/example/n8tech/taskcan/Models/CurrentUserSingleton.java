@@ -11,7 +11,7 @@ public class CurrentUserSingleton {
     private static CurrentUserSingleton instance = new CurrentUserSingleton();
     private static User currentUser = null;
     private static ImageList imageList = new ImageList();
-
+    private static Boolean forceSync = false;
 
     /** @return the CurrentUserSingleton associated with the user signed in. */
     public static CurrentUserSingleton getInstance() {
@@ -51,4 +51,13 @@ public class CurrentUserSingleton {
     public static void setImageList(ImageList imageList) {
         CurrentUserSingleton.imageList = imageList;
     }
+
+    public static void setForceSync(Boolean pressed) {
+        forceSync = pressed;
+    }
+
+    public static Boolean getForcedSync() {
+        return forceSync;
+    }
+
 }
