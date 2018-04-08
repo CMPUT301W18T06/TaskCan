@@ -311,6 +311,8 @@ public class EditTaskActivity extends ActivityHeader  {
                 updateUser.execute(currentUser);
 
 
+                CurrentUserSingleton.setUser(currentUser);
+
                 //Intent intent = new Intent(v.getContext(), TaskDetailActivity.class);
                 //intent.putExtra("taskIndex", currentTaskIndex);         // use this if going back to taskDetails
 

@@ -28,6 +28,7 @@ public class NotificationService extends IntentService {
     private String description;
     private boolean newNotif = false;
     private User currentUser;
+    private User onlineUser;
     private User user = CurrentUserSingleton.getUser();
 
     private TaskList prevTaskList;
@@ -54,7 +55,8 @@ public class NotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        User currentUser = CurrentUserSingleton.getUser(); // change to ES
+        this.currentUser = CurrentUserSingleton.getUser(); // change to ES
+        this.onlineUser = new User();
         while(true) {
             //  put to sleep to make sure the android device does not donote
             //  all of its resources here
@@ -67,71 +69,60 @@ public class NotificationService extends IntentService {
             ElasticsearchController.GetUser getUser = new ElasticsearchController.GetUser();
             getUser.execute(user.getId());
             try {
-                currentUser = getUser.get();
-                Log.i("Got user", currentUser.getUsername());
+                this.onlineUser = getUser.get();
+                Log.i("Got user", onlineUser.getUsername());
             } catch (Exception e) {
                 Log.i("Error", String.valueOf(e));
             }
 
-            for (Task task : currentUser.getMyTaskList()){
-                currentTaskList.addTask(task);
-            }
-            for (BiddedTask task: currentUser.getBidTaskList()){
-                currentBiddedTaskList.addBiddedTask(task);
-            }
-            prevTaskList = user.getMyTaskList();
-            prevBiddedTaskList = user.getBidTaskList();
-
-            checkUpdates();
-
-            if(newNotif) {
-                NotificationContent content = new NotificationContent(getApplicationContext(), NotificationController.ANDROID_CHANNEL_ID,
-                        this.TITLE, this.description);
-                NotificationController controller = new NotificationController(content);
-                controller.alert(1);
-                newNotif = false;
-            }
-        }
-    }
-
-    private void checkUpdates() {
-        haveNewBids();
-        haveUpdatedBids();
-        taskStatusChanged();
-    }
-
-    private void haveNewBids() {
-        for (Task task : currentTaskList) {
-            int i = currentTaskList.getIndexOfTask(task);
-            prevBidList = prevTaskList.getTaskAtIndex(i).getBidList();
-            if (task.getBidList().getSize() != prevBidList.getSize()) {
-                String taskTitle = task.getTaskTitle();
-                String newBidder = task.getBidList().getBid(task.getBidList().getSize() - 1).getBidUsername();
-                String newBidAmount = String.valueOf(task.getBidList().getBid(task.getBidList().getSize() - 1).getBidAmount());
-                TITLE = "New Bid";
-                description = String.format("%s offers you %s for %s.", newBidder, newBidAmount, taskTitle);
-                newNotif = true;
-            }
-        }
-    }
-
-
-    private void haveUpdatedBids() {
-        for (Task task : currentTaskList) {
-            int i = currentTaskList.getIndexOfTask(task);
-            prevBidList = prevTaskList.getTaskAtIndex(i).getBidList();
-            if ((task.getBidList().getSize() == prevBidList.getSize()) && (task.getBidList().equals(prevBidList) != true)) {
-                for (Bid bid : task.getBidList()) {
-                    if (bid != prevBidList.getBid(task.getBidList().getBidIndex(bid))) {
-                        String taskTitle = task.getTaskTitle();
-                        String newBidder = bid.getBidUsername();
-                        String newBidAmount = String.valueOf(bid.getBidAmount());
-                        TITLE = "New Bid";
-                        description = String.format("%s offers you %s for %s.", newBidder, newBidAmount, taskTitle);
-                        newNotif = true;
+            BidList onlineBidList;
+            BidList currentBidList;
+            BidList totalBidList = new BidList();
+            for (Task task : this.onlineUser.getMyTaskList()) {
+                int i = this.currentUser.getMyTaskList().getIndexOfTask(task);
+                onlineBidList = this.onlineUser.getMyTaskList().getTaskAtIndex(i).getBidList();
+                currentBidList = this.currentUser.getMyTaskList().getTaskAtIndex(i).getBidList();
+                for (Bid bid : onlineBidList) {
+                    Log.i("onlineBidlist", bid.getBidId());
+                    if (totalBidList.getBidIndex(bid) == -1) {
+                        totalBidList.addBid(bid);
+                    }
+                }
+                for (Bid bid : currentBidList) {
+                    Log.i("current", bid.getBidId());
+                    if (totalBidList.getBidIndex(bid) == -1) {
+                        totalBidList.addBid(bid);
+                    }
+                }
+                for (Bid bid : totalBidList) {
+                    Log.i("Bid Username", bid.getBidId());
+                    if (onlineBidList.getBidIndex(bid) == -1) {
+                        Log.i("what", String.valueOf(onlineBidList.getBidIndex(bid)));
+                        NotificationContent content = new NotificationContent(getApplicationContext(), NotificationController.ANDROID_CHANNEL_ID,
+                                "Cancelled Bid", bid.getBidUsername() + " has cancelled their bid on " + task.getTaskTitle());
+                        NotificationController controller = new NotificationController(content);
+                        controller.alert(1);
+                    } else if (currentBidList.getBidIndex(bid) == -1) {
+                        NotificationContent content = new NotificationContent(getApplicationContext(), NotificationController.ANDROID_CHANNEL_ID,
+                                "Added Bid", bid.getBidUsername() + " has bid "
+                                + String.valueOf(bid.getBidAmount()) + " on " + task.getTaskTitle());
+                        NotificationController controller = new NotificationController(content);
+                        controller.alert(1);
+                    } else {
+                        Bid oldBid = currentBidList.getBid(currentBidList.getBidIndex(bid));
+                        Bid onlineBid = onlineBidList.getBid(onlineBidList.getBidIndex(bid));
+                        if (oldBid.getBidAmount() != onlineBid.getBidAmount()) {
+                            NotificationContent content = new NotificationContent(getApplicationContext(), NotificationController.ANDROID_CHANNEL_ID,
+                                    "Updated Bid", bid.getBidUsername()
+                                    + " has updated their bid to " + String.valueOf(onlineBid.getBidAmount()) + " on " + task.getTaskTitle());
+                            NotificationController controller = new NotificationController(content);
+                            controller.alert(1);
+                        }
                     }
                 }
             }
+            this.currentUser = this.onlineUser;
+            CurrentUserSingleton.setUser(this.currentUser);
         }
     }
 
