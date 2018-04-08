@@ -189,6 +189,7 @@ public class ViewTaskActivity extends ActivityHeader{
     }
 
     //TODO: JAVADOCS FOR THIS NEW METHOD
+    /*
     public boolean bidAmountExists(double newBidAmount){
         for (Bid bid : task.getBidList()){
             if (bid.getBidAmount() == newBidAmount){
@@ -197,26 +198,25 @@ public class ViewTaskActivity extends ActivityHeader{
         }
         return false;
     }
+    */
 
     public void confirmBidButton(View v){
-        Bid bidToBeAdded = new Bid();
-        User ownerOfTask = new User();
-        BidList currentTasksBidList;
+        Bid newBid = new Bid();
+        User taskOwner = new User();
+        BidList taskBidList;
         double newBidAmount;
         int ownerIndex;
-        //indexOfBidInCurrentTasksBidList, indexOfTaskInCurrentUserTaskList;
-        //Boolean bidToBeAddedIsNew = true;
 
         ElasticsearchController.GetUser getUser
                 = new ElasticsearchController.GetUser();
         getUser.execute(this.task.getOwnerId());
 
         try {
-            ownerOfTask = getUser.get();
+            taskOwner = getUser.get();
         } catch (Exception e) {
             Log.i("Error", String.valueOf(e));
         }
-        ownerIndex = ownerOfTask.getMyTaskList().getIndexOfTask(task);
+        ownerIndex = taskOwner.getMyTaskList().getIndexOfTask(task);
         Log.i("testing", String.valueOf(ownerIndex));
 
         bidAmountText = (EditText) findViewById(R.id.task_view_activity_bid_amount);
@@ -232,38 +232,40 @@ public class ViewTaskActivity extends ActivityHeader{
                     " minimum requires bid amount", Toast.LENGTH_LONG).show();
             return;
         }
+        /*
         else if (bidAmountExists(newBidAmount)){
             Toast.makeText(getApplicationContext(), "Your bid amount already exists. Please" +
                     " choose another bid amount", Toast.LENGTH_LONG).show();
             return;
         }
+        */
         else{
-            bidToBeAdded.setBidAmount(newBidAmount);
+            newBid.setBidAmount(newBidAmount);
         }
 
         //Get everything and change everything and then at the end use ES to update
-        bidToBeAdded.setBidId(currentUser.getId());
-        bidToBeAdded.setBidUsername(currentUser.getUsername());
+        newBid.setBidId(currentUser.getId());
+        newBid.setBidUsername(currentUser.getUsername());
 
-        currentTasksBidList = task.getBidList();
+        taskBidList = task.getBidList();
 
         //Update task with bid
-        int inBidList = currentTasksBidList.getBidIndex(bidToBeAdded);
+        int inBidList = taskBidList.getBidIndex(newBid);
         if(inBidList == -1) {
             //If new bidder
-            task.addBidder(bidToBeAdded);
+            task.addBidder(newBid);
             if (task.getStatus().intern() == "Requested"){
                 task.setStatus("Bidded");
             }
             currentUser.addBidTask(task);
         } else {
             //If old bidder
-            task.getBidList().updateBid(bidToBeAdded, inBidList);
+            task.getBidList().updateBid(newBid, inBidList);
             int userIndex = currentUser.getBidTaskList().getIndexOfTask(task);
             currentUser.getBidTaskList().replaceAtIndex(userIndex, task);
         }
-
-        ownerOfTask.replaceTaskAtIndex(ownerIndex, this.task);
+        //Update User, Owner, and Task
+        taskOwner.replaceTaskAtIndex(ownerIndex, this.task);
 
         ElasticsearchController.UpdateTask updateTask
                 = new ElasticsearchController.UpdateTask();
@@ -275,7 +277,7 @@ public class ViewTaskActivity extends ActivityHeader{
 
         ElasticsearchController.UpdateUser updateOwner
                 = new ElasticsearchController.UpdateUser();
-        updateOwner.execute(ownerOfTask);
+        updateOwner.execute(taskOwner);
 
         Intent seeBids = new Intent(getApplicationContext(), MyBidActivity.class);
         startActivity(seeBids);
