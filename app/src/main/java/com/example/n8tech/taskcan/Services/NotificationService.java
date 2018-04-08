@@ -22,18 +22,20 @@ import java.util.ArrayList;
  */
 
 public class NotificationService extends IntentService {
-    private final String TITLE = "New Bid";
+    private String TITLE;
     private String description;
-    private String newBidder;
-    private String newBidAmount;
-    public NotificationService() {
-        super("NotificationService");
-    }
+    private boolean newNotif = false;
     private User currentUser;
     private User user = CurrentUserSingleton.getUser();
     private TaskList prevTaskList = new TaskList();
-    private TaskList currentTaskList;
+    private TaskList currentTaskList = new TaskList();
     private BidList prevBidList;
+
+
+
+    public NotificationService() {
+        super("NotificationService");
+    }
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -46,7 +48,7 @@ public class NotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        User currentUser = CurrentUserSingleton.getUser();
+        User currentUser = CurrentUserSingleton.getUser(); // change to ES
         while(true) {
             //  put to sleep to make sure the android device does not donote
             //  all of its resources here
@@ -60,7 +62,11 @@ public class NotificationService extends IntentService {
                 currentTaskList.addTask(task);
             }
 
-            if(this.haveNewBids()) {
+            prevTaskList = user.getMyTaskList();
+
+            checkUpdates();
+
+            if(newNotif) {
                 NotificationContent content = new NotificationContent(getApplicationContext(), NotificationController.ANDROID_CHANNEL_ID,
                         this.TITLE, this.description);
                 NotificationController controller = new NotificationController(content);
@@ -69,29 +75,48 @@ public class NotificationService extends IntentService {
         }
     }
 
-    private boolean haveNewBids() {
-        prevTaskList = user.getMyTaskList();
-        for (Task task : currentTaskList){
+    private void checkUpdates() {
+        haveNewBids();
+        haveUpdatedBids();
+        taskStatusChanged();
+    }
+
+    private void haveNewBids() {
+        for (Task task : currentTaskList) {
             int i = currentTaskList.getIndexOfTask(task);
             prevBidList = prevTaskList.getTaskAtIndex(i).getBidList();
-            if (task.getBidList().equals(prevBidList) != true){
+            if (task.getBidList().getSize() != prevBidList.getSize()) {
                 String taskTitle = task.getTaskTitle();
-                if (task.getBidList().getSize() == prevBidList.getSize()){
-                    for (Bid bid : task.getBidList()){
-                        if (bid != prevBidList.getBid(task.getBidList().getBidIndex(bid))){
-                            newBidder = bid.getBidUsername();
-                            newBidAmount = String.valueOf(bid.getBidAmount());
-                        }
-                    }
-                }
-                else {
-                    newBidder = task.getBidList().getBid(task.getBidList().getSize() - 1).getBidUsername();
-                    newBidAmount = String.valueOf(task.getBidList().getBid(task.getBidList().getSize() - 1).getBidAmount());
-                }
+                String newBidder = task.getBidList().getBid(task.getBidList().getSize() - 1).getBidUsername();
+                String newBidAmount = String.valueOf(task.getBidList().getBid(task.getBidList().getSize() - 1).getBidAmount());
+                TITLE = "New Bid";
                 description = String.format("%s offers you %s for %s.", newBidder, newBidAmount, taskTitle);
-                return true;
+                newNotif = true;
             }
         }
-        return false;
+    }
+
+
+    private boolean haveUpdatedBids() {
+        for (Task task : currentTaskList) {
+            if ((task.getBidList().getSize() == prevBidList.getSize()) && (task.getBidList().equals(prevBidList) != true)) {
+                for (Bid bid : task.getBidList()) {
+                    if (bid != prevBidList.getBid(task.getBidList().getBidIndex(bid))) {
+                        String taskTitle = task.getTaskTitle();
+                        String newBidder = bid.getBidUsername();
+                        String newBidAmount = String.valueOf(bid.getBidAmount());
+                        TITLE = "New Bid";
+                        description = String.format("%s offers you %s for %s.", newBidder, newBidAmount, taskTitle);
+                        newNotif = true;
+                    }
+                }
+            }
+        }
+    }
+
+
+    private boolean taskStatusChanged() {
+        for Ta
+
     }
 }
