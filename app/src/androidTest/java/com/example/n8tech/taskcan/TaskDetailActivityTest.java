@@ -43,6 +43,8 @@ public class TaskDetailActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testTaskDetailPage(){
+
+        solo.assertCurrentActivity("Wrong activity", TaskDetailActivity.class);
         // TODO write test cases
     }
 

@@ -15,6 +15,7 @@ import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Views.AddTaskActivity;
 
 import com.example.n8tech.taskcan.Views.TaskDetailActivity;
+import com.example.n8tech.taskcan.Views.ViewOtherUserProfileActivity;
 import com.robotium.solo.Solo;
 
 /**
@@ -43,6 +44,7 @@ public class ViewOtherUserProfileActivityTest extends ActivityInstrumentationTes
     }
 
     public void testViewOtherUserProfile(){
+        solo.assertCurrentActivity("Wrong activity", ViewOtherUserProfileActivity.class);
         // TODO write test cases
     }
 

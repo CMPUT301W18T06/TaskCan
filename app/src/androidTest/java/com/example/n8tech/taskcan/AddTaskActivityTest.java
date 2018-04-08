@@ -24,7 +24,7 @@ import com.robotium.solo.Solo;
  * @see com.example.n8tech.taskcan.Views.AddTaskActivity
  * @author CMPUT301W18T06
  */
-// TODO Fix solo errors
+
 public class AddTaskActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
 
@@ -45,7 +45,6 @@ public class AddTaskActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testAddTask(){
-        // TODO write test cases
         solo.assertCurrentActivity("Wrong activity", AddTaskActivity.class);
         solo.enterText((EditText) solo.getView(R.id.add_task_activity_name_edit_text), "Task name");
         solo.enterText((EditText) solo.getView(R.id.add_task_activity_task_description_edit_text), "This is what the task does.");

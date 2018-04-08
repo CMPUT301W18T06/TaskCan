@@ -39,6 +39,7 @@ public class ResultActivityTest extends ActivityInstrumentationTestCase2 {
     public void testResultsPage(){
         solo.assertCurrentActivity("Wrong activity", ResultActivity.class);
 
+
         // TODO write test cases
         // not implemented yet
     }

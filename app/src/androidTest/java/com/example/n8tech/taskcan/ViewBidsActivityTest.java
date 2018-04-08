@@ -37,6 +37,8 @@ public class ViewBidsActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testViewBidsPage(){
+
+        solo.assertCurrentActivity("Wrong activity", ViewBidsActivity.class);
         // TODO write test cases
     }
 

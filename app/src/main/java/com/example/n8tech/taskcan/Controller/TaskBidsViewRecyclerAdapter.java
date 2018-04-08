@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.BidList;
+import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.R;
 import com.example.n8tech.taskcan.Views.ViewBidsActivity;
 import com.example.n8tech.taskcan.Views.ViewOtherUserProfileActivity;
@@ -32,6 +33,7 @@ import java.util.Locale;
 
 public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsViewRecyclerAdapter.ViewHolder> {
     private BidList bidList;
+    private Task task;
     private Bid acceptedBid;
 
 
@@ -59,8 +61,9 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public TaskBidsViewRecyclerAdapter(BidList myBidList) {
+    public TaskBidsViewRecyclerAdapter(BidList myBidList, Task task) {
         this.bidList = myBidList;
+        this.task = task;
     }
 
     // return the accepted bidder's username
@@ -89,6 +92,13 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
         // - replace the contents of the view with that element
         final Bid currentBid = bidList.getBid(position);
 
+        // if there is an accepted bid, set buttons accordingly
+        if (task.getAcceptedBid() != null) {
+            holder.acceptButton.setVisibility(View.INVISIBLE);
+            holder.declineButton.setVisibility(View.INVISIBLE);
+            holder.cancelButton.setVisibility(View.VISIBLE);
+        }
+
         holder.bidUsername.setText(currentBid.getBidUsername());
         holder.bidAmount.setText(String.format(Locale.CANADA,"$%.2f", currentBid.getBidAmount()));
 
@@ -108,33 +118,37 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                 // TODO: Accept button click
                 // Hide all bids but the current position
                 //acceptedBid = bidList.getBid(position);
-                bidList.setAcceptedBid(bidList.getBid(position));
 
-                BidList newBidList = new BidList();
+                task.setAcceptedBid(bidList.getBid(position));
+
+
+                BidList acceptedBidList = new BidList();
                 BidList oldBidList = new BidList();
 
                 // keep a record of previous bids in case the user cancels.
-                for (Bid bid: bidList){
+                /*for (Bid bid: bidList){
                     oldBidList.addBid(bid);
-                }
+                }*/
 
-                newBidList.addBid(bidList.getAcceptedBid());
-
+                acceptedBidList.addBid(task.getAcceptedBid());
 
                 // display only accepted bid
                 // TODO fix. with saving old bid list
 
-                bidList = newBidList;
+                // ok to set this bc bidList is a copy of it?
+                bidList = acceptedBidList;
+                task.setAcceptedBidList(acceptedBidList);
+
+                // remove the accepted bid from task's bid list
+                task.getBidList().removeBid(task.getAcceptedBid());
+                notifyDataSetChanged();
+
                 holder.acceptButton.setVisibility(View.INVISIBLE);
                 holder.declineButton.setVisibility(View.INVISIBLE);
                 holder.cancelButton.setVisibility(View.VISIBLE);
 
-                notifyDataSetChanged();
-
-
                 // TODO make accepted & decline bid invisible, make a cancel button visible
 
-                //finish();            // TODO stop this activity, goes back to details
             }
 
         });
@@ -142,9 +156,9 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
         holder.declineButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                task.getBidList().removeBid(bidList.getBid(position));
                 bidList.removeBid(bidList.getBid(position));
-                // TODO update elastic search
-                // or just reupload task?
+
                 notifyDataSetChanged();
             }
         });
@@ -154,7 +168,10 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
             public void onClick(View v) {
                 // user cancelled the assigned bid, show old bids again
                 // TODO notify users of old bids that this task is active again?
+                // clear accepted bid from task
+
                 bidList.clearAcceptedBid();
+                bidList = task.getBidList();
 
                 notifyDataSetChanged();
             }

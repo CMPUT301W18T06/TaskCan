@@ -15,6 +15,7 @@ import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Views.AddTaskActivity;
 
 import com.example.n8tech.taskcan.Views.TaskDetailActivity;
+import com.example.n8tech.taskcan.Views.ViewTaskActivity;
 import com.robotium.solo.Solo;
 
 /**
@@ -44,6 +45,8 @@ public class ViewTaskActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testViewTask(){
+
+        solo.assertCurrentActivity("Wrong activity", ViewTaskActivity.class);
         // TODO write test cases
     }
 
