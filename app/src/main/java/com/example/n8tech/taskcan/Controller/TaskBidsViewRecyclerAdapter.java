@@ -147,7 +147,10 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
 
                 // load every user thats bid on it, remove that task from their mybid list
                 User losingUser;
-                for (Bid losingBid : task.getBidList()){
+                Bid losingBid;
+
+                for(int i = 0; i < task.getBidList().getSize(); i++) {
+                    losingBid = task.getBidList().getBid(i);
                     // load the user of that bid, if its not the winning one
                     if (!losingBid.getBidId().equals(task.getProviderId())) {
 
@@ -254,8 +257,14 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
 
                 // TODO save task in elastic search, and save user?
                 // load every user thats bid in the bid list, and add the task to their my bid list
+
+
                 User userWithReinstatedBid;
-                for (Bid losingBid : task.getBidList()){
+                Bid losingBid;
+
+                for(int i = 0; i < task.getBidList().getSize(); i++) {
+                    losingBid = task.getBidList().getBid(i);
+
                     // load the user of that bid, if its not the winning one
 
                     if (!losingBid.getBidId().equals(oldProviderId)) {
