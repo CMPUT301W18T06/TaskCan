@@ -8,5 +8,6 @@
     <color name="colorGradientBlueMedium">#FF8DBAD6</color>
     <color name="colorGradientBlueDark">#FF7CA2BA</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
 
 </resources>

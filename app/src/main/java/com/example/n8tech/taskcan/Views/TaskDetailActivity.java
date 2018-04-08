@@ -179,7 +179,7 @@ public class TaskDetailActivity extends ActivityHeader {
                 Log.i("Error", e.toString());
             }
 
-            user.removeBidTask(task);
+            user.removeBidTask(task.getId());
             ElasticsearchController.UpdateUser updateUser
                     = new ElasticsearchController.UpdateUser();
             updateUser.execute(user);

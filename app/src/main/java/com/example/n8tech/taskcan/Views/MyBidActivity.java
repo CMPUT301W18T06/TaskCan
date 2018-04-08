@@ -37,6 +37,7 @@ import com.example.n8tech.taskcan.Controller.BidViewRecyclerAdapter;
 import com.example.n8tech.taskcan.Controller.TaskViewRecyclerAdapter;
 import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.BidList;
+import com.example.n8tech.taskcan.Models.BiddedTask;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.TaskList;
@@ -93,7 +94,8 @@ public class MyBidActivity extends ActivityHeader {
 
         // TODO get a list of tasks user has bid on
         // add tasks that the user has bid on into a tasklist
-        for (Task task : currentUser.getBidTaskList()){
+        for (BiddedTask biddedTask : currentUser.getBidTaskList()){
+            Task task = biddedTask.makeTask();
             if (task.getStatus().intern() == ("Bidded") || task.getStatus().intern() == ("Assigned")){
                 this.myTaskList.addTask(task);
             }
@@ -126,7 +128,8 @@ public class MyBidActivity extends ActivityHeader {
                     case 0 :
                         myTaskList.clear();
 
-                        for (Task task : currentUser.getBidTaskList()){
+                        for (BiddedTask biddedTask : currentUser.getBidTaskList()){
+                            Task task = biddedTask.makeTask();
                             if (task.getStatus().intern() == "Bidded" || task.getStatus().intern() == "Assigned"){
                                 myTaskList.addTask(task);
                             }
@@ -137,7 +140,8 @@ public class MyBidActivity extends ActivityHeader {
                     case 1 :
                         myTaskList.clear();
 
-                        for (Task task : currentUser.getBidTaskList()){
+                        for (BiddedTask biddedTask : currentUser.getBidTaskList()){
+                            Task task = biddedTask.makeTask();
                             if (task.getStatus().intern() == "Assigned" && task.getProviderUsername().intern() == currentUser.getUsername()){
                                 myTaskList.addTask(task);
                             }
