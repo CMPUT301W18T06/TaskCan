@@ -24,12 +24,16 @@ import java.util.ArrayList;
 public class NotificationService extends IntentService {
     private final String TITLE = "New Bid";
     private String description;
+    private String newBidder;
+    private String newBidAmount;
     public NotificationService() {
         super("NotificationService");
     }
-    private User currentUser = CurrentUserSingleton.getUser();
+    private User currentUser;
+    private User user = CurrentUserSingleton.getUser();
     private TaskList prevTaskList = new TaskList();
     private TaskList currentTaskList;
+    private BidList prevBidList;
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -52,7 +56,7 @@ public class NotificationService extends IntentService {
             }
 
             ElasticsearchController.GetUser getUser = new ElasticsearchController.GetUser();
-            getUser.execute(currentUser.getId());
+            getUser.execute(user.getId());
             try {
                 currentUser = getUser.get();
                 Log.i("Got user", currentUser.getUsername());
@@ -61,7 +65,7 @@ public class NotificationService extends IntentService {
             }
 
             for (Task task : currentUser.getMyTaskList()){
-                prevTaskList.addTask(task);
+                currentTaskList.addTask(task);
             }
 
             if(this.haveNewBids()) {
@@ -74,13 +78,24 @@ public class NotificationService extends IntentService {
     }
 
     private boolean haveNewBids() {
-        currentTaskList = currentUser.getMyTaskList();
+        prevTaskList = user.getMyTaskList();
         for (Task task : currentTaskList){
-            if (task.getBidList().equals(prevTaskList.getTaskAtIndex(currentTaskList.getIndexOfTask(task)).getBidList()) != true){
+            prevBidList = prevTaskList.getTaskAtIndex(currentTaskList.getIndexOfTask(task)).getBidList();
+            if (task.getBidList().equals(prevBidList) != true){
                 String taskTitle = task.getTaskTitle();
-                String newBidder = task.getBidList().getBid(task.getBidList().getSize()-1).getBidUsername();
-                String newBidAmount = String.valueOf(task.getBidList().getBid(task.getBidList().getSize()-1).getBidAmount());
-                description = newBidder + " offers you $" + newBidAmount + " for " + taskTitle + ".";
+                if (task.getBidList().getSize() == prevTaskList.getTaskAtIndex(currentTaskList.getIndexOfTask(task)).getBidList().getSize()){
+                    for (Bid bid : task.getBidList()){
+                        if (bid != prevBidList.getBid(task.getBidList().getBidIndex(bid))){
+                            newBidder = bid.getBidUsername();
+                            newBidAmount = String.valueOf(bid.getBidAmount());
+                        }
+                    }
+                }
+                else {
+                    newBidder = task.getBidList().getBid(task.getBidList().getSize() - 1).getBidUsername();
+                    newBidAmount = String.valueOf(task.getBidList().getBid(task.getBidList().getSize() - 1).getBidAmount());
+                }
+                description = String.format("%s offers you %s for %s.", newBidder, newBidAmount, taskTitle);
                 return true;
             }
         }
