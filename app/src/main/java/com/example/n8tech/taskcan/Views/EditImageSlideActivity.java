@@ -16,6 +16,12 @@ import com.example.n8tech.taskcan.R;
 
 import me.relex.circleindicator.CircleIndicator;
 
+/**
+ * EditImageSlideActivity displays an image slider for editing task images.
+ *
+ * @author CMPUT301W18T06
+ */
+
 public class EditImageSlideActivity extends AppCompatActivity {
     public final static String IMAGES_KEY = "EditImageSlideActivity_IMAGESKEY";
     public final static String RESULT_KEY = "EditImageSlideActivity_REQUESTKEY";

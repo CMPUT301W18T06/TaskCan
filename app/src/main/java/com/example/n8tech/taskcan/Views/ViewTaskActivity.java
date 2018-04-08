@@ -29,7 +29,9 @@ import java.util.concurrent.ExecutionException;
 import static java.lang.Math.round;
 
 /**
- * Task screen opened when selecting task of another user
+ * ViewTaskActivity shows the task details screen opened when selecting the task of another user.
+ *
+ * @author CMPUT301W18T06
  */
 
 public class ViewTaskActivity extends ActivityHeader{
