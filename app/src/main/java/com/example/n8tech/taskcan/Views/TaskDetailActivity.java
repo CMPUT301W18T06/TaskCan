@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.FileIO;
+import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Image;
 import com.example.n8tech.taskcan.Models.ImageList;
@@ -124,6 +125,35 @@ public class TaskDetailActivity extends ActivityHeader {
 
         try {
             taskThumbnail.setImageBitmap(task.getImageList().getImage(0).getImageBitmap());
+            taskThumbnail.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    ImageList il = new ImageList();
+                    try {
+                        if (task.getImageListId().size() == 0) {
+                            Toast.makeText(getApplicationContext(), "No images to show! Please add image!",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Intent i = new Intent(getApplicationContext(), ViewImageSlideActivity.class);
+                            Bundle b = new Bundle();
+                            for (Image image : task.getImageList().getImages()) {
+                                image.recreateRecycledBitmap();
+                                il.addImage(image);
+                            }
+                            b.putParcelableArrayList(IMAGES_KEY, il.getImages());
+                            i.putExtras(b);
+                            startActivity(i);
+                        }
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
         } catch (Exception e){
             Log.i("ThumbnailError", "Could not load image");
         }
@@ -131,6 +161,25 @@ public class TaskDetailActivity extends ActivityHeader {
 
 
     public void deleteButtonClick(View v){
+
+        //Remove bidders and update them.
+        for(Bid bid : task.getBidList()) {
+            ElasticsearchController.GetUser getUser
+                    = new ElasticsearchController.GetUser();
+            getUser.execute(bid.getBidId());
+
+            User user = new User();
+            try {
+                user = getUser.get();
+            } catch (Exception e) {
+                Log.i("Error", e.toString());
+            }
+
+            user.removeBidTask(task);
+            ElasticsearchController.UpdateUser updateUser
+                    = new ElasticsearchController.UpdateUser();
+            updateUser.execute(user);
+        }
 
         ElasticsearchController.DeleteTask deleteTask
                 = new ElasticsearchController.DeleteTask();

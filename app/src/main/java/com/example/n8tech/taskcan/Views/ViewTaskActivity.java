@@ -16,6 +16,7 @@ import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.BidList;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Image;
+import com.example.n8tech.taskcan.Models.ImageList;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
@@ -112,6 +113,35 @@ public class ViewTaskActivity extends ActivityHeader{
 
         try {
             taskThumbnail.setImageBitmap(task.getImageList().getImage(0).getImageBitmap());
+            taskThumbnail.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    ImageList il = new ImageList();
+                    try {
+                        if (task.getImageListId().size() == 0) {
+                            Toast.makeText(getApplicationContext(), "No images to show! Please add image!",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Intent i = new Intent(getApplicationContext(), ViewImageSlideActivity.class);
+                            Bundle b = new Bundle();
+                            for (Image image : task.getImageList().getImages()) {
+                                image.recreateRecycledBitmap();
+                                il.addImage(image);
+                            }
+                            b.putParcelableArrayList(IMAGES_KEY, il.getImages());
+                            i.putExtras(b);
+                            startActivity(i);
+                        }
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
         } catch (Exception e){
             Log.i("ThumbnailError", "Could not load image");
         }
@@ -207,6 +237,7 @@ public class ViewTaskActivity extends ActivityHeader{
             if (bids.getBidUsername().intern() == currentUser.getUsername().intern()){
                 bidIndex = taskBidList.getBidIndex(bids);
                 task.replaceBidAtIndex(bidIndex, bid);
+                task.updateCurrentBid();
                 newBid = false;
                 break;
             }
