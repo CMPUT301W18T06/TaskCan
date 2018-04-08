@@ -30,6 +30,7 @@ public class TaskList implements Iterable<Task> {
         for(Task myTask : this.taskList) {
             if(task.getId().equals(myTask.getId())) {
                 this.taskList.remove(myTask);
+                break;
             }
         }
     }

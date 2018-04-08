@@ -51,6 +51,7 @@ public class BidList implements Iterable<Bid> {
         for(Bid myBid : this.bids) {
             if(myBid.getBidId().equals(bid.getBidId())) {
                 this.bids.remove(myBid);
+                break;
             }
         }
     }

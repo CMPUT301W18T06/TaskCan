@@ -85,6 +85,13 @@ public class TaskListTest {
         Task task5 = new Task("Drive me to school", "Be my limo driver", user5.getUsername(), "5971350", "Driving");
         Task task6 = new Task("Guard my treasure", "Guard my diamonds", user6.getUsername(), "4682913", "Security");
         Task task7 = new Task("Fix my car", "Give me a new engine", user7.getUsername(), "3192546", "Auto");
+        task1.setId("1");
+        task2.setId("2");
+        task3.setId("3");
+        task4.setId("4");
+        task5.setId("5");
+        task6.setId("6");
+        task7.setId("7");
         TaskList newList = new TaskList();
         newList.addTask(task1);
         newList.addTask(task2);
@@ -256,6 +263,12 @@ public class TaskListTest {
         Task task4 = new Task("Paint my walls", "Paint walls red", user4.getUsername(), "1973645", "Painting");
         Task task5 = new Task("Drive me to school", "Be my limo driver", user5.getUsername(), "5971350", "Driving");
         Task task6 = new Task("Guard my treasure", "Guard my diamonds", user6.getUsername(), "4682913", "Security");
+        task1.setId("1");
+        task2.setId("2");
+        task3.setId("3");
+        task4.setId("4");
+        task5.setId("5");
+        task6.setId("6");
         TaskList newList = new TaskList();
         newList.addTask(task1);
         newList.addTask(task2);

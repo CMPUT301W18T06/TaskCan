@@ -154,8 +154,9 @@ public class TaskTest{
             assertEquals(task1.getBidList().getBid(i).getBidId(), bidList.get(i).getBidId());
         }
 
-
-        task1.updateBidder(user5, 11.76);
+        Bid newBid = task1.getBidList().getBid(task1.getBidList().getBidUserIndex(user5.getId()));
+        newBid.setBidAmount(11.76);
+        task1.replaceBidAtIndex(task1.getBidList().getBidUserIndex(user5.getId()), newBid);
             bidList.set(3,new Bid(user5.getUsername(), user5.getId(), 11.76));
 
         // Test if updating a bidder is done correctly.

@@ -60,21 +60,26 @@ public class UserTest {
     public void testUserAddBidTask() {
         //Tests that it correctly updates its bid tasks
         User user1 = new User("Joe", "joe12345", "7355608", "joe@n8tech.com", "123-456-7890");
-        BiddedTask task1 = new BiddedTask();
-        BiddedTask task2 = new BiddedTask();
+        BiddedTask biddedTask1 = new BiddedTask();
+        BiddedTask biddedTask2 = new BiddedTask();
+        biddedTask1.setTaskTitle("Task 1");
+        biddedTask2.setTaskTitle("Task 2");
+        biddedTask1.setTaskId("1");
+        biddedTask2.setTaskId("2");
 
-        user1.addBidTask(task1);
-        user1.addBidTask(task2);
+        user1.addBidTask(biddedTask1);
+        user1.addBidTask(biddedTask2);
         ArrayList<BiddedTask> bidTaskList = new ArrayList<>();
-        bidTaskList.add(task1);
-        bidTaskList.add(task2);
+        bidTaskList.add(biddedTask1);
+        bidTaskList.add(biddedTask2);
         for (int i = 0; i < bidTaskList.size(); i++){
-            assertEquals(user1.getBidTaskList().getBiddedTaskAtIndex(0), bidTaskList.get(0));
+            assertEquals(user1.getBidTaskList().getBiddedTaskAtIndex(i),  bidTaskList.get(i));
         }
 
-        user1.removeBidTask(task2);
+        user1.removeBidTask(biddedTask2);
         bidTaskList.remove(1);
         for (int i = 0; i < bidTaskList.size(); i++){
+            assertEquals(user1.getBidTaskList().getSize(), bidTaskList.size());
             assertEquals(user1.getBidTaskList().getBiddedTaskAtIndex(i), bidTaskList.get(i));
         }
     }
@@ -88,14 +93,19 @@ public class UserTest {
 
         user1.addTask(task1);
         user1.addTask(task2);
+        task1.setId("1");
+        task2.setId("2");
+
         ArrayList<Task> taskList = new ArrayList<Task>();
         taskList.add(task1);
         taskList.add(task2);
+
         for (int i = 0; i < taskList.size(); i++) {
             assertEquals(user1.getMyTaskList().getTaskAtIndex(i), taskList.get(i));
         }
-        user1.removeTask(task2);
         taskList.remove(1);
+        user1.removeTask(task2);
+
         for (int i = 0; i < taskList.size(); i++) {
             assertEquals(user1.getMyTaskList().getTaskAtIndex(i), taskList.get(i));
         }

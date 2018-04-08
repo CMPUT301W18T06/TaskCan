@@ -164,6 +164,7 @@ public class User {
         for(BiddedTask myTask : this.myTaskBids) {
             if(biddedTask.getTaskId().equals(myTask.getTaskId())) {
                 this.myTaskBids.removeBiddedTask(myTask);
+                break;
             }
         }
     }
