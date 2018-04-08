@@ -59,6 +59,10 @@ public class UserList implements Iterable<User> {
         return new UsersIterator();
     }
 
+    public ArrayList<User> getUsers() {
+        return userList;
+    }
+
     /**
      * Iterator object over UserList.
      * @throws UnsupportedOperationException If remove() method is called.

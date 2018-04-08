@@ -32,6 +32,10 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
+    public void setTaskAtIndex(int i, Task t) {
+        this.taskList.set(i, t);
+    }
+
     /**
      * @param i integer representing list index
      * @return task at the corresponding index

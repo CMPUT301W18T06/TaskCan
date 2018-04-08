@@ -54,6 +54,7 @@ public class Task {
     private ArrayList<String> imageListId;
     private boolean taskCompleted;
     private String status;
+    private Integer editCount;
 
     @JestId
     private String id;
@@ -370,5 +371,9 @@ public class Task {
         this.acceptedBidList = null;
 
         // TODO notify other users here?
+    }
+
+    public Integer getEditCount() {
+        return this.editCount;
     }
 }
