@@ -194,7 +194,7 @@ public class AddTaskActivity extends ActivityHeader {
         newTask = new Task();
 
         taskName = taskNameEditText.getText().toString();
-        if (taskName.length() < 30 && !taskName.equals("")) {
+        if (taskName.length() <= 30 && !taskName.equals("")) {
             // task name is valid, set task name
             newTask.setTaskTitle(taskName);
         } else {

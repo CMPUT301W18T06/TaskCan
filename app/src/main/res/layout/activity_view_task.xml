@@ -69,14 +69,15 @@
 
         <TextView
             android:id="@+id/task_view_activity_name_text"
-            android:layout_width="wrap_content"
-            android:layout_height="16dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="(task name)"
+            android:maxLines="2"
             android:textSize="14sp"
-            android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/task_view_activity_name_label"
             app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
 
         <Button
@@ -84,11 +85,12 @@
             android:layout_width="0dp"
             android:layout_height="26dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/gradient"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:onClick="requesterUsernameButtonClick"
-            android:text="(requester username)"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/colorWhite"
             android:textSize="14sp"
@@ -252,6 +254,7 @@
             android:layout_marginStart="16dp"
             android:background="@drawable/entry_field"
             android:ems="10"
+            android:maxLength="10"
             android:hint="@string/view_task_activity_bid_field"
             android:inputType="numberDecimal"
             android:paddingBottom="11dp"
