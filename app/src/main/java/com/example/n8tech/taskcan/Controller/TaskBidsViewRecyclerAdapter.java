@@ -12,7 +12,9 @@ import android.widget.Button;
 
 import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.BidList;
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Task;
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 import com.example.n8tech.taskcan.Views.ViewBidsActivity;
 import com.example.n8tech.taskcan.Views.ViewOtherUserProfileActivity;
@@ -35,6 +37,7 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
     private BidList bidList;
     private Task task;
     private Bid acceptedBid;
+    private User currentUser;
 
 
     // Provide a reference to the views for each data item
@@ -90,6 +93,8 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+
+        this.currentUser = CurrentUserSingleton.getUser();
         final Bid currentBid = bidList.getBid(position);
 
         // if there is an accepted bid, set buttons accordingly

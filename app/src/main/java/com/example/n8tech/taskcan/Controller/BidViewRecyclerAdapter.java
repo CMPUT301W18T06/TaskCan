@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.BidList;
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.User;
@@ -43,6 +44,7 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
         public TextView taskBidderName;
         public TextView taskStatus;
         public TextView taskCurrentBid;
+        public TextView taskMyBid;
         public ImageView taskThumbnail;
 
         public ViewHolder(View view) {
@@ -51,6 +53,7 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
             taskBidderName = view.findViewById(R.id.task_view_bidder_name);
             taskStatus = view.findViewById(R.id.task_view_status);
             taskCurrentBid = view.findViewById(R.id.task_view_current_bid);
+            taskMyBid = view.findViewById(R.id.task_view_my_bid);
             taskThumbnail = view.findViewById(R.id.task_view_thumbnail);
         }
     }
@@ -64,6 +67,8 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
     @Override
     public BidViewRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                                 int viewType) {
+        this.currentUser = CurrentUserSingleton.getUser();
+
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.task_view_list, parent, false);
@@ -85,9 +90,11 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
 
         // if a current bid set to that, else set to "None"
         String currentBidText;
+        String myBidText;
         if (currentTask.getCurrentBid() == -1){
             holder.taskBidderName.setText("No Bids");
             currentBidText = "None";
+            myBidText = "";
         }else{
             currentBidList = currentTask.getBidList();
             for (Bid bid : currentBidList){
@@ -97,8 +104,10 @@ public class BidViewRecyclerAdapter extends RecyclerView.Adapter<BidViewRecycler
                 }
             }
             currentBidText = String.format(Locale.CANADA,"$%.2f", currentTask.getCurrentBid());
+            myBidText = String.format(Locale.CANADA,"$%.2f", currentTask.getBidById(currentUser.getId()));
         }
         holder.taskCurrentBid.setText(currentBidText);
+        holder.taskMyBid.setText(myBidText);
 
         try {
             holder.taskThumbnail.setImageBitmap(currentTask.getImageList().getImage(0).getImageBitmap());

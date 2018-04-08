@@ -67,13 +67,24 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/my_bid_activity_my_bid1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:text="@string/my_bids_my_bid"
+                            android:textSize="18sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/my_bid_activity_list_bid_title" />
+
+                        <TextView
                             android:id="@+id/my_bid_activity_list_bid_title"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
                             android:layout_marginTop="64dp"
-                            android:text="@string/my_task_activity_current_bid"
-                            android:textSize="24sp"
+                            android:text="@string/my_bids_lowest_bid"
+                            android:textSize="18sp"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -99,7 +110,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/my_bid_activity_list_task_title" />
+                            app:layout_constraintTop_toBottomOf="@+id/my_bid_activity_my_bid1" />
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
@@ -109,13 +120,22 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/my_bid_activity_my_bid2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:text="@string/my_bids_my_bid"
+                            android:textSize="18sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/my_bid_activity_list_bid_title2" />
+
+                        <TextView
                             android:id="@+id/my_bid_activity_list_bid_title2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
                             android:layout_marginTop="64dp"
                             android:text="@string/my_task_activity_current_bid"
-                            android:textSize="24sp"
+                            android:textSize="18sp"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -141,7 +161,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/my_bid_activity_list_task_titles2" />
+                            app:layout_constraintTop_toBottomOf="@+id/my_bid_activity_my_bid2" />
                     </android.support.constraint.ConstraintLayout>
                 </FrameLayout>
             </android.support.constraint.ConstraintLayout>
