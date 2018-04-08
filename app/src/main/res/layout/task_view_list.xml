@@ -12,26 +12,34 @@
 
     <TextView
         android:id="@+id/task_view_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:textColor="@color/colorWhite"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toStartOf="@+id/task_view_current_bid"
         app:layout_constraintStart_toEndOf="@+id/task_view_thumbnail"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/task_view_bidder_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="2dp"
         android:textColor="@color/colorWhite"
         android:textSize="18sp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toStartOf="@+id/task_view_current_bid"
         app:layout_constraintStart_toEndOf="@+id/task_view_thumbnail"
         app:layout_constraintTop_toBottomOf="@+id/task_view_title" />
 
@@ -59,6 +67,17 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/task_view_my_bid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task_view_current_bid" />
 
     <ImageView
         android:id="@+id/task_view_thumbnail"

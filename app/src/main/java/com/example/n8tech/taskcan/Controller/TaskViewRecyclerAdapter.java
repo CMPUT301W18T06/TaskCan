@@ -72,6 +72,9 @@ public class TaskViewRecyclerAdapter extends RecyclerView.Adapter<TaskViewRecycl
     @Override
     public TaskViewRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
+
+        this.currentUser = CurrentUserSingleton.getUser();
+
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.task_view_list, parent, false);

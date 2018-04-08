@@ -41,19 +41,6 @@
             app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
 
         <TextView
-            android:id="@+id/task_details_activity_username_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:text="Requester:"
-            android:textColor="@android:color/white"
-            android:textColorHighlight="@android:color/white"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/task_details_image_thumbnail"
-            app:layout_constraintTop_toBottomOf="@+id/task_details_activity_name_text" />
-
-        <TextView
             android:id="@+id/task_details_activity_current_bid_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,42 +52,30 @@
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toEndOf="@+id/task_details_image_thumbnail"
-            app:layout_constraintTop_toBottomOf="@+id/task_details_activity_requester_username_text" />
+            app:layout_constraintTop_toBottomOf="@+id/task_details_activity_name_text" />
 
         <TextView
             android:id="@+id/task_details_activity_name_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="(task name)"
+            android:maxLines="2"
             android:textSize="14sp"
-            android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/task_details_activity_name_label"
             app:layout_constraintTop_toBottomOf="@+id/menu_toolbar" />
 
         <TextView
-            android:id="@+id/task_details_activity_requester_username_text"
+            android:id="@+id/task_details_activity_current_bid_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
-            android:text="(requester username)"
             android:textSize="14sp"
-            android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/task_details_activity_name_text" />
-
-        <TextView
-            android:id="@+id/task_details_activity_current_bid_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp"
-            android:text="(current bid)"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/task_details_activity_requester_username_text" />
 
 
         <TextView

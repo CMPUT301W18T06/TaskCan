@@ -313,7 +313,6 @@ public class ElasticsearchController {
                     if (result.isSucceeded()) {
                         tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
                         for (Task task : tempList) {
-                            Log.i("testing", task.getId());
                             if (!task.getStatus().equals("Completed") && !task.getStatus().equals("Assigned")) {
                                 if(task.getTaskTitle().toLowerCase().contains(search_params[0].toLowerCase()) ||
                                         task.getDescription().toLowerCase().contains(search_params[0].toLowerCase())) {

@@ -58,7 +58,6 @@ public class TaskDetailActivity extends ActivityHeader {
     private TextView taskDescriptionText;
     private TextView taskStatusText;
     private TextView taskCategoryText;
-    private TextView taskOwnerUsernameText;
     private TextView taskCurrentBidText;
     private TextView taskMaxBidText;
     private ImageView taskThumbnail;
@@ -81,6 +80,7 @@ public class TaskDetailActivity extends ActivityHeader {
         Gson gson = new Gson();
 
         task = gson.fromJson(intent.getStringExtra("currentTask"), taskType);         // change this to the right task from the search
+        this.currentTaskIndex = this.currentUser.getMyTaskList().getIndexOfTask(task);
         findByIdsAndSetTextFields();
         findByIdsAndSetTextFields();
     }
@@ -96,7 +96,6 @@ public class TaskDetailActivity extends ActivityHeader {
         taskDescriptionText = (TextView) findViewById(R.id.task_details_activity_task_description_text);
         taskStatusText = (TextView) findViewById(R.id.task_details_activity_status_text);
         taskCategoryText= (TextView) findViewById(R.id.task_details_activity_category_text);
-        taskOwnerUsernameText = (TextView) findViewById(R.id.task_details_activity_requester_username_text);
         taskCurrentBidText = (TextView) findViewById(R.id.task_details_activity_current_bid_text);
         taskMaxBidText = (TextView) findViewById(R.id.task_details_activity_max_bid_text);
         taskThumbnail = findViewById(R.id.task_details_image_thumbnail);
@@ -113,7 +112,6 @@ public class TaskDetailActivity extends ActivityHeader {
 
         taskStatusText.setText(task.getStatus());
         taskCategoryText.setText(task.getCategory());
-        taskOwnerUsernameText.setText(currentUser.getUsername());
 
         if (task.getCurrentBid() == -1){
             taskCurrentBidText.setText("None");
