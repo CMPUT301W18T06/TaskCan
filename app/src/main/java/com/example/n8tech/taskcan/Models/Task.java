@@ -180,7 +180,6 @@ public class Task {
       //  return currentBid;
     //}
 
-    /** @param currentBid bid set on the task */
 
 
     /** @return category the task belongs to */
