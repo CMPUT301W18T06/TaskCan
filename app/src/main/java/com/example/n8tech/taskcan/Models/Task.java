@@ -313,6 +313,17 @@ public class Task {
     }
 
     /**
+     * Replaces the currentBid with a new bid if it has been changed
+     */
+    public void updateCurrentBid(){
+        for(Bid bid : this.bidList){
+            if(bid.getBidAmount() < this.getCurrentBid()){
+                this.setCurrentBid(bid.getBidAmount());
+            }
+        }
+    }
+
+    /**
      * Checks if task status has changed and updates the task details.
      */
     public void updateTask(){

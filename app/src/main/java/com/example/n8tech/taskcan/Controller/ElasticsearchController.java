@@ -265,23 +265,7 @@ public class ElasticsearchController {
         protected String doInBackground(Task... search_params) {
             verifySettings();
             for(Task task : search_params) {
-                for(Bid bid : task.getBidList()) {
-                    ElasticsearchController.GetUser getUser
-                            = new ElasticsearchController.GetUser();
-                    getUser.execute(bid.getBidId());
 
-                    User user = new User();
-                    try {
-                        user = getUser.get();
-                    } catch (Exception e) {
-                        Log.i("Error", e.toString());
-                    }
-                    user.removeBidTask(task);
-                    ElasticsearchController.UpdateUser updateUser
-                            = new ElasticsearchController.UpdateUser();
-                    updateUser.execute(user);
-                }
-                Log.i("Testing", task.getId());
                 Delete del = new Delete.Builder(task.getId()).index("cmput301w18t06").type("task").build();
 
                 try {
