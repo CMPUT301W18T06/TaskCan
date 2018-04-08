@@ -248,7 +248,6 @@ public class ViewTaskActivity extends ActivityHeader{
 
         Intent seeBids = new Intent(getApplicationContext(), MyBidActivity.class);
         startActivity(seeBids);
-        //super.onBackPressed();
     }
 
 
