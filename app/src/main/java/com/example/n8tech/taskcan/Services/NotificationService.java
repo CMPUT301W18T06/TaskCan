@@ -46,6 +46,7 @@ public class NotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+        User currentUser = CurrentUserSingleton.getUser();
         while(true) {
             //  put to sleep to make sure the android device does not donote
             //  all of its resources here
@@ -53,15 +54,6 @@ public class NotificationService extends IntentService {
                 Thread.sleep(30000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
-
-            ElasticsearchController.GetUser getUser = new ElasticsearchController.GetUser();
-            getUser.execute(user.getId());
-            try {
-                currentUser = getUser.get();
-                Log.i("Got user", currentUser.getUsername());
-            } catch (Exception e) {
-                Log.i("Error", String.valueOf(e));
             }
 
             for (Task task : currentUser.getMyTaskList()){
@@ -80,10 +72,11 @@ public class NotificationService extends IntentService {
     private boolean haveNewBids() {
         prevTaskList = user.getMyTaskList();
         for (Task task : currentTaskList){
-            prevBidList = prevTaskList.getTaskAtIndex(currentTaskList.getIndexOfTask(task)).getBidList();
+            int i = currentTaskList.getIndexOfTask(task);
+            prevBidList = prevTaskList.getTaskAtIndex(i).getBidList();
             if (task.getBidList().equals(prevBidList) != true){
                 String taskTitle = task.getTaskTitle();
-                if (task.getBidList().getSize() == prevTaskList.getTaskAtIndex(currentTaskList.getIndexOfTask(task)).getBidList().getSize()){
+                if (task.getBidList().getSize() == prevBidList.getSize()){
                     for (Bid bid : task.getBidList()){
                         if (bid != prevBidList.getBid(task.getBidList().getBidIndex(bid))){
                             newBidder = bid.getBidUsername();

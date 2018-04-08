@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
@@ -38,8 +39,8 @@ public abstract class ActivityHeader extends AppCompatActivity {
         this.initializeToolBar();
         this.initializeNavigation();
 
-        this.initializeNotificationService();
-        this.initializeSyncService();
+        //this.initializeNotificationService();
+        //this.initializeSyncService();
     }
 
     private void initializeSyncService() {
@@ -76,7 +77,7 @@ public abstract class ActivityHeader extends AppCompatActivity {
                                 break;
                             }
                             case R.id.nav_menu_sync: {
-                                // manual sync
+                                CurrentUserSingleton.setForceSync(true);
                                 break;
                             }
                             case R.id.nav_menu_sign_out: {

@@ -247,7 +247,7 @@ public class AddTaskActivity extends ActivityHeader {
         }
         newTask.setOwnerUsername(currentUser.getUsername());
         newTask.setOwnerId(currentUser.getId());
-        newTask.setCurrentBid(-1);
+        newTask.setEditCount(1);
 
 
         // TODO:in file here
@@ -276,6 +276,7 @@ public class AddTaskActivity extends ActivityHeader {
 
             if (completed == "NoNetworkError") {
                 // add task to current user's myTasks list
+                //currentUser.setEditCount(currentUser.getEditCount() + 1);
 
                 cacheList.delUser(this.currentUser);
                 currentUser.addTask(newTask);

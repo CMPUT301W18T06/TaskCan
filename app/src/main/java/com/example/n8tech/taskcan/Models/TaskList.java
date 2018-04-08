@@ -1,5 +1,7 @@
 package com.example.n8tech.taskcan.Models;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -32,6 +34,10 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
+    public void setTaskAtIndex(int i, Task t) {
+        this.taskList.set(i, t);
+    }
+
     /**
      * @param i integer representing list index
      * @return task at the corresponding index
@@ -46,13 +52,13 @@ public class TaskList implements Iterable<Task> {
      */
     public int getIndexOfTask(Task task)
     {
-        int index = -1;
         for(Task myTask : this.taskList) {
             if(myTask.getId().equals(task.getId())) {
-                index = this.taskList.indexOf(myTask);
+                Log.i("Testing", "match id");
+                return this.taskList.indexOf(myTask);
             }
         }
-        return index;
+        return -1;
     }
 
     /**

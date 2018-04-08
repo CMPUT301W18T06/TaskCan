@@ -45,7 +45,6 @@ public class Task {
     private String providerUsername;
     private String providerId;
     private double maximumBid;
-    private double currentBid;
     private String category;
     private BidList bidList;
     private BidList acceptedBidList;
@@ -54,6 +53,7 @@ public class Task {
     private ArrayList<String> imageListId;
     private boolean taskCompleted;
     private String status;
+    private Integer editCount;
 
     @JestId
     private String id;
@@ -64,7 +64,6 @@ public class Task {
         this.taskTitle="";
         this.description="";
         this.maximumBid = -1;
-        this.currentBid = -1;
         this.category = "Other";
         this.bidList = new BidList();
         this.location = null;
@@ -91,7 +90,6 @@ public class Task {
         this.providerUsername = null;
         this.providerId = null;
         this.maximumBid = -1;
-        this.currentBid = -1;
         this.category = category;
         this.bidList = new BidList();
         this.location = null;
@@ -178,14 +176,12 @@ public class Task {
     }
 
     /** @return current bid set on the task */
-    public double getCurrentBid() {
-        return currentBid;
-    }
+    //public double getCurrentBid() {
+      //  return currentBid;
+    //}
 
     /** @param currentBid bid set on the task */
-    public void setCurrentBid(double currentBid) {
-        this.currentBid = currentBid;
-    }
+
 
     /** @return category the task belongs to */
     public String getCategory() {
@@ -249,6 +245,12 @@ public class Task {
     public void setLocation(LatLng location) {
         this.location = location;
     }
+
+    public Integer getEditCount() {
+        return this.editCount;
+    }
+
+    public void setEditCount(Integer editCount) { this.editCount = editCount; }
 
     public ArrayList<String> getImageListId() { return this.imageListId; }
 
@@ -317,12 +319,23 @@ public class Task {
     /**
      * Replaces the currentBid with a new bid if it has been changed
      */
-    public void updateCurrentBid(){
-        for(Bid bid : this.bidList){
-            if(bid.getBidAmount() < this.getCurrentBid()){
-                this.setCurrentBid(bid.getBidAmount());
+    public double getCurrentBid(){
+        double bidAmount = -1;
+        for(Bid bid : this.bidList) {
+            if(bid.getBidAmount() < bidAmount || bidAmount == -1){
+                bidAmount = bid.getBidAmount();
             }
         }
+        return bidAmount;
+    }
+
+    public double getBidById(String id) {
+        for(Bid bid : this.bidList) {
+            if(bid.getBidId().equals(id)) {
+                return bid.getBidAmount();
+            }
+        }
+        return -1;
     }
 
     /**
