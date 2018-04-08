@@ -35,7 +35,7 @@ public class User {
     private String password;                //if not set, password is ""
     private String email;                   //not unique. check that "@" and "." exist and in order
     private String phoneNumber;             //7 numbers
-    private TaskList myTaskBids;
+    private BiddedTaskList myTaskBids;
     private TaskList myTasks;
     private Integer editCount;
 
@@ -46,7 +46,7 @@ public class User {
     public User(){
         // test user
         this.myTasks = new TaskList();
-        this.myTaskBids = new TaskList();
+        this.myTaskBids = new BiddedTaskList();
 
     }
 
@@ -65,7 +65,7 @@ public class User {
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.myTaskBids = new TaskList();
+        this.myTaskBids = new BiddedTaskList();
         this.myTasks = new TaskList();
     }
 
@@ -147,8 +147,8 @@ public class User {
 
     public void setEditCount(Integer editCount) { this.editCount = editCount; }
 
-    /** @param task task the user has made a bid on */
-    public void addBidTask(Task task) { this.myTaskBids.addTask(task); }
+    /** @param biddedTask task the user has made a bid on */
+    public void addBidTask(BiddedTask biddedTask) { this.myTaskBids.addBiddedTask(biddedTask); }
 
     /**
      * Replaces the task at the specified index with a new task.
@@ -159,20 +159,28 @@ public class User {
         this.myTasks.replaceAtIndex(index, task);
     }
 
-    /** @param task task to be removed from My Task Bids */
-    public void removeBidTask(Task task) {
-        for(Task myTask : this.myTaskBids) {
-            if(task.getId().equals(myTask.getId())) {
-                this.myTaskBids.removeTask(myTask);
+    /** @param biddedTask task to be removed from My Task Bids */
+    public void removeBidTask(BiddedTask biddedTask) {
+        for(BiddedTask myTask : this.myTaskBids) {
+            if(biddedTask.getTaskId().equals(myTask.getTaskId())) {
+                this.myTaskBids.removeBiddedTask(myTask);
+            }
+        }
+    }
+
+    public void removeBidTask(String taskId) {
+        for(BiddedTask myTask : this.myTaskBids) {
+            if(taskId.equals(myTask.getTaskId())) {
+                this.myTaskBids.removeBiddedTask(myTask);
             }
         }
     }
 
     /** @return list of tasks in which the user is a bidder */
-    public TaskList getBidTaskList() { return this.myTaskBids; }
+    public BiddedTaskList getBidTaskList() { return this.myTaskBids; }
 
-    public void replaceTaskBid(int index, Task task){
-        this.myTaskBids.replaceAtIndex(index, task);
+    public void replaceTaskBid(int index, BiddedTask biddedTask){
+        this.myTaskBids.replaceAtIndex(index, biddedTask);
     }
 
     /** @param task task the user has requested */

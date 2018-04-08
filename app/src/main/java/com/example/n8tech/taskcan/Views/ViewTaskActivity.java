@@ -14,6 +14,7 @@ import com.example.n8tech.taskcan.Controller.ElasticsearchController;
 import com.example.n8tech.taskcan.FileIO;
 import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.BidList;
+import com.example.n8tech.taskcan.Models.BiddedTask;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Image;
 import com.example.n8tech.taskcan.Models.ImageList;
@@ -257,12 +258,16 @@ public class ViewTaskActivity extends ActivityHeader{
             if (task.getStatus().intern() == "Requested"){
                 task.setStatus("Bidded");
             }
-            currentUser.addBidTask(task);
+            BiddedTask newBiddedTask = new BiddedTask();
+            newBiddedTask = newBiddedTask.makeBiddedTask(task,newBid);
+            currentUser.addBidTask(newBiddedTask);
         } else {
             //If old bidder
             task.getBidList().updateBid(newBid, inBidList);
-            int userIndex = currentUser.getBidTaskList().getIndexOfTask(task);
-            currentUser.getBidTaskList().replaceAtIndex(userIndex, task);
+            int userIndex = currentUser.getBidTaskList().getIndexOfBiddedTask(task);
+            BiddedTask oldBiddedTask = currentUser.getBidTaskList().getBiddedTaskAtIndex(userIndex);
+            BiddedTask newBiddedTask = oldBiddedTask.makeBiddedTask(task, newBid);
+            currentUser.getBidTaskList().replaceAtIndex(userIndex, newBiddedTask);
         }
         //Update User, Owner, and Task
         taskOwner.replaceTaskAtIndex(ownerIndex, this.task);
