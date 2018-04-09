@@ -325,6 +325,7 @@ public class EditTaskActivity extends ActivityHeader  {
 
             } else {
                 //save for later when connection is there
+
             }
             finish();
         } else {
