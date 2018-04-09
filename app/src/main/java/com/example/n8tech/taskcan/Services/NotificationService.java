@@ -30,9 +30,11 @@ public class NotificationService extends IntentService {
     private User onlineUser;
     private User user = CurrentUserSingleton.getUser();
     private boolean online;
+    private boolean run = true;
 
     public NotificationService() {
         super("NotificationService");
+        run = true;
     }
 
     /**
@@ -44,10 +46,17 @@ public class NotificationService extends IntentService {
         super(name);
     }
 
+    @Override
+    public void onDestroy() {
+        Log.i("destroying", "destoryed");
+        super.onDestroy();
+        run = false;
+    }
+
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        while(true) {
+        while(run) {
 
             this.currentUser = CurrentUserSingleton.getUser();
             //  put to sleep to make sure the android device does not donote
@@ -57,6 +66,7 @@ public class NotificationService extends IntentService {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            if(!run) {break;}
             this.currentUser = CurrentUserSingleton.getUser();
             this.onlineUser = new User();
             this.online = false;

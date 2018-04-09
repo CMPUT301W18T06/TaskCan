@@ -84,6 +84,8 @@ public abstract class ActivityHeader extends AppCompatActivity {
                             }
                             case R.id.nav_menu_sign_out: {
                                 CurrentUserSingleton.resetCurrentUser();
+                                Intent intent = new Intent(getApplicationContext(), NotificationService.class);
+                                stopService(intent);
 
                                 Intent i = new Intent(getApplicationContext(), SignInActivity.class);
                                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
