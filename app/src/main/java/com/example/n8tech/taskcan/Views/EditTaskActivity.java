@@ -318,11 +318,10 @@ public class EditTaskActivity extends ActivityHeader  {
 
                 CurrentUserSingleton.setUser(currentUser);
 
-                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                //v.getContext().startActivity(intent);
-                finish();
-
-
+                Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                CurrentUserSingleton.setUser(currentUser);
+                startActivity(intent);
             } else {
                 //save for later when connection is there
 

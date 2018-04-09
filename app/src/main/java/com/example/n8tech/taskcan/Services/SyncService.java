@@ -56,10 +56,11 @@ public class SyncService extends IntentService {
                     for (User user : cacheList.getUsers()) {
                         if (user.getId().equals(CurrentUserSingleton.getUser().getId())) {
                             for (int i = 0; i < user.getMyTaskList().getSize(); i++) {
-                                if (user.getMyTaskList().getTaskAtIndex(i).getId() == null) {
+                                if (user.getMyTaskList().getTaskAtIndex(i).getId().matches("[0-9]+")) {
                                     ElasticsearchController.AddTask ec_addtask = new ElasticsearchController.AddTask();
                                     TaskList tl = user.getMyTaskList();
                                     Task t = tl.getTaskAtIndex(i);
+                                    t.setId(null);
                                     ec_addtask.execute(t);
                                     try {
                                         ec_addtask.get();
@@ -70,6 +71,15 @@ public class SyncService extends IntentService {
                                     }
                                     tl.setTaskAtIndex(i, t);
                                     user.setMyTaskList(tl);
+
+
+                                    cacheList.delUser(user);
+                                    cacheList.addUser(user);
+                                    fileIO.saveInFile(getApplicationContext(), cacheList);
+                                    ElasticsearchController.UpdateUser updateUser
+                                            = new ElasticsearchController.UpdateUser();
+                                    updateUser.execute(user);
+                                    CurrentUserSingleton.setUser(user);
                                 }
                                 else {
                                     ElasticsearchController.GetTask ec = new ElasticsearchController.GetTask();
@@ -78,6 +88,11 @@ public class SyncService extends IntentService {
                                         Task t_ec = ec.get();
                                         if (user.getMyTaskList().getTaskAtIndex(i).getEditCount() <= t_ec.getEditCount()) {
                                             user.getMyTaskList().setTaskAtIndex(i, t_ec);
+
+                                            cacheList.delUser(user);
+                                            cacheList.addUser(user);
+                                            fileIO.saveInFile(getApplicationContext(), cacheList);
+                                            CurrentUserSingleton.setUser(user);
                                         }
                                         else {
                                             ElasticsearchController.UpdateTask ecu = new ElasticsearchController.UpdateTask();
@@ -86,6 +101,14 @@ public class SyncService extends IntentService {
                                             task.setBidList(t_ec.getBidList());
                                             ecu.execute(task);
                                             ecu.get();
+
+                                            cacheList.delUser(user);
+                                            cacheList.addUser(user);
+                                            fileIO.saveInFile(getApplicationContext(), cacheList);
+                                            ElasticsearchController.UpdateUser updateUser
+                                                    = new ElasticsearchController.UpdateUser();
+                                            updateUser.execute(user);
+                                            CurrentUserSingleton.setUser(user);
                                         }
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
@@ -94,13 +117,6 @@ public class SyncService extends IntentService {
                                     }
                                 }
                             }
-                            cacheList.delUser(user);
-                            cacheList.addUser(user);
-                            fileIO.saveInFile(getApplicationContext(), cacheList);
-                            ElasticsearchController.UpdateUser updateUser
-                                    = new ElasticsearchController.UpdateUser();
-                            updateUser.execute(user);
-                            CurrentUserSingleton.setUser(user);
                             break;
                         }
                     }
