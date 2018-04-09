@@ -18,6 +18,7 @@ import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.User;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by AlanJ on 2018-03-22.
@@ -89,6 +90,8 @@ public class NotificationService extends IntentService {
                     }
                     for (Bid bid : totalBidList) {
                         Log.i("Bid Username", bid.getBidId());
+                        //Bid cancellation not used, disable to reduce risk
+                        /*
                         if (onlineBidList.getBidIndex(bid) == -1) {
                             //Check for bid cancellation
                             Log.i("what", String.valueOf(onlineBidList.getBidIndex(bid)));
@@ -96,11 +99,13 @@ public class NotificationService extends IntentService {
                                     "Cancelled Bid", bid.getBidUsername() + " has cancelled their bid on " + task.getTaskTitle());
                             NotificationController controller = new NotificationController(content);
                             controller.alert(1);
-                        } else if (currentBidList.getBidIndex(bid) == -1) {
+                        } else
+                            */
+                        if (currentBidList.getBidIndex(bid) == -1) {
                             //Check for bid addition
                             NotificationContent content = new NotificationContent(getApplicationContext(), NotificationController.ANDROID_CHANNEL_ID,
                                     "Added Bid", bid.getBidUsername() + " has bid "
-                                    + String.valueOf(bid.getBidAmount()) + " on " + task.getTaskTitle());
+                                    + String.format(Locale.CANADA,"%.2f",bid.getBidAmount()) + " on " + task.getTaskTitle());
                             NotificationController controller = new NotificationController(content);
                             controller.alert(1);
                         } else {
@@ -110,7 +115,8 @@ public class NotificationService extends IntentService {
                                 //Check for bid update
                                 NotificationContent content = new NotificationContent(getApplicationContext(), NotificationController.ANDROID_CHANNEL_ID,
                                         "Updated Bid", bid.getBidUsername()
-                                        + " has updated their bid to " + String.valueOf(onlineBid.getBidAmount()) + " on " + task.getTaskTitle());
+                                        + " has updated their bid to " + String.format(Locale.CANADA,"%.2f",bid.getBidAmount())
+                                        + " on " + task.getTaskTitle());
                                 NotificationController controller = new NotificationController(content);
                                 controller.alert(1);
                             }
