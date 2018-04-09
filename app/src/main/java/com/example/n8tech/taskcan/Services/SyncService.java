@@ -51,8 +51,8 @@ public class SyncService extends IntentService {
         fileIO = new FileIO();
         while (true) {
             if (duration >= sync_time || CurrentUserSingleton.getForcedSync()) {
-                Intent i = new Intent(getApplicationContext(), NotificationService.class);
-                stopService(i);
+                Intent i1 = new Intent(getApplicationContext(), NotificationService.class);
+                stopService(i1);
                 if (NetworkConnectionController.isConnected(this)) {
                     UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
                     for (User user : cacheList.getUsers()) {
