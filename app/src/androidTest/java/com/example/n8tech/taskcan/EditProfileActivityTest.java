@@ -26,6 +26,8 @@ import com.robotium.solo.Solo;
  * @see com.example.n8tech.taskcan.Views.EditProfileActivity
  * @author CMPUT301W18T06
  */
+
+// TODO: MAKE THIS PASS BY FIXING CACHE?
 public class EditProfileActivityTest extends ActivityInstrumentationTestCase2{
     private Solo solo;
 
@@ -51,7 +53,7 @@ public class EditProfileActivityTest extends ActivityInstrumentationTestCase2{
 
         ElasticsearchController.GetUser getUser
                 = new ElasticsearchController.GetUser();
-        getUser.execute("AWKoJhQDGiQvuO01t16E");
+        getUser.execute("AWKozkWeQiQvuO01t210");
         TaskList taskList = new TaskList();
         try {
             user = getUser.get();

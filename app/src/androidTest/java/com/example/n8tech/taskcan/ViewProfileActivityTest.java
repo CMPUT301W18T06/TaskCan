@@ -42,6 +42,7 @@ public class ViewProfileActivityTest extends ActivityInstrumentationTestCase2 {
         solo.clickOnButton("Edit Profile");
         assertTrue(solo.waitForActivity("EditProfileActivity"));
         solo.goBack();
+
         assertTrue(solo.waitForActivity("ViewProfileActivity"));
     }
 

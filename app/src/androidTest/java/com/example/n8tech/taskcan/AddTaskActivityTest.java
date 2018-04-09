@@ -32,11 +32,12 @@ import org.junit.Test;
  * @author CMPUT301W18T06
  */
 
+// TODO: MAKE THIS PASS BY FIXING CACHE?
 public class AddTaskActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
     private User currentUser;
     private FileIO fileIO = new FileIO();
-    private final String  ES_id = "AWKoJhQDGiQvuO01t16E";
+    private final String  ES_id = "AWKozkWeQiQvuO01t210"; // updated testCaseUser ID 11:33pm
 
     public AddTaskActivityTest() {
         super(com.example.n8tech.taskcan.Views.AddTaskActivity.class);

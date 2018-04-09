@@ -24,7 +24,7 @@ import com.example.n8tech.taskcan.Views.ViewTaskActivity;
 import com.robotium.solo.Solo;
 
 /**
- * Intent testing for ViewTaskActivity class.
+ * Intent testing for SearchActivity, ResultActivity, ViewTaskActivity, ViewOtherUserProfileActivity classes.
  *
  * @see com.example.n8tech.taskcan.Views.ViewTaskActivity
  * @author CMPUT301W18T06
@@ -56,7 +56,7 @@ public class ViewTaskActivityTest extends ActivityInstrumentationTestCase2 {
 
         ElasticsearchController.GetUser getUser
                 = new ElasticsearchController.GetUser();
-        getUser.execute("AWKodKbiGiQvuO01t2S3");
+        getUser.execute("AWKozkWeQiQvuO01t210");
         TaskList taskList = new TaskList();
         try {
             user = getUser.get();
@@ -68,13 +68,23 @@ public class ViewTaskActivityTest extends ActivityInstrumentationTestCase2 {
 
         solo.assertCurrentActivity("Wrong activity", SearchActivity.class);
         solo.clickOnButton("Search");
+
+        assertTrue(solo.waitForActivity("ResultActivity"));
         solo.clickInRecyclerView(0);
 
         assertTrue(solo.waitForActivity("ViewTaskActivity"));
-
         solo.enterText((EditText) solo.getView(R.id.task_view_activity_bid_amount), "abcd");
         solo.clickOnButton("Confirm Bid");
         solo.waitForText("Please enter a valid number");
+        solo.clearEditText((EditText) solo.getView(R.id.task_view_activity_bid_amount));
+
+        solo.clickOnView(solo.getView(R.id.task_view_activity_requester_username_button));
+        assertTrue(solo.waitForActivity("ViewOtherUserProfileActivity"));
+        solo.goBack();
+
+        solo.enterText((EditText) solo.getView(R.id.task_view_activity_bid_amount), "0.01");
+        solo.clickOnButton("Confirm Bid");
+        assertTrue(solo.waitForActivity("ResultActivity"));
         solo.clearEditText((EditText) solo.getView(R.id.task_view_activity_bid_amount));
 
     }
