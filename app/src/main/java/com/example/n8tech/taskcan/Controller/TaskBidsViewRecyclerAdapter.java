@@ -138,7 +138,8 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                 task.setAcceptedBidList(acceptedBidList);
 
                 // remove the accepted bid from task's bid list
-                //task.getBidList().removeBid(task.getAcceptedBid());       // dont delete the accepted bid from bid list
+                // as of UC 07.02.01 and Kens forum post
+                task.getBidList().removeBid(task.getAcceptedBid());
                 notifyDataSetChanged();
 
                 holder.acceptButton.setVisibility(View.INVISIBLE);
@@ -240,7 +241,6 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                 // clear accepted bid from task
 
                 String oldProviderId = task.getProviderId();
-                //bidList.clearAcceptedBid();
                 bidList = task.getBidList();
                 task.clearAssignedProvider();
 

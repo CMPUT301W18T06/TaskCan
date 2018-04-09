@@ -416,7 +416,9 @@ public class EditTaskActivity extends ActivityHeader  {
             else if (requestCode == this.PLACE_PICKER_REQUEST) {
                 this.location = PlacePicker.getPlace(this, returnedIntent).getLatLng();
                 String toastMsg = String.format("Place: %s", PlacePicker.getPlace(this, returnedIntent).getName());
-                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+                Toast.makeText(EditTaskActivity.this, "Location set!",
+                        Toast.LENGTH_LONG).show();
             }
             else if (requestCode == this.EDIT_IMAGE) {
                 this.imageList.setImages(returnedIntent.getExtras().<Image>getParcelableArrayList(RESULT_CODE));
