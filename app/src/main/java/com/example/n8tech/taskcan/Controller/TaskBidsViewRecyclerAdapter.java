@@ -187,6 +187,7 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
 
             }
 
+
         });
 
         holder.declineButton.setOnClickListener(new View.OnClickListener(){
@@ -240,28 +241,15 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                 // clear accepted bid from task
 
                 String oldProviderId = task.getProviderId();
-                bidList.clearAcceptedBid();
+                //bidList.clearAcceptedBid();
                 bidList = task.getBidList();
                 task.clearAssignedProvider();
-
-                //task.updateCurrentBid();          // TODO update the lowest bid if the previously one accepted wasnt the lowest one
 
                 if (task.getBidList().getSize() > 0 ) {
                     task.setStatus("Bidded");
                 } else {
                     task.setStatus("Requested");
                 }
-
-
-                holder.acceptButton.setVisibility(View.VISIBLE);
-                holder.declineButton.setVisibility(View.VISIBLE);
-                holder.cancelButton.setVisibility(View.INVISIBLE);
-
-                notifyDataSetChanged();
-
-
-                // TODO save task in elastic search, and save user?
-                // load every user thats bid in the bid list, and add the task to their my bid list
 
 
                 User userWithReinstatedBid;
@@ -272,30 +260,34 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
 
                     // load the user of that bid, if its not the winning one
 
+                    ElasticsearchController.GetUser getUser
+                            = new ElasticsearchController.GetUser();
+
+                    getUser.execute(losingBid.getBidId());
+                    userWithReinstatedBid = new User();
+
+                    try {
+                        userWithReinstatedBid = getUser.get();
+                        Log.i("removing from bidlist:", userWithReinstatedBid.getUsername());
+                    } catch (Exception e) {
+                        Log.i("Error", e.toString());
+                    }
+
+                    BiddedTask newBiddedTask = new BiddedTask();
+
                     if (!losingBid.getBidId().equals(oldProviderId)) {
-                        ElasticsearchController.GetUser getUser
-                                = new ElasticsearchController.GetUser();
 
-                        getUser.execute(losingBid.getBidId());
-                        userWithReinstatedBid = new User();
-
-                        try {
-                            userWithReinstatedBid = getUser.get();
-                            Log.i("removing from bidlist:", userWithReinstatedBid.getUsername());
-                        } catch (Exception e) {
-                            Log.i("Error", e.toString());
-                        }
-
-                        BiddedTask newBiddedTask = new BiddedTask();
                         newBiddedTask.makeBiddedTask(task, losingBid);
-
                         userWithReinstatedBid.addBidTask(newBiddedTask);
 
-                        ElasticsearchController.UpdateUser updateUser
-                                = new ElasticsearchController.UpdateUser();
-                        updateUser.execute(userWithReinstatedBid);
-
+                    } else {
+                        int index = userWithReinstatedBid.getBidTaskList().getIndexOfBiddedTask(task);
+                        newBiddedTask.makeBiddedTask(task, losingBid);
+                        userWithReinstatedBid.getBidTaskList().replaceAtIndex(index, newBiddedTask);
                     }
+                    ElasticsearchController.UpdateUser updateUser
+                            = new ElasticsearchController.UpdateUser();
+                    updateUser.execute(userWithReinstatedBid);
                 }
 
                 ElasticsearchController.UpdateTask updateTask = new ElasticsearchController.UpdateTask();
@@ -304,7 +296,18 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                 ElasticsearchController.UpdateUser updateUser
                         = new ElasticsearchController.UpdateUser();
                 updateUser.execute(currentUser);
+
+
+
+                holder.acceptButton.setVisibility(View.VISIBLE);
+                holder.declineButton.setVisibility(View.VISIBLE);
+                holder.cancelButton.setVisibility(View.INVISIBLE);
+
+                notifyDataSetChanged();
+
+
             }
+
         }));
 
     }

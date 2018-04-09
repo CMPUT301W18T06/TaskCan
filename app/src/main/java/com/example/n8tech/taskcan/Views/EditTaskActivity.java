@@ -149,12 +149,16 @@ public class EditTaskActivity extends ActivityHeader  {
         taskDescriptionEditText = (EditText) findViewById(R.id.edit_task_activity_task_description_edit_text);
         categorySpinner = (Spinner) findViewById(R.id.edit_task_activity_category_spinner);
         //taskStatusSpinner = (Spinner) findViewById(R.id.edit_task_activity_status_spinner);
-        checkBoxDone = (CheckBox) findViewById(R.id.checkBox);
+        checkBoxDone = (CheckBox) findViewById(R.id.check_box_done);
 
         if (task.getMaximumBid() == -1){
             maxBidText.setText("");
         } else {
             maxBidText.setText(String.format(Locale.CANADA,"$%.2f", task.getMaximumBid()));
+        }
+
+        if (task.getStatus() == "Done"){
+            checkBoxDone.setChecked(true);
         }
 
         taskNameEditText.setText(task.getTaskTitle());
@@ -165,13 +169,6 @@ public class EditTaskActivity extends ActivityHeader  {
         //setTaskStatusSpinnerContent();
     }
 
-    @Override
-    protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
-        if (!this.getClass().equals(nextClass)) {
-            Intent i = new Intent(EditTaskActivity.this, nextClass);
-            startActivity(i);
-        }
-    }
 
     public void cancelButtonClick(View v) {
         Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
@@ -252,12 +249,11 @@ public class EditTaskActivity extends ActivityHeader  {
             valid = Boolean.FALSE;
         }
 
-        //taskStatus = taskStatusSpinner.getSelectedItem().toString();
-        //task.setStatus(taskStatus);
-
+        Log.i("status before checkbox",task.getStatus());
         if (checkBoxDone.isChecked()){
             task.setStatus("Done");
         }
+        Log.i("status after checkbox",task.getStatus());
 
         category = categorySpinner.getSelectedItem().toString();
         task.setCategory(category);
@@ -306,12 +302,14 @@ public class EditTaskActivity extends ActivityHeader  {
             UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
             cacheList.delUser(this.currentUser);
 
+
+            // add task to current user's myTasks list
+            //currentUser.addTask(newTask);
+            currentUser.replaceTaskAtIndex(currentTaskIndex,task);
+            cacheList.addUser(this.currentUser);
+            this.fileIO.saveInFile(getApplicationContext(), cacheList);
+
             if (completed.equals("NoNetworkError")) {
-                // add task to current user's myTasks list
-                //currentUser.addTask(newTask);
-                currentUser.replaceTaskAtIndex(currentTaskIndex,task);
-                cacheList.addUser(this.currentUser);
-                this.fileIO.saveInFile(getApplicationContext(), cacheList);
 
                 ElasticsearchController.UpdateUser updateUser
                         = new ElasticsearchController.UpdateUser();
@@ -320,9 +318,6 @@ public class EditTaskActivity extends ActivityHeader  {
 
                 CurrentUserSingleton.setUser(currentUser);
 
-                //Intent intent = new Intent(v.getContext(), TaskDetailActivity.class);
-                //intent.putExtra("taskIndex", currentTaskIndex);         // use this if going back to taskDetails
-
                 //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 //v.getContext().startActivity(intent);
                 finish();
@@ -330,7 +325,9 @@ public class EditTaskActivity extends ActivityHeader  {
 
             } else {
                 //save for later when connection is there
+
             }
+            finish();
         } else {
             //Toast invalid
         }
@@ -424,4 +421,13 @@ public class EditTaskActivity extends ActivityHeader  {
             Toast.makeText(EditTaskActivity.this, "InterruptedException: Failure to get images", Toast.LENGTH_LONG).show();
         }
     }
+
+    @Override
+    protected <T> void navigationView_itemOnClick(Class<T> nextClass) {
+        if (!this.getClass().equals(nextClass)) {
+            Intent i = new Intent(EditTaskActivity.this, nextClass);
+            startActivity(i);
+        }
+    }
+
 }

@@ -141,21 +141,18 @@ public class BiddedTask {
      * @param bid Bid made by the current user.
      * @return BiddedTask with task and bid details.
      */
-    public BiddedTask makeBiddedTask(Task task, Bid bid) {
-        BiddedTask newBiddedTask = new BiddedTask();
-        newBiddedTask.setTaskTitle(task.getTaskTitle());
-        newBiddedTask.setDescription(task.getDescription());
-        newBiddedTask.setTaskId(task.getId());
-        newBiddedTask.setOwnerUsername(task.getOwnerUsername());
-        newBiddedTask.setOwnerId(task.getOwnerId());
-        newBiddedTask.setCategory(task.getCategory());
-        newBiddedTask.setMaximumBid(task.getMaximumBid());
-        newBiddedTask.setMyBidAmount(bid.getBidAmount());
-        newBiddedTask.setTaskCompleted(task.getTaskCompleted());
-        newBiddedTask.setStatus(task.getStatus());
-        newBiddedTask.setEditCount(task.getEditCount());
-
-        return newBiddedTask;
+    public void makeBiddedTask(Task task, Bid bid) {
+        this.taskTitle = task.getTaskTitle();
+        this.description = task.getDescription();
+        this.taskId = task.getId();
+        this.ownerUsername = task.getOwnerUsername();
+        this.ownerId = task.getOwnerId();
+        this.category = task.getCategory();
+        this.maximumBid = task.getMaximumBid();
+        this.myBidAmount = bid.getBidAmount();
+        this.taskCompleted = task.getTaskCompleted();
+        this.status = task.getStatus();
+        this. editCount = task.getEditCount();
     }
 
     /**
