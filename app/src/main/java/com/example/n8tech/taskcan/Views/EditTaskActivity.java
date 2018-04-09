@@ -46,12 +46,15 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
+
+import static com.example.n8tech.taskcan.Views.AddTaskActivity.IMAGES_KEY;
 
 
 /**
@@ -69,6 +72,7 @@ import java.util.concurrent.ExecutionException;
 public class EditTaskActivity extends ActivityHeader  {
     public final static Integer EDIT_IMAGES_REQUEST_CODE = 0;
     private final static String RESULT_CODE = "EDITTASKACTIVITY_IMAGE_RESULT_CODE";
+    public static final String IMAGES_KEY = "TaskDetailActivity_IMAGESKEY";
 
     final Integer GALLERY_ADD_IMAGE = 0;
     final Integer CAMERA_ADD_IMAGE = 1;
@@ -260,7 +264,7 @@ public class EditTaskActivity extends ActivityHeader  {
         category = categorySpinner.getSelectedItem().toString();
         task.setCategory(category);
 
-        maximumBidString = maxBidText.getText().toString();
+        maximumBidString = maxBidText.getText().toString().substring(1);
 
         if (!maximumBidString.equals("")) {
             maximumBid = Double.parseDouble(maximumBidString);
@@ -320,15 +324,20 @@ public class EditTaskActivity extends ActivityHeader  {
 
                 CurrentUserSingleton.setUser(currentUser);
 
-                Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                CurrentUserSingleton.setUser(currentUser);
-                startActivity(intent);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                //v.getContext().startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
+                Gson gson = new Gson();
+                intent.putExtra("currentTask", gson.toJson(task));
+                getApplicationContext().startActivity(intent);
             } else {
                 //save for later when connection is there
 
             }
-            finish();
+            Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
+            Gson gson = new Gson();
+            intent.putExtra("currentTask", gson.toJson(task));
+            getApplicationContext().startActivity(intent);
         } else {
             //Toast invalid
         }
@@ -360,7 +369,7 @@ public class EditTaskActivity extends ActivityHeader  {
                     e.printStackTrace();
                 }
                 Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
-                float newWidth = 256;
+                float newWidth = 128;
                 float newHeight = (float) bitmap.getHeight() / ((float) bitmap.getWidth() / newWidth);
 
                 Log.i("width", String.valueOf(newWidth));
@@ -424,33 +433,21 @@ public class EditTaskActivity extends ActivityHeader  {
 
 
     public void viewImagesOnClick(View view) {
-        try {
-            if (this.task.getImageList().getSize() == 0) {
-                Toast.makeText(getApplicationContext(), "No images to show! Please add image!",
-                        Toast.LENGTH_LONG).show();
+        if (imageList.getSize() == 0) {
+            Toast.makeText(getApplicationContext(), "No images to show! Please add image!",
+                    Toast.LENGTH_LONG).show();
+        }
+        else {
+            ImageList il = new ImageList();
+            Intent i = new Intent(getApplicationContext(), ViewImageSlideActivity.class);
+            Bundle b = new Bundle();
+            for (Image image : this.imageList.getImages()) {
+                image.recreateRecycledBitmap();
+                il.addImage(image);
             }
-            else {
-                Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
-                Bundle b = new Bundle();
-                /*
-                for (Image image : this.task.getImageList().getImages()) {
-                    image.recreateRecycledBitmap();
-                }*/
-                //b.putParcelableArrayList(EditImageSlideActivity.IMAGES_KEY, this.task.getImageList().getImages());
-
-                b.putString(EditImageSlideActivity.RESULT_KEY, RESULT_CODE);
-                i.putExtras(b);
-
-                // send image list by putting it in current user singleton
-                CurrentUserSingleton.setImageList(this.task.getImageList());
-                startActivityForResult(i, EDIT_IMAGES_REQUEST_CODE);
-            }
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            Toast.makeText(EditTaskActivity.this, "EcecutionException: Failure to get images", Toast.LENGTH_LONG).show();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            Toast.makeText(EditTaskActivity.this, "InterruptedException: Failure to get images", Toast.LENGTH_LONG).show();
+            b.putParcelableArrayList(IMAGES_KEY, il.getImages());
+            i.putExtras(b);
+            startActivity(i);
         }
     }
 
