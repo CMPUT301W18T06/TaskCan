@@ -37,7 +37,7 @@ public class AddTaskActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
     private User currentUser;
     private FileIO fileIO = new FileIO();
-    private final String  ES_id = "AWKozkWeQiQvuO01t210"; // updated testCaseUser ID 11:33pm
+    private final String  ES_id = "AWKsWYuEWYXyFXWHYo_M"; // updated testCaseUser ID 11:33pm
 
     public AddTaskActivityTest() {
         super(com.example.n8tech.taskcan.Views.AddTaskActivity.class);

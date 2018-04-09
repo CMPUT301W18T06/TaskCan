@@ -53,7 +53,7 @@ public class EditProfileActivityTest extends ActivityInstrumentationTestCase2{
 
         ElasticsearchController.GetUser getUser
                 = new ElasticsearchController.GetUser();
-        getUser.execute("AWKozkWeQiQvuO01t210");
+        getUser.execute("AWKsWYuEWYXyFXWHYo_M");
         TaskList taskList = new TaskList();
         try {
             user = getUser.get();
