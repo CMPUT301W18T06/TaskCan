@@ -237,7 +237,6 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
             @Override
             public void onClick(View v) {
                 // user cancelled the assigned bid, show old bids again
-                // TODO notify users of old bids that this task is active again?
                 // clear accepted bid from task
 
                 String oldProviderId = task.getProviderId();
@@ -296,8 +295,6 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                 ElasticsearchController.UpdateUser updateUser
                         = new ElasticsearchController.UpdateUser();
                 updateUser.execute(currentUser);
-
-
 
                 holder.acceptButton.setVisibility(View.VISIBLE);
                 holder.declineButton.setVisibility(View.VISIBLE);

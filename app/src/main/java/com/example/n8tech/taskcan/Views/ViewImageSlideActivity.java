@@ -3,8 +3,10 @@ package com.example.n8tech.taskcan.Views;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.n8tech.taskcan.Controller.SlideShowAdapter;
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Image;
 import com.example.n8tech.taskcan.Models.ImageList;
 import com.example.n8tech.taskcan.R;
@@ -24,8 +26,7 @@ public class ViewImageSlideActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_image_slide);
-        this.slides = new ImageList();
-        this.slides.setImages(getIntent().getExtras().<Image>getParcelableArrayList(TaskDetailActivity.IMAGES_KEY));
+        this.slides = CurrentUserSingleton.getImageList();
         this.initialialSlideShow();
     }
     private void initialialSlideShow() {
@@ -43,4 +44,5 @@ public class ViewImageSlideActivity extends AppCompatActivity {
             }
         };
     }
+
 }

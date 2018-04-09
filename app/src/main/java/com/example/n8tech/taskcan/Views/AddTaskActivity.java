@@ -398,14 +398,12 @@ public class AddTaskActivity extends ActivityHeader {
         else {
             ImageList il = new ImageList();
             Intent i = new Intent(getApplicationContext(), ViewImageSlideActivity.class);
-            Bundle b = new Bundle();
             for (Image image : this.imageList.getImages()) {
                 image.recreateRecycledBitmap();
                 il.addImage(image);
             }
             Log.i("NumImages", String.valueOf(il.getSize()));
-            b.putParcelableArrayList(IMAGES_KEY, il.getImages());
-            i.putExtras(b);
+            CurrentUserSingleton.setImageList(il);
             startActivity(i);
         }
     }
