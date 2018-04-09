@@ -2,8 +2,11 @@ package com.example.n8tech.taskcan;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.support.v4.widget.DrawerLayout;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.widget.EditText;
 
 import com.example.n8tech.taskcan.Controller.ElasticsearchController;
@@ -56,15 +59,74 @@ public class SignUpActivityTest extends ActivityInstrumentationTestCase2 {
             }
         }
         solo.assertCurrentActivity("Wrong activity", SignUpActivity.class);
+
+
+        solo.enterText((EditText) solo.getView(R.id.name_field), "User");
+        solo.enterText((EditText) solo.getView(R.id.username_field), "user");
+        solo.enterText((EditText) solo.getView(R.id.email_field), "user@n8tech.com");
+        solo.enterText((EditText) solo.getView(R.id.password_field), "Password");
+        solo.enterText((EditText) solo.getView(R.id.task_view_activity_bid_amount), "780-987-6542");
+        solo.clickOnButton("Register");
+        solo.waitForText("Please enter a valid username.\n");
+
+        solo.clearEditText((EditText) solo.getView(R.id.name_field));
+        solo.clearEditText((EditText) solo.getView(R.id.username_field));
+        solo.clearEditText((EditText) solo.getView(R.id.email_field));
+        solo.clearEditText((EditText) solo.getView(R.id.password_field));
+        solo.clearEditText((EditText) solo.getView(R.id.task_view_activity_bid_amount));
+
         solo.enterText((EditText) solo.getView(R.id.name_field), "User");
         solo.enterText((EditText) solo.getView(R.id.username_field), "userName");
+        solo.enterText((EditText) solo.getView(R.id.email_field), "user@n8tech.com");
+        solo.enterText((EditText) solo.getView(R.id.password_field), "pass");
+        solo.enterText((EditText) solo.getView(R.id.task_view_activity_bid_amount), "780-987-6542");
+        solo.clickOnButton("Register");
+        solo.waitForText("Please enter a valid password. Length of at least 6.\n");
+
+        solo.clearEditText((EditText) solo.getView(R.id.name_field));
+        solo.clearEditText((EditText) solo.getView(R.id.username_field));
+        solo.clearEditText((EditText) solo.getView(R.id.email_field));
+        solo.clearEditText((EditText) solo.getView(R.id.password_field));
+        solo.clearEditText((EditText) solo.getView(R.id.task_view_activity_bid_amount));
+
+        solo.enterText((EditText) solo.getView(R.id.name_field), "User");
+        solo.enterText((EditText) solo.getView(R.id.username_field), "userName");
+        solo.enterText((EditText) solo.getView(R.id.email_field), "user.com");
+        solo.enterText((EditText) solo.getView(R.id.password_field), "Password");
+        solo.enterText((EditText) solo.getView(R.id.task_view_activity_bid_amount), "780-987-6542");
+        solo.clickOnButton("Register");
+        solo.waitForText("Please enter a valid email.\n");
+
+        solo.clearEditText((EditText) solo.getView(R.id.name_field));
+        solo.clearEditText((EditText) solo.getView(R.id.username_field));
+        solo.clearEditText((EditText) solo.getView(R.id.email_field));
+        solo.clearEditText((EditText) solo.getView(R.id.password_field));
+        solo.clearEditText((EditText) solo.getView(R.id.task_view_activity_bid_amount));
+
+        solo.enterText((EditText) solo.getView(R.id.name_field), "User");
+        solo.enterText((EditText) solo.getView(R.id.username_field), "userName");
+        solo.enterText((EditText) solo.getView(R.id.email_field), "user@n8tech.com");
+        solo.enterText((EditText) solo.getView(R.id.password_field), "Password");
+        solo.enterText((EditText) solo.getView(R.id.task_view_activity_bid_amount), "1");
+        solo.clickOnButton("Register");
+        solo.waitForText("Please enter a valid phone number.\n");
+
+        solo.clearEditText((EditText) solo.getView(R.id.name_field));
+        solo.clearEditText((EditText) solo.getView(R.id.username_field));
+        solo.clearEditText((EditText) solo.getView(R.id.email_field));
+        solo.clearEditText((EditText) solo.getView(R.id.password_field));
+        solo.clearEditText((EditText) solo.getView(R.id.task_view_activity_bid_amount));
+
+        solo.enterText((EditText) solo.getView(R.id.name_field), "User");
+        solo.enterText((EditText) solo.getView(R.id.username_field), "username");
         solo.enterText((EditText) solo.getView(R.id.email_field), "user@n8tech.com");
         solo.enterText((EditText) solo.getView(R.id.password_field), "Password");
         solo.enterText((EditText) solo.getView(R.id.task_view_activity_bid_amount), "780-987-6542");
         solo.clickOnButton("Register");
         assertTrue(solo.waitForActivity("SearchActivity"));
+        }
 
-    }
+
 
     @Override
     public void tearDown() throws Exception{

@@ -2,10 +2,6 @@
 <resources>
     <integer name="CAMERA_REQUEST_CODE">0</integer>
     <integer name="GALLERY_REQUEST_CODE">1</integer>
-
-
-    <integer name="IMAGE_MAX_BYTE_SIZE">65536</integer>
-
     <integer name="NEW_BID_NOTIFICATION">0</integer>
     <integer name="BID_ACCEPTED_NOTIFICATION">1</integer>
     <integer name="BID_DENIED_NOTIFICATION">2</integer>
