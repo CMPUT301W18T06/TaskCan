@@ -343,11 +343,11 @@ public class EditTaskActivity extends ActivityHeader  {
             }
             //this.currentTaskIndex = this.currentUser.getMyTaskList().getIndexOfTask(task);
 
-            /*Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+            Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             Gson gson = new Gson();
             intent.putExtra("currentTask", gson.toJson(task));
-            getApplicationContext().startActivity(intent);*/
+            getApplicationContext().startActivity(intent);
             finish();
         } else {
             //Toast invalid
