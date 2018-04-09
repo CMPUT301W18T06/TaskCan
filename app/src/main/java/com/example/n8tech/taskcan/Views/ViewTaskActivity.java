@@ -255,10 +255,13 @@ public class ViewTaskActivity extends ActivityHeader{
 
         taskBidList = task.getBidList();
 
+        Log.i("size of bild before", String.valueOf(task.getBidList().getSize()));
+
         //Update task with bid
         int inBidList = taskBidList.getBidIndex(newBid);
         if(inBidList == -1) {
             //If new bidder
+            Log.i("Adding new Bidder", newBid.getBidId());
             task.addBidder(newBid);
             if (task.getStatus().intern() == "Requested"){
                 task.setStatus("Bidded");
@@ -267,6 +270,7 @@ public class ViewTaskActivity extends ActivityHeader{
             newBiddedTask.makeBiddedTask(task,newBid);
             currentUser.addBidTask(newBiddedTask);
         } else {
+            Log.i("Adding old bidder", newBid.getBidId());
             //If old bidder
             task.getBidList().updateBid(newBid, inBidList);
             int userIndex = currentUser.getBidTaskList().getIndexOfBiddedTask(task);
@@ -275,6 +279,7 @@ public class ViewTaskActivity extends ActivityHeader{
             currentUser.getBidTaskList().replaceAtIndex(userIndex, oldBiddedTask);
         }
         //Update User, Owner, and Task
+        Log.i("size of task bidl after", String.valueOf(task.getBidList().getSize()));
         taskOwner.replaceTaskAtIndex(ownerIndex, this.task);
 
         ElasticsearchController.UpdateTask updateTask
@@ -284,6 +289,8 @@ public class ViewTaskActivity extends ActivityHeader{
         ElasticsearchController.UpdateUser updateUser
                 = new ElasticsearchController.UpdateUser();
         updateUser.execute(currentUser);
+
+        Log.i("about to update owner", taskOwner.getId());
 
         ElasticsearchController.UpdateUser updateOwner
                 = new ElasticsearchController.UpdateUser();
