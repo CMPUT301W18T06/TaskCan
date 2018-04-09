@@ -23,6 +23,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.graphics.BitmapCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -71,6 +72,7 @@ public class AddTaskActivity extends ActivityHeader {
     final Integer CAMERA_ADD_IMAGE = 1;
     final Integer EDIT_IMAGE = 2;
     final int PLACE_PICKER_REQUEST = 3;
+    final int IMAGE_MAX_BYTE_SIZE = 65536;
 
     private Spinner categorySpinner;
     private Task newTask;
@@ -236,6 +238,7 @@ public class AddTaskActivity extends ActivityHeader {
         newTask.setOwnerUsername(currentUser.getUsername());
         newTask.setOwnerId(currentUser.getId());
         newTask.setEditCount(1);
+        newTask.setId(String.valueOf(System.currentTimeMillis()));
 
 
         // TODO:in file here
@@ -254,6 +257,7 @@ public class AddTaskActivity extends ActivityHeader {
 
             String completed = new String();
             try {
+                newTask.setId(null);
                 completed = addTask.get();
                 Log.i("Testing", completed);
             } catch (Exception e) {
@@ -266,10 +270,6 @@ public class AddTaskActivity extends ActivityHeader {
             //currentUser.setEditCount(currentUser.getEditCount() + 1);
 
             cacheList.delUser(this.currentUser);
-            currentUser.addTask(newTask);
-            cacheList.addUser(this.currentUser);
-
-            this.fileIO.saveInFile(getApplicationContext(), cacheList);
 
             if (completed == "NoNetworkError") {
 
@@ -278,7 +278,15 @@ public class AddTaskActivity extends ActivityHeader {
                 updateUser.execute(currentUser);
             } else {
                 //save for later when connection is there
+                newTask.setId(String.valueOf(System.currentTimeMillis()));
             }
+
+
+            currentUser.addTask(newTask);
+            cacheList.addUser(this.currentUser);
+
+            this.fileIO.saveInFile(getApplicationContext(), cacheList);
+
             Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             CurrentUserSingleton.setUser(currentUser);
@@ -314,34 +322,49 @@ public class AddTaskActivity extends ActivityHeader {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
+
                 Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+
+                float newWidth = 256;
+                float newHeight = (float) bitmap.getHeight() / ((float) bitmap.getWidth() / newWidth);
+
+                Log.i("width", String.valueOf(newWidth));
+                Log.i("height", String.valueOf(newHeight));
+
+                Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, (int) newWidth, (int) newHeight, true);
+
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, bos);
+                byte[] bitmapdata = bos.toByteArray();
+                long bitmapSize = bitmapdata.length;
                 // check img size
-                if (this.sizeOf(bitmap) < R.integer.IMAGE_MAX_BYTE_SIZE) {
+                if (bitmapSize < IMAGE_MAX_BYTE_SIZE) {
                     // store
-                    image = new Image(bitmap);
-                    Log.i("ImageSize", String.valueOf(this.sizeOf(bitmap)));
+                    image = new Image(resizedBitmap);
+                    Log.i("ImageSize1", String.valueOf(bitmapSize));
+                    Log.i("ImageSizeMax", String.valueOf(IMAGE_MAX_BYTE_SIZE));
                     imageList.addImage(image);
 
                     Toast.makeText(AddTaskActivity.this, "Image added successfully!",
                             Toast.LENGTH_LONG).show();
                 }
                 else {
-                    int quality = 5;
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    byte[] bitmapdata;
+                    int quality = 45;
                     while (quality > 0){
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bos);
+                        bos.reset();
+                        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, quality, bos);
                         bitmapdata = bos.toByteArray();
-                        Log.i("ImageSizeInLoop", String.valueOf(new BigInteger(bitmapdata).intValue()));
-                        if (new BigInteger(bitmapdata).intValue() < R.integer.IMAGE_MAX_BYTE_SIZE){
-                            Log.i("ImageSizeInLoop", String.valueOf(new BigInteger(bitmapdata).intValue()));
-                            image = new Image(bitmap);
+                        bitmapSize = bitmapdata.length;
+                        Log.i("ImageSizeInLoop", String.valueOf(bitmapSize));
+                        if (bitmapSize < IMAGE_MAX_BYTE_SIZE){
+                            Log.i("ImageSizeInLoop", String.valueOf(bitmapSize));
+                            image = new Image(resizedBitmap);
                             imageList.addImage(image);
                             break;
                         }
                         quality = quality - 5;
                     }
-                    Toast.makeText(AddTaskActivity.this, "Image size too large! (<65536bytes)",
+                    Toast.makeText(AddTaskActivity.this, "Image was compressed to fit!",
                             Toast.LENGTH_LONG).show();
 
                 }

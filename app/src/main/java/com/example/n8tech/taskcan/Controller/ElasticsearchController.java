@@ -313,7 +313,7 @@ public class ElasticsearchController {
                     if (result.isSucceeded()) {
                         tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
                         for (Task task : tempList) {
-                            if (!task.getStatus().equals("Completed") && !task.getStatus().equals("Assigned")) {
+                            if (!task.getStatus().equals("Done") && !task.getStatus().equals("Assigned")) {
                                 if(task.getTaskTitle().toLowerCase().contains(search_params[0].toLowerCase()) ||
                                         task.getDescription().toLowerCase().contains(search_params[0].toLowerCase())) {
                                     taskList.addTask(task);
@@ -379,7 +379,7 @@ public class ElasticsearchController {
                                         task.getLocation().latitude, task.getLocation().longitude,
                                         distResults);
                                 Log.i("dist: ", String.valueOf(distResults[0]));
-                                if (distResults[0] <= radius && !task.getStatus().equals("Completed") && !task.getStatus().equals("Assigned")) {
+                                if (distResults[0] <= radius && !task.getStatus().equals("Done") && !task.getStatus().equals("Assigned")) {
                                     taskList.addTask(task);
                                 }
 
@@ -429,7 +429,7 @@ public class ElasticsearchController {
                     if(result.isSucceeded()) {
                         tempList = (ArrayList<Task>) result.getSourceAsObjectList(Task.class);
                         for (Task task : tempList) {
-                            if(!task.getStatus().equals("Completed") && !task.getStatus().equals("Assigned"))
+                            if(!task.getStatus().equals("Done") && !task.getStatus().equals("Assigned"))
                                 taskList.addTask(task);
                         }
                     }
