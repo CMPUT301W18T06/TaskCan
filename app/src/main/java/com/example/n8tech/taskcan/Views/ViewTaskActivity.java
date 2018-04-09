@@ -51,6 +51,7 @@ public class ViewTaskActivity extends ActivityHeader{
     private TextView taskMaxBidText;
     private EditText bidAmountText;
     private ImageView taskThumbnail;
+    private Button confirmButton;
     private int currentTaskIndex;
     private FileIO fileIO = new FileIO();
 
@@ -83,9 +84,20 @@ public class ViewTaskActivity extends ActivityHeader{
         taskOwnerUsernameButton = (Button) findViewById(R.id.task_view_activity_requester_username_button);
         taskCurrentBidText = (TextView) findViewById(R.id.task_view_activity_current_bid_text);
         taskMaxBidText = (TextView) findViewById(R.id.task_view_activity_max_bid_text);
-        taskThumbnail = findViewById(R.id.task_view_activity_image_thumbnail);
+        taskThumbnail = (ImageView)findViewById(R.id.task_view_activity_image_thumbnail);
+        confirmButton = (Button) findViewById(R.id.task_view_activity_bid_button);
+        bidAmountText = (EditText) findViewById(R.id.task_view_activity_bid_amount);
+        TextView maxBidLabel = (TextView) findViewById(R.id.task_view_activity_max_bid_label);
 
+        if (task.getStatus() == "Done" || task.getStatus() == "Assigned") {
+            confirmButton.setVisibility(View.INVISIBLE);
+            taskMaxBidText.setVisibility(View.INVISIBLE);
+            bidAmountText.setVisibility(View.INVISIBLE);
+            maxBidLabel.setVisibility(View.INVISIBLE);
+        }
 
+        taskStatusText.setText(task.getStatus());
+        
         // set based on current task
         taskNameText.setText(task.getTaskTitle());
 
@@ -96,7 +108,6 @@ public class ViewTaskActivity extends ActivityHeader{
             taskDescriptionText.setText(task.getDescription());
         }
 
-        taskStatusText.setText(task.getStatus());
         taskCategoryText.setText(task.getCategory());
         taskOwnerUsernameButton.setText(task.getOwnerUsername());
 
@@ -220,7 +231,6 @@ public class ViewTaskActivity extends ActivityHeader{
         ownerIndex = taskOwner.getMyTaskList().getIndexOfTask(task);
         Log.i("testing", String.valueOf(ownerIndex));
 
-        bidAmountText = (EditText) findViewById(R.id.task_view_activity_bid_amount);
         try {
             newBidAmount = Double.parseDouble(bidAmountText.getText().toString());
         } catch (Exception e) {
