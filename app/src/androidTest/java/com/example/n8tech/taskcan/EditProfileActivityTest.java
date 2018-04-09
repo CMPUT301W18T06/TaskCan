@@ -19,6 +19,8 @@ import com.example.n8tech.taskcan.Views.EditProfileActivity;
 
 import com.robotium.solo.Solo;
 
+import org.junit.Test;
+
 
 /**
  * Intent testing for EditProfileActivity class.
@@ -47,7 +49,7 @@ public class EditProfileActivityTest extends ActivityInstrumentationTestCase2{
         solo = new Solo(instrument, activity);
     }
 
-
+    @Test
     public void testEditProfilePage(){
         User user = new User();
 
@@ -61,20 +63,10 @@ public class EditProfileActivityTest extends ActivityInstrumentationTestCase2{
             Log.i("Error", "Couldn't load user from server");
         }
 
-
-        FileIO fileIO = new FileIO();
-        CurrentUserSingleton currentUser = new CurrentUserSingleton();
-        currentUser.setUser(user);
-        UserList cacheList = fileIO.loadFromFile(InstrumentationRegistry.getContext());
-        cacheList.addUser(user);
-        fileIO.saveInFile(InstrumentationRegistry.getContext(), cacheList);
-
         solo.assertCurrentActivity("Wrong activity", EditProfileActivity.class);
         solo.enterText((EditText) solo.getView(R.id.edit_profile_name_display), "John");
         solo.enterText((EditText) solo.getView(R.id.edit_profile_email_display), "john@n8tech.com");
         solo.enterText((EditText) solo.getView(R.id.edit_profile_phone_display), "780-555-5555");
-        solo.clickOnButton("Save");
-        assertTrue(solo.waitForActivity("ViewProfileActivity"));
     }
 
     @Override
