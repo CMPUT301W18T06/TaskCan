@@ -99,13 +99,11 @@ public class TaskDetailActivity extends ActivityHeader {
         //this.currentTaskIndex = this.currentUser.getMyTaskList().getIndexOfTask(task);
 
         // dont allow edit if task status is "done"
-        if (task.getStatus() == "Done") {
+        if (task.getStatus().equals("Done")) {
             editButton = (Button) findViewById(R.id.task_details_activity_edit_button);
             deleteButton = (Button) findViewById(R.id.task_details_activity_delete_button);
-
             editButton.setVisibility(View.INVISIBLE);
             deleteButton.setVisibility(View.INVISIBLE);
-
         }
     }
 
