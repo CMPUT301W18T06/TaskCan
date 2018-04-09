@@ -42,10 +42,7 @@ public class ResultActivityTest extends ActivityInstrumentationTestCase2 {
     public void testResultsPage(){
 
         solo.assertCurrentActivity("Wrong activity", ResultActivity.class);
-        RecyclerView recyclerView = (RecyclerView) solo.getView(R.id.activity_result_result_recyclerview);
-        View view = recyclerView.getChildAt(0);
-        solo.clickOnView(view);
-        assertTrue(solo.waitForActivity("ViewTaskActivity"));
+
 
 
 
