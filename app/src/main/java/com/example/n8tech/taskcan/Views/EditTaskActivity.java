@@ -264,7 +264,8 @@ public class EditTaskActivity extends ActivityHeader  {
         category = categorySpinner.getSelectedItem().toString();
         task.setCategory(category);
 
-        maximumBidString = maxBidText.getText().toString().substring(1);
+
+        maximumBidString = maxBidText.getText().toString();
 
         if (!maximumBidString.equals("")) {
             maximumBid = Double.parseDouble(maximumBidString);
@@ -323,18 +324,21 @@ public class EditTaskActivity extends ActivityHeader  {
 
 
                 CurrentUserSingleton.setUser(currentUser);
-
-                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                /*
                 //v.getContext().startActivity(intent);
                 Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 Gson gson = new Gson();
                 intent.putExtra("currentTask", gson.toJson(task));
-                getApplicationContext().startActivity(intent);
+                getApplicationContext().startActivity(intent);*/
+
             } else {
                 //save for later when connection is there
 
             }
+
             Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Gson gson = new Gson();
             intent.putExtra("currentTask", gson.toJson(task));
             getApplicationContext().startActivity(intent);

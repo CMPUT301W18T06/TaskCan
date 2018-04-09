@@ -133,13 +133,13 @@ public class TaskDetailActivity extends ActivityHeader {
         if (task.getCurrentBid() == -1){
             taskCurrentBidText.setText("None");
         }else{
-            taskCurrentBidText.setText(String.format(Locale.CANADA,"%.2f", task.getCurrentBid()));
+            taskCurrentBidText.setText(String.format(Locale.CANADA,"$%.2f", task.getCurrentBid()));
         }
 
         if (task.getMaximumBid() == -1){
             taskMaxBidText.setText("None");
         } else {
-            taskMaxBidText.setText(String.format(Locale.CANADA,"%.2f", task.getMaximumBid()));
+            taskMaxBidText.setText(String.format(Locale.CANADA,"$%.2f", task.getMaximumBid()));
         }
 
         try {

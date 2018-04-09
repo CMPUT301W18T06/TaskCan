@@ -112,7 +112,7 @@ public class NotificationService extends IntentService {
                             //Check for bid addition
                             NotificationContent content = new NotificationContent(getApplicationContext(), NotificationController.ANDROID_CHANNEL_ID,
                                     "Added Bid", bid.getBidUsername() + " has bid "
-                                    + String.format(Locale.CANADA,"%.2f",bid.getBidAmount()) + " on " + task.getTaskTitle());
+                                    + String.format(Locale.CANADA,"$%.2f",bid.getBidAmount()) + " on " + task.getTaskTitle());
                             NotificationController controller = new NotificationController(content);
                             controller.alert(1);
                         } else {
@@ -122,7 +122,7 @@ public class NotificationService extends IntentService {
                                 //Check for bid update
                                 NotificationContent content = new NotificationContent(getApplicationContext(), NotificationController.ANDROID_CHANNEL_ID,
                                         "Updated Bid", bid.getBidUsername()
-                                        + " has updated their bid to " + String.format(Locale.CANADA,"%.2f",bid.getBidAmount())
+                                        + " has updated their bid to " + String.format(Locale.CANADA,"$%.2f",bid.getBidAmount())
                                         + " on " + task.getTaskTitle());
                                 NotificationController controller = new NotificationController(content);
                                 controller.alert(1);
