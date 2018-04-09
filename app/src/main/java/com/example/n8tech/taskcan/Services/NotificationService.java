@@ -44,15 +44,12 @@ public class NotificationService extends IntentService {
         super(name);
     }
 
-    @Override
-    public void onCreate() {
-        this.currentUser = CurrentUserSingleton.getUser();
-    }
-
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         while(true) {
+
+            this.currentUser = CurrentUserSingleton.getUser();
             //  put to sleep to make sure the android device does not donote
             //  all of its resources here
             try {
