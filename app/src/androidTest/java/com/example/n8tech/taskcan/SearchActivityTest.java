@@ -36,8 +36,6 @@ public class SearchActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testSearchPage(){
-        // TODO write test cases
-        // search still needs to be implemented
         solo.assertCurrentActivity("Wrong activity", SearchActivity.class);
         solo.enterText((EditText) solo.getView(R.id.search_activity_search_field), "walk my dog");
         solo.clickOnButton("Search");
@@ -46,7 +44,7 @@ public class SearchActivityTest extends ActivityInstrumentationTestCase2 {
         solo.clickOnButton("Browse Categories");
         assertTrue(solo.waitForActivity("ViewCategoryActivity"));
         solo.goBack();
-        solo.clickOnButton("Maps");
+        solo.clickOnButton("Map");
         assertTrue(solo.waitForActivity("ViewTaskOnMapsActivity"));
     }
 

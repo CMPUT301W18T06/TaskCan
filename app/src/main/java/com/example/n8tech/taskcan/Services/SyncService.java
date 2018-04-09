@@ -26,7 +26,7 @@ import java.util.concurrent.ExecutionException;
 
 public class SyncService extends IntentService {
     public static final String SYNC_SERVICE_NUM_OF_SYNC = "SYNC_SERVICE_NUM_OF_SYNC";
-    private final long sync_time = 30000;
+    private final long sync_time = 120000;
     private boolean connectionStatus;
     private FileIO fileIO;
 
@@ -48,35 +48,64 @@ public class SyncService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         long start = System.currentTimeMillis(), end = 0, duration = 0;
+        fileIO = new FileIO();
         while (true) {
             if (duration >= sync_time || CurrentUserSingleton.getForcedSync()) {
-                if (NetworkConnectionController.isConnected(this) && !this.connectionStatus) {
+                if (NetworkConnectionController.isConnected(this)) {
                     UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
-                    for (User u : cacheList.getUsers()) {
-                        if (u.getId().equals(CurrentUserSingleton.getUser().getId())) {
-                            for (int i = 0; i < u.getMyTaskList().getSize(); i++) {
-                                ElasticsearchController.GetTask ec = new ElasticsearchController.GetTask();
-                                ec.execute(u.getMyTaskList().getTaskAtIndex(i).getId());
-                                try {
-                                    Task t_ec = ec.get();
-                                    if (u.getMyTaskList().getTaskAtIndex(i).getEditCount() <= t_ec.getEditCount()) {
-                                        u.getMyTaskList().setTaskAtIndex(i, t_ec);
+                    for (User user : cacheList.getUsers()) {
+                        if (user.getId().equals(CurrentUserSingleton.getUser().getId())) {
+                            for (int i = 0; i < user.getMyTaskList().getSize(); i++) {
+                                if (user.getMyTaskList().getTaskAtIndex(i).getId() == null) {
+                                    ElasticsearchController.AddTask ec_addtask = new ElasticsearchController.AddTask();
+                                    TaskList tl = user.getMyTaskList();
+                                    Task t = tl.getTaskAtIndex(i);
+                                    ec_addtask.execute(t);
+                                    try {
+                                        ec_addtask.get();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    } catch (ExecutionException e) {
+                                        e.printStackTrace();
                                     }
-                                    else {
-                                        ElasticsearchController.UpdateTask ecu = new ElasticsearchController.UpdateTask();
-                                        ecu.execute(u.getMyTaskList().getTaskAtIndex(i));
+                                    tl.setTaskAtIndex(i, t);
+                                    user.setMyTaskList(tl);
+                                }
+                                else {
+                                    ElasticsearchController.GetTask ec = new ElasticsearchController.GetTask();
+                                    ec.execute(user.getMyTaskList().getTaskAtIndex(i).getId());
+                                    try {
+                                        Task t_ec = ec.get();
+                                        if (user.getMyTaskList().getTaskAtIndex(i).getEditCount() <= t_ec.getEditCount()) {
+                                            user.getMyTaskList().setTaskAtIndex(i, t_ec);
+                                        }
+                                        else {
+                                            ElasticsearchController.UpdateTask ecu = new ElasticsearchController.UpdateTask();
+                                            TaskList taskList = user.getMyTaskList();
+                                            Task task = taskList.getTaskAtIndex(i);
+                                            task.setBidList(t_ec.getBidList());
+                                            ecu.execute(task);
+                                            ecu.get();
+                                        }
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    } catch (ExecutionException e) {
+                                        e.printStackTrace();
                                     }
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                } catch (ExecutionException e) {
-                                    e.printStackTrace();
                                 }
                             }
-                            CurrentUserSingleton.setUser(u);
+                            cacheList.delUser(user);
+                            cacheList.addUser(user);
+                            fileIO.saveInFile(getApplicationContext(), cacheList);
+                            ElasticsearchController.UpdateUser updateUser
+                                    = new ElasticsearchController.UpdateUser();
+                            updateUser.execute(user);
+                            CurrentUserSingleton.setUser(user);
                             break;
                         }
                     }
                 }
+                Log.i("sync service","====================> synced");
                 start = System.currentTimeMillis();
                 CurrentUserSingleton.setForceSync(false);
             }

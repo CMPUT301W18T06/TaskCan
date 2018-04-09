@@ -115,7 +115,7 @@ public class EditProfileActivity extends ActivityHeader {
 
         if (valid){
             cacheList = fileIO.loadFromFile(getApplicationContext());
-            cacheList.delUser(currentUser);
+                        cacheList.delUser(currentUser);
 
             newPhoneNumber = newPhoneNumber.replace("-", "");
             newPhoneNumber = newPhoneNumber.replace(".", "");

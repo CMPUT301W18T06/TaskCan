@@ -37,10 +37,17 @@ public class SignInActivityTest extends ActivityInstrumentationTestCase2 {
     public void testSignInPage(){
         solo.assertCurrentActivity("Wrong activity", SignInActivity.class);
         // test account already set on the ElasticSearch server
-        solo.enterText((EditText) solo.getView(R.id.name_field), "testtest");
-        solo.enterText((EditText) solo.getView(R.id.password_field), "password");
+        solo.enterText((EditText) solo.getView(R.id.name_field), "username");
+        solo.enterText((EditText) solo.getView(R.id.password_field), "wrongpassword");
         solo.clickOnButton("Sign In");
+        solo.waitForText("Your email or password is incorrect.\nIf you don't remember your password... well that sucks!");
 
+        solo.clearEditText((EditText) solo.getView(R.id.name_field));
+        solo.clearEditText((EditText) solo.getView(R.id.password_field));
+
+        solo.enterText((EditText) solo.getView(R.id.name_field), "username");
+        solo.enterText((EditText) solo.getView(R.id.password_field), "Password");
+        solo.clickOnButton("Sign In");
         assertTrue(solo.waitForActivity("SearchActivity"));
     }
 

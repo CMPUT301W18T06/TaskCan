@@ -41,6 +41,7 @@ public abstract class ActivityHeader extends AppCompatActivity {
 
         //this.initializeNotificationService();
         //this.initializeSyncService();
+        //this.initializeSyncService();
     }
 
     private void initializeSyncService() {
@@ -78,6 +79,8 @@ public abstract class ActivityHeader extends AppCompatActivity {
                             }
                             case R.id.nav_menu_sync: {
                                 CurrentUserSingleton.setForceSync(true);
+                                finish();
+                                startActivity(getIntent());
                                 break;
                             }
                             case R.id.nav_menu_sign_out: {

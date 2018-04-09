@@ -20,7 +20,7 @@ public class MyTaskActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
 
     public MyTaskActivityTest() {
-        super(com.example.n8tech.taskcan.Views.MyBidActivity.class);
+        super(com.example.n8tech.taskcan.Views.MyTaskActivity.class);
     }
 
     public void testStart() throws Exception {
