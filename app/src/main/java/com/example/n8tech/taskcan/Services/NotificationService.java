@@ -45,6 +45,12 @@ public class NotificationService extends IntentService {
     }
 
     @Override
+    public void onCreate() {
+        this.currentUser = CurrentUserSingleton.getUser();
+    }
+
+
+    @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         while(true) {
             //  put to sleep to make sure the android device does not donote
@@ -74,7 +80,8 @@ public class NotificationService extends IntentService {
                 BidList totalBidList = new BidList();
                 for (Task task : this.onlineUser.getMyTaskList()) {
                     int i = this.currentUser.getMyTaskList().getIndexOfTask(task);
-                    onlineBidList = this.onlineUser.getMyTaskList().getTaskAtIndex(i).getBidList();
+                    int j = this.onlineUser.getMyTaskList().getIndexOfTask(task);
+                    onlineBidList = this.onlineUser.getMyTaskList().getTaskAtIndex(j).getBidList();
                     currentBidList = this.currentUser.getMyTaskList().getTaskAtIndex(i).getBidList();
                     for (Bid bid : onlineBidList) {
                         Log.i("onlineBidlist", bid.getBidId());
