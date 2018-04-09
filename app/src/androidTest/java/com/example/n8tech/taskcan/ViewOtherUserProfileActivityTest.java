@@ -45,7 +45,10 @@ public class ViewOtherUserProfileActivityTest extends ActivityInstrumentationTes
 
     public void testViewOtherUserProfile(){
         solo.assertCurrentActivity("Wrong activity", ViewOtherUserProfileActivity.class);
-        // TODO write test cases
+        solo.clickOnButton("Edit Profile");
+        assertTrue(solo.waitForActivity("EditProfileActivity"));
+        solo.goBack();
+        assertTrue(solo.waitForActivity("ViewProfileActivity"));
     }
 
     @Override
