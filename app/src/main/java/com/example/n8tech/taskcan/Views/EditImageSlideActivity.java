@@ -16,6 +16,8 @@ import com.example.n8tech.taskcan.Models.ImageList;
 import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.R;
 
+import java.util.ArrayList;
+
 import me.relex.circleindicator.CircleIndicator;
 
 /**
@@ -34,6 +36,7 @@ public class EditImageSlideActivity extends AppCompatActivity {
     private String result_code;
     private Integer currentPage = 0;
     private User user;
+    private int currentTaskIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,14 @@ public class EditImageSlideActivity extends AppCompatActivity {
 
         this.result_code = getIntent().getExtras().getString(RESULT_KEY);
         this.initializeSlideShow();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent i = getIntent();
+        currentTaskIndex = (int) Integer.valueOf(i.getStringExtra("taskIndex"));
+
     }
 
     private void initializeSlideShow() {
@@ -69,22 +80,26 @@ public class EditImageSlideActivity extends AppCompatActivity {
     // TODO always deletes the first image
     public void deleteButtonClick(View view) {
         Boolean removed = false;
-        String id;
-        if ((id = this.slides.getImage(mPager.getCurrentItem()).getId()) != null) {
-            ElasticsearchController.DeleteImage ec = new ElasticsearchController.DeleteImage();
-            ec.execute(id);
-        }
-        for (int i = 0; i < user.getMyTaskList().getSize(); i++) {
-            for (int j = 0; j < user.getMyTaskList().getTaskAtIndex(i).getImageListId().size(); j++) {
-                if (user.getMyTaskList().getTaskAtIndex(i).getImageListId().get(j).equals(id)) {
-                    user.getMyTaskList().getTaskAtIndex(i).getImageListId().remove(j);
-                    break;
-                }
+        if(currentTaskIndex != -1) {
+
+            for (String id : user.getMyTaskList().getTaskAtIndex(currentTaskIndex).getImageListId()) {
+
+                ElasticsearchController.DeleteImage ec = new ElasticsearchController.DeleteImage();
+                ec.execute(id);
             }
-            if (removed) {
-                break;
-            }
+
+            user.getMyTaskList().getTaskAtIndex(currentTaskIndex).setImageListId(new ArrayList<String>());
+
+            ElasticsearchController.UpdateTask updateTask = new ElasticsearchController.UpdateTask();
+            updateTask.execute(user.getMyTaskList().getTaskAtIndex(currentTaskIndex));
+
+            ElasticsearchController.UpdateUser updateUser
+                    = new ElasticsearchController.UpdateUser();
+            updateUser.execute(user);
+        } else {
+
         }
+        CurrentUserSingleton.setUser(user);
         this.slides.removeImage(mPager.getCurrentItem());
         this.adapter.notifyDataSetChanged();
         onBackPressed();

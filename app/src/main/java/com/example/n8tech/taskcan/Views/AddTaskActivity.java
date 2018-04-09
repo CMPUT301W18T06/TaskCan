@@ -52,6 +52,8 @@ import java.io.InputStream;
 import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
 
+import static com.example.n8tech.taskcan.Views.EditImageSlideActivity.IMAGES_KEY;
+
 /**
  * AddTaskActivity handles the creation of a new task made by the current user.
  * It takes in the following inputs from the user:
@@ -67,6 +69,7 @@ import java.util.concurrent.ExecutionException;
 public class AddTaskActivity extends ActivityHeader {
     public final static Integer EDIT_IMAGES_REQUEST_CODE = 0;
     private final static String RESULT_CODE = "ADDTASKACTIVITY_IMAGE_RESULT_CODE";
+    public static final String IMAGES_KEY = "TaskDetailActivity_IMAGESKEY";
 
     final Integer GALLERY_ADD_IMAGE = 0;
     final Integer CAMERA_ADD_IMAGE = 1;
@@ -325,7 +328,7 @@ public class AddTaskActivity extends ActivityHeader {
 
                 Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
 
-                float newWidth = 256;
+                float newWidth = 128;
                 float newHeight = (float) bitmap.getHeight() / ((float) bitmap.getWidth() / newWidth);
 
                 Log.i("width", String.valueOf(newWidth));
@@ -393,17 +396,17 @@ public class AddTaskActivity extends ActivityHeader {
                     Toast.LENGTH_LONG).show();
         }
         else {
-            Intent i = new Intent(getApplicationContext(), EditImageSlideActivity.class);
-
+            ImageList il = new ImageList();
+            Intent i = new Intent(getApplicationContext(), ViewImageSlideActivity.class);
             Bundle b = new Bundle();
-
-            //b.putParcelableArrayList(EditImageSlideActivity.IMAGES_KEY, this.imageList.getImages());
-            b.putString(EditImageSlideActivity.RESULT_KEY, RESULT_CODE);
+            for (Image image : this.imageList.getImages()) {
+                image.recreateRecycledBitmap();
+                il.addImage(image);
+            }
+            Log.i("NumImages", String.valueOf(il.getSize()));
+            b.putParcelableArrayList(IMAGES_KEY, il.getImages());
             i.putExtras(b);
-
-            // send image list by putting it in current user singleton
-            CurrentUserSingleton.setImageList(imageList);
-            startActivityForResult(i, EDIT_IMAGES_REQUEST_CODE);
+            startActivity(i);
         }
     }
 
