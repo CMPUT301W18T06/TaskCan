@@ -48,7 +48,8 @@
         <EditText
             android:id="@+id/edit_task_activity_task_description_edit_text"
             android:layout_width="0dp"
-            android:layout_height="178dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
@@ -62,23 +63,22 @@
             android:paddingRight="4dp"
             android:paddingTop="4dp"
             android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_money_edit_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_name_edit_text" />
 
         <TextView
             android:id="@+id/edit_task_activity_max_bid_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:text="Maximum Bid (CAD):"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_status_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_task_description_edit_text" />
+            app:layout_constraintBottom_toTopOf="@+id/check_box_done"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/edit_task_activity_status_text"
@@ -86,33 +86,31 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:text="Task Completed?"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_category_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_money_edit_text" />
+            app:layout_constraintBottom_toBottomOf="@+id/check_box_done"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <CheckBox
             android:id="@+id/check_box_done"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
             android:text="Done"
+            app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_category_spinner"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/edit_task_activity_max_bid_text"
-            app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_money_edit_text" />
+            app:layout_constraintStart_toEndOf="@+id/edit_task_activity_max_bid_text" />
 
         <EditText
             android:id="@+id/edit_task_activity_money_edit_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
             android:background="@drawable/entry_field"
             android:ems="10"
             android:hint="@string/add_task_activity_max_bid"
@@ -121,9 +119,9 @@
             android:paddingLeft="6dp"
             android:paddingRight="6dp"
             android:paddingTop="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/check_box_done"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/edit_task_activity_max_bid_text"
-            app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_task_description_edit_text" />
+            app:layout_constraintStart_toEndOf="@+id/edit_task_activity_max_bid_text" />
 
         <TextView
             android:id="@+id/edit_task_activity_category_text"
@@ -135,8 +133,7 @@
             android:textColor="@android:color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_add_photos_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/check_box_done" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Spinner
             android:id="@+id/edit_task_activity_category_spinner"
@@ -145,11 +142,9 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_view_images_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/edit_task_activity_category_text"
-            app:layout_constraintTop_toBottomOf="@+id/check_box_done" />
+            app:layout_constraintStart_toEndOf="@+id/edit_task_activity_category_text" />
 
         <Button
             android:id="@+id/edit_task_activity_add_photos_button"
@@ -157,7 +152,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:background="@drawable/gradient"
             android:onClick="addPhotosButtonClick"
             android:paddingLeft="12dp"
@@ -167,8 +161,7 @@
             android:textColor="@color/colorWhite"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/edit_task_activity_save_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_category_spinner" />
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <Button
@@ -197,7 +190,6 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:background="@drawable/gradient"
             android:onClick="editLocationButtonClick"
             android:text="Edit Location"
@@ -208,8 +200,7 @@
             app:layout_constraintEnd_toStartOf="@+id/edit_task_activity_view_images_button"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/edit_task_activity_add_photos_button"
-            app:layout_constraintTop_toBottomOf="@+id/edit_task_activity_category_spinner" />
+            app:layout_constraintStart_toEndOf="@+id/edit_task_activity_add_photos_button" />
 
         <Button
             android:id="@+id/edit_task_activity_save_button"
