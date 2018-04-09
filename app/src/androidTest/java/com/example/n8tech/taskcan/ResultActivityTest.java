@@ -2,7 +2,10 @@ package com.example.n8tech.taskcan;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.support.v7.widget.RecyclerView;
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.n8tech.taskcan.Views.ResultActivity;
@@ -37,9 +40,15 @@ public class ResultActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testResultsPage(){
+
         solo.assertCurrentActivity("Wrong activity", ResultActivity.class);
-        solo.goBack();
-        assertTrue(solo.waitForActivity("SearchActivity"));
+        RecyclerView recyclerView = (RecyclerView) solo.getView(R.id.activity_result_result_recyclerview);
+        View view = recyclerView.getChildAt(0);
+        solo.clickOnView(view);
+        assertTrue(solo.waitForActivity("ViewTaskActivity"));
+
+
+
     }
 
     @Override

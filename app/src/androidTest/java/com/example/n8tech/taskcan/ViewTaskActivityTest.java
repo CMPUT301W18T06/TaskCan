@@ -14,6 +14,7 @@ import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Views.AddTaskActivity;
 
+import com.example.n8tech.taskcan.Views.ResultActivity;
 import com.example.n8tech.taskcan.Views.TaskDetailActivity;
 import com.example.n8tech.taskcan.Views.ViewTaskActivity;
 import com.robotium.solo.Solo;
@@ -45,9 +46,16 @@ public class ViewTaskActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testViewTask(){
+        // TODO: will fail because task = null
+        solo.assertCurrentActivity("Wrong activity", ResultActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.task_view_activity_bid_amount), "abcd");
+        solo.clickOnButton("Confirm Bid");
+        solo.waitForText("Please enter a valid number");
+        solo.clearEditText((EditText) solo.getView(R.id.task_view_activity_bid_amount));
 
-        solo.assertCurrentActivity("Wrong activity", ViewTaskActivity.class);
-        // TODO write test cases
+
+
+
     }
 
     @Override

@@ -35,6 +35,8 @@ public class SignInActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void testSignInPage(){
+
+
         solo.assertCurrentActivity("Wrong activity", SignInActivity.class);
         // test account already set on the ElasticSearch server
         solo.enterText((EditText) solo.getView(R.id.name_field), "username");

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.test.InstrumentationRegistry;
 import android.test.ActivityInstrumentationTestCase2;
 import com.example.n8tech.taskcan.FileIO;
 import android.util.Log;
@@ -44,15 +45,28 @@ public class EditProfileActivityTest extends ActivityInstrumentationTestCase2{
         solo = new Solo(instrument, activity);
     }
 
-    public void testEditProfilePage(){
-        FileIO fileIO = new FileIO();
-        User user = new User("Joe", "joe12345", "7355608", "joe@n8tech.com", "123-456-7890");
 
+    public void testEditProfilePage(){
+        User user = new User();
+
+        ElasticsearchController.GetUser getUser
+                = new ElasticsearchController.GetUser();
+        getUser.execute("AWKoJhQDGiQvuO01t16E");
+        TaskList taskList = new TaskList();
+        try {
+            user = getUser.get();
+        } catch (Exception e) {
+            Log.i("Error", "Couldn't load user from server");
+        }
+
+
+        FileIO fileIO = new FileIO();
         CurrentUserSingleton currentUser = new CurrentUserSingleton();
         currentUser.setUser(user);
-        UserList cacheList = fileIO.loadFromFile(getActivity().getApplicationContext());
+        UserList cacheList = fileIO.loadFromFile(InstrumentationRegistry.getContext());
         cacheList.addUser(user);
-        fileIO.saveInFile(getActivity().getApplicationContext(), cacheList);
+        fileIO.saveInFile(InstrumentationRegistry.getContext(), cacheList);
+
         solo.assertCurrentActivity("Wrong activity", EditProfileActivity.class);
         solo.enterText((EditText) solo.getView(R.id.edit_profile_name_display), "John");
         solo.enterText((EditText) solo.getView(R.id.edit_profile_email_display), "john@n8tech.com");
