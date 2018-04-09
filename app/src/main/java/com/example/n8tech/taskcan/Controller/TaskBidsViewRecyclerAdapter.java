@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.example.n8tech.taskcan.Models.Bid;
 import com.example.n8tech.taskcan.Models.BidList;
+import com.example.n8tech.taskcan.Models.BiddedTask;
 import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Models.User;
@@ -120,49 +121,113 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
         holder.acceptButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                // TODO: Accept button click
                 // Hide all bids but the current position
-                //acceptedBid = bidList.getBid(position);
-
                 task.setAcceptedBid(bidList.getBid(position));
                 task.setProviderUsername(bidList.getBid(position).getBidUsername());
+                task.setProviderId(bidList.getBid(position).getBidId());
                 task.setStatus("Assigned");
 
-
                 BidList acceptedBidList = new BidList();
-                BidList oldBidList = new BidList();
-
-                // keep a record of previous bids in case the user cancels.
-                /*for (Bid bid: bidList){
-                    oldBidList.addBid(bid);
-                }*/
-
                 acceptedBidList.addBid(task.getAcceptedBid());
+                String providerUsername = task.getProviderUsername();
+                Log.i("accepted bid from", providerUsername);
+
 
                 // display only accepted bid
-                // TODO fix. with saving old bid list
-
-                // ok to set this bc bidList is a copy of it?
                 bidList = acceptedBidList;
                 task.setAcceptedBidList(acceptedBidList);
 
                 // remove the accepted bid from task's bid list
-                task.getBidList().removeBid(task.getAcceptedBid());       // dont delete the accepted bid from bid list
+                //task.getBidList().removeBid(task.getAcceptedBid());       // dont delete the accepted bid from bid list
                 notifyDataSetChanged();
 
                 holder.acceptButton.setVisibility(View.INVISIBLE);
                 holder.declineButton.setVisibility(View.INVISIBLE);
                 holder.cancelButton.setVisibility(View.VISIBLE);
 
+                // load every user thats bid on it, remove that task from their mybid list
+                User losingUser;
+                Bid losingBid;
+
+                for(int i = 0; i < task.getBidList().getSize(); i++) {
+                    losingBid = task.getBidList().getBid(i);
+                    // load the user of that bid, if its not the winning one
+                    if (!losingBid.getBidId().equals(task.getProviderId())) {
+
+                        ElasticsearchController.GetUser getUser
+                                = new ElasticsearchController.GetUser();
+                        getUser.execute(losingBid.getBidId());
+                        losingUser = new User();
+
+                        try {
+                            losingUser = getUser.get();
+                            Log.i("removing from bidlist:", losingUser.getUsername());
+                        } catch (Exception e) {
+                            Log.i("Error", e.toString());
+                        }
+
+                        Log.i("losing bid un", losingBid.getBidUsername());
+                        Log.i("losing user un:", losingUser.getUsername());
+                        Log.i("winning user un:", providerUsername);
+
+                        losingUser.removeBidTask(task.getId());
+
+                        ElasticsearchController.UpdateUser updateUser
+                                = new ElasticsearchController.UpdateUser();
+                        updateUser.execute(losingUser);
+                    }
+                }
+
+                ElasticsearchController.UpdateTask updateTask = new ElasticsearchController.UpdateTask();
+                updateTask.execute(task);
+
+                ElasticsearchController.UpdateUser updateUser
+                        = new ElasticsearchController.UpdateUser();
+                updateUser.execute(currentUser);
+
             }
+
 
         });
 
         holder.declineButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                // get user of deleted bid
+                ElasticsearchController.GetUser getUser
+                        = new ElasticsearchController.GetUser();
+                getUser.execute(bidList.getBid(position).getBidId());
+
+                // remove the bid from the task and from the screen
                 task.getBidList().removeBid(bidList.getBid(position));
                 bidList.removeBid(bidList.getBid(position));
+
+                if (task.getBidList().getSize() > 0 ) {
+                    task.setStatus("Bidded");
+                } else {
+                    task.setStatus("Requested");
+                }
+
+                User userWithDeletedBid = new User();
+                try {
+                    userWithDeletedBid = getUser.get();
+                    Log.i("removing from bidlist:", userWithDeletedBid.getUsername());
+                } catch (Exception e) {
+                    Log.i("Error", e.toString());
+                }
+
+                userWithDeletedBid.removeBidTask(task.getId());
+
+                ElasticsearchController.UpdateTask updateTask = new ElasticsearchController.UpdateTask();
+                updateTask.execute(task);
+
+                ElasticsearchController.UpdateUser updateUser
+                        = new ElasticsearchController.UpdateUser();
+                updateUser.execute(userWithDeletedBid);
+
+                ElasticsearchController.UpdateUser updateCurrentUser
+                        = new ElasticsearchController.UpdateUser();
+                updateCurrentUser.execute(currentUser);
 
                 notifyDataSetChanged();
             }
@@ -175,10 +240,10 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                 // TODO notify users of old bids that this task is active again?
                 // clear accepted bid from task
 
-                bidList.clearAcceptedBid();
+                String oldProviderId = task.getProviderId();
+                //bidList.clearAcceptedBid();
                 bidList = task.getBidList();
                 task.clearAssignedProvider();
-                //task.updateCurrentBid();          // TODO update the lowest bid if the previously one accepted wasnt the lowest one
 
                 if (task.getBidList().getSize() > 0 ) {
                     task.setStatus("Bidded");
@@ -186,13 +251,63 @@ public class TaskBidsViewRecyclerAdapter extends RecyclerView.Adapter<TaskBidsVi
                     task.setStatus("Requested");
                 }
 
-                notifyDataSetChanged();
+
+                User userWithReinstatedBid;
+                Bid losingBid;
+
+                for(int i = 0; i < task.getBidList().getSize(); i++) {
+                    losingBid = task.getBidList().getBid(i);
+
+                    // load the user of that bid, if its not the winning one
+
+                    ElasticsearchController.GetUser getUser
+                            = new ElasticsearchController.GetUser();
+
+                    getUser.execute(losingBid.getBidId());
+                    userWithReinstatedBid = new User();
+
+                    try {
+                        userWithReinstatedBid = getUser.get();
+                        Log.i("removing from bidlist:", userWithReinstatedBid.getUsername());
+                    } catch (Exception e) {
+                        Log.i("Error", e.toString());
+                    }
+
+                    BiddedTask newBiddedTask = new BiddedTask();
+
+                    if (!losingBid.getBidId().equals(oldProviderId)) {
+
+                        newBiddedTask.makeBiddedTask(task, losingBid);
+                        userWithReinstatedBid.addBidTask(newBiddedTask);
+
+                    } else {
+                        int index = userWithReinstatedBid.getBidTaskList().getIndexOfBiddedTask(task);
+                        newBiddedTask.makeBiddedTask(task, losingBid);
+                        userWithReinstatedBid.getBidTaskList().replaceAtIndex(index, newBiddedTask);
+                    }
+                    ElasticsearchController.UpdateUser updateUser
+                            = new ElasticsearchController.UpdateUser();
+                    updateUser.execute(userWithReinstatedBid);
+                }
+
+                ElasticsearchController.UpdateTask updateTask = new ElasticsearchController.UpdateTask();
+                updateTask.execute(task);
+
+                ElasticsearchController.UpdateUser updateUser
+                        = new ElasticsearchController.UpdateUser();
+                updateUser.execute(currentUser);
+
+
 
                 holder.acceptButton.setVisibility(View.VISIBLE);
                 holder.declineButton.setVisibility(View.VISIBLE);
                 holder.cancelButton.setVisibility(View.INVISIBLE);
 
+                notifyDataSetChanged();
+
+
             }
+
         }));
 
     }

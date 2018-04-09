@@ -41,6 +41,7 @@ public abstract class ActivityHeader extends AppCompatActivity {
 
         //this.initializeNotificationService();
         this.initializeSyncService();
+        //this.initializeSyncService();
     }
 
     private void initializeSyncService() {

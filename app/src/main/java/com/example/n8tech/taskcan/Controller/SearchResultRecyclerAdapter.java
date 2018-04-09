@@ -109,7 +109,8 @@ public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<SearchResu
                 if(currentUser.getId().equals(currentTask.getOwnerId())) {
                     Intent intent = new Intent(view.getContext(), TaskDetailActivity.class);
                     Log.i("Index being passed", String.valueOf(currentUser.getMyTaskList().getIndexOfTask(currentTask)));
-                    intent.putExtra("taskIndex", currentUser.getMyTaskList().getIndexOfTask(currentTask));
+                    Gson gson = new Gson();
+                    intent.putExtra("currentTask", gson.toJson(currentTask));
                     view.getContext().startActivity(intent);
                 } else {
                     Intent intent = new Intent(view.getContext(), ViewTaskActivity.class);

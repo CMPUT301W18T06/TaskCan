@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,6 +62,8 @@ public class TaskDetailActivity extends ActivityHeader {
     private TextView taskCurrentBidText;
     private TextView taskMaxBidText;
     private ImageView taskThumbnail;
+    private Button editButton;
+    private Button deleteButton;
     private int currentTaskIndex;
     private FileIO fileIO = new FileIO();
 
@@ -79,16 +82,28 @@ public class TaskDetailActivity extends ActivityHeader {
         Intent intent = getIntent();
         Gson gson = new Gson();
 
-        task = gson.fromJson(intent.getStringExtra("currentTask"), taskType);         // change this to the right task from the search
+        task = gson.fromJson(intent.getStringExtra("currentTask"), taskType);     // change this to the right task from the search
+        Log.i("taskid", task.getId());
         this.currentTaskIndex = this.currentUser.getMyTaskList().getIndexOfTask(task);
-        findByIdsAndSetTextFields();
         findByIdsAndSetTextFields();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);
         findByIdsAndSetTextFields();
+        //this.currentTaskIndex = this.currentUser.getMyTaskList().getIndexOfTask(task);
+
+        // dont allow edit if task status is "done"
+        if (task.getStatus() == "Done") {
+            editButton = (Button) findViewById(R.id.task_details_activity_edit_button);
+            deleteButton = (Button) findViewById(R.id.task_details_activity_delete_button);
+
+            editButton.setVisibility(View.INVISIBLE);
+            deleteButton.setVisibility(View.INVISIBLE);
+
+        }
     }
 
     public void findByIdsAndSetTextFields() {
@@ -111,6 +126,7 @@ public class TaskDetailActivity extends ActivityHeader {
         }
 
         taskStatusText.setText(task.getStatus());
+
         taskCategoryText.setText(task.getCategory());
 
         if (task.getCurrentBid() == -1){
@@ -218,13 +234,14 @@ public class TaskDetailActivity extends ActivityHeader {
 
     public void editButtonClick(View view){
         Intent intent = new Intent(view.getContext(), EditTaskActivity.class);
-        intent.putExtra("taskIndex", currentTaskIndex);
+        intent.putExtra("taskIndex", this.currentTaskIndex);
         view.getContext().startActivity(intent);
     }
 
     public void viewBidsButtonClick(View v){
         Intent intent = new Intent(getApplicationContext(), ViewBidsActivity.class);
-        intent.putExtra("taskIndex", currentTaskIndex);
+        Log.i("Testing", String.valueOf(this.currentTaskIndex));
+        intent.putExtra("taskIndex", this.currentTaskIndex);
         startActivity(intent);
     }
 

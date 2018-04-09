@@ -96,7 +96,7 @@ public class MyBidActivity extends ActivityHeader {
         // add tasks that the user has bid on into a tasklist
         for (BiddedTask biddedTask : currentUser.getBidTaskList()){
             Task task = biddedTask.makeTask();
-            if (task.getStatus().intern() == ("Bidded") || task.getStatus().intern() == ("Assigned")){
+            if (task.getStatus().intern() == ("Bidded")){
                 this.myTaskList.addTask(task);
             }
         }
@@ -130,7 +130,7 @@ public class MyBidActivity extends ActivityHeader {
 
                         for (BiddedTask biddedTask : currentUser.getBidTaskList()){
                             Task task = biddedTask.makeTask();
-                            if (task.getStatus().intern() == "Bidded" || task.getStatus().intern() == "Assigned"){
+                            if (task.getStatus().intern() == "Bidded"){
                                 myTaskList.addTask(task);
                             }
                         }
@@ -142,7 +142,7 @@ public class MyBidActivity extends ActivityHeader {
 
                         for (BiddedTask biddedTask : currentUser.getBidTaskList()){
                             Task task = biddedTask.makeTask();
-                            if (task.getStatus().intern() == "Assigned" && task.getProviderUsername().intern() == currentUser.getUsername()){
+                            if (task.getStatus().intern() == "Assigned" || task.getStatus().intern() == "Done"){
                                 myTaskList.addTask(task);
                             }
                         }
