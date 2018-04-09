@@ -5,6 +5,8 @@ import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
 
+import com.example.n8tech.taskcan.Controller.ElasticsearchController;
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Views.SignInActivity;
 
 import com.robotium.solo.Solo;
@@ -47,8 +49,8 @@ public class SignInActivityTest extends ActivityInstrumentationTestCase2 {
         solo.clearEditText((EditText) solo.getView(R.id.name_field));
         solo.clearEditText((EditText) solo.getView(R.id.password_field));
 
-        solo.enterText((EditText) solo.getView(R.id.name_field), "username");
-        solo.enterText((EditText) solo.getView(R.id.password_field), "Password");
+        solo.enterText((EditText) solo.getView(R.id.name_field), "testCaseUser");
+        solo.enterText((EditText) solo.getView(R.id.password_field), "password");
         solo.clickOnButton("Sign In");
         assertTrue(solo.waitForActivity("SearchActivity"));
     }

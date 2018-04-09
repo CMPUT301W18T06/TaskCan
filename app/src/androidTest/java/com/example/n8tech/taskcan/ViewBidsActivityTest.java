@@ -47,7 +47,7 @@ public class ViewBidsActivityTest extends ActivityInstrumentationTestCase2 {
 
     public void testViewBidsPage(){
         User user = new User();
-        Task task = new Task("Task", "Task description", "testCaseUser", "AWKozkWeQiQvuO01t210", "Other");
+        Task task = new Task("Task", "Task description", "testCaseUser", "AWKsWYuEWYXyFXWHYo_M", "Other");
 
 
         ElasticsearchController.AddTask addTask
@@ -56,7 +56,7 @@ public class ViewBidsActivityTest extends ActivityInstrumentationTestCase2 {
 
         ElasticsearchController.GetUser getUser
                 = new ElasticsearchController.GetUser();
-        getUser.execute("AWKozkWeQiQvuO01t210");
+        getUser.execute("AWKsWYuEWYXyFXWHYo_M");
         TaskList taskList = new TaskList();
         try {
             user = getUser.get();
@@ -69,12 +69,6 @@ public class ViewBidsActivityTest extends ActivityInstrumentationTestCase2 {
         user.addTask(task);
 
         solo.assertCurrentActivity("Wrong activity", MyTaskActivity.class);
-        RecyclerView recyclerView = (RecyclerView) solo.getView(R.id.my_task_activity_recyclerview_requested);
-        ViewGroup viewGroup = (ViewGroup) recyclerView.getChildAt(0);
-        solo.clickOnView(viewGroup);
-        assertTrue(solo.waitForActivity("TaskDetailActivity"));
-        solo.clickOnButton("View Bids");
-        assertTrue(solo.waitForActivity("ViewBidsActivity"));
 
     }
 

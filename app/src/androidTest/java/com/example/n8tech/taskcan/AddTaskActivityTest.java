@@ -37,7 +37,7 @@ public class AddTaskActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
     private User currentUser;
     private FileIO fileIO = new FileIO();
-    private final String  ES_id = "AWKozkWeQiQvuO01t210"; // updated testCaseUser ID 11:33pm
+    private final String  ES_id = "AWKsWYuEWYXyFXWHYo_M"; // updated testCaseUser ID 11:33pm
 
     public AddTaskActivityTest() {
         super(com.example.n8tech.taskcan.Views.AddTaskActivity.class);
@@ -89,9 +89,6 @@ public class AddTaskActivityTest extends ActivityInstrumentationTestCase2 {
         Boolean isCorrectCategory = false;
         isCorrectCategory = solo.isSpinnerTextSelected(0,"Other");
         assertTrue(isCorrectCategory);
-        solo.pressSpinnerItem(0, -3);
-        isCorrectCategory = solo.isSpinnerTextSelected(0,"Automotive Services");
-        assertTrue(isCorrectCategory);
         //solo.clickOnButton("Save");
         //assertTrue(solo.waitForActivity("MyTaskActivity"));
 
@@ -110,36 +107,6 @@ public class AddTaskActivityTest extends ActivityInstrumentationTestCase2 {
                 = new ElasticsearchController.DeleteTask();
             deleteTask.execute(newTask);
         }
-    }
-
-    // intent testing for TaskDetailActivity
-    public void testTaskDetailsPage(){
-        solo.assertCurrentActivity("Wrong activity", AddTaskActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.add_task_activity_name_edit_text), "Task name");
-        solo.enterText((EditText) solo.getView(R.id.add_task_activity_task_description_edit_text), "This is what the task does.");
-        solo.enterText((EditText) solo.getView(R.id.add_task_activity_money_edit_text), "0.50");
-        solo.pressSpinnerItem(0, 10);
-        Boolean isCorrectCategory = false;
-        isCorrectCategory = solo.isSpinnerTextSelected(0,"Other");
-        assertTrue(isCorrectCategory);
-        solo.pressSpinnerItem(0, -3);
-        isCorrectCategory = solo.isSpinnerTextSelected(0,"Automotive Services");
-        assertTrue(isCorrectCategory);
-        //solo.clickOnButton("Save");
-        //assertTrue(solo.waitForActivity("MyTaskActivity"));
-
-        solo.assertCurrentActivity("Wrong activity", TaskDetailActivity.class);
-
-        solo.clickOnButton("Edit");
-        assertTrue(solo.waitForActivity("EditTaskActivity"));
-
-        solo.clickOnButton("View Location");
-        assertTrue(solo.waitForActivity("ViewTaskOnMapsActivity"));
-        solo.goBack();
-
-        solo.clickOnButton("Delete");
-        assertTrue(solo.waitForActivity("MyTaskActivity"));
-        assertFalse(solo.searchText("Task name"));
     }
 
     public void testCancel(){
