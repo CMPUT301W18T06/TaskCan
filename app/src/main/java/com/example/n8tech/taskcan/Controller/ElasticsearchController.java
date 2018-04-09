@@ -225,7 +225,10 @@ public class ElasticsearchController {
             verifySettings();
 
             for (Task task : tasks){
-                task.setId(update("task", task, task.getId()));
+                String id = update("task", task, task.getId());
+                if (id.equals(NO_NETWORK_ERROR)) {
+                    task.setId(id);
+                }
             }
             return NO_NETWORK_ERROR;
         }
