@@ -93,8 +93,10 @@ public class TaskDetailActivity extends ActivityHeader {
         super.onResume();
         Type taskType = new TypeToken<Task>(){}.getType();
         Intent intent = getIntent();
-        Gson gson = new Gson();
-        task = gson.fromJson(intent.getStringExtra("currentTask"), taskType);     // change this to the right task from the search
+        //Gson gson = new Gson();
+        //task = gson.fromJson(intent.getStringExtra("currentTask"), taskType);     // change this to the right task from the search
+        task = this.currentUser.getMyTaskList().getTaskAtIndex(currentTaskIndex);
+        
         findByIdsAndSetTextFields();
         //this.currentTaskIndex = this.currentUser.getMyTaskList().getIndexOfTask(task);
 

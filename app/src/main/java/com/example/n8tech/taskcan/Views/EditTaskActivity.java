@@ -267,6 +267,11 @@ public class EditTaskActivity extends ActivityHeader  {
 
         maximumBidString = maxBidText.getText().toString();
 
+        if (maximumBidString.contains("$")){
+            maximumBidString = maximumBidString.replace("$","");
+        }
+
+
         if (!maximumBidString.equals("")) {
             maximumBid = Double.parseDouble(maximumBidString);
             task.setMaximumBid(Math.round(maximumBid*100.0)/100.0);                      // round to 2 decimal places
@@ -336,12 +341,14 @@ public class EditTaskActivity extends ActivityHeader  {
                 //save for later when connection is there
 
             }
+            //this.currentTaskIndex = this.currentUser.getMyTaskList().getIndexOfTask(task);
 
-            Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            /*Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
             Gson gson = new Gson();
             intent.putExtra("currentTask", gson.toJson(task));
-            getApplicationContext().startActivity(intent);
+            getApplicationContext().startActivity(intent);*/
+            finish();
         } else {
             //Toast invalid
         }
