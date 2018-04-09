@@ -177,6 +177,8 @@ public class User {
         }
     }
 
+
+
     /** @return list of tasks in which the user is a bidder */
     public BiddedTaskList getBidTaskList() { return this.myTaskBids; }
 

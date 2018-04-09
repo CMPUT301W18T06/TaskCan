@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -86,6 +87,7 @@ public class EditTaskActivity extends ActivityHeader  {
     private LatLng location;
     private ArrayAdapter<CharSequence> categorySpinnerAdapter;
     private ArrayAdapter<CharSequence> statusSpinnerAdapter;
+    private CheckBox checkBoxDone;
     private FileIO fileIO = new FileIO();
     int PLACE_PICKER_REQUEST = 5;
     private int currentTaskIndex;
@@ -147,10 +149,11 @@ public class EditTaskActivity extends ActivityHeader  {
         taskDescriptionEditText = (EditText) findViewById(R.id.edit_task_activity_task_description_edit_text);
         categorySpinner = (Spinner) findViewById(R.id.edit_task_activity_category_spinner);
         //taskStatusSpinner = (Spinner) findViewById(R.id.edit_task_activity_status_spinner);
+        checkBoxDone = (CheckBox) findViewById(R.id.checkBox);
 
         if (task.getMaximumBid() == -1){
             maxBidText.setText("");
-        }else{
+        } else {
             maxBidText.setText(String.format(Locale.CANADA,"$%.2f", task.getMaximumBid()));
         }
 
@@ -249,8 +252,12 @@ public class EditTaskActivity extends ActivityHeader  {
             valid = Boolean.FALSE;
         }
 
-        taskStatus = taskStatusSpinner.getSelectedItem().toString();
-        task.setStatus(taskStatus);
+        //taskStatus = taskStatusSpinner.getSelectedItem().toString();
+        //task.setStatus(taskStatus);
+
+        if (checkBoxDone.isChecked()){
+            task.setStatus("Done");
+        }
 
         category = categorySpinner.getSelectedItem().toString();
         task.setCategory(category);
