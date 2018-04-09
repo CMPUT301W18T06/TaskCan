@@ -299,12 +299,14 @@ public class EditTaskActivity extends ActivityHeader  {
             UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
             cacheList.delUser(this.currentUser);
 
+
+            // add task to current user's myTasks list
+            //currentUser.addTask(newTask);
+            currentUser.replaceTaskAtIndex(currentTaskIndex,task);
+            cacheList.addUser(this.currentUser);
+            this.fileIO.saveInFile(getApplicationContext(), cacheList);
+
             if (completed.equals("NoNetworkError")) {
-                // add task to current user's myTasks list
-                //currentUser.addTask(newTask);
-                currentUser.replaceTaskAtIndex(currentTaskIndex,task);
-                cacheList.addUser(this.currentUser);
-                this.fileIO.saveInFile(getApplicationContext(), cacheList);
 
                 ElasticsearchController.UpdateUser updateUser
                         = new ElasticsearchController.UpdateUser();
@@ -318,12 +320,12 @@ public class EditTaskActivity extends ActivityHeader  {
 
                 //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 //v.getContext().startActivity(intent);
-                finish();
 
 
             } else {
                 //save for later when connection is there
             }
+            finish();
         } else {
             //Toast invalid
         }

@@ -198,4 +198,7 @@ public class User {
         return "";
     }
 
+    public void setMyTaskList(TaskList myTaskList) {
+        this.myTasks = myTaskList;
+    }
 }

@@ -262,27 +262,27 @@ public class AddTaskActivity extends ActivityHeader {
 
             UserList cacheList = this.fileIO.loadFromFile(getApplicationContext());
 
+            // add task to current user's myTasks list
+            //currentUser.setEditCount(currentUser.getEditCount() + 1);
+
+            cacheList.delUser(this.currentUser);
+            currentUser.addTask(newTask);
+            cacheList.addUser(this.currentUser);
+
+            this.fileIO.saveInFile(getApplicationContext(), cacheList);
+
             if (completed == "NoNetworkError") {
-                // add task to current user's myTasks list
-                //currentUser.setEditCount(currentUser.getEditCount() + 1);
-
-                cacheList.delUser(this.currentUser);
-                currentUser.addTask(newTask);
-                cacheList.addUser(this.currentUser);
-
-                this.fileIO.saveInFile(getApplicationContext(), cacheList);
 
                 ElasticsearchController.UpdateUser updateUser
                         = new ElasticsearchController.UpdateUser();
                 updateUser.execute(currentUser);
-
-                Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                CurrentUserSingleton.setUser(currentUser);
-                startActivity(intent);
             } else {
                 //save for later when connection is there
             }
+            Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            CurrentUserSingleton.setUser(currentUser);
+            startActivity(intent);
         } else {
             //Toast invalid
         }
