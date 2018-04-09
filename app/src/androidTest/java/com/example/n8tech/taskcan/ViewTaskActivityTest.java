@@ -14,6 +14,7 @@ import com.example.n8tech.taskcan.Models.TaskList;
 import com.example.n8tech.taskcan.Models.Task;
 import com.example.n8tech.taskcan.Views.AddTaskActivity;
 
+import com.example.n8tech.taskcan.Views.SearchActivity;
 import com.example.n8tech.taskcan.Views.TaskDetailActivity;
 import com.example.n8tech.taskcan.Views.ViewTaskActivity;
 import com.robotium.solo.Solo;
@@ -29,7 +30,8 @@ public class ViewTaskActivityTest extends ActivityInstrumentationTestCase2 {
     private Solo solo;
 
     public ViewTaskActivityTest() {
-        super(com.example.n8tech.taskcan.Views.ViewTaskActivity.class);
+        //super(com.example.n8tech.taskcan.Views.ViewTaskActivity.class);
+        super(SearchActivity.class);
     }
 
     public void testStart() throws Exception {
@@ -46,8 +48,10 @@ public class ViewTaskActivityTest extends ActivityInstrumentationTestCase2 {
 
     public void testViewTask(){
 
-        solo.assertCurrentActivity("Wrong activity", ViewTaskActivity.class);
+        //solo.assertCurrentActivity("Wrong activity", ViewTaskActivity.class);
         // TODO write test cases
+        solo.assertCurrentActivity("Wrong activity", SearchActivity.class);
+
     }
 
     @Override

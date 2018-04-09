@@ -330,8 +330,6 @@ public class EditTaskActivity extends ActivityHeader  {
                 Gson gson = new Gson();
                 intent.putExtra("currentTask", gson.toJson(task));
                 getApplicationContext().startActivity(intent);
-
-
             } else {
                 //save for later when connection is there
 

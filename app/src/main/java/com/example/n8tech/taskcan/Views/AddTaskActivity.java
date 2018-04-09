@@ -241,6 +241,7 @@ public class AddTaskActivity extends ActivityHeader {
         newTask.setOwnerUsername(currentUser.getUsername());
         newTask.setOwnerId(currentUser.getId());
         newTask.setEditCount(1);
+        newTask.setId(String.valueOf(System.currentTimeMillis()));
 
 
         // TODO:in file here
@@ -259,6 +260,7 @@ public class AddTaskActivity extends ActivityHeader {
 
             String completed = new String();
             try {
+                newTask.setId(null);
                 completed = addTask.get();
                 Log.i("Testing", completed);
             } catch (Exception e) {
@@ -271,10 +273,6 @@ public class AddTaskActivity extends ActivityHeader {
             //currentUser.setEditCount(currentUser.getEditCount() + 1);
 
             cacheList.delUser(this.currentUser);
-            currentUser.addTask(newTask);
-            cacheList.addUser(this.currentUser);
-
-            this.fileIO.saveInFile(getApplicationContext(), cacheList);
 
             if (completed == "NoNetworkError") {
 
@@ -283,7 +281,15 @@ public class AddTaskActivity extends ActivityHeader {
                 updateUser.execute(currentUser);
             } else {
                 //save for later when connection is there
+                newTask.setId(String.valueOf(System.currentTimeMillis()));
             }
+
+
+            currentUser.addTask(newTask);
+            cacheList.addUser(this.currentUser);
+
+            this.fileIO.saveInFile(getApplicationContext(), cacheList);
+
             Intent intent = new Intent(getApplicationContext(), MyTaskActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             CurrentUserSingleton.setUser(currentUser);

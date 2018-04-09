@@ -83,7 +83,7 @@ public class TaskDetailActivity extends ActivityHeader {
         Gson gson = new Gson();
 
         task = gson.fromJson(intent.getStringExtra("currentTask"), taskType);     // change this to the right task from the search
-        Log.i("taskid", task.getId());
+//        Log.i("taskid", task.getId());
         this.currentTaskIndex = this.currentUser.getMyTaskList().getIndexOfTask(task);
         findByIdsAndSetTextFields();
     }
@@ -200,6 +200,12 @@ public class TaskDetailActivity extends ActivityHeader {
             ElasticsearchController.UpdateUser updateUser
                     = new ElasticsearchController.UpdateUser();
             updateUser.execute(user);
+        }
+
+        for(String id : task.getImageListId()) {
+            ElasticsearchController.DeleteImage deleteImage
+                    = new ElasticsearchController.DeleteImage();
+            deleteImage.execute(id);
         }
 
         ElasticsearchController.DeleteTask deleteTask
