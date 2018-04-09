@@ -76,6 +76,7 @@ public class ViewTaskActivity extends ActivityHeader{
         findByIdsAndSetTextFields();
     }
 
+
     public void findByIdsAndSetTextFields() {
         taskNameText = (TextView) findViewById(R.id.task_view_activity_name_text);
         taskDescriptionText = (TextView) findViewById(R.id.task_view_activity_task_description_text);
@@ -89,7 +90,10 @@ public class ViewTaskActivity extends ActivityHeader{
         bidAmountText = (EditText) findViewById(R.id.task_view_activity_bid_amount);
         TextView maxBidLabel = (TextView) findViewById(R.id.task_view_activity_max_bid_label);
 
-        if (task.getStatus() == "Done" || task.getStatus() == "Assigned") {
+        Log.i("task status", task.getStatus());
+
+        if (task.getStatus().equals("Done") || task.getStatus().equals("Assigned")) {
+            Log.i("** in if ","--------------");
             confirmButton.setVisibility(View.INVISIBLE);
             taskMaxBidText.setVisibility(View.INVISIBLE);
             bidAmountText.setVisibility(View.INVISIBLE);
