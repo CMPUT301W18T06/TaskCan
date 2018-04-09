@@ -223,6 +223,8 @@ public class ViewTaskActivity extends ActivityHeader{
         double newBidAmount;
         int ownerIndex;
 
+        Log.i("*****", "0-------------------------------------------------------------");
+
         ElasticsearchController.GetUser getUser
                 = new ElasticsearchController.GetUser();
         getUser.execute(this.task.getOwnerId());
@@ -282,7 +284,7 @@ public class ViewTaskActivity extends ActivityHeader{
                 //If new bidder
                 Log.i("Adding new Bidder", newBid.getBidId());
                 task.addBidder(newBid);
-                if (task.getStatus().intern() == "Requested") {
+                if (task.getStatus().equals("Requested")) {
                     task.setStatus("Bidded");
                 }
                 BiddedTask newBiddedTask = new BiddedTask();
@@ -293,7 +295,9 @@ public class ViewTaskActivity extends ActivityHeader{
                 //If old bidder
                 task.getBidList().updateBid(newBid, inBidList);
                 int userIndex = currentUser.getBidTaskList().getIndexOfBiddedTask(task);
-                BiddedTask oldBiddedTask = currentUser.getBidTaskList().getBiddedTaskAtIndex(userIndex);
+
+                BiddedTask oldBiddedTask = new BiddedTask();
+                //BiddedTask oldBiddedTask = currentUser.getBidTaskList().getBiddedTaskAtIndex(userIndex);
                 oldBiddedTask.makeBiddedTask(task, newBid);
                 currentUser.getBidTaskList().replaceAtIndex(userIndex, oldBiddedTask);
             }
@@ -342,6 +346,6 @@ public class ViewTaskActivity extends ActivityHeader{
 
     @Override
     protected String getActivityTitle() {
-        return "Task Details";
+        return "View Task";
     }
 }
