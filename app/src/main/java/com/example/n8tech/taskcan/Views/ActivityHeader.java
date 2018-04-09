@@ -39,7 +39,7 @@ public abstract class ActivityHeader extends AppCompatActivity {
         this.initializeToolBar();
         this.initializeNavigation();
 
-        this.initializeNotificationService();
+        //this.initializeNotificationService();
         //this.initializeSyncService();
     }
 
