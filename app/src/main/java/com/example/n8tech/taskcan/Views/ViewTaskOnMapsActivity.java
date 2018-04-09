@@ -197,8 +197,8 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
                             currentTask = markerMap.get(currentMarker);
                             if(currentUser.getId().equals(currentTask.getOwnerId())) {
                                 Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
-                                Log.i("Index being passed", String.valueOf(currentUser.getMyTaskList().getIndexOfTask(currentTask)));
-                                intent.putExtra("taskIndex", currentUser.getMyTaskList().getIndexOfTask(currentTask));
+                                Gson gson = new Gson();
+                                intent.putExtra("currentTask", gson.toJson(currentTask));
                                 startActivity(intent);
                             } else {
                                 Intent intent = new Intent(getApplicationContext(), ViewTaskActivity.class);
@@ -251,8 +251,8 @@ public class ViewTaskOnMapsActivity extends ActivityHeader implements OnMapReady
                     currentTask = markerMap.get(currentMarker);
                     if(currentUser.getId().equals(currentTask.getOwnerId())) {
                         Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
-                        Log.i("Index being passed", String.valueOf(currentUser.getMyTaskList().getIndexOfTask(currentTask)));
-                        intent.putExtra("taskIndex", currentUser.getMyTaskList().getIndexOfTask(currentTask));
+                        Gson gson = new Gson();
+                        intent.putExtra("currentTask", gson.toJson(currentTask));
                         startActivity(intent);
                     } else {
                         Intent intent = new Intent(getApplicationContext(), ViewTaskActivity.class);
