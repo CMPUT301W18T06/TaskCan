@@ -440,13 +440,11 @@ public class EditTaskActivity extends ActivityHeader  {
         else {
             ImageList il = new ImageList();
             Intent i = new Intent(getApplicationContext(), ViewImageSlideActivity.class);
-            Bundle b = new Bundle();
             for (Image image : this.imageList.getImages()) {
                 image.recreateRecycledBitmap();
                 il.addImage(image);
             }
-            b.putParcelableArrayList(IMAGES_KEY, il.getImages());
-            i.putExtras(b);
+            CurrentUserSingleton.setImageList(il);
             startActivity(i);
         }
     }

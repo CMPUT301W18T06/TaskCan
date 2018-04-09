@@ -158,13 +158,11 @@ public class TaskDetailActivity extends ActivityHeader {
                         }
                         else {
                             Intent i = new Intent(getApplicationContext(), ViewImageSlideActivity.class);
-                            Bundle b = new Bundle();
                             for (Image image : task.getImageList().getImages()) {
                                 image.recreateRecycledBitmap();
                                 il.addImage(image);
                             }
-                            b.putParcelableArrayList(IMAGES_KEY, il.getImages());
-                            i.putExtras(b);
+                            CurrentUserSingleton.setImageList(il);
                             startActivity(i);
                         }
                     } catch (ExecutionException e) {
