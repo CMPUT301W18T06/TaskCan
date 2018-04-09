@@ -98,7 +98,7 @@ public class EditTaskActivity extends ActivityHeader  {
         super.onCreate(savedInstanceState);
 
         this.currentUser = CurrentUserSingleton.getUser();
-        Log.i("current user", currentUser.getUsername());
+        // Log.i("current user", currentUser.getUsername());
 
         Bundle extras = getIntent().getExtras();
         currentTaskIndex = extras.getInt("taskIndex");

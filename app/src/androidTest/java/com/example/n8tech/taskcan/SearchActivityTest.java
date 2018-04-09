@@ -46,7 +46,7 @@ public class SearchActivityTest extends ActivityInstrumentationTestCase2 {
         solo.clickOnButton("Browse Categories");
         assertTrue(solo.waitForActivity("ViewCategoryActivity"));
         solo.goBack();
-        solo.clickOnButton("Maps");
+        solo.clickOnButton("Map");
         assertTrue(solo.waitForActivity("ViewTaskOnMapsActivity"));
     }
 

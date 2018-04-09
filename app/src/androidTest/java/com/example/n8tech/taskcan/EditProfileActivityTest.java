@@ -3,8 +3,13 @@ package com.example.n8tech.taskcan;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 import android.widget.EditText;
 
+import com.example.n8tech.taskcan.Controller.ElasticsearchController;
+import com.example.n8tech.taskcan.Models.CurrentUserSingleton;
+import com.example.n8tech.taskcan.Models.TaskList;
+import com.example.n8tech.taskcan.Models.User;
 import com.example.n8tech.taskcan.Views.EditProfileActivity;
 
 import com.robotium.solo.Solo;
