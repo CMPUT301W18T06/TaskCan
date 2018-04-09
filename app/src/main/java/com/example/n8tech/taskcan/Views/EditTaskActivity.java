@@ -47,6 +47,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Locale;
@@ -72,6 +73,7 @@ public class EditTaskActivity extends ActivityHeader  {
     final Integer GALLERY_ADD_IMAGE = 0;
     final Integer CAMERA_ADD_IMAGE = 1;
     final Integer EDIT_IMAGE = 2;
+    final int IMAGE_MAX_BYTE_SIZE = 65536;
 
     private Spinner categorySpinner;
     private Spinner taskStatusSpinner;
@@ -353,6 +355,7 @@ public class EditTaskActivity extends ActivityHeader  {
         if (resultCode == RESULT_OK) {
             if (requestCode == this.CAMERA_ADD_IMAGE || requestCode == this.GALLERY_ADD_IMAGE) {
                 // get image
+                Image image;
                 Uri selectedImage = returnedIntent.getData();
                 InputStream imageStream = null;
                 try {
@@ -361,18 +364,48 @@ public class EditTaskActivity extends ActivityHeader  {
                     e.printStackTrace();
                 }
                 Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
-                Image image = new Image(bitmap);
+                float newWidth = 256;
+                float newHeight = (float) bitmap.getHeight() / ((float) bitmap.getWidth() / newWidth);
+
+                Log.i("width", String.valueOf(newWidth));
+                Log.i("height", String.valueOf(newHeight));
+
+                Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, (int) newWidth, (int) newHeight, true);
+
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, bos);
+                byte[] bitmapdata = bos.toByteArray();
+                long bitmapSize = bitmapdata.length;
                 // check img size
-                if (this.sizeOf(bitmap) < R.integer.IMAGE_MAX_BYTE_SIZE) {
+                if (bitmapSize < IMAGE_MAX_BYTE_SIZE) {
                     // store
+                    image = new Image(resizedBitmap);
+                    Log.i("ImageSize1", String.valueOf(bitmapSize));
+                    Log.i("ImageSizeMax", String.valueOf(IMAGE_MAX_BYTE_SIZE));
                     imageList.addImage(image);
 
-                    Toast.makeText(EditTaskActivity.this, "Image added successfully!",
+                    Toast.makeText(getApplicationContext(), "Image added successfully!",
                             Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Toast.makeText(EditTaskActivity.this, "Image size too large! (<65536bytes)",
+                    int quality = 45;
+                    while (quality > 0){
+                        bos.reset();
+                        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, quality, bos);
+                        bitmapdata = bos.toByteArray();
+                        bitmapSize = bitmapdata.length;
+                        Log.i("ImageSizeInLoop", String.valueOf(bitmapSize));
+                        if (bitmapSize < IMAGE_MAX_BYTE_SIZE){
+                            Log.i("ImageSizeInLoop", String.valueOf(bitmapSize));
+                            image = new Image(resizedBitmap);
+                            imageList.addImage(image);
+                            break;
+                        }
+                        quality = quality - 5;
+                    }
+                    Toast.makeText(getApplicationContext(), "Image was compressed to fit!",
                             Toast.LENGTH_LONG).show();
+
                 }
             }
             else if (requestCode == this.PLACE_PICKER_REQUEST) {
