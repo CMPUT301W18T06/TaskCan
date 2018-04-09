@@ -264,15 +264,15 @@ public class ViewTaskActivity extends ActivityHeader{
                 task.setStatus("Bidded");
             }
             BiddedTask newBiddedTask = new BiddedTask();
-            newBiddedTask = newBiddedTask.makeBiddedTask(task,newBid);
+            newBiddedTask.makeBiddedTask(task,newBid);
             currentUser.addBidTask(newBiddedTask);
         } else {
             //If old bidder
             task.getBidList().updateBid(newBid, inBidList);
             int userIndex = currentUser.getBidTaskList().getIndexOfBiddedTask(task);
             BiddedTask oldBiddedTask = currentUser.getBidTaskList().getBiddedTaskAtIndex(userIndex);
-            BiddedTask newBiddedTask = oldBiddedTask.makeBiddedTask(task, newBid);
-            currentUser.getBidTaskList().replaceAtIndex(userIndex, newBiddedTask);
+            oldBiddedTask.makeBiddedTask(task, newBid);
+            currentUser.getBidTaskList().replaceAtIndex(userIndex, oldBiddedTask);
         }
         //Update User, Owner, and Task
         taskOwner.replaceTaskAtIndex(ownerIndex, this.task);
