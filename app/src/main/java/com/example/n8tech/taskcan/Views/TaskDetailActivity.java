@@ -199,6 +199,12 @@ public class TaskDetailActivity extends ActivityHeader {
             updateUser.execute(user);
         }
 
+        for(String id : task.getImageListId()) {
+            ElasticsearchController.DeleteImage deleteImage
+                    = new ElasticsearchController.DeleteImage();
+            deleteImage.execute(id);
+        }
+
         ElasticsearchController.DeleteTask deleteTask
                 = new ElasticsearchController.DeleteTask();
         deleteTask.execute(this.task);
