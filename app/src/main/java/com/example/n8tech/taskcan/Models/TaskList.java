@@ -54,12 +54,16 @@ public class TaskList implements Iterable<Task> {
     public int getIndexOfTask(Task task)
     {
         for(int i = 0; i < this.taskList.size(); i++) {
+            if (this.taskList.get(i).getId() == null || task.getId() == null) {
+                this.taskList.get(i).setId(String.valueOf(System.currentTimeMillis()));
+                return i;
+            }
             if(this.taskList.get(i).getId().equals(task.getId())) {
                 Log.i("Testing", "match id");
                 return i;
             }
         }
-        return -1;
+        throw new IllegalArgumentException();
     }
 
     /**

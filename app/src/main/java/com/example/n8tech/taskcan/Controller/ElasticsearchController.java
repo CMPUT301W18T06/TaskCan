@@ -88,9 +88,12 @@ public class ElasticsearchController {
         @Override
         protected String doInBackground(User... users) {
             verifySettings();
-
+            String id;
             for (User user : users){
-                user.setId(update("user", user, user.getId()));
+                id = update("user", user, user.getId());
+                if (id.equals(NO_NETWORK_ERROR)) {
+                    user.setId(id);
+                }
             }
             return NO_NETWORK_ERROR;
         }

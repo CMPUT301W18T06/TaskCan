@@ -58,6 +58,9 @@ public class SyncService extends IntentService {
                     for (User user : cacheList.getUsers()) {
                         if (user.getId().equals(CurrentUserSingleton.getUser().getId())) {
                             for (int i = 0; i < user.getMyTaskList().getSize(); i++) {
+                                if (user.getMyTaskList().getTaskAtIndex(i).getId() == null) {
+                                    user.getMyTaskList().getTaskAtIndex(i).setId(String.valueOf(System.currentTimeMillis()));
+                                }
                                 if (user.getMyTaskList().getTaskAtIndex(i).getId().matches("[0-9]+")) {
                                     ElasticsearchController.AddTask ec_addtask = new ElasticsearchController.AddTask();
                                     TaskList tl = user.getMyTaskList();
